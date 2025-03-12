@@ -4,5 +4,5 @@
 @tailwind utilities;
 
 body {
-    font-family: 'ABCFavorit', sans-serif;
+    font-family: 'ABCFavorit', monospace;
 }

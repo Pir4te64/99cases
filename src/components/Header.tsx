@@ -1,16 +1,18 @@
 import React from 'react';
-import header from '../assets/Header.png';
-import header1 from '../assets/Header1.png';
+import headerDesktop from '../assets/Header.png';
+import headerMobile from '../assets/Header1.png';
 
 function Header() {
-    return (
-        <div>
-            {/* Desktop header */}
-            <img src={header} alt="header" className="w-full hidden md:block" />
-            {/* Mobile header */}
-            <img src={header1} alt="header" className="w-full block md:hidden" />
-        </div>
-    );
+  return (
+    <picture>
+      {/* Imagen para dispositivos de escritorio */}
+      <source media="(min-width: 768px)" srcSet={headerDesktop} />
+      {/* Imagen para dispositivos móviles */}
+      <source media="(max-width: 767px)" srcSet={headerMobile} />
+      {/* Fallback: se usará la imagen de escritorio */}
+      <img loading="lazy" src={headerDesktop} alt="header" className="w-full" />
+    </picture>
+  );
 }
 
 export default Header;

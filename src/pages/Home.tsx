@@ -6,6 +6,7 @@ import Marcas from "../components/Marcas";
 import Pagos from "../components/Pagos";
 import NosEligen from "../components/NosEligen";
 import Scroll from "../components/Scroll";
+import Registro from "../components/FormularioContacto";
 import TextHorizontal from "../components/TextHorizontal";
 export default function Home() {
     return (
@@ -19,6 +20,7 @@ export default function Home() {
             <NosEligen />
             <Scroll />
             <TextHorizontal />
+            <Registro />
         </div>
     );
 }

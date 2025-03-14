@@ -1,4 +1,3 @@
-import React from "react";
 
 const textItems = [
   "Envíos a todo el país",

@@ -12,7 +12,7 @@ const Products: React.FC = () => {
     const displayedProducts = products.slice(0, visibleCount);
 
     return (
-        <div className="bg-white container mx-auto py-8 px-4">
+        <div className="bg-white  mx-auto py-8 px-4">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-favorit uppercase font-bold text-black text-center my-4">
                 Productos Destacados
             </h2>

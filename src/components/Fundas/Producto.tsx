@@ -26,11 +26,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <div className="w-20" />
         )}
       </div>
-      <img
-        src={imageSrc}
-        alt={title}
-        className="mx-auto my-4 h-auto object-contain"
-      />
+      <picture>
+        <img
+          loading="lazy"
+          src={imageSrc}
+          alt={title}
+          className="mx-auto my-4 h-auto object-contain"
+        />
+      </picture>
       <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritMono">
         {title}
       </h3>

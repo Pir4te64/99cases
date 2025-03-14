@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import s1 from "../assets/Scroll/s1.jpg";
 import s2 from "../assets/Scroll/s2.jpg";
 
-// Hook para detectar el ancho de la ventana y cambiar el layout según el breakpoint
 function useMediaQuery(query: string) {
     const [matches, setMatches] = useState(false);
-
     useEffect(() => {
         const media = window.matchMedia(query);
         if (media.matches !== matches) {
@@ -15,20 +13,17 @@ function useMediaQuery(query: string) {
         media.addEventListener("change", listener);
         return () => media.removeEventListener("change", listener);
     }, [matches, query]);
-
     return matches;
 }
 
 const Scroll: React.FC = () => {
     const images = [s1, s2, s1, s2];
     const isDesktop = useMediaQuery("(min-width: 1024px)");
-
     const chunkSize = isDesktop ? 2 : 1;
     const slides: string[][] = [];
     for (let i = 0; i < images.length; i += chunkSize) {
         slides.push(images.slice(i, i + chunkSize));
     }
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const totalSlides = slides.length;
 
@@ -38,10 +33,37 @@ const Scroll: React.FC = () => {
         setCurrentIndex(index);
     };
 
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const swipeThreshold = 50;
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStart(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStart !== null && touchEnd !== null) {
+            const diff = touchStart - touchEnd;
+            if (Math.abs(diff) > swipeThreshold) {
+                diff > 0 ? goToSlide(currentIndex + 1) : goToSlide(currentIndex - 1);
+            }
+        }
+        setTouchStart(null);
+        setTouchEnd(null);
+    };
+
     return (
-        <div className="w-full  mx-auto my-8">
-            {/* Slider de imágenes */}
-            <div className="relative overflow-hidden">
+        <div className="w-full mx-auto my-8">
+            <div
+                className="relative overflow-hidden"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
                 <div
                     className="flex transition-transform duration-300"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -61,8 +83,6 @@ const Scroll: React.FC = () => {
                     ))}
                 </div>
             </div>
-
-            {/* Indicadores (botones) debajo del slider */}
             <div className="flex justify-center gap-2 mt-4">
                 {Array.from({ length: totalSlides }).map((_, index) => (
                     <button

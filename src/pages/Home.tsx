@@ -6,6 +6,7 @@ import Marcas from "../components/Marcas";
 import Pagos from "../components/Pagos";
 import NosEligen from "../components/NosEligen";
 import Scroll from "../components/Scroll";
+import TextHorizontal from "../components/TextHorizontal";
 export default function Home() {
     return (
         <div className="w-full h-full overflow-x-hidden">
@@ -17,6 +18,7 @@ export default function Home() {
             <Pagos />
             <NosEligen />
             <Scroll />
+            <TextHorizontal />
         </div>
     );
 }

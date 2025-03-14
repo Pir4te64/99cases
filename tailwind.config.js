@@ -9,6 +9,15 @@ module.exports = {
         dharmaGothic: ["DharmaGothicM", "sans-serif"],
       },
     },
+    keyframes: {
+      scrollText: {
+        "0%": { transform: "translateX(0)" },
+        "100%": { transform: "translateX(-50%)" },
+      },
+    },
+    animation: {
+      scrollText: "scrollText 15s linear infinite",
+    },
   },
   plugins: [],
 };

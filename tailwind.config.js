@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         favorit: ["ABCFavorit", "sans-serif"],
         favoritMono: ["ABCFavoritMono", "monospace"],
+        dharmaGothic: ["DharmaGothicM", "sans-serif"],
       },
     },
   },

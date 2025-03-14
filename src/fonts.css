@@ -37,4 +37,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/fonts/DharmaGothicM-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    /* o 700, 800... según tu preferencia */
+    font-style: italic;
+}
+
+
 /* ... y así con los demás archivos que tengas */

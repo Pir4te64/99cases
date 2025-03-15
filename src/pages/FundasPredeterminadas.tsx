@@ -1,8 +1,10 @@
 import React from 'react'
-
+import FundasPredeterminadasHeader from '../components/FundasPredeterminadasHeader'
 const FundasPredeterminadas = () => {
     return (
-        <div>FundasPredeterminadas</div>
+        <div>
+            <FundasPredeterminadasHeader />
+        </div>
     )
 }
 

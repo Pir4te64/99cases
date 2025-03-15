@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ShoppingCart, Search, ChevronDown, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,12 +40,12 @@ export default function Navbar() {
                             </button>
                             {isOpen && (
                                 <div className="absolute left-0 mt-2 bg-black text-white rounded py-2 w-64 border border-white">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="/predeterminadas"
                                         className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
                                     >
                                         Fundas Predeterminadas
-                                    </a>
+                                    </Link>
                                     <a
                                         href="#"
                                         className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"

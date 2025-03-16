@@ -2,6 +2,7 @@ import { Instagram, Facebook } from 'lucide-react';
 import logo from '../assets/logo.png';
 import tarjetas from '../assets/tarjetas.png';
 import andreani from '../assets/Andreani.png';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -22,10 +23,10 @@ export default function Footer() {
 
           {/* Navegación */}
           <nav className="flex space-x-6 text-sm">
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="/" className="hover:text-gray-300 transition-colors">
               Inicio
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="#productos" className="hover:text-gray-300 transition-colors">
               Productos
             </a>
           </nav>

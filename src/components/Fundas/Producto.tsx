@@ -16,7 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   oldPrice,
 }) => {
   return (
-    <div className="relative bg-white text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]">
+    <div className="relative  text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]">
       <div className="h-8 flex justify-center items-center mb-2">
         {discount ? (
           <div className="px-2 py-1 bg-gray-300 text-red-600 font-favoritMono font-bold rounded-md">

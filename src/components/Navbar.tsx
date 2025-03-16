@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart, Search, ChevronDown, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [bannerOpen, setBannerOpen] = useState(true);
+    const location = useLocation();
+
+    // Cierra ambos menús cuando cambia la URL
+    useEffect(() => {
+        setMenuOpen(false);
+        setIsOpen(false);
+    }, [location]);
 
     return (
         <>
@@ -17,19 +24,18 @@ export default function Navbar() {
                         <X className="h-4 w-4 text-white" />
                     </button>
                 </div>
-
             )}
             <nav className="bg-black text-white p-5 mx-5 relative">
                 {/* Desktop Navbar */}
                 <div className="hidden md:flex items-center justify-between">
                     {/* Izquierda: Enlaces */}
                     <div className="flex items-center space-x-6">
-                        <a
-                            href="#"
+                        <Link
+                            to="/"
                             className="hover:text-gray-300 transition-colors font-favorit"
                         >
                             Inicio
-                        </a>
+                        </Link>
                         <div className="relative">
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
@@ -46,12 +52,12 @@ export default function Navbar() {
                                     >
                                         Fundas Predeterminadas
                                     </Link>
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="/personalizadas"
                                         className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
                                     >
                                         Fundas Personalizadas
-                                    </a>
+                                    </Link>
                                 </div>
                             )}
                         </div>
@@ -103,15 +109,15 @@ export default function Navbar() {
                 {/* Menú de navegación en mobile */}
                 {menuOpen && (
                     <div className="md:hidden absolute top-full left-0 w-full bg-black text-white p-4 flex flex-col space-y-4">
-                        <a href="#" className="hover:text-gray-300 transition-colors">
-                            Productos
-                        </a>
-                        <a href="#" className="hover:text-gray-300 transition-colors">
+                        <Link to="/" className="hover:text-gray-300 transition-colors">
+                            Inicio
+                        </Link>
+                        <Link to="/predeterminadas" className="hover:text-gray-300 transition-colors">
                             Fundas Predeterminadas
-                        </a>
-                        <a href="#" className="hover:text-gray-300 transition-colors">
+                        </Link>
+                        <Link to="/personalizadas" className="hover:text-gray-300 transition-colors">
                             Fundas Personalizadas
-                        </a>
+                        </Link>
                     </div>
                 )}
             </nav>

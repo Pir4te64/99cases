@@ -1,7 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, RefObject } from "react";
 
-function useInViewMobile(options) {
-  const ref = useRef(null);
+interface InViewOptions {
+  threshold?: number;
+  root?: Element | null;
+  rootMargin?: string;
+}
+
+function useInViewMobile(options?: InViewOptions): [RefObject<HTMLDivElement | null>, boolean] {
+  const ref = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIntersecting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

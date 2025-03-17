@@ -1,7 +1,7 @@
 import Productos from "./Fundas/Productos";
 function ProductosSimilares() {
   return (
-    <div className="bg-white">
+    <div className="bg-white w-full flex flex-col items-center justify-center">
       <h3 className="text-xl font-bold  text-black mb-3 pt-10 md:pt-5">
         PODRÍA INTERESARTE
       </h3>

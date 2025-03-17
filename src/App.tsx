@@ -1,10 +1,10 @@
 // src/App.jsx
 
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import FundasPredeterminadas from './pages/FundasPredeterminadas';
-import PredeterminadosID from './components/Predeterminadosid';
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import FundasPredeterminadas from "./pages/FundasPredeterminadas";
+import PredeterminadosID from "./components/PredeterminadosID";
 
 function App() {
   return (

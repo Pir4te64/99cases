@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import FundasPredeterminadas from './pages/FundasPredeterminadas';
+import PredeterminadosID from './components/Predeterminadosid';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/predeterminadas" element={<FundasPredeterminadas />} />
+        <Route path="/predeterminadas/:id" element={<PredeterminadosID />} />
       </Routes>
     </Layout>
   );

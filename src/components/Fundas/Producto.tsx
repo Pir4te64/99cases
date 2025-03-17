@@ -1,22 +1,39 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
+  id: string;
   discount?: string;
   imageSrc: string;
   title: string;
   price: string;
   oldPrice?: string;
+  cantidadesVendidos: number;
+  description: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  id,
   discount,
   imageSrc,
   title,
   price,
   oldPrice,
+  cantidadesVendidos,
+  description,
 }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const productData = { id, discount, imageSrc, title, price, oldPrice };
+    navigate(`/predeterminadas/${id}`, { state: { product: productData } });
+  };
+
   return (
-    <div className="relative  text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]">
+    <div
+      onClick={handleClick}
+      className="cursor-pointer relative text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]"
+    >
       <div className="h-8 flex justify-center items-center mb-2">
         {discount ? (
           <div className="px-2 py-1 bg-gray-300 text-red-600 font-favoritMono font-bold rounded-md">

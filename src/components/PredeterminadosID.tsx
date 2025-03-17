@@ -1,5 +1,4 @@
-// src/pages/PredeterminadosID.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs";
 import imgVertical from "../assets/predetermiandasCases/List.png";

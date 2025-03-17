@@ -1,4 +1,3 @@
-import React from "react";
 import headerPredeterminadas from "../assets/predeterminadas/headerPredeterinadas.jpg";
 
 const FundasPredeterminadasHeader = () => {
@@ -21,7 +20,8 @@ const FundasPredeterminadasHeader = () => {
       {/* Contenedor del texto, anclado en la parte inferior */}
       <div className="absolute bottom-5 left-0 w-full text-center p-4">
         {/* Tamaños de fuente escalonados para cada breakpoint */}
-        <h1 className="
+        <h1
+          className="
           text-white 
           text-5xl 
           sm:text-5xl 
@@ -33,7 +33,8 @@ const FundasPredeterminadasHeader = () => {
           uppercase 
           leading-none 
           tracking-wide
-        ">
+        "
+        >
           FUNDAS PREDETERMINADAS
         </h1>
       </div>

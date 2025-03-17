@@ -1,4 +1,3 @@
-// src/store.js (o .ts)
 import { create } from "zustand";
 
 const useStore = create((set) => ({

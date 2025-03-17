@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 
 const Registro = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ const Registro = () => {
         </button>
       </form>
       <p className="mt-4 text-base md:text-sm underline ">
-        Al hacer clic en Registrarse, confirmo que acepto nuestros 
+        Al hacer clic en Registrarse, confirmo que acepto nuestros
         <a href="#">Términos y Condiciones</a>.
       </p>
     </div>

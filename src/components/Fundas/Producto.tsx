@@ -19,8 +19,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   title,
   price,
   oldPrice,
-  cantidadesVendidos,
-  description,
 }) => {
   const navigate = useNavigate();
 

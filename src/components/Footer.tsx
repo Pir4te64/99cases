@@ -1,8 +1,7 @@
-import { Instagram, Facebook } from 'lucide-react';
-import logo from '../assets/logo.png';
-import tarjetas from '../assets/tarjetas.png';
-import andreani from '../assets/Andreani.png';
-import { Link } from 'react-router-dom';
+import { Instagram, Facebook } from "lucide-react";
+import logo from "../assets/logo.png";
+import tarjetas from "../assets/tarjetas.png";
+import andreani from "../assets/Andreani.png";
 
 export default function Footer() {
   return (
@@ -26,17 +25,28 @@ export default function Footer() {
             <a href="/" className="hover:text-gray-300 transition-colors">
               Inicio
             </a>
-            <a href="#productos" className="hover:text-gray-300 transition-colors">
+            <a
+              href="#productos"
+              className="hover:text-gray-300 transition-colors"
+            >
               Productos
             </a>
           </nav>
 
           {/* Redes Sociales */}
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Instagram">
+            <a
+              href="#"
+              className="hover:text-gray-300 transition-colors"
+              aria-label="Instagram"
+            >
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Facebook">
+            <a
+              href="#"
+              className="hover:text-gray-300 transition-colors"
+              aria-label="Facebook"
+            >
               <Facebook className="w-5 h-5" />
             </a>
           </div>

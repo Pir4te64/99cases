@@ -1,12 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Breadcrumbs = ({ items }) => {
+interface BreadcrumbItem {
+  link?: string;
+  label: string;
+}
+
+interface BreadcrumbsProps {
+  items: BreadcrumbItem[];
+}
+
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   return (
-    <nav className="bg-white text-black mb-4 p-2">
-      <ol className="list-none p-0 inline-flex">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center">
+    <nav className="bg-white text-black overflow-x-auto whitespace-nowrap mb-4">
+      <ol className="list-none flex flex-wrap text-sm md:text-base px-2 py-2">
+        {items.map((item: BreadcrumbItem, index: number) => (
+          <li key={index} className="inline-flex items-center">
             {item.link ? (
               <>
                 <Link to={item.link} className="hover:underline">
@@ -15,7 +24,7 @@ const Breadcrumbs = ({ items }) => {
                 {index < items.length - 1 && <span className="mx-2">/</span>}
               </>
             ) : (
-              <span>{item.label}</span>
+              <span className="font-semibold">{item.label}</span>
             )}
           </li>
         ))}

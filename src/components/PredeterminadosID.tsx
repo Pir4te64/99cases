@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs";
 import imgVertical from "../assets/predetermiandasCases/List.png";
+import imgHorizontal from "../assets/predetermiandasCases/horizontal.png";
 import tarjetas from "../assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
 import ProductDetailLayout from "./PredeterminadoLayout";
@@ -11,11 +12,15 @@ const PredeterminadosID = () => {
   const location = useLocation();
   const [quantity, setQuantity] = useState(1);
   const product = location.state?.product;
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     window.scrollTo(0, 0); // Esto hace que al cargar siempre se vea desde arriba
   }, [location]);
-
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const handleDecrement = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
@@ -33,12 +38,12 @@ const PredeterminadosID = () => {
       <div className="mx-auto px-4 py-6 bg-white text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex h-[600px]">
+        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto">
           {/* Columna 1 */}
-          <div className="flex-none flex items-center">
+          <div className="flex-none flex items-center justify-center">
             <img
-              src={imgVertical}
-              alt="Imagen vertical"
+              src={windowWidth < 1024 ? imgHorizontal : imgVertical}
+              alt="Imagen del producto"
               className="max-h-full object-contain"
             />
           </div>
@@ -60,8 +65,7 @@ const PredeterminadosID = () => {
           <div className="flex-1 flex flex-col p-4 overflow-y-auto font-favoritMono">
             {product ? (
               <>
-                {/* ... Tu código de producto (nombre, precio, cantidad, botones, etc.) */}
-                <h1 className="text-7xl font-bold mb-2 w-full">
+                <h1 className="text-4xl md:text-7xl font-bold mb-2 w-full">
                   {product.title}
                 </h1>
                 <p className="text-lg text-red-600 font-semibold mb-2">

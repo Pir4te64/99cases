@@ -1,6 +1,6 @@
 import { Instagram, Facebook } from "lucide-react";
 import logo from "../assets/logo.png";
-import tarjetas from "../assets/tarjetas.png";
+import tarjetas from "../assets/Tarjetas.png";
 import andreani from "../assets/Andreani.png";
 
 export default function Footer() {

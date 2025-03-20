@@ -6,6 +6,7 @@ import imgHorizontal from "../assets/predetermiandasCases/horizontal.png";
 import tarjetas from "../assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
 import ProductDetailLayout from "./PredeterminadoLayout";
+import PredeterminadoLayout from "./PredeterminadoLayout";
 
 const PredeterminadosID = () => {
   const location = useLocation();
@@ -33,7 +34,7 @@ const PredeterminadosID = () => {
   ];
 
   return (
-    <ProductDetailLayout>
+    <PredeterminadoLayout>
       <div className="mx-auto px-4 py-6 bg-white text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
@@ -151,7 +152,7 @@ const PredeterminadosID = () => {
           </div>
         </div>
       </div>
-    </ProductDetailLayout>
+    </PredeterminadoLayout>
   );
 };
 

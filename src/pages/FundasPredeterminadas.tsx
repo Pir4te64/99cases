@@ -1,22 +1,22 @@
-import FundasPredeterminadasHeader from '../components/FundasPredeterminadasHeader'
-import FundasPredeterminadasProductos from '../components/FundasPredeterminadasProductos'
-import Marcas from '../components/Marcas'
-import Pagos from '../components/Pagos'
-import Scroll from '../components/Scroll'
-import TextHorizontal from '../components/TextHorizontal'
-import FormularioContacto from '../components/FormularioContacto'
+import FundasPredeterminadasHeader from "../components/FundasPredeterminadas/FundasPredeterminadasHeader";
+import Marcas from "../components/Marcas";
+import Pagos from "../components/Pagos";
+import Scroll from "../components/Scroll";
+import TextHorizontal from "../components/TextHorizontal";
+import FormularioContacto from "../components/FormularioContacto";
+import FundasPredeterminadasProductos from "../components/FundasPredeterminadas/FundasPredeterminadasProductos";
 const FundasPredeterminadas = () => {
-    return (
-        <div>
-            <FundasPredeterminadasHeader />
-            <FundasPredeterminadasProductos />
-            <Marcas />
-            <Pagos />
-            <Scroll />
-            <TextHorizontal />
-            <FormularioContacto />
-        </div>
-    )
-}
+  return (
+    <div>
+      <FundasPredeterminadasHeader />
+      <FundasPredeterminadasProductos />
+      <Marcas />
+      <Pagos />
+      <Scroll />
+      <TextHorizontal />
+      <FormularioContacto />
+    </div>
+  );
+};
 
-export default FundasPredeterminadas
+export default FundasPredeterminadas;

@@ -19,5 +19,7 @@ module.exports = {
       scrollText: "scrollText 15s linear infinite",
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 };

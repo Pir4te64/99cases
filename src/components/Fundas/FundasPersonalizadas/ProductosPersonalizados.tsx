@@ -19,11 +19,20 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   title,
   price,
   oldPrice,
+  cantidadesVendidos,
 }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    const productData = { id, discount, imageSrc, title, price, oldPrice };
+    const productData = {
+      id,
+      discount,
+      imageSrc,
+      title,
+      price,
+      oldPrice,
+      cantidadesVendidos,
+    };
     navigate(`/personalizadas/${id}`, { state: { product: productData } });
   };
 

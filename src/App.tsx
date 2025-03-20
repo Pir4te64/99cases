@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import FundasPredeterminadas from "./pages/FundasPredeterminadas";
 import PredeterminadosID from "./components/PredeterminadosID";
 import FundasPersonalizadas from "./pages/FundasPersonalizadas";
-import PersonalizadosID from "./components/PersonalizadosID";
+import PersonalizadosID from "./components/PersonalizadosID/PersonalizadosID";
 function App() {
   return (
     <Layout>

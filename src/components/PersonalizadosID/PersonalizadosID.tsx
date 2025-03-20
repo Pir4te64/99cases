@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrumbs from "../components/Breadcrumbs";
-import imgVertical from "../assets/predetermiandasCases/List.png";
-import imgHorizontal from "../assets/predetermiandasCases/horizontal.png";
-import tarjetas from "../assets/predetermiandasCases/tarjetas.png";
+import Breadcrumbs from "../Breadcrumbs";
+import imgVertical from "../../assets/predetermiandasCases/List.png";
+import imgHorizontal from "../../assets/predetermiandasCases/horizontal.png";
+import tarjetas from "../../assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
-import PersonalizadosLayout from "./PersonalizadosLayout";
+import PersonalizadosLayout from "../PersonalizadosLayout";
+import ProductDetails from "./ProductoDetalles";
+import ProductImage from "./ProductoImagen";
+import MarcaCelular from "./MarcaCelular";
 
 const PersonalizadosID = () => {
   const location = useLocation();
   const [quantity, setQuantity] = useState(1);
   const product = location.state?.product;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   useEffect(() => {
     window.scrollTo(0, 0); // Esto hace que al cargar siempre se vea desde arriba
   }, [location]);
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   const handleDecrement = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
@@ -31,6 +37,7 @@ const PersonalizadosID = () => {
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
+  console.log(product);
 
   return (
     <PersonalizadosLayout>
@@ -39,13 +46,11 @@ const PersonalizadosID = () => {
 
         <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto">
           {/* Columna 1 */}
-          <div className="flex-none flex items-center justify-center">
-            <img
-              src={windowWidth < 1024 ? imgHorizontal : imgVertical}
-              alt="Imagen del producto"
-              className="max-h-full object-contain"
-            />
-          </div>
+          <ProductImage
+            windowWidth={windowWidth}
+            imgHorizontal={imgHorizontal}
+            imgVertical={imgVertical}
+          />
 
           {/* Columna 2 */}
           <div className="flex items-center justify-center">
@@ -79,6 +84,37 @@ const PersonalizadosID = () => {
                   {product.cantidadesVendidos} VENDIDOS EN LAS ÚLTIMAS HORAS
                 </p>
 
+                {/* Botones de pasos */}
+                <div className="flex items-center gap-2 mb-4">
+                  {/* Paso 1 (activo) */}
+                  <button className="flex items-center bg-red-500 text-white border border-black p-3 rounded-md tracking-widest text-5xl font-normal uppercase font-dharmaGothic hover:bg-red-600 transition-colors">
+                    <span className="mr-2 text-4xl px-5 py-2 text-white bg-black rounded-md font-dharmaGothic">
+                      1
+                    </span>
+                    Elegir Modelo
+                  </button>
+
+                  {/* Paso 2 (2 líneas) */}
+                  <button className="flex items-center bg-transparent text-black border border-black p-3 rounded-md tracking-widest text-5xl font-normal uppercase font-dharmaGothic hover:bg-red-500 hover:text-white transition-colors">
+                    <span className="mr-2 text-4xl px-5 py-2 text-white bg-black rounded-md font-dharmaGothic">
+                      2
+                    </span>
+                    {/* Aquí el br para la segunda línea */}
+                    Nombre, Número
+                    <br />y Tipografía
+                  </button>
+
+                  {/* Paso 3 */}
+                  <button className="flex items-center bg-transparent text-black border border-black p-3 rounded-md tracking-widest text-5xl font-normal uppercase font-dharmaGothic hover:bg-red-500 hover:text-white transition-colors">
+                    <span className="mr-2 text-4xl px-5 py-2 text-white bg-black rounded-md font-dharmaGothic">
+                      3
+                    </span>
+                    Colores
+                  </button>
+                </div>
+
+                {/* Marcas de celular */}
+                <MarcaCelular />
                 {/* Contador */}
                 <div className="flex items-center mb-4 w-full space-x-4">
                   <div className="flex items-center space-x-2">
@@ -116,34 +152,7 @@ const PersonalizadosID = () => {
                 </div>
 
                 {/* Detalles */}
-                <details className="mb-4" open>
-                  <summary className="cursor-pointer font-bold mb-2">
-                    Descripción del producto
-                  </summary>
-                  <p className="mb-2">
-                    Nuestras fundas combinan diseño único y materiales premium:
-                  </p>
-                  <ul className="mb-2 list-disc list-inside">
-                    <li>Parte trasera de aluminio.</li>
-                    <li>Bordes de silicona reforzada.</li>
-                    <li>Agarre antideslizante.</li>
-                    <li>No se rayan</li>
-                    <li>No se despintan</li>
-                  </ul>
-                </details>
-                <details className="mb-4" open>
-                  <summary className="cursor-pointer font-bold mb-2">
-                    Información del envío
-                  </summary>
-                  <p className="mb-2">
-                    🏭 Tiempo de producción: 1-3 días hábiles
-                  </p>
-                  <p className="mb-2">
-                    ✈️ Tiempo de envío: Nuestros productos se fabrican y envían
-                    desde nuestra oficina en Santa Fe (Arg) y la entrega demora
-                    entre 1 y 5 días.
-                  </p>
-                </details>
+                <ProductDetails />
               </>
             ) : (
               <p>No se encontró el producto.</p>

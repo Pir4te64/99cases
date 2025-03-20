@@ -1,14 +1,15 @@
-// ProductImage.jsx
+import usePersonalizadoStore from "./usePersonalizadoStore";
 
 const ProductImage = ({
-  windowWidth,
   imgHorizontal,
   imgVertical,
 }: {
-  windowWidth: number;
   imgHorizontal: string;
   imgVertical: string;
 }) => {
+  // Obtenemos windowWidth desde el store
+  const windowWidth = usePersonalizadoStore((state: any) => state.windowWidth);
+
   return (
     <div className="flex-none flex items-center justify-center">
       <img

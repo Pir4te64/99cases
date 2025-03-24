@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginPOST from "./LoginPOST";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -19,6 +19,8 @@ const Login = () => {
       if (result.token) {
         localStorage.setItem("token", result.token);
       }
+      // Redirigir al usuario a la página de inicio
+      navigate("/");
       // Aquí podrías redirigir al usuario o ejecutar otra acción
     } catch (error) {
       console.error("Error de autenticación:", error);

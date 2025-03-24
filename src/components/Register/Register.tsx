@@ -15,8 +15,6 @@ const Register = () => {
       const result = await registerPOST(email, password);
       console.log("Datos de registro:", result);
       if (result.token) {
-        // Guardamos el token en localStorage
-        localStorage.setItem("token", result.token);
         // Toast indicando que se ha registrado correctamente
         toast.success(
           "¡Registro exitoso! Dirígete a la página de login para iniciar sesión."

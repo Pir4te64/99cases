@@ -73,7 +73,7 @@ export default function Navbar() {
             <img src={logo} alt="logo" />
           </div>
 
-          {/* Derecha: Íconos */}
+          {/* Derecha: Íconos y botones */}
           <div className="flex items-center space-x-4">
             <button className="hover:text-gray-300 transition-colors">
               <Search className="h-5 w-5" />
@@ -81,6 +81,18 @@ export default function Navbar() {
             <button className="hover:text-gray-300 transition-colors">
               <ShoppingCart className="h-5 w-5" />
             </button>
+            <Link
+              to="/register"
+              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
+            >
+              Registrarse
+            </Link>
+            <Link
+              to="/login"
+              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
+            >
+              Login
+            </Link>
           </div>
         </div>
 
@@ -128,6 +140,15 @@ export default function Navbar() {
               className="hover:text-gray-300 transition-colors"
             >
               Fundas Personalizadas
+            </Link>
+            <Link
+              to="/register"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Registrarse
+            </Link>
+            <Link to="/login" className="hover:text-gray-300 transition-colors">
+              Login
             </Link>
           </div>
         )}

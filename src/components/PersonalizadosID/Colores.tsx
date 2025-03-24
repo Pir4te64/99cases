@@ -55,10 +55,10 @@ const ColorSection: React.FC<ColorSectionProps> = ({
           const style =
             color === "transparent"
               ? {
-                  backgroundColor: "transparent",
-                  backgroundImage:
-                    "repeating-linear-gradient(45deg, red 0, red 2px, transparent 2px, transparent 4px)",
-                }
+                backgroundColor: "transparent",
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, red 0, red 2px, transparent 2px, transparent 4px)",
+              }
               : { backgroundColor: color };
 
           return (
@@ -66,9 +66,8 @@ const ColorSection: React.FC<ColorSectionProps> = ({
               key={colorIndex}
               onClick={() => onSelectColor(index, color)}
               title={color}
-              className={`w-8 h-8 rounded-full border-2 transition-colors ${
-                isSelected ? "border-black" : "border-black"
-              }`}
+              className={`w-8 h-8 rounded-full border-2 transition-colors hover:scale-105 ${isSelected ? "border-black" : "border-black"
+                }`}
               style={style}
               aria-label={`Color ${color}`}
             />

@@ -49,7 +49,7 @@ const PersonalizadosID = () => {
     <PersonalizadosLayout>
       <div className="mx-auto px-4 py-6 bg-white text-black">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto">
+        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4">
           <ProductImage
             imgHorizontal={imgHorizontal}
             imgVertical={imgVertical}

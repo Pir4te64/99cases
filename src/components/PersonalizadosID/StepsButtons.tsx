@@ -21,7 +21,7 @@ const StepsButtons = () => {
         onClick={toggleShowMarca}
         className="flex md:w-full w-11/12 items-center md:justify-center justify-start bg-transparent text-black border border-black p-3 rounded-md tracking-wide md:text-5xl text-4xl font-normal uppercase font-dharmaGothic hover:bg-red-600 transition-colors hover:text-white"
       >
-        <span className="mr-2 md:text-4xl text-xl md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span className="mr-2  md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
           1
         </span>
         Elegir Modelo
@@ -30,13 +30,12 @@ const StepsButtons = () => {
       {/* Paso 2 */}
       <button
         onClick={toggleStep2}
-        className={`h-24 flex md:w-full w-11/12 items-start text-left bg-transparent text-black border border-black p-3 rounded-md tracking-wide text-4xl font-normal uppercase font-dharmaGothic transition-colors ${
-          step2Active
-            ? "hover:bg-green-500 hover:text-white"
-            : "hover:bg-red-500 hover:text-white"
-        }`}
+        className={`h-24 flex md:w-full w-11/12 items-start text-left bg-transparent text-black border border-black p-3 rounded-md tracking-wide text-4xl font-normal uppercase font-dharmaGothic transition-colors ${step2Active
+          ? "hover:bg-green-500 hover:text-white"
+          : "hover:bg-red-500 hover:text-white"
+          }`}
       >
-        <span className="mr-2 md:text-4xl text-xl md:w-20 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span className="mr-2  md:w-20 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
           2
         </span>
         <span className=" md:text-[30px]">
@@ -48,13 +47,12 @@ const StepsButtons = () => {
       {/* Paso 3 */}
       <button
         onClick={toggleShowColors}
-        className={`flex md:w-full w-11/12 items-center bg-transparent text-black border border-black p-3 rounded-md tracking-wide md:text-5xl text-4xl font-normal uppercase font-dharmaGothic transition-colors ${
-          showColors
-            ? "hover:bg-green-500 hover:text-white"
-            : "hover:bg-red-500 hover:text-white"
-        }`}
+        className={`flex md:w-full w-11/12 items-center bg-transparent text-black border border-black p-3 rounded-md tracking-wide md:text-5xl text-4xl font-normal uppercase font-dharmaGothic transition-colors ${showColors
+          ? "hover:bg-green-500 hover:text-white"
+          : "hover:bg-red-500 hover:text-white"
+          }`}
       >
-        <span className="mr-2 md:text-4xl text-xl md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span className="mr-2  md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
           3
         </span>
         Colores

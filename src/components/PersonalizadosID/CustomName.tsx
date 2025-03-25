@@ -1,90 +1,112 @@
-// CustomName.jsx
-import React, { useState } from "react";
+import usePersonalizadoStore from "./usePersonalizadoStore";
 
-// Ejemplos de "estilos" para el nombre y el número
-// Podrías personalizar tipografías, colores, etc.
-const nameStyles = [
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
-  "TU NOMBRE",
+const customNameStyles = [
+  "cmxSpeedOfcl",
+  "cmxShift2",
+  "cmxFast3",
+  "cmxRacer",
+  "cmxHead",
+  "cmxNationalOfclV2",
+  "cmxShotV2",
+  "cmxBlowbrush",
+  "cmxCowboy",
+  "backyardShot",
+  "backyardStencil",
+  "cmxCleanOfcl",
 ];
-const numberStyles = ["15", "15", "15", "15", "15", "15", "15", "15"];
 
+const customNumberStyles = [
+  "cmxSpeedOfcl",
+  "cmxShift2",
+  "cmxFast3",
+  "cmxRacer",
+  "cmxHead",
+  "cmxNationalOfclV2",
+  "cmxShotV2",
+  "cmxBlowbrush",
+  "cmxCowboy",
+  "backyardShot",
+  "backyardStencil",
+  "cmxCleanOfcl",
+];
 const CustomName = () => {
-  const [userName, setUserName] = useState("");
-  const [selectedNameStyle, setSelectedNameStyle] = useState<number | null>(
-    null
-  );
-
-  const [userNumber, setUserNumber] = useState("");
-  const [selectedNumberStyle, setSelectedNumberStyle] = useState<number | null>(
-    null
-  );
+  const {
+    userName,
+    setUserName,
+    selectedNameStyle,
+    setSelectedNameStyle,
+    userNumber,
+    setUserNumber,
+    selectedNumberStyle,
+    setSelectedNumberStyle
+  } = usePersonalizadoStore() as {
+    userName: string;
+    setUserName: (name: string) => void;
+    selectedNameStyle: number | null;
+    setSelectedNameStyle: (style: number) => void;
+    userNumber: string;
+    setUserNumber: (number: string) => void;
+    selectedNumberStyle: number | null;
+    setSelectedNumberStyle: (style: number) => void;
+  };
 
   return (
     <div className="space-y-8">
-      {/* Bloque para el nombre */}
+      {/* Bloque para el NOMBRE */}
       <div>
-        <label className="block mb-2 font-bold">Tu nombre</label>
+        <label className="block mb-2 font-bold uppercase">Tu nombre</label>
         <input
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          className="w-full border border-gray-300 rounded p-2 mb-4"
+          className={`w-full border uppercase border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${selectedNameStyle !== null
+            ? `font-${customNameStyles[selectedNameStyle]}`
+            : "font-cmxShift2"
+            }`}
           placeholder="Tu nombre"
         />
-
-        {/* Opciones de estilo para el nombre */}
-        <div className="grid grid-cols-4 gap-2">
-          {nameStyles.map((style, index) => (
+        {/* Botones para elegir la fuente del nombre */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {customNameStyles.map((style, index) => (
             <button
               key={index}
               onClick={() => setSelectedNameStyle(index)}
-              className={`border border-gray-300 rounded p-2 text-center transition-colors
-                ${
-                  selectedNameStyle === index
-                    ? "bg-gray-500 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }
-              `}
+              className={`border uppercase border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${selectedNameStyle === index
+                ? "bg-gray-500 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                } font-${style}`}
             >
-              {style}
+              {userName || "TU NOMBRE"}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Bloque para el número */}
+      {/* Bloque para el NÚMERO */}
       <div>
         <label className="block mb-2 font-bold">Número</label>
         <input
-          type="text"
+          type="number"
           value={userNumber}
           onChange={(e) => setUserNumber(e.target.value)}
-          className="w-full border border-gray-300 rounded p-2 mb-4"
+          className={`w-full border border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${selectedNumberStyle !== null
+            ? `font-${customNumberStyles[selectedNumberStyle]}`
+            : "font-cmxShift2"
+            }`}
           placeholder="15"
         />
-
-        {/* Opciones de estilo para el número */}
-        <div className="grid grid-cols-4 gap-2">
-          {numberStyles.map((style, index) => (
+        {/* Botones para elegir la fuente del número */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {customNumberStyles.map((style, index) => (
             <button
               key={index}
               onClick={() => setSelectedNumberStyle(index)}
-              className={`border border-gray-300 rounded p-2 text-center transition-colors
-                ${
-                  selectedNumberStyle === index
-                    ? "bg-gray-500 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }
-              `}
+              className={`border border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${selectedNumberStyle === index
+                ? "bg-gray-500 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                } font-${style}`}
             >
-              {style}
+              {userNumber || "15"}
             </button>
           ))}
         </div>

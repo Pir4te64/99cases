@@ -1,0 +1,137 @@
+/* src/FontsPages.css */
+
+/* ========================================
+   ABCFavorit
+   ======================================== */
+@font-face {
+    font-family: 'ABCFavorit';
+    src: url('./assets/Fuentes/ABCFavorit-Regular.otf') format('opentype');
+    font-weight: 400;
+    /* Book suele ser 400 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavorit';
+    src: url('./assets/Fuentes/ABCFavorit-BookItalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ABCFavorit';
+    src: url('./assets/Fuentes/ABCFavorit-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavorit';
+    src: url('./assets/Fuentes/ABCFavorit-BoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* ========================================
+     ABCFavoritExpanded
+     (Light, Regular, Medium, Bold)
+     ======================================== */
+@font-face {
+    font-family: 'ABCFavoritExpanded';
+    src: url('./assets/Fuentes/ABCFavoritExpanded-Light.otf') format('opentype');
+    font-weight: 300;
+    /* Light suele ser 300 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavoritExpanded';
+    src: url('./assets/Fuentes/ABCFavoritExpanded-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavoritExpanded';
+    src: url('./assets/Fuentes/ABCFavoritExpanded-Medium.otf') format('opentype');
+    font-weight: 500;
+    /* Medium suele ser 500 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavoritExpanded';
+    src: url('./assets/Fuentes/ABCFavoritExpanded-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* ========================================
+     ABCFavoritExtended
+     (Light)
+     ======================================== */
+@font-face {
+    font-family: 'ABCFavoritExtended';
+    src: url('./assets/Fuentes/ABCFavoritExtended-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* ========================================
+     ABCFavoritMono
+     (Book, Bold)
+     ======================================== */
+@font-face {
+    font-family: 'ABCFavoritMono';
+    src: url('./assets/Fuentes/ABCFavoritMono-Book.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ABCFavoritMono';
+    src: url('./assets/Fuentes/ABCFavoritMono-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* ========================================
+     DharmaGothicM
+     (Thin, Regular, RegularItalic, Heavy, HeavyItalic)
+     ======================================== */
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/Fuentes/DharmaGothicM-Thin.otf') format('opentype');
+    font-weight: 100;
+    /* Thin suele ser 100 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/Fuentes/DharmaGothicM-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/Fuentes/DharmaGothicM-RegularItalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/Fuentes/DharmaGothicM-Heavy.otf') format('opentype');
+    font-weight: 900;
+    /* Heavy suele ser 800-900 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DharmaGothicM';
+    src: url('./assets/fonts/Fuentes/DharmaGothicM-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}

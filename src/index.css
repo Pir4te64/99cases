@@ -1,8 +1,33 @@
-@import './fonts.css';
+@import './fontsCustom.css';
+@import './fontsPages.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-    font-family: 'ABCFavorit', monospace;
+* {
+    font-family: 'ABCFavoritMono', monospace;
+    font-weight: 400;
+}
+
+/* Para navegadores basados en WebKit */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: black;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 8px;
+    border: 2px solid black;
+}
+
+/* Para Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: red black;
 }

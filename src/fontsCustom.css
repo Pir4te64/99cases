@@ -1,0 +1,142 @@
+/* Backyard */
+@font-face {
+    font-family: 'BackyardShot';
+    src: url('./assets/fonts/Tipografías/Backyard-shot.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BackyardStencil';
+    src: url('./assets/fonts/Tipografías/Backyard-stencil.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Cmx series */
+@font-face {
+    font-family: 'CmxBlowbrush';
+    src: url('./assets/fonts/Tipografías/Cmx-blowbrush.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxCleanOfcl';
+    src: url('./assets/fonts/Tipografías/Cmx-clean-ofcl.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxCowboy';
+    src: url('./assets/fonts/Tipografías/Cmx-cowboy.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxFast3';
+    src: url('./assets/fonts/Tipografías/Cmx-fast3.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxHead';
+    src: url('./assets/fonts/Tipografías/Cmx-head.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxNationalOfclV2';
+    src: url('./assets/fonts/Tipografías/Cmx-national-ofcl-v2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxRacer';
+    src: url('./assets/fonts/Tipografías/Cmx-racer.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxShift2';
+    src: url('./assets/fonts/Tipografías/Cmx-shift2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxShotV2';
+    src: url('./assets/fonts/Tipografías/Cmx-shot-v2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxSpeedOfcl2';
+    src: url('./assets/fonts/Tipografías/Cmx-speed-ofcl2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxSpeedOfcl';
+    src: url('./assets/fonts/Tipografías/Cmx-speed-ofcl.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxSquareOfclV2';
+    src: url('./assets/fonts/Tipografías/Cmx-square-ofcl-v2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxStencilV2';
+    src: url('./assets/fonts/Tipografías/Cmx-stencil-v2.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxTeamOfcl';
+    src: url('./assets/fonts/Tipografías/Cmx-team-ofcl.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CmxWorksOfcl';
+    src: url('./assets/fonts/Tipografías/Cmx-works-ofcl.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Otras tipografías */
+@font-face {
+    font-family: 'GoboldRegular';
+    src: url('./assets/fonts/Tipografías/Gobold-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Trash';
+    src: url('./assets/fonts/Tipografías/Trash.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vipermodified';
+    src: url('./assets/fonts/Tipografías/Vipermodified.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}

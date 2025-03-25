@@ -25,12 +25,13 @@ const Coleccion = () => {
           </picture>
           {/* Overlay limitado a la zona inferior */}
           <div
-            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${isMobileVisible1 ? "opacity-100" : "opacity-0"
-              } md:group-hover:opacity-100`}
+            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
+              isMobileVisible1 ? "opacity-100" : "opacity-0"
+            } md:group-hover:opacity-100`}
           ></div>
           <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 cursor-pointer">
             <Link to="/predeterminadas">
-              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic uppercase">
+              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic font-bold tracking-wide uppercase">
                 Fundas Predeterminadas
               </h2>
               <p className="text-sm md:text-lg font-favoritMono uppercase mt-2">
@@ -54,13 +55,14 @@ const Coleccion = () => {
           </picture>
           {/* Overlay limitado a la zona inferior */}
           <div
-            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${isMobileVisible2 ? "opacity-100" : "opacity-0"
-              } md:group-hover:opacity-100`}
+            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
+              isMobileVisible2 ? "opacity-100" : "opacity-0"
+            } md:group-hover:opacity-100`}
           ></div>
 
           <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 cursor-pointer">
             <Link to="/personalizadas">
-              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic uppercase">
+              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic font-bold tracking-wide uppercase">
                 Fundas Personalizadas
               </h2>
               <p className="text-sm md:text-lg font-favoritMono uppercase mt-2">

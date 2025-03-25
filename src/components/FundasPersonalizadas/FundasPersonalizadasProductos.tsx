@@ -1,4 +1,3 @@
-import { div } from "framer-motion/client";
 import { productsPersonalizadas } from "../Fundas/FundasPersonalizadas/FundasPersonalizadasGET";
 import ProductCardPersonalizadas from "../Fundas/FundasPersonalizadas/ProductosPersonalizados";
 

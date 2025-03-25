@@ -38,7 +38,7 @@ const CustomName = () => {
     userNumber,
     setUserNumber,
     selectedNumberStyle,
-    setSelectedNumberStyle
+    setSelectedNumberStyle,
   } = usePersonalizadoStore() as {
     userName: string;
     setUserName: (name: string) => void;
@@ -57,12 +57,14 @@ const CustomName = () => {
         <label className="block mb-2 font-bold uppercase">Tu nombre</label>
         <input
           type="text"
+          maxLength={10}
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          className={`w-full border uppercase border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${selectedNameStyle !== null
-            ? `font-${customNameStyles[selectedNameStyle]}`
-            : "font-cmxShift2"
-            }`}
+          className={`w-full border uppercase border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${
+            selectedNameStyle !== null
+              ? `font-${customNameStyles[selectedNameStyle]}`
+              : "font-cmxShift2"
+          }`}
           placeholder="Tu nombre"
         />
         {/* Botones para elegir la fuente del nombre */}
@@ -71,10 +73,11 @@ const CustomName = () => {
             <button
               key={index}
               onClick={() => setSelectedNameStyle(index)}
-              className={`border uppercase border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${selectedNameStyle === index
-                ? "bg-gray-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                } font-${style}`}
+              className={`border uppercase border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${
+                selectedNameStyle === index
+                  ? "bg-gray-500 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              } font-${style}`}
             >
               {userName || "TU NOMBRE"}
             </button>
@@ -88,11 +91,16 @@ const CustomName = () => {
         <input
           type="number"
           value={userNumber}
-          onChange={(e) => setUserNumber(e.target.value)}
-          className={`w-full border border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${selectedNumberStyle !== null
-            ? `font-${customNumberStyles[selectedNumberStyle]}`
-            : "font-cmxShift2"
-            }`}
+          onChange={(e) => {
+            if (e.target.value.length <= 3) {
+              setUserNumber(e.target.value);
+            }
+          }}
+          className={`w-full border border-gray-300 rounded p-2 mb-4 text-2xl sm:text-4xl ${
+            selectedNumberStyle !== null
+              ? `font-${customNumberStyles[selectedNumberStyle]}`
+              : "font-cmxShift2"
+          }`}
           placeholder="15"
         />
         {/* Botones para elegir la fuente del número */}
@@ -101,10 +109,11 @@ const CustomName = () => {
             <button
               key={index}
               onClick={() => setSelectedNumberStyle(index)}
-              className={`border border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${selectedNumberStyle === index
-                ? "bg-gray-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                } font-${style}`}
+              className={`border border-gray-300 rounded-md p-2 text-center transition-colors text-lg sm:text-xl ${
+                selectedNumberStyle === index
+                  ? "bg-gray-500 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              } font-${style}`}
             >
               {userNumber || "15"}
             </button>

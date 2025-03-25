@@ -62,21 +62,21 @@ const PredeterminadosID = () => {
           </div>
 
           {/* Columna 3 */}
-          <div className="flex-1 flex flex-col p-4 overflow-y-auto font-favoritMono">
+          <div className="flex-1 flex flex-col p-4 overflow-y-auto ">
             {product ? (
               <>
-                <h1 className="text-4xl md:text-7xl font-bold mb-2 w-full">
+                <h1 className="text-4xl md:text-7xl font-bold mb-2 w-full font-favoritExpandedBook">
                   {product.title}
                 </h1>
-                <p className="text-lg text-red-600 font-semibold mb-2">
+                <p className="text-lg text-red-600 font-semibold mb-2 font-favoritExpandedBook">
                   {product.price}{" "}
                   {product.oldPrice && (
-                    <span className="line-through text-gray-500 ml-2">
+                    <span className="line-through text-gray-500 ml-2 font-favoritExpandedBook">
                       {product.oldPrice}
                     </span>
                   )}
                 </p>
-                <p className="text-red-600 mb-2">
+                <p className="text-red-600 mb-2 font-favoritExpandedBook">
                   {product.cantidadesVendidos} VENDIDOS EN LAS ÚLTIMAS HORAS
                 </p>
 
@@ -89,7 +89,9 @@ const PredeterminadosID = () => {
                     >
                       <Minus size={16} />
                     </button>
-                    <span className="font-semibold">{quantity}</span>
+                    <span className="font-semibold font-favoritExpandedBook">
+                      {quantity}
+                    </span>
                     <button
                       onClick={handleIncrement}
                       className="border border-gray-400 px-2 py-1 rounded hover:bg-gray-200"
@@ -97,13 +99,13 @@ const PredeterminadosID = () => {
                       <Plus size={16} />
                     </button>
                   </div>
-                  <button className="flex-1 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors">
+                  <button className="flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded hover:bg-gray-800 transition-colors">
                     Agregar al Carrito
                   </button>
                 </div>
 
                 {/* Comprar ahora */}
-                <button className="border border-black text-black px-4 py-2 rounded mb-4 hover:bg-black hover:text-white transition-colors">
+                <button className="border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 hover:bg-black hover:text-white transition-colors">
                   Comprar Ahora
                 </button>
 
@@ -118,13 +120,13 @@ const PredeterminadosID = () => {
 
                 {/* Detalles */}
                 <details className="mb-4">
-                  <summary className="cursor-pointer font-bold mb-2">
+                  <summary className="cursor-pointer font-bold mb-2 font-favoritExpandedBook">
                     Descripción del producto
                   </summary>
-                  <p className="mb-2">
+                  <p className="mb-2 font-favoritExpandedBook">
                     Nuestras fundas combinan diseño único y materiales premium:
                   </p>
-                  <ul className="mb-2 list-disc list-inside">
+                  <ul className="mb-2 list-disc list-inside font-favoritExpandedBook">
                     <li>Parte trasera de aluminio.</li>
                     <li>Bordes de silicona reforzada.</li>
                     <li>Agarre antideslizante.</li>
@@ -133,13 +135,13 @@ const PredeterminadosID = () => {
                   </ul>
                 </details>
                 <details className="mb-4">
-                  <summary className="cursor-pointer font-bold mb-2">
+                  <summary className="cursor-pointer font-bold mb-2 font-favoritExpandedBook">
                     Información del envío
                   </summary>
-                  <p className="mb-2">
+                  <p className="mb-2 font-favoritExpandedBook">
                     🏭 Tiempo de producción: 1-3 días hábiles
                   </p>
-                  <p className="mb-2">
+                  <p className="mb-2 font-favoritExpandedBook">
                     ✈️ Tiempo de envío: Nuestros productos se fabrican y envían
                     desde nuestra oficina en Santa Fe (Arg) y la entrega demora
                     entre 1 y 5 días.

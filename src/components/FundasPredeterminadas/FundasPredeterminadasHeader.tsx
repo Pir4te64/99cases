@@ -22,7 +22,8 @@ const FundasPredeterminadasHeader = () => {
           lg:text-9xl 
           xl:text-[216px] 
           font-bold 
-          font-dharmaGothic 
+          font-dharmaGothicM 
+          italic 
           uppercase 
           leading-none 
           tracking-wide

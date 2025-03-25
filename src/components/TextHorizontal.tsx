@@ -1,4 +1,3 @@
-
 const textItems = [
   "Envíos a todo el país",
   "Hecho en Argentina",
@@ -11,7 +10,7 @@ const TextHorizontal = () => {
     <div>
       {/* Texto principal en fondo negro */}
       <div className="bg-black py-8 h-64 md:h-96 flex items-center justify-center text-center">
-        <h1 className="text-6xl sm:text-4xl md:text-8xl font-dharmaGothic font-bold text-white uppercase px-4">
+        <h1 className="text-6xl sm:text-4xl md:text-9xl font-dharmaGothicM italic font-bold text-white uppercase px-4">
           ¡Protegé tu teléfono con onda, estilo y calidad!
         </h1>
       </div>

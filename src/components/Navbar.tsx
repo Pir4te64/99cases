@@ -7,13 +7,27 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // <-- Estado de login
+
   const location = useLocation();
+
+  // Revisa si existe un token en el localStorage y setea isLoggedIn en true o false.
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   // Cierra ambos menús cuando cambia la URL
   useEffect(() => {
     setMenuOpen(false);
     setIsOpen(false);
   }, [location]);
+
+  // Maneja el logout
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
 
   return (
     <>
@@ -30,6 +44,7 @@ export default function Navbar() {
           </button>
         </div>
       )}
+
       <nav className="bg-black text-white p-5 mx-5 relative">
         {/* Desktop Navbar */}
         <div className="hidden md:flex items-center justify-between">
@@ -37,7 +52,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-6">
             <Link
               to="/"
-              className="hover:text-gray-300 transition-colors font-favorit"
+              className="hover:text-gray-300 transition-colors font-favoritMono tracking-wide"
             >
               Inicio
             </Link>
@@ -81,18 +96,31 @@ export default function Navbar() {
             <button className="hover:text-gray-300 transition-colors">
               <ShoppingCart className="h-5 w-5" />
             </button>
-            <Link
-              to="/register"
-              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
-            >
-              Registrarse
-            </Link>
-            <Link
-              to="/login"
-              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
-            >
-              Login
-            </Link>
+
+            {/* Si está logeado, mostramos "Cerrar Sesión", sino botones de "Registrarse" y "Login" */}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
+              >
+                Cerrar Sesión
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
+                >
+                  Registrarse
+                </Link>
+                <Link
+                  to="/login"
+                  className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors"
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
@@ -141,15 +169,31 @@ export default function Navbar() {
             >
               Fundas Personalizadas
             </Link>
-            <Link
-              to="/register"
-              className="hover:text-gray-300 transition-colors"
-            >
-              Registrarse
-            </Link>
-            <Link to="/login" className="hover:text-gray-300 transition-colors">
-              Login
-            </Link>
+
+            {/* De igual forma en móvil, según si está logeado o no */}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-left hover:text-gray-300 transition-colors"
+              >
+                Cerrar Sesión
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="hover:text-gray-300 transition-colors"
+                >
+                  Registrarse
+                </Link>
+                <Link
+                  to="/login"
+                  className="hover:text-gray-300 transition-colors"
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         )}
       </nav>

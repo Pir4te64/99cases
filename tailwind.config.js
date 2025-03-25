@@ -14,6 +14,7 @@ module.exports = {
     "font-backyardShot",
     "font-backyardStencil",
     "font-cmxCleanOfcl",
+    "font-dharmaGothicM italic font-bold",
   ],
   theme: {
     extend: {
@@ -21,6 +22,7 @@ module.exports = {
         // Fuentes ya existentes
         favorit: ["ABCFavorit", "sans-serif"],
         favoritExpanded: ["ABCFavoritExpanded", "sans-serif"],
+        favoritExpandedBook: ["ABCFavoritExpanded-Book", "sans-serif"],
         favoritExtended: ["ABCFavoritExtended", "sans-serif"],
         favoritMono: ["ABCFavoritMono", "monospace"],
         dharmaGothicM: ["DharmaGothicM", "sans-serif"],

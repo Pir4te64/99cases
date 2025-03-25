@@ -43,7 +43,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
     >
       <div className="h-8 flex justify-center items-center mb-2">
         {discount ? (
-          <div className="px-2 py-1 bg-gray-300 text-red-600 font-favoritMono font-bold rounded-md">
+          <div className="px-2 py-1 bg-gray-300 text-red-600  font-bold rounded-md font-favoritExpandedBook">
             {discount}
           </div>
         ) : (
@@ -58,13 +58,15 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
           className="mx-auto my-4 h-auto object-contain"
         />
       </picture>
-      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritMono">
+      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritExpandedBook tracking-wide">
         {title}
       </h3>
       <div className="flex justify-center items-baseline gap-2">
-        <span className="text-lg sm:text-xl font-bold text-black">{price}</span>
+        <span className="text-lg sm:text-xl font-bold text-black font-favoritExpandedBook">
+          {price}
+        </span>
         {oldPrice && (
-          <span className="text-sm sm:text-md line-through font-bold text-gray-400">
+          <span className="text-sm sm:text-md line-through font-bold text-gray-400 font-favoritExpandedBook">
             {oldPrice}
           </span>
         )}

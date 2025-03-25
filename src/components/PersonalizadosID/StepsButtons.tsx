@@ -6,56 +6,89 @@ const StepsButtons = () => {
     (state: any) => state.toggleShowMarca
   );
   const toggleStep2 = usePersonalizadoStore((state: any) => state.toggleStep2);
-  const step2Active = usePersonalizadoStore((state: any) => state.step2Active);
-
-  // Para el botón 3
   const toggleShowColors = usePersonalizadoStore(
     (state: any) => state.toggleShowColors
   );
-  const showColors = usePersonalizadoStore((state: any) => state.showColors);
 
   return (
-    <div className="flex flex-col md:flex-row items-start mb-4 gap-3 justify-between">
+    // Grid: 1 columna en móvil, 3 columnas en md+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
       {/* Paso 1 */}
       <button
         onClick={toggleShowMarca}
-        className="flex md:w-full w-11/12 items-center md:justify-center justify-start bg-transparent text-black border border-black p-3 rounded-md tracking-wide md:text-5xl text-4xl font-normal uppercase font-dharmaGothic hover:bg-red-600 transition-colors hover:text-white"
+        className="
+          flex items-center 
+          justify-start md:justify-center
+          bg-white text-black border border-black rounded-md
+          text-2xl md:text-4xl uppercase font-dharmaGothicM font-bold italic
+          transition-colors p-4 hover:bg-red-600 hover:text-white
+        "
       >
-        <span className="mr-2  md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span
+          className="
+            inline-flex items-center justify-center
+            w-10 h-10 md:w-12 md:h-12 mr-3
+            bg-black text-white rounded-md font-dharmaGothicM font-bold italic
+          "
+        >
           1
         </span>
-        Elegir Modelo
+        {/* Usamos text-left en móviles, text-center en md+ */}
+        <span className="leading-none text-left md:text-center font-dharmaGothicM font-bold italic tracking-wide">
+          Elegir Modelo
+        </span>
       </button>
 
       {/* Paso 2 */}
       <button
         onClick={toggleStep2}
-        className={`h-24 flex md:w-full w-11/12 items-start text-left bg-transparent text-black border border-black p-3 rounded-md tracking-wide text-4xl font-normal uppercase font-dharmaGothic transition-colors ${step2Active
-          ? "hover:bg-green-500 hover:text-white"
-          : "hover:bg-red-500 hover:text-white"
-          }`}
+        className="
+          flex items-center 
+          justify-start md:justify-center 
+          bg-white text-black border border-black rounded-md
+          text-2xl md:text-4xl uppercase font-dharmaGothicM font-bold italic
+          transition-colors p-4 hover:bg-red-600 hover:text-white
+        "
       >
-        <span className="mr-2  md:w-20 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span
+          className="
+            inline-flex items-center justify-center
+            w-10 h-10 md:w-12 md:h-12 mr-3
+            bg-black text-white rounded-md font-dharmaGothicM font-bold italic 
+          "
+        >
           2
         </span>
-        <span className=" md:text-[30px]">
+        <span className="leading-none text-left md:text-center font-dharmaGothicM italic font-bold tracking-wide">
           Nombre, Número y
-          <br className="block md:hidden" /> Tipografía
+          <br className="hidden md:block" />
+          Tipografía
         </span>
       </button>
 
       {/* Paso 3 */}
       <button
         onClick={toggleShowColors}
-        className={`flex md:w-full w-11/12 items-center bg-transparent text-black border border-black p-3 rounded-md tracking-wide md:text-5xl text-4xl font-normal uppercase font-dharmaGothic transition-colors ${showColors
-          ? "hover:bg-green-500 hover:text-white"
-          : "hover:bg-red-500 hover:text-white"
-          }`}
+        className="
+          flex items-center 
+          justify-start md:justify-center
+          bg-white text-black border border-black rounded-md
+          text-2xl md:text-4xl uppercase font-dharmaGothicM font-bold italic
+          transition-colors p-4 hover:bg-red-600 hover:text-white
+        "
       >
-        <span className="mr-2  md:w-12 md:h-12 w-10 h-10 flex items-center justify-center text-white bg-black rounded-md font-dharmaGothic">
+        <span
+          className="
+            inline-flex items-center justify-center
+            w-10 h-10 md:w-12 md:h-12 mr-3
+            bg-black text-white rounded-md font-dharmaGothicM font-bold italic
+          "
+        >
           3
         </span>
-        Colores
+        <span className="leading-none text-left md:text-center font-dharmaGothicM italic font-bold tracking-wide">
+          Colores
+        </span>
       </button>
     </div>
   );

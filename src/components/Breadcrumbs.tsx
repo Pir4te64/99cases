@@ -23,7 +23,9 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
                 {index < items.length - 1 && <span className="mx-2">/</span>}
               </>
             ) : (
-              <span className="font-semibold">{item.label}</span>
+              <span className="font-semibold font-favoritMono tracking-wide">
+                {item.label}
+              </span>
             )}
           </li>
         ))}

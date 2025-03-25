@@ -49,13 +49,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="mx-auto my-4 h-auto object-contain"
         />
       </picture>
-      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritMono">
+      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritExpandedBook">
         {title}
       </h3>
       <div className="flex justify-center items-baseline gap-2">
-        <span className="text-lg sm:text-xl font-bold text-black">{price}</span>
+        <span className="text-lg sm:text-xl font-bold text-black font-favoritExpandedBook">
+          {price}
+        </span>
         {oldPrice && (
-          <span className="text-sm sm:text-md line-through font-bold text-gray-400">
+          <span className="text-sm sm:text-md font-favoritExpandedBook line-through font-bold text-gray-400">
             {oldPrice}
           </span>
         )}

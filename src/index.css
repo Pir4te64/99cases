@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 * {
-    font-family: 'ABCFavoritMono', monospace;
+    font-family: 'ABCFavoritMono-Book', monospace;
     font-weight: 400;
 }
 

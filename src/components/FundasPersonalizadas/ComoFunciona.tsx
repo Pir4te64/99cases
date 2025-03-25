@@ -32,7 +32,7 @@ const ComoFunciona = () => {
   return (
     <div className="w-full  mx-auto px-4 py-8 bg-white">
       {/* Título */}
-      <h2 className="text-center text-4xl md:text-5xl text-black font-favorit mb-8 uppercase tracking-wide">
+      <h2 className="text-center text-4xl md:text-5xl text-black font-favoritExpandedBook mb-8 uppercase tracking-wide">
         ¿CÓMO FUNCIONA?
       </h2>
 
@@ -52,8 +52,8 @@ const ComoFunciona = () => {
               className="mb-4 w-16 h-16"
             />
             {/* Texto del paso con máximo de dos líneas */}
-            <p className="text-sm text-black text-center">
-              <span className="text-white bg-red-500 rounded-full w-8 h-8 inline-flex items-center justify-center font-bold mr-1">
+            <p className="text-sm text-black text-center font-favoritExpandedBook">
+              <span className="text-white bg-red-500 rounded-full w-8 h-8 inline-flex items-center justify-center  font-favoritExpandedBook font-bold mr-1">
                 {index + 1}
               </span>
               {step.text}

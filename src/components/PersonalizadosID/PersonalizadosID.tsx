@@ -63,7 +63,9 @@ const PersonalizadosID = () => {
                 className="max-h-full object-contain"
               />
             ) : (
-              <p>No se encontró la imagen del producto.</p>
+              <p className="font-favoritMono font-bold italic">
+                No se encontró la imagen del producto.
+              </p>
             )}
           </div>
 
@@ -87,7 +89,9 @@ const PersonalizadosID = () => {
                 )}
               </>
             ) : (
-              <p>No se encontró el producto.</p>
+              <p className="font-favoritMono font-bold italic">
+                No se encontró el producto.
+              </p>
             )}
           </div>
         </div>

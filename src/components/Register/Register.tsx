@@ -3,32 +3,45 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import registerPOST from "./RegisterPOST";
+import loginPOST from "../Login/LoginPOST"; // Asegúrate de que la ruta sea la correcta
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const result = await registerPOST(email, password);
       console.log("Datos de registro:", result);
       if (result.token) {
-        // Toast indicando que se ha registrado correctamente
-        toast.success(
-          "¡Registro exitoso! Dirígete a la página de login para iniciar sesión."
-        );
-        // Redirigimos al usuario a la página de login
-        navigate("/login");
+        toast.success("¡Registro exitoso! Iniciando sesión...");
+        try {
+          const loginResult = await loginPOST(email, password);
+          console.log("Datos de login:", loginResult);
+          if (loginResult.token) {
+            // Guardar el token en el localStorage
+            localStorage.setItem("token", loginResult.token);
+            navigate("/");
+          } else {
+            toast.error("Error al iniciar sesión");
+          }
+        } catch (loginError) {
+          console.error("Error en el login:", loginError);
+          toast.error("Error al iniciar sesión");
+        }
       }
     } catch (error) {
       console.error("Error en el registro:", error);
       toast.error("Error en el registro");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Validación: ambos campos deben tener contenido
   const isFormValid = email.trim() !== "" && password.trim() !== "";
 
   return (
@@ -71,14 +84,13 @@ const Register = () => {
           <div>
             <button
               type="submit"
-              disabled={!isFormValid}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${
-                isFormValid
-                  ? "hover:bg-white hover:text-black"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
+              disabled={!isFormValid || loading}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${isFormValid && !loading
+                ? "hover:bg-white hover:text-black"
+                : "opacity-50 cursor-not-allowed"
+                }`}
             >
-              Registrarse
+              {loading ? "Cargando..." : "Registrarse"}
             </button>
           </div>
         </form>

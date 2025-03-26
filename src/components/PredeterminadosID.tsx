@@ -5,8 +5,8 @@ import imgVertical from "../assets/predetermiandasCases/List.png";
 import imgHorizontal from "../assets/predetermiandasCases/horizontal.png";
 import tarjetas from "../assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
-import ProductDetailLayout from "./PredeterminadoLayout";
 import PredeterminadoLayout from "./PredeterminadoLayout";
+import MarcaCelular from "./PersonalizadosID/MarcaCelular";
 
 const PredeterminadosID = () => {
   const location = useLocation();
@@ -79,7 +79,7 @@ const PredeterminadosID = () => {
                 <p className="text-red-600 mb-2 font-favoritExpandedBook">
                   {product.cantidadesVendidos} VENDIDOS EN LAS ÚLTIMAS HORAS
                 </p>
-
+                <MarcaCelular />
                 {/* Contador */}
                 <div className="flex items-center mb-4 w-full space-x-4">
                   <div className="flex items-center space-x-2">

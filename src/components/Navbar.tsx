@@ -7,15 +7,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // <-- Estado de login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const location = useLocation();
 
-  // Revisa si existe un token en el localStorage y setea isLoggedIn en true o false.
+  // Cada vez que cambia la URL se revisa el token en el localStorage.
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  }, []);
+  }, [location]);
 
   // Cierra ambos menús cuando cambia la URL
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Navbar() {
     setIsOpen(false);
   }, [location]);
 
-  // Maneja el logout
+  // Maneja el logout: remueve el token y actualiza el estado
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
@@ -97,7 +97,7 @@ export default function Navbar() {
               <ShoppingCart className="h-5 w-5" />
             </button>
 
-            {/* Si está logeado, mostramos "Cerrar Sesión", sino botones de "Registrarse" y "Login" */}
+            {/* Muestra "Cerrar Sesión" si está logueado, sino "Registrarse" y "Login" */}
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
@@ -170,7 +170,6 @@ export default function Navbar() {
               Fundas Personalizadas
             </Link>
 
-            {/* De igual forma en móvil, según si está logeado o no */}
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}

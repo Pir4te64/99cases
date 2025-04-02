@@ -4,6 +4,9 @@ import { API } from "../../../utils/Api";
 export interface PhoneModel {
   value: string;
   label: string;
+  marca: string;
+  modelo: string;
+  id: number;
 }
 
 export const fetchPhoneModels = async (): Promise<PhoneModel[]> => {

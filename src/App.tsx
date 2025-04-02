@@ -8,18 +8,20 @@ import PersonalizadosID from "./components/PersonalizadosID/PersonalizadosID";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import { ToastContainer } from "react-toastify";
+import PagosPage from "./pages/Pagos";
 function App() {
   return (
     <Layout>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/predeterminadas" element={<FundasPredeterminadas />} />
-        <Route path="/predeterminadas/:id" element={<PredeterminadosID />} />
-        <Route path="/personalizadas" element={<FundasPersonalizadas />} />
-        <Route path="/personalizadas/:id" element={<PersonalizadosID />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/predeterminadas' element={<FundasPredeterminadas />} />
+        <Route path='/predeterminadas/:id' element={<PredeterminadosID />} />
+        <Route path='/personalizadas' element={<FundasPersonalizadas />} />
+        <Route path='/personalizadas/:id' element={<PersonalizadosID />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/pagos' element={<PagosPage />} />
       </Routes>
     </Layout>
   );

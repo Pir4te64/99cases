@@ -1,5 +1,6 @@
 // CartSidebar.jsx
 import { X, Plus, Minus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
 
 export default function CartSidebar() {
@@ -7,16 +8,18 @@ export default function CartSidebar() {
     isCartOpen,
     closeCart,
     cartItems,
+    subtotal,
+    total,
     updateItemQuantity,
     removeFromCart,
   } = useCartStore();
 
-  // Función para eliminar un ítem
+  const navigate = useNavigate();
+
   const removeItem = (id: string): void => {
     removeFromCart(id);
   };
 
-  // Disminuir cantidad: si la cantidad es 1, se elimina el ítem
   const decreaseQuantity = (id: string, currentQuantity: number): void => {
     if (currentQuantity <= 1) {
       removeFromCart(id);
@@ -25,33 +28,19 @@ export default function CartSidebar() {
     }
   };
 
-  // Aumentar cantidad
   const increaseQuantity = (id: string, currentQuantity: number): void => {
     updateItemQuantity(id, currentQuantity + 1);
   };
 
-  // Función para convertir el precio (string con "$") a número
-  const parsePrice = (priceStr: string | number): number => {
-    if (typeof priceStr === "string") {
-      // Removemos cualquier carácter no numérico, excepto el punto decimal
-      const numeric = priceStr.replace(/[^0-9.]/g, "");
-      return parseFloat(numeric) || 0;
-    }
-    return priceStr;
-  };
-
-  // Calcular subtotal usando el precio convertido a número
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + parsePrice(item.price) * item.quantity,
-    0
-  );
-
-  // En este ejemplo, total = subtotal (sin envío)
-  const total = subtotal;
-
-  // Funciones de los botones (por ahora, sin funcionalidad real)
+  // Función para iniciar compra: redirige a la pantalla de pagos y envía la información del carrito
   const handleIniciarCompra = () => {
-    // Lógica para iniciar compra (checkout) o redirigir a otra página
+    navigate("/pagos", {
+      state: {
+        cartItems,
+        subtotal,
+        total,
+      },
+    });
   };
 
   const handleVerMasProductos = () => {
@@ -75,7 +64,6 @@ export default function CartSidebar() {
 
       {/* Contenedor de productos y resumen */}
       <div className='p-4 h-[600px] overflow-y-auto'>
-        {/* Lista de productos */}
         {cartItems.length > 0 ? (
           <ul className='space-y-4'>
             {cartItems.map((item, index) => (
@@ -106,7 +94,7 @@ export default function CartSidebar() {
                         className='flex items-center justify-center p-1'>
                         <Minus size={16} className='text-black' />
                       </button>
-                      <span className='mx-2'>{item.quantity}</span>
+                      <span className='mx-2 text-red-600'>{item.quantity}</span>
                       <button
                         onClick={() => increaseQuantity(item.id, item.quantity)}
                         className='flex items-center justify-center p-1'>
@@ -122,10 +110,9 @@ export default function CartSidebar() {
           <p className='text-black'>El carrito está vacío.</p>
         )}
 
-        {/* Resumen (Subtotal, Total y botones) se ubica justo debajo de la lista */}
         {cartItems.length > 0 && (
           <div className='mt-4'>
-            <div className=' border-black pt-4'>
+            <div className='border-black pt-4'>
               <div className='flex justify-between mb-2'>
                 <span className='text-sm uppercase text-black font-favoritExpandedBook'>
                   SUBTOTAL (sin envío)

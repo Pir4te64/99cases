@@ -4,6 +4,7 @@ import Breadcrumbs from "../Breadcrumbs"; // Ajusta la ruta si es necesario
 import useCartStore from "../../store/cartStore";
 import ResumenCompra from "./PagosProductos"; // Ajusta la ruta según tu estructura
 import usePaymentFormStore from "../../store/pagoStore"; // Si estás usando el store de formulario
+import DatosContacto from "./DatosContacto";
 
 const Pagos = () => {
   const { cartItems, subtotal, total } = useCartStore();
@@ -11,7 +12,7 @@ const Pagos = () => {
   useEffect(() => {
     // Opcional: redirigir si el carrito está vacío
     if (cartItems.length === 0) {
-      // Redirige a otra ruta si es necesario
+      // Redirigir a la página principal o a otra ruta
     }
   }, [cartItems]);
 
@@ -64,14 +65,22 @@ const Pagos = () => {
     });
   };
 
+  const isFormValid =
+    email.trim() !== "" &&
+    nombre.trim() !== "" &&
+    apellido.trim() !== "" &&
+    codigoPostal.trim() !== "" &&
+    calle.trim() !== "" &&
+    (sinNumero ? true : numero.trim() !== "") &&
+    barrio.trim() !== "" &&
+    ciudad.trim() !== "" &&
+    mismaFacturacion;
+
   return (
     <div className='min-h-screen bg-white text-black'>
       <div className='container mx-auto px-4 py-6'>
         <Breadcrumbs items={breadcrumbItems} />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          {/* En mobile, el resumen se muestra primero (order-1) y el formulario después (order-2)
-              En md, se invierte el orden */}
-          {/* Columna 1: Resumen de Compra */}
           <div className='order-1 md:order-2'>
             <ResumenCompra
               cartItems={cartItems}
@@ -84,41 +93,12 @@ const Pagos = () => {
           <div className='order-2 md:order-1'>
             <form onSubmit={handleSubmit} className='space-y-8'>
               {/* DATOS DE CONTACTO */}
-              <section>
-                <h2 className='text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook'>
-                  DATOS DE CONTACTO
-                </h2>
-                <div className='mb-4'>
-                  <label
-                    htmlFor='email'
-                    className='block text-sm md:text-base font-medium mb-1 font-favoritExpandedBook'>
-                    E-mail
-                  </label>
-                  <input
-                    id='email'
-                    type='email'
-                    placeholder='nombre@ejemplo.com'
-                    className='w-full border border-gray-300 rounded px-3 py-2 text-sm md:text-base focus:outline-none focus:ring focus:border-black font-favoritExpandedBook'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className='flex items-center'>
-                  <input
-                    id='ofertas'
-                    type='checkbox'
-                    className='mr-2'
-                    checked={aceptaNovedades}
-                    onChange={(e) => setAceptaNovedades(e.target.checked)}
-                  />
-                  <label
-                    htmlFor='ofertas'
-                    className='text-sm md:text-base font-favoritExpandedBook'>
-                    Quiero recibir ofertas y novedades por e-mail.
-                  </label>
-                </div>
-              </section>
-
+              <DatosContacto
+                email={email}
+                aceptaNovedades={aceptaNovedades}
+                setEmail={setEmail}
+                setAceptaNovedades={setAceptaNovedades}
+              />
               {/* ENTREGA */}
               <section>
                 <h2 className='text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook'>
@@ -296,7 +276,12 @@ const Pagos = () => {
               {/* Botón Final */}
               <button
                 type='submit'
-                className='bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition-colors font-favoritExpandedBook'>
+                disabled={!isFormValid}
+                className={`w-full ${
+                  isFormValid
+                    ? "bg-black hover:bg-gray-800"
+                    : "bg-gray-500 cursor-not-allowed"
+                } text-white px-6 py-3 rounded transition-colors font-favoritExpandedBook`}>
                 CONTINUAR PARA EL PAGO
               </button>
             </form>

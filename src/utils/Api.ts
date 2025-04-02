@@ -1,9 +1,10 @@
-export const baseURL = "https://api-cases99.nourish.com.ar/v1/";
+export const baseURL = "https://cases99.cruznegradev.com/v1";
 
 export const API = {
   login: `${baseURL}/login`,
   register: `${baseURL}/register`,
   createCase: `${baseURL}/cases/create`,
+  getAllCases: `${baseURL}/cases/get-all`,
   updateCaseImage: `${baseURL}/cases/upload-image`,
   models: `${baseURL}/phone-models/create`,
   modelsGetAll: `${baseURL}/phone-models/get-all`,

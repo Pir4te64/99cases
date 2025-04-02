@@ -1,102 +1,60 @@
-import fundaFox from "../../../assets/Productos/FP1.png";
-import fundaFox2 from "../../../assets/Productos/FP2.png";
-import fundaFox3 from "../../../assets/Productos/FP3.png";
-import fundaFox4 from "../../../assets/Productos/FP4.png";
-import fundaFox5 from "../../../assets/Productos/FP5.png";
-import fundaFox6 from "../../../assets/Productos/FP6.png";
-import fundaFox7 from "../../../assets/Productos/FP7.png";
-import fundaFox8 from "../../../assets/Productos/FP8.png";
+import axios from "axios";
+import { API } from "../../../utils/Api";
 
-interface Product {
-  id: number;
-  discount?: string; // opcional
+export interface Product {
+  id: number | string;
+  discount: string;
   imageSrc: string;
   title: string;
   price: string;
-  oldPrice?: string; // opcional
-  cantidadesVendidos: number; // Indica cuántas se vendieron
-  description: string; // Características del producto
+  oldPrice: string;
+  cantidadesVendidos: number;
+  description: string;
 }
 
-export const products: Product[] = [
-  {
-    id: 1,
-    discount: "-13% OFF",
-    imageSrc: fundaFox,
-    title: "Funda Yamaha Fox",
-    price: "$30.000",
-    oldPrice: "$35.000",
-    cantidadesVendidos: 120,
-    description:
-      "Funda para celular con diseño moderno y resistente, protege contra golpes y rayones.",
-  },
-  {
-    id: 2,
-    imageSrc: fundaFox2,
-    title: "Funda Yamaha Fox",
-    price: "$28.000",
-    cantidadesVendidos: 95,
-    description:
-      "Funda para celular elegante y liviana, con material antideslizante y acabado premium.",
-  },
-  {
-    id: 3,
-    discount: "-10% OFF",
-    imageSrc: fundaFox3,
-    title: "Funda Yamaha Fox",
-    price: "$27.000",
-    oldPrice: "$30.000",
-    cantidadesVendidos: 150,
-    description:
-      "Funda para celular resistente, con diseño ergonómico y protección completa contra caídas.",
-  },
-  {
-    id: 4,
-    imageSrc: fundaFox4,
-    title: "Funda Yamaha Fox",
-    price: "$29.000",
-    cantidadesVendidos: 80,
-    description:
-      "Funda para celular con estilo, fabricada en material flexible y resistente a impactos.",
-  },
-  {
-    id: 5,
-    discount: "-13% OFF",
-    imageSrc: fundaFox5,
-    title: "Funda Yamaha Fox",
-    price: "$29.000",
-    oldPrice: "$35.000",
-    cantidadesVendidos: 110,
-    description:
-      "Funda para celular con acabado mate, protege tu dispositivo con elegancia y seguridad.",
-  },
-  {
-    id: 6,
-    imageSrc: fundaFox6,
-    title: "Funda Yamaha Fox",
-    price: "$29.000",
-    cantidadesVendidos: 70,
-    description:
-      "Funda para celular con diseño minimalista, ofrece alta resistencia a impactos y caídas.",
-  },
-  {
-    id: 7,
-    imageSrc: fundaFox7,
-    title: "Funda Yamaha Fox",
-    price: "$29.000",
-    cantidadesVendidos: 130,
-    description:
-      "Funda para celular con recubrimiento antideslizante y protección total, ideal para uso diario.",
-  },
-  {
-    id: 8,
-    discount: "-13% OFF",
-    imageSrc: fundaFox8,
-    title: "Funda Yamaha Fox",
-    price: "$29.000",
-    oldPrice: "$35.000",
-    cantidadesVendidos: 90,
-    description:
-      "Funda para celular con diseño exclusivo, combina resistencia y estilo para proteger tu dispositivo.",
-  },
-];
+// Se exporta la constante products para que otras partes del proyecto la utilicen.
+// Se inicializa como un arreglo vacío y luego se actualiza con los datos adaptados.
+export const products: Product[] = [];
+
+// Función para adaptar el producto recibido desde la API
+const adaptProduct = (apiProduct: any): Product => {
+  return {
+    id: apiProduct.id || "",
+    discount: apiProduct.discount || "",
+    imageSrc: apiProduct.imagen?.url || "",
+    title: apiProduct.nombre || "",
+    price: apiProduct.precio !== undefined ? `$${apiProduct.precio}` : "",
+    oldPrice: apiProduct.oldPrice || "",
+    cantidadesVendidos:
+      apiProduct.cantidadesVendidos !== undefined
+        ? apiProduct.cantidadesVendidos
+        : 0,
+    description: apiProduct.descripcion || "",
+  };
+};
+
+const fetchAndAdaptProducts = async () => {
+  try {
+    // Obtiene el token desde localStorage
+    const token = localStorage.getItem("token");
+    const response = await axios.get(API.getAllCases, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Se asume que response.data es un array de productos
+    const apiProducts = response.data;
+    const adaptedProducts = apiProducts.map((prod: any) => adaptProduct(prod));
+
+    // Actualiza el arreglo exportado: se muta el array para conservar la referencia
+    products.splice(0, products.length, ...adaptedProducts);
+
+    console.log("Productos adaptados:", products);
+  } catch (error) {
+    console.error("Error al obtener los productos:", error);
+  }
+};
+
+// Se ejecuta la petición al cargar el módulo
+fetchAndAdaptProducts();

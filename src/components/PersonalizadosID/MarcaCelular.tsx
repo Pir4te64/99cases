@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select, { ActionMeta, OnChangeValue } from "react-select";
+import { fetchPhoneModels, PhoneModel } from "./Peticiones/MarcaCelularesGET";
 
-interface PhoneModel {
-  value: string;
-  label: string;
-}
-
-// Lista de modelos de ejemplo
-const phoneModels: PhoneModel[] = [
-  { value: "iphone-14-pro-max", label: "iPhone 14 Pro Max" },
-  { value: "iphone-13", label: "iPhone 13" },
-  { value: "samsung-galaxy-s23", label: "Samsung Galaxy S23" },
-  { value: "motorola-edge-30", label: "Motorola Edge 30" },
-  { value: "xiaomi-12-pro", label: "Xiaomi 12 Pro" },
-];
-
-const MarcaCelular = () => {
+const MarcaCelularGET = () => {
+  const [phoneModels, setPhoneModels] = useState<PhoneModel[]>([]);
   const [selectedModel, setSelectedModel] = useState<PhoneModel | null>(null);
   const [inputValue, setInputValue] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getPhoneModels = async () => {
+      try {
+        const models = await fetchPhoneModels();
+        console.log(models);
+        setPhoneModels(models);
+      } catch (error) {
+        console.error("Error al obtener los modelos:", error);
+      }
+    };
+    getPhoneModels();
+  }, []);
 
   const handleChange = (
     selectedOption: OnChangeValue<PhoneModel, false>,
@@ -26,50 +28,69 @@ const MarcaCelular = () => {
     setSelectedModel(selectedOption);
   };
 
+  // Filtrar los modelos según la marca seleccionada
+  const filteredPhoneModels = selectedBrand
+    ? phoneModels.filter((model) => model.marca === selectedBrand)
+    : [];
+
+  // Extraer las marcas únicas desde los datos recibidos
+  const uniqueBrands = Array.from(
+    new Set(phoneModels.map((model) => model.marca))
+  );
+
   return (
-    <div className="mb-4 w-full my-4">
+    <div className='mb-4 w-full my-6'>
       {/* Selección de marca */}
-      <p className="uppercase mb-2">¿Cuál es la marca de tu celular?</p>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
-        <button className="border border-black bg-white rounded-md py-2 uppercase hover:bg-gray-400 hover:border-gray-400 hover:text-white transition-colors">
-          Apple
-        </button>
-        <button className="border border-black bg-white rounded-md py-2 uppercase hover:bg-gray-400 hover:border-gray-400 hover:text-white transition-colors">
-          Samsung
-        </button>
-        <button className="border border-black bg-white rounded-md py-2 uppercase hover:bg-gray-400 hover:border-gray-400 hover:text-white transition-colors">
-          Motorola
-        </button>
-        <button className="border border-black bg-white rounded-md py-2 uppercase hover:bg-gray-400 hover:border-gray-400 hover:text-white transition-colors">
-          Xiaomi
-        </button>
+      <p className='uppercase mb-2'>¿Cuál es la marca de tu celular?</p>
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 w-full'>
+        {uniqueBrands.map((brand) => (
+          <button
+            key={brand}
+            onClick={() => {
+              setSelectedBrand(brand);
+              setSelectedModel(null); // Reinicia el modelo al cambiar de marca
+            }}
+            className={`border border-black bg-white rounded-md py-2 uppercase transition-colors ${
+              selectedBrand === brand
+                ? "bg-gray-400 border-gray-400 text-white"
+                : "hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+            }`}>
+            {brand}
+          </button>
+        ))}
       </div>
 
       {/* Línea divisoria */}
-      <div className="my-4 h-px bg-gray-300" />
+      <div className='my-4 h-px bg-gray-300' />
 
       {/* Selección de modelo */}
-      <div className="mb-4 w-full">
-        <p className="uppercase mb-2 ">¿Cuál es el modelo de tu celular?</p>
+      <div className=' w-full'>
+        <p className='uppercase mb-2'>¿Cuál es el modelo de tu celular?</p>
         <Select<PhoneModel, false>
-          options={phoneModels}
+          options={filteredPhoneModels}
           value={selectedModel}
           onChange={handleChange}
-          placeholder="Selecciona tu modelo de celular"
+          noOptionsMessage={() => "No hay modelos disponibles"}
+          placeholder={
+            selectedBrand
+              ? "Selecciona tu modelo de celular"
+              : "Primero selecciona una marca"
+          }
           isSearchable={true}
           inputValue={inputValue}
           onInputChange={setInputValue}
-          // Aquí personalizas la altura del Select
           styles={{
             control: (base) => ({
               ...base,
-              minHeight: "48px", // Aumenta la altura mínima
+              minHeight: "48px",
             }),
           }}
+          getOptionLabel={(option) => option.modelo}
+          getOptionValue={(option) => option.id.toString()}
         />
       </div>
     </div>
   );
 };
 
-export default MarcaCelular;
+export default MarcaCelularGET;

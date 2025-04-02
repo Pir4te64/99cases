@@ -47,30 +47,30 @@ const PersonalizadosID = () => {
 
   return (
     <PersonalizadosLayout>
-      <div className="mx-auto px-4 py-6 bg-white text-black">
+      <div className='mx-auto px-4 py-6 bg-white text-black'>
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4">
+        <div className='flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4'>
           <ProductImage
             imgHorizontal={imgHorizontal}
             imgVertical={imgVertical}
           />
 
-          <div className="flex items-center justify-center">
+          <div className='flex items-center justify-center'>
             {product ? (
               <img
                 src={product.imageSrc}
                 alt={product.title}
-                className="max-h-full object-contain"
+                className='max-h-full object-contain'
               />
             ) : (
-              <p className="font-favoritMono font-bold italic">
+              <p className='font-favoritMono font-bold italic'>
                 No se encontró la imagen del producto.
               </p>
             )}
           </div>
 
           {/* Columna 3 */}
-          <div className="flex-1 flex flex-col p-4 overflow-y-auto font-favoritMono">
+          <div className='flex-1 flex flex-col p-4 py-10 overflow-y-auto font-favoritMono'>
             {product ? (
               <>
                 <ProductInfo product={product} />
@@ -89,7 +89,7 @@ const PersonalizadosID = () => {
                 )}
               </>
             ) : (
-              <p className="font-favoritMono font-bold italic">
+              <p className='font-favoritMono font-bold italic'>
                 No se encontró el producto.
               </p>
             )}

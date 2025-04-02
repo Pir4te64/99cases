@@ -1,11 +1,11 @@
-import { productsPersonalizadas } from "../Fundas/FundasPersonalizadas/FundasPersonalizadasGET";
 import ProductCardPersonalizadas from "../Fundas/FundasPersonalizadas/ProductosPersonalizados";
+import { products } from "../Fundas/FundasPredeterminadas/fundasGet";
 
 const FundasPersonalizadasProductos = () => {
   return (
-    <div className=" mx-auto w-full flex flex-col items-center justify-center bg-white">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-        {productsPersonalizadas.map((product) => (
+    <div className=' mx-auto w-full flex flex-col items-center justify-center bg-white'>
+      <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 '>
+        {products.map((product) => (
           <ProductCardPersonalizadas
             key={product.id}
             id={product.id.toString()}

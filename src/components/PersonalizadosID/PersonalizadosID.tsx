@@ -83,7 +83,7 @@ const PersonalizadosID = () => {
                 {showColors && <Colores />}
                 {!(showMarca || step2Active || showColors) && (
                   <>
-                    <PurchaseActions />
+                    <PurchaseActions product={product} />
                     <ProductDetails />
                   </>
                 )}

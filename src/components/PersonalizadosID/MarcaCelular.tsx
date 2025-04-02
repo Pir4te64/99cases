@@ -12,7 +12,6 @@ const MarcaCelularGET = () => {
     const getPhoneModels = async () => {
       try {
         const models = await fetchPhoneModels();
-        console.log(models);
         setPhoneModels(models);
       } catch (error) {
         console.error("Error al obtener los modelos:", error);
@@ -52,7 +51,7 @@ const MarcaCelularGET = () => {
             }}
             className={`border border-black bg-white rounded-md py-2 uppercase transition-colors ${
               selectedBrand === brand
-                ? "bg-gray-400 border-gray-400 text-white"
+                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
                 : "hover:bg-gray-400 hover:border-gray-400 hover:text-white"
             }`}>
             {brand}

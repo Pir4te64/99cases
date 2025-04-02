@@ -49,8 +49,6 @@ const fetchAndAdaptProducts = async () => {
 
     // Actualiza el arreglo exportado: se muta el array para conservar la referencia
     products.splice(0, products.length, ...adaptedProducts);
-
-    console.log("Productos adaptados:", products);
   } catch (error) {
     console.error("Error al obtener los productos:", error);
   }

@@ -138,11 +138,6 @@ export default function CartSidebar() {
               className='bg-black text-white w-full py-2 mb-2 rounded font-favoritExpandedBook'>
               INICIAR COMPRA
             </button>
-            <button
-              onClick={handleVerMasProductos}
-              className='underline text-center w-full text-sm text-black font-favoritExpandedBook'>
-              VER MÁS PRODUCTOS
-            </button>
           </div>
         )}
       </div>

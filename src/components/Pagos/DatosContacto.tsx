@@ -48,6 +48,14 @@ const DatosContacto: React.FC<DatosContactoProps> = ({
           Quiero recibir ofertas y novedades por e-mail.
         </label>
       </div>
+      <section className='mt-8'>
+        <h2 className='text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook'>
+          ENTREGA
+        </h2>
+        <p className='bg-gray-200 text-sm md:text-base p-3 rounded font-favoritExpandedBook'>
+          Gestionar el envío directamente con la página de Andreani.
+        </p>
+      </section>
     </section>
   );
 };

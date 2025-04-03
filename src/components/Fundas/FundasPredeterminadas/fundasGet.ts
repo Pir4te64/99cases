@@ -12,8 +12,6 @@ export interface Product {
   description: string;
 }
 
-// Se exporta la constante products para que otras partes del proyecto la utilicen.
-// Se inicializa como un arreglo vacío y luego se actualiza con los datos adaptados.
 export const products: Product[] = [];
 
 // Función para adaptar el producto recibido desde la API
@@ -37,8 +35,10 @@ const fetchAndAdaptProducts = async () => {
   try {
     // Obtiene el token desde localStorage
     const token = localStorage.getItem("token");
+
     const response = await axios.get(API.getAllCases, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });

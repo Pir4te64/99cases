@@ -39,9 +39,7 @@ const PredeterminadosID = () => {
   ];
 
   // Buscamos si el producto ya está en el carrito
-  const cartItem = product
-    ? cartItems.find((item) => item.id === product.id)
-    : undefined;
+  const cartItem = cartItems.find((item) => item.id === product.id);
   // Si ya está, mostramos la cantidad del carrito; si no, usamos selectedQuantity
   const displayQuantity = cartItem ? cartItem.quantity : selectedQuantity;
 
@@ -70,15 +68,23 @@ const PredeterminadosID = () => {
   };
 
   const handleAgregarAlCarrito = () => {
-    if (!product) return;
-    const item: CartItem = {
-      id: product.id,
-      title: product.title,
-      imageSrc: product.imageSrc,
-      price: product.price,
-      quantity: selectedQuantity,
-    };
-    addToCart(item);
+    if (!product) {
+      console.warn("No se encontró el producto");
+      return;
+    }
+    if (cartItem) {
+      // Actualizamos el ítem en el carrito con la cantidad actual de selección
+      updateItemQuantity(product.id, selectedQuantity);
+    } else {
+      const item: CartItem = {
+        id: product.id,
+        title: product.title,
+        imageSrc: product.imageSrc,
+        price: product.price,
+        quantity: selectedQuantity,
+      };
+      addToCart(item);
+    }
     openCart();
   };
 

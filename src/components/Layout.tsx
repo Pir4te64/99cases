@@ -5,7 +5,7 @@ import CartSidebar from "./CartSidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const showCartSidebar = pathname !== "/pagos";
+  const showCartSidebar = pathname !== "/pagos" && pathname !== "/medios-pagos";
 
   return (
     <div className='min-h-screen flex flex-col bg-black text-white'>

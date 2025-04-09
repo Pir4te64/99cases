@@ -2,7 +2,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import tarjeta from "../../assets/Pagos/tarjetas.png";
-import tarjeta2 from "../../assets/Pagos/tarjetas2.png";
+// import tarjeta2 from "../../assets/Pagos/tarjetas2.png"; // Tarjetas de débito comentadas
 
 const MediosDePago = () => {
   const location = useLocation();
@@ -26,9 +26,8 @@ const MediosDePago = () => {
         <h2 className='text-lg md:text-xl font-semibold mb-2 font-favoritExpandedBook'>
           TARJETAS DE CRÉDITO
         </h2>
-        <div className='bg-gray-100 p-4 rounded-md mb-4'>
-          {/* Aquí mostramos el total que viene en location.state.total */}
-          <p className='text-sm md:text-base font-favoritExpandedBook mb-2'>
+        <div className='bg-gray-100 p-4 rounded-md mb-4 flex items-center justify-between'>
+          <p className='text-sm md:text-base font-favoritExpandedBook'>
             Total de 1 pago:
             <span className='font-bold'>
               {" "}
@@ -36,21 +35,9 @@ const MediosDePago = () => {
             </span>{" "}
             con todas las tarjetas.
           </p>
-          <p className='text-sm md:text-base font-favoritExpandedBook mb-2'>
-            O pagá en: 1 cuota de
-            <span className='font-bold'>
-              {" "}
-              ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
-            </span>{" "}
-            sin interés
-          </p>
-          <p className='text-sm md:text-base font-favoritExpandedBook'>
-            CFT: 0,00% | TEA: 0,00%
-            <span className='ml-2 font-bold'>
-              TOTAL: $
-              {total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
-            </span>
-          </p>
+          <button className='bg-blue-500 text-white px-4 py-2 rounded font-favoritExpandedBook'>
+            Pagar con Mercado Pago
+          </button>
         </div>
         <img
           src={tarjeta}
@@ -59,7 +46,8 @@ const MediosDePago = () => {
         />
       </div>
 
-      {/* Sección de Tarjetas de Débito */}
+      {/*
+      // Sección de Tarjetas de Débito (comentada)
       <div className='max-w-3xl mx-auto mb-8'>
         <h2 className='text-lg md:text-xl font-semibold mb-2 font-favoritExpandedBook'>
           TARJETAS DE DÉBITO
@@ -75,6 +63,7 @@ const MediosDePago = () => {
           className='max-w-full mx-auto'
         />
       </div>
+      */}
 
       {/* Link para volver al producto */}
       <div className='text-center mt-6'>

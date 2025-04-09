@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
-import Select, { ActionMeta, OnChangeValue } from "react-select";
+import Select, { OnChangeValue } from "react-select";
 import { fetchPhoneModels, PhoneModel } from "./Peticiones/MarcaCelularesGET";
+import { usePhoneSelectionStore } from "./phoneSelectionStore";
+// Importa el store
 
 const MarcaCelularGET = () => {
   const [phoneModels, setPhoneModels] = useState<PhoneModel[]>([]);
   const [selectedModel, setSelectedModel] = useState<PhoneModel | null>(null);
   const [inputValue, setInputValue] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  // Extraemos las funciones del store para actualizar la marca y el modelo.
+  const {
+    selectedBrand,
+    setSelectedBrand,
+    setSelectedModel: setStoreSelectedModel,
+  } = usePhoneSelectionStore();
 
   useEffect(() => {
     const getPhoneModels = async () => {
@@ -20,11 +28,10 @@ const MarcaCelularGET = () => {
     getPhoneModels();
   }, []);
 
-  const handleChange = (
-    selectedOption: OnChangeValue<PhoneModel, false>,
-    actionMeta: ActionMeta<PhoneModel>
-  ) => {
+  // Al seleccionar un modelo en el dropdown, actualizamos tanto el estado local como el store
+  const handleChange = (selectedOption: OnChangeValue<PhoneModel, false>) => {
     setSelectedModel(selectedOption);
+    setStoreSelectedModel(selectedOption);
   };
 
   // Filtrar los modelos según la marca seleccionada
@@ -46,8 +53,9 @@ const MarcaCelularGET = () => {
           <button
             key={brand}
             onClick={() => {
-              setSelectedBrand(brand);
-              setSelectedModel(null); // Reinicia el modelo al cambiar de marca
+              setSelectedBrand(brand); // Actualiza el store
+              setSelectedModel(null); // Reinicia el modelo local
+              setStoreSelectedModel(null); // Reinicia el modelo en el store también
             }}
             className={`border border-black bg-white rounded-md py-2 uppercase transition-colors ${
               selectedBrand === brand
@@ -63,7 +71,7 @@ const MarcaCelularGET = () => {
       <div className='my-4 h-px bg-gray-300' />
 
       {/* Selección de modelo */}
-      <div className=' w-full'>
+      <div className='w-full'>
         <p className='uppercase mb-2'>¿Cuál es el modelo de tu celular?</p>
         <Select<PhoneModel, false>
           options={filteredPhoneModels}

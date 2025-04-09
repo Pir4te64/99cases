@@ -1,4 +1,3 @@
-import React from "react";
 import img1 from "../../assets/FundasPersonalizadas/ComoFunciona/1.png";
 import img2 from "../../assets/FundasPersonalizadas/ComoFunciona/2.png";
 import img3 from "../../assets/FundasPersonalizadas/ComoFunciona/3.png";
@@ -30,30 +29,29 @@ const steps = [
 
 const ComoFunciona = () => {
   return (
-    <div className="w-full  mx-auto px-4 py-8 bg-white">
+    <div className='w-full  mx-auto px-4 py-8 bg-white'>
       {/* Título */}
-      <h2 className="text-center text-4xl md:text-5xl text-black font-favoritExpandedBook mb-8 uppercase tracking-wide">
+      <h2 className='text-center text-4xl md:text-5xl text-black font-favoritExpandedBook mb-8 uppercase tracking-wide'>
         ¿CÓMO FUNCIONA?
       </h2>
 
       {/* Contenedor de los pasos */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center justify-items-center mx-3">
+      <div className='grid grid-cols-2 md:grid-cols-5 gap-8 text-center justify-items-center mx-3'>
         {steps.map((step, index) => (
           <div
             key={index}
             className={`flex flex-col items-center ${
               index === 4 ? "col-span-2 md:col-span-1" : ""
-            }`}
-          >
+            }`}>
             {/* Icono/paso */}
             <img
               src={step.img}
               alt={`Paso ${index + 1}`}
-              className="mb-4 w-16 h-16"
+              className='mb-4 w-16 h-16'
             />
             {/* Texto del paso con máximo de dos líneas */}
-            <p className="text-sm text-black text-center font-favoritExpandedBook">
-              <span className="text-white bg-red-500 rounded-full w-8 h-8 inline-flex items-center justify-center  font-favoritExpandedBook font-bold mr-1">
+            <p className='text-sm text-black text-center font-favoritExpandedBook'>
+              <span className='text-white bg-red-500 rounded-full w-8 h-8 inline-flex items-center justify-center  font-favoritExpandedBook font-bold mr-1'>
                 {index + 1}
               </span>
               {step.text}

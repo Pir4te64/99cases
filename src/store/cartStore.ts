@@ -1,4 +1,3 @@
-// cartStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -8,6 +7,9 @@ export interface CartItem {
   imageSrc: string;
   price: number | string; // puede venir como string
   quantity: number;
+  // Propiedades para datos del celular
+  selectedBrand?: string;
+  selectedModel?: string;
 }
 
 interface CartState {

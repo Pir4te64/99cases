@@ -9,6 +9,8 @@ import { Minus, Plus } from "lucide-react";
 import PredeterminadoLayout from "./PredeterminadoLayout";
 import MarcaCelular from "./PersonalizadosID/MarcaCelular";
 import useCartStore, { CartItem } from "../store/cartStore";
+import { usePhoneSelectionStore } from "./PersonalizadosID/phoneSelectionStore";
+// Importamos el store de selección de marca y modelo
 
 const PredeterminadosID = () => {
   const location = useLocation();
@@ -27,6 +29,9 @@ const PredeterminadosID = () => {
   const addToCart = useCartStore((state) => state.addToCart);
   const openCart = useCartStore((state) => state.openCart);
 
+  // Extraemos marca y modelo seleccionados del store de teléfono
+  const { selectedBrand, selectedModel } = usePhoneSelectionStore();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -39,7 +44,7 @@ const PredeterminadosID = () => {
   ];
 
   // Buscamos si el producto ya está en el carrito
-  const cartItem = cartItems.find((item) => item.id === product.id);
+  const cartItem = cartItems.find((item) => item.id === product?.id);
   // Si ya está, mostramos la cantidad del carrito; si no, usamos selectedQuantity
   const displayQuantity = cartItem ? cartItem.quantity : selectedQuantity;
 
@@ -59,7 +64,7 @@ const PredeterminadosID = () => {
       if (cartItem.quantity > 1) {
         updateItemQuantity(product.id, cartItem.quantity - 1);
       } else {
-        // Opcionalmente, podrías decidir eliminar el producto del carrito aquí
+        // Opcional: podrías eliminar el producto si la cantidad baja de 1
         updateItemQuantity(product.id, 1);
       }
     } else {
@@ -73,15 +78,20 @@ const PredeterminadosID = () => {
       return;
     }
     if (cartItem) {
-      // Actualizamos el ítem en el carrito con la cantidad actual de selección
+      // Si el producto ya está en el carrito, actualizamos la cantidad.
       updateItemQuantity(product.id, selectedQuantity);
     } else {
+      // Creamos el objeto del producto, incluyendo la marca y modelo seleccionados
       const item: CartItem = {
         id: product.id,
         title: product.title,
         imageSrc: product.imageSrc,
         price: product.price,
         quantity: selectedQuantity,
+        // Se agregan las propiedades personalizadas
+        selectedBrand: selectedBrand ? selectedBrand : undefined,
+        // Suponiendo que "selectedModel" es un objeto con la propiedad "modelo"
+        selectedModel: selectedModel ? selectedModel.modelo : undefined,
       };
       addToCart(item);
     }

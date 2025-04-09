@@ -43,10 +43,6 @@ export default function CartSidebar() {
     });
   };
 
-  const handleVerMasProductos = () => {
-    // Lógica para redirigir a la sección de productos, etc.
-  };
-
   return (
     <div
       className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${

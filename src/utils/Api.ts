@@ -16,4 +16,6 @@ export const API = {
   orderGetAll: `${baseURL}/orders/get-all`,
   delivery: `${baseURL}/delivery/create`,
   createPayment: `${baseURL}/payments/create`,
+  paymentSucces: `${baseURL}/payments/success`,
+  paymentError: `${baseURL}/payments/error`,
 };

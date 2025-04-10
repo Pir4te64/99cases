@@ -13,6 +13,10 @@ interface DatosDestinatarioProps {
   departamento: string;
   barrio: string;
   ciudad: string;
+  // Nuevos props:
+  telefono: string;
+  localidad: string;
+  provincia: string;
   setNombre: (value: string) => void;
   setApellido: (value: string) => void;
   setCodigoPostal: (value: string) => void;
@@ -22,6 +26,10 @@ interface DatosDestinatarioProps {
   setDepartamento: (value: string) => void;
   setBarrio: (value: string) => void;
   setCiudad: (value: string) => void;
+  // Setters para nuevos campos:
+  setTelefono: (value: string) => void;
+  setLocalidad: (value: string) => void;
+  setProvincia: (value: string) => void;
 }
 
 const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
@@ -34,6 +42,9 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
   departamento,
   barrio,
   ciudad,
+  telefono,
+  localidad,
+  provincia,
   setNombre,
   setApellido,
   setCodigoPostal,
@@ -43,8 +54,11 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
   setDepartamento,
   setBarrio,
   setCiudad,
+  setTelefono,
+  setLocalidad,
+  setProvincia,
 }) => {
-  // Inicializamos useFormik con los valores que vienen por props
+  // Incluimos los nuevos campos en initialValues
   const formik = useFormik({
     initialValues: {
       nombre,
@@ -56,6 +70,9 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
       departamento,
       barrio,
       ciudad,
+      telefono, // Nuevo
+      localidad, // Nuevo
+      provincia, // Nuevo
     },
     validationSchema: validationSchema,
     onSubmit: () => {
@@ -63,7 +80,7 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
     },
   });
 
-  // Si las props cambian, actualizamos los valores de formik para mantener sincronización
+  // Sincronizamos los valores de formik con las props
   useEffect(() => {
     formik.setValues({
       nombre,
@@ -75,6 +92,9 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
       departamento,
       barrio,
       ciudad,
+      telefono,
+      localidad,
+      provincia,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -87,6 +107,9 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
     departamento,
     barrio,
     ciudad,
+    telefono,
+    localidad,
+    provincia,
   ]);
 
   return (
@@ -139,6 +162,30 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
             <div className='text-red-500 text-xs'>{formik.errors.apellido}</div>
           )}
         </div>
+      </div>
+
+      {/* Campo para teléfono */}
+      <div className='mt-4'>
+        <label
+          htmlFor='telefono'
+          className='block text-sm md:text-base font-medium mb-1 font-favoritExpandedBook'>
+          Teléfono
+        </label>
+        <input
+          id='telefono'
+          name='telefono'
+          type='text'
+          className='w-full border border-gray-300 rounded px-3 py-2 text-sm md:text-base font-favoritExpandedBook'
+          value={formik.values.telefono}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setTelefono(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.telefono && formik.errors.telefono && (
+          <div className='text-red-500 text-xs'>{formik.errors.telefono}</div>
+        )}
       </div>
 
       <div className='mt-4'>
@@ -296,6 +343,58 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = ({
         {formik.touched.ciudad && formik.errors.ciudad && (
           <div className='text-red-500 text-xs'>{formik.errors.ciudad}</div>
         )}
+      </div>
+
+      {/* Sección para Localidad y Provincia */}
+      <div className='mt-4 grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div>
+          <label
+            htmlFor='localidad'
+            className='block text-sm md:text-base font-medium mb-1 font-favoritExpandedBook'>
+            Localidad
+          </label>
+          <input
+            id='localidad'
+            name='localidad'
+            type='text'
+            className='w-full border border-gray-300 rounded px-3 py-2 text-sm md:text-base font-favoritExpandedBook'
+            value={formik.values.localidad}
+            onChange={(e) => {
+              formik.handleChange(e);
+              setLocalidad(e.target.value);
+            }}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.localidad && formik.errors.localidad && (
+            <div className='text-red-500 text-xs'>
+              {formik.errors.localidad}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor='provincia'
+            className='block text-sm md:text-base font-medium mb-1 font-favoritExpandedBook'>
+            Provincia
+          </label>
+          <input
+            id='provincia'
+            name='provincia'
+            type='text'
+            className='w-full border border-gray-300 rounded px-3 py-2 text-sm md:text-base font-favoritExpandedBook'
+            value={formik.values.provincia}
+            onChange={(e) => {
+              formik.handleChange(e);
+              setProvincia(e.target.value);
+            }}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.provincia && formik.errors.provincia && (
+            <div className='text-red-500 text-xs'>
+              {formik.errors.provincia}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -10,6 +10,8 @@ import RegisterPage from "./pages/Register";
 import { ToastContainer } from "react-toastify";
 import PagosPage from "./pages/Pagos";
 import MediosDePagosPage from "./pages/MediosDePagos";
+import PaymentSuccessPage from "./pages/PaymentSuccess";
+import PaymentErrorPage from "./pages/PaymentError";
 function App() {
   return (
     <Layout>
@@ -24,6 +26,8 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/pagos' element={<PagosPage />} />
         <Route path='/medios-pagos' element={<MediosDePagosPage />} />
+        <Route path='/payment/success' element={<PaymentSuccessPage />} />
+        <Route path='/payment/error' element={<PaymentErrorPage />} />
       </Routes>
     </Layout>
   );

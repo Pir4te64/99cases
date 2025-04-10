@@ -27,7 +27,7 @@ const Pagos = () => {
 
   const breadcrumbItems = [{ label: "Inicio", link: "/" }, { label: "Pago" }];
 
-  // Extraemos los valores y setters del store de formulario
+  // Extraemos los valores y setters del store de formulario, incluyendo los nuevos estados:
   const {
     email,
     aceptaNovedades,
@@ -41,6 +41,11 @@ const Pagos = () => {
     barrio,
     ciudad,
     mismaFacturacion,
+    // Nuevos estados
+    telefono,
+    localidad,
+    provincia,
+    // Setters
     setEmail,
     setAceptaNovedades,
     setNombre,
@@ -53,8 +58,14 @@ const Pagos = () => {
     setBarrio,
     setCiudad,
     setMismaFacturacion,
+    // Setters de nuevos campos
+    setTelefono,
+    setLocalidad,
+    setProvincia,
   } = usePaymentFormStore();
 
+  // Actualizamos la validación del formulario para incluir los nuevos campos.
+  // Puedes ajustar según la lógica deseada (por ejemplo, si son obligatorios o no).
   const isFormValid =
     nombre.trim() !== "" &&
     apellido.trim() !== "" &&
@@ -63,13 +74,17 @@ const Pagos = () => {
     (sinNumero ? true : numero.trim() !== "") &&
     barrio.trim() !== "" &&
     ciudad.trim() !== "" &&
+    telefono.trim() !== "" && // Nuevo: validar teléfono
+    localidad.trim() !== "" && // Nuevo: validar localidad
+    provincia.trim() !== "" && // Nuevo: validar provincia
     mismaFacturacion;
 
   // handleSubmit usa SweetAlert2 para mostrar confirmación y loading
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      // Se arma el objeto para el delivery con la estructura requerida
+      // Se arma el objeto para el delivery con la estructura requerida.
+      // Aquí se reemplazan "ciudad" y "Provincia Ejemplo" por localidad y provincia
       const deliveryData = {
         destino: {
           calle: calle,
@@ -77,17 +92,17 @@ const Pagos = () => {
           piso: "", // No tenemos campo para piso, se deja vacío o se puede agregar uno
           departamento: departamento,
           codigoPostal: codigoPostal,
-          localidad: ciudad, // Se usa el valor de "ciudad"
-          provincia: "Provincia Ejemplo", // Puedes ajustar este valor
+          localidad: localidad, // Usamos el estado "localidad"
+          provincia: provincia, // Usamos el estado "provincia"
         },
         destinatario: {
           nombre: nombre,
           apellido: apellido,
-          telefono: "1234567890", // Valor por defecto, ajustar si se tiene campo correspondiente
+          telefono: telefono, // Usamos el estado "telefono"
           email: email,
         },
       };
-      console.log("Delivery Data:", deliveryData);
+      //console.log("Delivery Data:", deliveryData);
 
       // Mostrar modal de confirmación
       const { isConfirmed } = await Swal.fire({
@@ -128,7 +143,7 @@ const Pagos = () => {
           // Cerramos el modal de loading
           Swal.close();
 
-          // Una vez que la promesa se cumple sin errores, se arma el paymentData y se redirige
+          // Una vez que la promesa se cumple sin errores, se arma el paymentData y se redirige.
           const formData = {
             nombre,
             apellido,
@@ -139,6 +154,9 @@ const Pagos = () => {
             departamento,
             barrio,
             ciudad,
+            telefono, // Agregamos teléfono a formData si lo necesitas
+            localidad, // Agregamos localidad a formData
+            provincia, // Agregamos provincia a formData
             mismaFacturacion,
           };
           const paymentData = {
@@ -200,6 +218,10 @@ const Pagos = () => {
                 departamento={departamento}
                 barrio={barrio}
                 ciudad={ciudad}
+                // Pasamos los nuevos estados y sus setters
+                telefono={telefono}
+                localidad={localidad}
+                provincia={provincia}
                 setNombre={setNombre}
                 setApellido={setApellido}
                 setCodigoPostal={setCodigoPostal}
@@ -209,6 +231,9 @@ const Pagos = () => {
                 setDepartamento={setDepartamento}
                 setBarrio={setBarrio}
                 setCiudad={setCiudad}
+                setTelefono={setTelefono}
+                setLocalidad={setLocalidad}
+                setProvincia={setProvincia}
               />
               {/* Sección de Datos de Facturación */}
               <section>

@@ -13,6 +13,10 @@ interface PaymentFormState {
   departamento: string;
   barrio: string;
   ciudad: string;
+  // Nuevos campos:
+  telefono: string;
+  localidad: string;
+  provincia: string;
   mismaFacturacion: boolean;
   // Setters
   setEmail: (email: string) => void;
@@ -26,6 +30,10 @@ interface PaymentFormState {
   setDepartamento: (value: string) => void;
   setBarrio: (value: string) => void;
   setCiudad: (value: string) => void;
+  // Setters para los nuevos campos:
+  setTelefono: (value: string) => void;
+  setLocalidad: (value: string) => void;
+  setProvincia: (value: string) => void;
   setMismaFacturacion: (value: boolean) => void;
 }
 
@@ -41,6 +49,9 @@ const usePaymentFormStore = create<PaymentFormState>((set) => ({
   departamento: "",
   barrio: "",
   ciudad: "",
+  telefono: "", // Inicialización de teléfono
+  localidad: "", // Inicialización de localidad
+  provincia: "", // Inicialización de provincia
   mismaFacturacion: false,
   setEmail: (email) => set({ email }),
   setAceptaNovedades: (value) => set({ aceptaNovedades: value }),
@@ -53,6 +64,9 @@ const usePaymentFormStore = create<PaymentFormState>((set) => ({
   setDepartamento: (value) => set({ departamento: value }),
   setBarrio: (value) => set({ barrio: value }),
   setCiudad: (value) => set({ ciudad: value }),
+  setTelefono: (value) => set({ telefono: value }), // Setter para teléfono
+  setLocalidad: (value) => set({ localidad: value }), // Setter para localidad
+  setProvincia: (value) => set({ provincia: value }), // Setter para provincia
   setMismaFacturacion: (value) => set({ mismaFacturacion: value }),
 }));
 

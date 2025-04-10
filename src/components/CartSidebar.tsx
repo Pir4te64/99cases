@@ -1,7 +1,9 @@
-// CartSidebar.jsx
 import { X, Plus, Minus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2"; // Importa SweetAlert2
 import useCartStore from "../store/cartStore";
+import { API } from "../utils/Api";
 
 export default function CartSidebar() {
   const {
@@ -13,13 +15,15 @@ export default function CartSidebar() {
     updateItemQuantity,
     removeFromCart,
   } = useCartStore();
-
+  const setIdOrdenCompra = useCartStore((state) => state.setIdOrdenCompra);
   const navigate = useNavigate();
 
+  // Función para remover un producto.
   const removeItem = (id: string): void => {
     removeFromCart(id);
   };
 
+  // Funciones para incrementar y decrementar la cantidad.
   const decreaseQuantity = (id: string, currentQuantity: number): void => {
     if (currentQuantity <= 1) {
       removeFromCart(id);
@@ -32,15 +36,131 @@ export default function CartSidebar() {
     updateItemQuantity(id, currentQuantity + 1);
   };
 
-  // Función para iniciar compra: redirige a la pantalla de pagos y envía la información del carrito
-  const handleIniciarCompra = () => {
-    navigate("/pagos", {
-      state: {
-        cartItems,
-        subtotal,
-        total,
-      },
+  // Función que construye el array orderItems en el formato requerido.
+  // Cada objeto tendrá: { caseId, modeloId, materialId }.
+  const buildOrderItems = () => {
+    const orderItems = cartItems.map((item) => ({
+      // caseId: el id del producto (llega como string, se convierte a number).
+      caseId: parseInt(item.id, 10),
+      // modeloId: el id del modelo seleccionado; si no está definido se envía 1.
+      modeloId: item.selectedModel
+        ? parseInt(item.selectedModel.toString(), 10)
+        : 1,
+      // materialId: según lo requerido, siempre va 1.
+      materialId: 1,
+    }));
+    return orderItems;
+  };
+
+  // Función para convertir cada URL de imagen a Blob y agregarlo a FormData.
+  const appendImagesFromURLs = async (formData: FormData) => {
+    for (let i = 0; i < cartItems.length; i++) {
+      const item = cartItems[i];
+      if (item.imageSrc && typeof item.imageSrc === "string") {
+        try {
+          const response = await fetch(item.imageSrc);
+          const blob = await response.blob();
+          // Asignamos un nombre de archivo, por ejemplo "case-<id>.png"
+          const fileName = `case-${item.id}.png`;
+          formData.append("images", blob, fileName);
+        } catch (error) {
+          console.error("Error al convertir la imagen a blob:", error);
+        }
+      }
+    }
+  };
+
+  // Función que imprime en consola el contenido del FormData.
+  const printFormData = (formData: FormData) => {
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+  };
+
+  // Función para crear la orden usando Axios, enviando los datos mediante FormData.
+  const createOrder = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Usuario no autenticado. Por favor, inicia sesión.",
+      });
+      return null;
+    }
+
+    const orderItems = buildOrderItems();
+
+    // Creamos un nuevo objeto FormData.
+    const formData = new FormData();
+    // Agregamos orderItems como string JSON.
+    formData.append("orderItems", JSON.stringify(orderItems));
+
+    // Agregamos las imágenes: se convierten de URL a Blob y se añaden.
+    await appendImagesFromURLs(formData);
+
+    // Imprimimos en consola el contenido del FormData para depuración.
+    printFormData(formData);
+
+    try {
+      const response = await axios.post(API.order, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Retornamos la respuesta completa de la orden.
+      return response.data;
+    } catch (error) {
+      console.error("Error creando la orden:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ha ocurrido un error al procesar la orden.",
+      });
+      return null;
+    }
+  };
+
+  // Función para iniciar la compra:
+  // Muestra un modal de confirmación con SweetAlert2,
+  // muestra un loading mientras espera la promesa y luego redirige si es exitoso.
+  const handleIniciarCompra = async () => {
+    const { isConfirmed } = await Swal.fire({
+      title: "¿Desea continuar?",
+      text: "Se va a iniciar el proceso de compra",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, continuar",
+      cancelButtonText: "Cancelar",
     });
+
+    if (isConfirmed) {
+      // Mostramos un modal de loading que se cierra al completarse la promesa
+      Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
+      const orderResponse = await createOrder();
+      console.log("Orden Response en handleIniciarCompra:", orderResponse);
+
+      // Cerramos el modal de loading
+      Swal.close();
+
+      if (orderResponse) {
+        setIdOrdenCompra(orderResponse.id);
+        navigate("/pagos", {
+          state: {
+            cartItems,
+            subtotal,
+            total,
+          },
+        });
+      }
+    }
   };
 
   return (
@@ -62,11 +182,11 @@ export default function CartSidebar() {
       <div className='p-4 h-[600px] overflow-y-auto'>
         {cartItems.length > 0 ? (
           <ul className='space-y-4'>
-            {cartItems.map((item, index) => (
-              <li key={index} className='border-b border-black pb-4'>
+            {cartItems.map((item) => (
+              <li key={item.id} className='border-b border-black pb-4'>
                 <div className='flex items-start space-x-3'>
                   <img
-                    src={item.imageSrc}
+                    src={typeof item.imageSrc === "string" ? item.imageSrc : ""}
                     alt={item.title}
                     className='h-auto w-20 object-cover'
                   />

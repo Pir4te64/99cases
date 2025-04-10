@@ -14,4 +14,6 @@ export const API = {
   materialsGetAll: `${baseURL}/materials/get-all`,
   order: `${baseURL}/orders/create`,
   orderGetAll: `${baseURL}/orders/get-all`,
+  delivery: `${baseURL}/delivery/create`,
+  createPayment: `${baseURL}/payments/create`,
 };

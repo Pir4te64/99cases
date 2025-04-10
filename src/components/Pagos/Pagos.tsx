@@ -1,4 +1,3 @@
-// Pagos.tsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../Breadcrumbs"; // Ajusta la ruta si es necesario
@@ -7,17 +6,24 @@ import ResumenCompra from "./PagosProductos"; // Ajusta la ruta según tu estruc
 import usePaymentFormStore from "../../store/pagoStore";
 import DatosContacto from "./DatosContacto";
 import DatosDestinatario from "./DatosDestinatario";
+import axios from "axios";
+import { API } from "../../utils/Api";
+import Swal from "sweetalert2"; // Importación de SweetAlert2
+import useDeliveryStore from "./useDeliveryStore";
 
 const Pagos = () => {
-  const { cartItems, subtotal, total } = useCartStore();
+  const { cartItems, subtotal, total, idOrdenCompra } = useCartStore();
+  const setDeliveryResponse = useDeliveryStore(
+    (state) => state.setDeliveryResponse
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     // Opcional: redirigir si el carrito está vacío
     if (cartItems.length === 0) {
-      // Redirigir a la página principal o a otra ruta
+      // navigate("/");
     }
-  }, [cartItems]);
+  }, [cartItems, navigate]);
 
   const breadcrumbItems = [{ label: "Inicio", link: "/" }, { label: "Pago" }];
 
@@ -59,31 +65,103 @@ const Pagos = () => {
     ciudad.trim() !== "" &&
     mismaFacturacion;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // handleSubmit usa SweetAlert2 para mostrar confirmación y loading
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      // Aquí puedes procesar la información si lo requieres
-      const formData = {
-        nombre,
-        apellido,
-        codigoPostal,
-        calle,
-        numero,
-        sinNumero,
-        departamento,
-        barrio,
-        ciudad,
-        mismaFacturacion,
+      // Se arma el objeto para el delivery con la estructura requerida
+      const deliveryData = {
+        destino: {
+          calle: calle,
+          numero: numero,
+          piso: "", // No tenemos campo para piso, se deja vacío o se puede agregar uno
+          departamento: departamento,
+          codigoPostal: codigoPostal,
+          localidad: ciudad, // Se usa el valor de "ciudad"
+          provincia: "Provincia Ejemplo", // Puedes ajustar este valor
+        },
+        destinatario: {
+          nombre: nombre,
+          apellido: apellido,
+          telefono: "1234567890", // Valor por defecto, ajustar si se tiene campo correspondiente
+          email: email,
+        },
       };
-      const paymentData = {
-        cartItems,
-        subtotal,
-        total,
-        ...formData,
-      };
+      console.log("Delivery Data:", deliveryData);
 
-      // Redirigimos a /medios-pago enviando la información en state
-      navigate("/medios-pagos", { state: paymentData });
+      // Mostrar modal de confirmación
+      const { isConfirmed } = await Swal.fire({
+        title: "¿Desea continuar?",
+        text: "Se va a procesar el delivery",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, continuar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (isConfirmed) {
+        // Mostrar modal de loading
+        Swal.fire({
+          title: "Procesando...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          const token = localStorage.getItem("token");
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+          // Se envía la petición PUT (o POST) a API.delivery con idOrdenCompra como parámetro en la URL
+          const response = await axios.put(
+            `${API.delivery}?orderId=${idOrdenCompra}`,
+            deliveryData,
+            config
+          );
+          console.log("Response Delivery:", response.data);
+          setDeliveryResponse(response.data);
+          // Cerramos el modal de loading
+          Swal.close();
+
+          // Una vez que la promesa se cumple sin errores, se arma el paymentData y se redirige
+          const formData = {
+            nombre,
+            apellido,
+            codigoPostal,
+            calle,
+            numero,
+            sinNumero,
+            departamento,
+            barrio,
+            ciudad,
+            mismaFacturacion,
+          };
+          const paymentData = {
+            cartItems,
+            subtotal,
+            total,
+            idOrdenCompra,
+            ...formData,
+          };
+
+          navigate("/medios-pagos", { state: paymentData });
+        } catch (error) {
+          console.error("Error en API.delivery:", error);
+          // Cerramos el modal de loading en caso de error
+          Swal.close();
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error en el servidor, intente nuevamente",
+          });
+          // No se redirige en caso de error
+        }
+      }
     }
   };
 
@@ -92,7 +170,7 @@ const Pagos = () => {
       <div className='container mx-auto px-4 py-6'>
         <Breadcrumbs items={breadcrumbItems} />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          {/* En móvil, el resumen se muestra primero (order-1) y el formulario después (order-2)
+          {/* En móvil, el resumen se muestra primero (order-1) y el formulario después (order-2).
               En md, se invierte el orden */}
           <div className='order-1 md:order-2'>
             <ResumenCompra

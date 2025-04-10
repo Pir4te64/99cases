@@ -18,6 +18,7 @@ interface CartState {
   selectedQuantity: number;
   subtotal: number;
   total: number;
+  idOrdenCompra: number | null; // Estado para guardar el id de la orden de compra
 }
 
 interface CartActions {
@@ -30,6 +31,7 @@ interface CartActions {
   setSelectedQuantity: (quantity: number) => void;
   updateItemQuantity: (id: string, quantity: number) => void;
   removeFromCart: (id: string) => void;
+  setIdOrdenCompra: (id: number | null) => void; // Acción para actualizar idOrdenCompra
 }
 
 // Función para convertir un precio (string con "$") a número
@@ -60,17 +62,20 @@ const useCartStore = create<
         selectedQuantity: number;
         subtotal: number;
         total: number;
+        idOrdenCompra: number | null;
       }
     ]
   ]
 >(
   persist(
     (set, get) => ({
+      // Estado inicial
       isCartOpen: false,
       cartItems: [],
       selectedQuantity: 1,
       subtotal: 0,
       total: 0,
+      idOrdenCompra: null, // Inicializamos el idOrdenCompra como null
       openCart: () => set({ isCartOpen: true }),
       closeCart: () => set({ isCartOpen: false }),
       toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
@@ -120,6 +125,7 @@ const useCartStore = create<
           ...calculateTotals(updatedCartItems),
         });
       },
+      setIdOrdenCompra: (id: number | null) => set({ idOrdenCompra: id }), // Acción para actualizar idOrdenCompra
     }),
     {
       name: "cart-storage", // clave en localStorage
@@ -128,6 +134,7 @@ const useCartStore = create<
         selectedQuantity: state.selectedQuantity,
         subtotal: state.subtotal,
         total: state.total,
+        idOrdenCompra: state.idOrdenCompra, // Persistimos idOrdenCompra también
       }),
     }
   )

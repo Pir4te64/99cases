@@ -1,4 +1,3 @@
-// PredeterminadosID.tsx
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -30,7 +29,8 @@ const PredeterminadosID = () => {
   const openCart = useCartStore((state) => state.openCart);
 
   // Extraemos marca y modelo seleccionados del store de teléfono
-  const { selectedBrand, selectedModel } = usePhoneSelectionStore();
+  // Se agregan ambas propiedades para poder validarlas.
+  const { selectedModel, selectedBrand } = usePhoneSelectionStore();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,21 +82,24 @@ const PredeterminadosID = () => {
       updateItemQuantity(product.id, selectedQuantity);
     } else {
       // Creamos el objeto del producto, incluyendo la marca y modelo seleccionados
+      // Se envía el id del modelo (si existe) y la marca directamente (suponiendo que selectedBrand es el id)
       const item: CartItem = {
         id: product.id,
         title: product.title,
         imageSrc: product.imageSrc,
         price: product.price,
         quantity: selectedQuantity,
-        // Se agregan las propiedades personalizadas
+        selectedModel: selectedModel ? selectedModel.id : undefined,
         selectedBrand: selectedBrand ? selectedBrand : undefined,
-        // Suponiendo que "selectedModel" es un objeto con la propiedad "modelo"
-        selectedModel: selectedModel ? selectedModel.modelo : undefined,
       };
+
       addToCart(item);
     }
     openCart();
   };
+
+  // Se determina si los botones deben estar habilitados o deshabilitados
+  const isSelectionComplete = selectedModel && selectedBrand;
 
   return (
     <PredeterminadoLayout>
@@ -165,13 +168,24 @@ const PredeterminadosID = () => {
                   </div>
                   <button
                     onClick={handleAgregarAlCarrito}
-                    className='flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded hover:bg-gray-800 transition-colors'>
+                    disabled={!isSelectionComplete}
+                    className={`flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded transition-colors ${
+                      !isSelectionComplete
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:bg-gray-800"
+                    }`}>
                     Agregar al Carrito
                   </button>
                 </div>
 
                 {/* Comprar ahora */}
-                <button className='border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 hover:bg-black hover:text-white transition-colors'>
+                <button
+                  disabled={!isSelectionComplete}
+                  className={`border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 transition-colors ${
+                    !isSelectionComplete
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-black hover:text-white"
+                  }`}>
                   Comprar Ahora
                 </button>
 

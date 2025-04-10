@@ -13,11 +13,9 @@ export const usePhoneSelectionStore = create<PhoneSelectionState>((set) => ({
   selectedBrand: null,
   selectedModel: null,
   setSelectedBrand: (brand) => {
-    console.log("Marca seleccionada:", brand);
     set({ selectedBrand: brand });
   },
   setSelectedModel: (model) => {
-    console.log("Modelo seleccionado:", model);
     set({ selectedModel: model });
   },
 }));

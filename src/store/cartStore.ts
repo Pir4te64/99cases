@@ -9,7 +9,7 @@ export interface CartItem {
   quantity: number;
   // Propiedades para datos del celular
   selectedBrand?: string;
-  selectedModel?: string;
+  selectedModel?: number;
 }
 
 interface CartState {

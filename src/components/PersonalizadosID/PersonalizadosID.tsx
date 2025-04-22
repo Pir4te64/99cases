@@ -13,6 +13,7 @@ import StepsButtons from "./StepsButtons";
 import usePersonalizadoStore from "./usePersonalizadoStore";
 import CustomName from "./CustomName";
 import Colores from "./Colores";
+import PreviewOverlay from "./PreviewOverlay";
 
 const PersonalizadosID = () => {
   const location = useLocation();
@@ -57,11 +58,7 @@ const PersonalizadosID = () => {
 
           <div className='flex items-center justify-center'>
             {product ? (
-              <img
-                src={product.imageSrc}
-                alt={product.title}
-                className='max-h-full object-contain'
-              />
+              <PreviewOverlay />
             ) : (
               <p className='font-favoritMono font-bold italic'>
                 No se encontró la imagen del producto.

@@ -1,38 +1,76 @@
+// src/hooks/usePersonalizadoStore.ts
 import { create } from "zustand";
 
-const usePersonalizadoStore = create((set) => ({
+export interface PersonalizadoState {
+  // Datos del producto
+  product: any | null;
+  // Cantidad seleccionada
+  quantity: number;
+  // Flags para pasos y opciones
+  showMarca: boolean;
+  step2Active: boolean;
+  showColors: boolean;
+  // Ancho de la ventana para manejo de responsive
+  windowWidth: number;
+  // Texto y número personalizados
+  userName: string;
+  selectedNameStyle: number | null;
+  userNumber: string;
+  selectedNumberStyle: number | null;
+
+  // --- Acciones para actualizar estado ---
+  setProduct: (product: any) => void;
+  increment: () => void;
+  decrement: () => void;
+  toggleShowMarca: () => void;
+  setShowMarca: (flag: boolean) => void;
+  toggleStep2: () => void;
+  toggleShowColors: () => void;
+  setWindowWidth: (width: number) => void;
+
+  setUserName: (name: string) => void;
+  setSelectedNameStyle: (style: number) => void;
+  setUserNumber: (number: string) => void;
+  setSelectedNumberStyle: (style: number) => void;
+}
+
+const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
+  // --- Valores iniciales ---
   product: null,
   quantity: 1,
   showMarca: false,
   step2Active: false,
-  showColors: false, // <-- Estado para el botón 3
+  showColors: false,
   windowWidth: window.innerWidth,
 
-  // Estados para nombre y número
   userName: "",
   selectedNameStyle: null,
   userNumber: "",
   selectedNumberStyle: null,
 
-  // Acciones existentes
-  setProduct: (product: any) => set({ product }),
-  increment: () => set((state: any) => ({ quantity: state.quantity + 1 })),
+  // --- Definición de acciones ---
+  setProduct: (product) => set({ product }),
+  increment: () =>
+    set((state) => ({ quantity: state.quantity + 1 })),
   decrement: () =>
-    set((state: any) => ({
+    set((state) => ({
       quantity: state.quantity > 1 ? state.quantity - 1 : 1,
     })),
-  toggleShowMarca: () => set((state: any) => ({ showMarca: !state.showMarca })),
-  setShowMarca: (flag: any) => set({ showMarca: flag }),
-  toggleStep2: () => set((state: any) => ({ step2Active: !state.step2Active })),
+  toggleShowMarca: () =>
+    set((state) => ({ showMarca: !state.showMarca })),
+  setShowMarca: (flag) => set({ showMarca: flag }),
+  toggleStep2: () =>
+    set((state) => ({ step2Active: !state.step2Active })),
   toggleShowColors: () =>
-    set((state: any) => ({ showColors: !state.showColors })),
-  setWindowWidth: (width: any) => set({ windowWidth: width }),
+    set((state) => ({ showColors: !state.showColors })),
+  setWindowWidth: (width) => set({ windowWidth: width }),
 
-  // Nuevas acciones para nombre y número
-  setUserName: (name: any) => set({ userName: name }),
-  setSelectedNameStyle: (style: any) => set({ selectedNameStyle: style }),
-  setUserNumber: (number: any) => set({ userNumber: number }),
-  setSelectedNumberStyle: (style: any) => set({ selectedNumberStyle: style }),
+  setUserName: (name) => set({ userName: name }),
+  setSelectedNameStyle: (style) =>
+    set({ selectedNameStyle: style }),
+  setUserNumber: (number) => set({ userNumber: number }),
+  setSelectedNumberStyle: (style) =>
+    set({ selectedNumberStyle: style }),
 }));
 
 export default usePersonalizadoStore;

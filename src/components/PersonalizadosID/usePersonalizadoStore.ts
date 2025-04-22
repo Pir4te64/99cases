@@ -17,7 +17,8 @@ export interface PersonalizadoState {
   selectedNameStyle: number | null;
   userNumber: string;
   selectedNumberStyle: number | null;
-
+  selectedColors: Record<number, string>;
+  setSelectedColor: (sectionIndex: number, color: string) => void;
   // --- Acciones para actualizar estado ---
   setProduct: (product: any) => void;
   increment: () => void;
@@ -42,7 +43,7 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   step2Active: false,
   showColors: false,
   windowWidth: window.innerWidth,
-
+  selectedColors: {},
   userName: "",
   selectedNameStyle: null,
   userNumber: "",
@@ -71,6 +72,13 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   setUserNumber: (number) => set({ userNumber: number }),
   setSelectedNumberStyle: (style) =>
     set({ selectedNumberStyle: style }),
+  setSelectedColor: (sectionIndex, color) =>
+    set((state) => ({
+      selectedColors: {
+        ...state.selectedColors,
+        [sectionIndex]: color,
+      },
+    })),
 }));
 
 export default usePersonalizadoStore;

@@ -1,18 +1,12 @@
-// Colores.jsx
-import React, { useState } from "react";
-import { colorSections } from "./ColorSectionsProvider"; // Ajusta la ruta según tu estructura
+// src/components/Colores.jsx
+import React from "react";
+import usePersonalizadoStore from "./usePersonalizadoStore";
+import { colorSections } from "./ColorSectionsProvider";
 
 const Colores = () => {
-  const [selectedColors, setSelectedColors] = useState<Record<number, string>>(
-    {}
-  );
-
-  const handleSelectColor = (sectionIndex: number, color: string) => {
-    setSelectedColors((prev) => ({
-      ...prev,
-      [sectionIndex]: color,
-    }));
-  };
+  // Leemos y escribimos directamente en el store
+  const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
+  const setSelectedColor = usePersonalizadoStore((s) => s.setSelectedColor);
 
   return (
     <div className="space-y-8">
@@ -23,19 +17,20 @@ const Colores = () => {
           label={section.label}
           colors={section.colors}
           selectedColor={selectedColors[index]}
-          onSelectColor={handleSelectColor}
+          onSelectColor={setSelectedColor}
         />
       ))}
     </div>
   );
 };
 
+// Componente sin cambios lógicos, solo recibe onSelectColor del store
 interface ColorSectionProps {
   index: number;
   label: string;
   colors: string[];
-  selectedColor?: string;
-  onSelectColor: (sectionIndex: number, color: string) => void;
+  selectedColor: string;
+  onSelectColor: (index: number, color: string) => void;
 }
 
 const ColorSection: React.FC<ColorSectionProps> = ({
@@ -44,38 +39,35 @@ const ColorSection: React.FC<ColorSectionProps> = ({
   colors,
   selectedColor,
   onSelectColor,
-}) => {
-  return (
-    <div>
-      <h2 className="font-bold mb-2">{label}</h2>
-      <div className="flex flex-wrap gap-2">
-        {colors.map((color, colorIndex) => {
-          const isSelected = selectedColor === color;
-          // Si el color es "transparent", usamos un patrón de rayas rojas.
-          const style =
-            color === "transparent"
-              ? {
-                backgroundColor: "transparent",
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, red 0, red 2px, transparent 2px, transparent 4px)",
-              }
-              : { backgroundColor: color };
+}) => (
+  <div>
+    <h2 className="font-bold mb-2">{label}</h2>
+    <div className="flex flex-wrap gap-2">
+      {colors.map((color, colorIndex) => {
+        const isSelected = selectedColor === color;
+        const style =
+          color === "transparent"
+            ? {
+              backgroundColor: "transparent",
+              backgroundImage:
+                "repeating-linear-gradient(45deg, red 0, red 2px, transparent 2px, transparent 4px)",
+            }
+            : { backgroundColor: color };
 
-          return (
-            <button
-              key={colorIndex}
-              onClick={() => onSelectColor(index, color)}
-              title={color}
-              className={`w-8 h-8 rounded-full border-2 transition-colors hover:scale-105 ${isSelected ? "border-black" : "border-black"
-                }`}
-              style={style}
-              aria-label={`Color ${color}`}
-            />
-          );
-        })}
-      </div>
+        return (
+          <button
+            key={colorIndex}
+            onClick={() => onSelectColor(index, color)}
+            title={color}
+            className={`w-8 h-8 rounded-full border-2 transition-transform
+              ${isSelected ? "border-black scale-110" : "border-gray-300 hover:scale-105"}`}
+            style={style}
+            aria-label={`Color ${color}`}
+          />
+        );
+      })}
     </div>
-  );
-};
+  </div>
+);
 
 export default Colores;

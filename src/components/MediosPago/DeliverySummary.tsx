@@ -1,5 +1,5 @@
 import React from "react";
-import { DeliveryResponse } from "../Pagos/useDeliveryStore";
+import { DeliveryResponse } from "@/components/Pagos/useDeliveryStore";
 
 interface DeliverySummaryProps {
   deliveryResponse: DeliveryResponse;

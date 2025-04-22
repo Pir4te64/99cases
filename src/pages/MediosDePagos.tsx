@@ -1,4 +1,4 @@
-import MediosDePago from "../components/MediosPago/MediosDePago";
+import MediosDePago from "@/components/MediosPago/MediosDePago";
 
 const MediosDePagosPage = () => {
   return (

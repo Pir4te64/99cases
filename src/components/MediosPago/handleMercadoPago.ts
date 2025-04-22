@@ -1,7 +1,7 @@
 // paymentUtils.ts
 import Swal from "sweetalert2";
 import axios from "axios";
-import { API } from "../../utils/Api";
+import { API } from "@/utils/Api";
 
 // La función recibe deliveryResponse y la función para actualizar el estado (setPaymentLinks)
 export const handleMercadoPago = async (

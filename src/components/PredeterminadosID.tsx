@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrumbs from "../components/Breadcrumbs";
-import imgVertical from "../assets/predetermiandasCases/List.png";
-import imgHorizontal from "../assets/predetermiandasCases/horizontal.png";
-import tarjetas from "../assets/predetermiandasCases/tarjetas.png";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import imgVertical from "@/assets/predetermiandasCases/List.png";
+import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
+import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
-import PredeterminadoLayout from "./PredeterminadoLayout";
-import MarcaCelular from "./PersonalizadosID/MarcaCelular";
-import useCartStore, { CartItem } from "../store/cartStore";
-import { usePhoneSelectionStore } from "./PersonalizadosID/phoneSelectionStore";
+import PredeterminadoLayout from "@/components/PredeterminadoLayout";
+import MarcaCelular from "@/components/PersonalizadosID/MarcaCelular";
+import useCartStore, { CartItem } from "@/store/cartStore";
+import { usePhoneSelectionStore } from "@/components/PersonalizadosID/phoneSelectionStore";
 // Importamos el store de selección de marca y modelo
 
 const PredeterminadosID = () => {
@@ -113,6 +113,7 @@ const PredeterminadosID = () => {
               src={window.innerWidth < 1024 ? imgHorizontal : imgVertical}
               alt='Imagen del producto'
               className='max-h-full object-contain'
+              onContextMenu={e => e.preventDefault()}
             />
           </div>
 
@@ -169,11 +170,10 @@ const PredeterminadosID = () => {
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded transition-colors ${
-                      !isSelectionComplete
+                    className={`flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded transition-colors ${!isSelectionComplete
                         ? "opacity-50 cursor-not-allowed"
                         : "hover:bg-gray-800"
-                    }`}>
+                      }`}>
                     Agregar al Carrito
                   </button>
                 </div>
@@ -181,11 +181,10 @@ const PredeterminadosID = () => {
                 {/* Comprar ahora */}
                 <button
                   disabled={!isSelectionComplete}
-                  className={`border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 transition-colors ${
-                    !isSelectionComplete
+                  className={`border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 transition-colors ${!isSelectionComplete
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:bg-black hover:text-white"
-                  }`}>
+                    }`}>
                   Comprar Ahora
                 </button>
 

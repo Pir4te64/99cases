@@ -1,5 +1,5 @@
-import headerDesktop from "../assets/Header.png";
-import headerMobile from "../assets/Header1.png";
+import headerDesktop from "@/assets/Header.png";
+import headerMobile from "@/assets/Header1.png";
 
 function Header() {
   return (

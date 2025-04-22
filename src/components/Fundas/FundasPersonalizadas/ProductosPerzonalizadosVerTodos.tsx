@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ProductCardPersonalizadas from "./ProductosPersonalizados";
-import { products } from "../FundasPredeterminadas/fundasGet";
+import ProductCardPersonalizadas from "@/components/Fundas/FundasPersonalizadas/ProductosPersonalizados";
+import { products } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
 
 interface ProductsProps {
   visibleTitle?: boolean; // Prop opcional

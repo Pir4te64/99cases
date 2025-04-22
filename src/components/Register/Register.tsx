@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import registerPOST from "./RegisterPOST";
-import loginPOST from "../Login/LoginPOST"; // Asegúrate de que la ruta sea la correcta
+import registerPOST from "@/components/Register/RegisterPOST";
+import loginPOST from "@/components/Login/LoginPOST"; // Asegúrate de que la ruta sea la correcta
 
 const Register = () => {
   const [email, setEmail] = useState("");

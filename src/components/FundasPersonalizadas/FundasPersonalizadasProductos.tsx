@@ -1,5 +1,5 @@
-import ProductCardPersonalizadas from "../Fundas/FundasPersonalizadas/ProductosPersonalizados";
-import { products } from "../Fundas/FundasPredeterminadas/fundasGet";
+import ProductCardPersonalizadas from "@/components/Fundas/FundasPersonalizadas/ProductosPersonalizados";
+import { products } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
 
 const FundasPersonalizadasProductos = () => {
   return (

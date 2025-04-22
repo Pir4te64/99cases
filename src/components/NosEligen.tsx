@@ -1,5 +1,5 @@
-import img1 from "../assets/Eligen/1.jpg";
-import img2 from "../assets/Eligen/2.jpg";
+import img1 from "@/assets/Eligen/1.jpg";
+import img2 from "@/assets/Eligen/2.jpg";
 
 const NosEligen = () => {
   return (

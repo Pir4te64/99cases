@@ -1,4 +1,4 @@
-import Productos from "./Productos";
+import Productos from "@/components/Fundas/FundasPredeterminadas/Productos";
 function ProductosSimilares() {
   return (
     <div className="bg-white w-full flex flex-col items-center justify-center">

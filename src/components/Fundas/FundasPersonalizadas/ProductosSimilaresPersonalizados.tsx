@@ -1,4 +1,4 @@
-import ProductsPersonalizadasVerTodos from "./ProductosPerzonalizadosVerTodos";
+import ProductsPersonalizadasVerTodos from "@/components/Fundas/FundasPersonalizadas/ProductosPerzonalizadosVerTodos";
 
 function ProductosSimilares() {
   return (

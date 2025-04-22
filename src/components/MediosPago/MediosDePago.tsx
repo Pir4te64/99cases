@@ -1,9 +1,9 @@
 import { useLocation, Link } from "react-router-dom";
 import { useState } from "react";
-import tarjeta from "../../assets/Pagos/tarjetas.png";
-import useDeliveryStore from "../Pagos/useDeliveryStore";
-import DeliverySummary from "./DeliverySummary";
-import { handleMercadoPago } from "./handleMercadoPago";
+import tarjeta from "@/assets/Pagos/tarjetas.png";
+import useDeliveryStore from "@/components/Pagos/useDeliveryStore";
+import DeliverySummary from "@/components/MediosPago/DeliverySummary";
+import { handleMercadoPago } from "@/components/MediosPago/handleMercadoPago";
 
 const MediosDePago = () => {
   const location = useLocation();

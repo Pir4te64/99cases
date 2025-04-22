@@ -1,6 +1,6 @@
 // phoneSelectionStore.ts
 import { create } from "zustand";
-import { PhoneModel } from "./Peticiones/MarcaCelularesGET"; // Asegúrate de que la ruta sea la correcta
+import { PhoneModel } from "@/components/PersonalizadosID/Peticiones/MarcaCelularesGET"; // Asegúrate de que la ruta sea la correcta
 
 interface PhoneSelectionState {
   selectedBrand: string | null;

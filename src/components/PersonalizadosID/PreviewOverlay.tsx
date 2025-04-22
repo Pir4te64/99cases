@@ -1,10 +1,9 @@
 // src/components/PreviewOverlay.tsx
 
-import React from "react";
-import usePersonalizadoStore from "./usePersonalizadoStore";
-import { customNameStyles, customNumberStyles } from "../../utils/textStyles";
+import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 
-const PreviewOverlay = () => {
+const PreviewOverlay: React.FC = () => {
     const product = usePersonalizadoStore(s => s.product);
     const userName = usePersonalizadoStore(s => s.userName);
     const userNumber = usePersonalizadoStore(s => s.userNumber);
@@ -35,51 +34,56 @@ const PreviewOverlay = () => {
 
     return (
         <div className="relative w-full h-full bg-white overflow-hidden">
-            {/* Imagen invisible pero que ocupa espacio */}
+            {/* Imagen como fondo (invisible para conservar espacio) */}
             <img
                 src={product?.imageSrc}
                 alt={product?.title || "Producto"}
-                className="w-full h-full object-contain opacity-100"
+                onContextMenu={e => e.preventDefault()}
+                className="w-full h-full object-contain opacity-0"
             />
 
-            {/* Texto centrado */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                {/* Nombre */}
-                <span
-                    style={{
-                        color: nFill,
-                        WebkitTextStroke: `1px ${nBorder}`,
-                        textShadow: makeShadow(nBorder2, 3),
-                    }}
-                    className={`
-            text-4xl sm:text-9xl 
-            ${nameStyleIndex !== null
-                            ? `font-${customNameStyles[nameStyleIndex]}`
-                            : "font-cmxShift2"
-                        }
-          `}
-                >
-                    {userName || "TU NOMBRE"}
-                </span>
+            {/* Nombre absolutamente centrado */}
+            <span
+                style={{
+                    color: nFill,
+                    WebkitTextStroke: `1px ${nBorder}`,
+                    textShadow: makeShadow(nBorder2, 3),
+                }}
+                className={`
+          absolute 
+          top-1/2 left-1/2 
+          transform -translate-x-1/2 -translate-y-1/2
+          text-4xl sm:text-8xl 
+          ${nameStyleIndex !== null
+                        ? `font-${customNameStyles[nameStyleIndex]}`
+                        : "font-cmxShift2"
+                    }
+          pointer-events-none
+        `}
+            >
+                {userName || "TU NOMBRE"}
+            </span>
 
-                {/* Número */}
-                <span
-                    style={{
-                        color: numFill,
-                        WebkitTextStroke: `1px ${numBorder}`,
-                        textShadow: makeShadow(numBorder2, 2),
-                    }}
-                    className={`
-            mt-2 text-3xl sm:text-9xl
-            ${numberStyleIndex !== null
-                            ? `font-${customNumberStyles[numberStyleIndex]}`
-                            : "font-cmxShift2"
-                        }
-          `}
-                >
-                    {userNumber || "15"}
-                </span>
-            </div>
+            {/* Número centrado horizontal y cerca del fondo */}
+            <span
+                style={{
+                    color: numFill,
+                    WebkitTextStroke: `1px ${numBorder}`,
+                    textShadow: makeShadow(numBorder2, 2),
+                }}
+                className={`
+          absolute 
+          bottom-10 left-1/2 transform -translate-x-1/2
+          text-3xl sm:text-9xl
+          ${numberStyleIndex !== null
+                        ? `font-${customNumberStyles[numberStyleIndex]}`
+                        : "font-cmxShift2"
+                    }
+          pointer-events-none
+        `}
+            >
+                {userNumber || "15"}
+            </span>
         </div>
     );
 };

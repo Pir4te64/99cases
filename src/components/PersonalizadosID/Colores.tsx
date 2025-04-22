@@ -1,7 +1,6 @@
 // src/components/Colores.jsx
-import React from "react";
-import usePersonalizadoStore from "./usePersonalizadoStore";
-import { colorSections } from "./ColorSectionsProvider";
+import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import { colorSections } from "@/components/PersonalizadosID/ColorSectionsProvider";
 
 const Colores = () => {
   // Leemos y escribimos directamente en el store

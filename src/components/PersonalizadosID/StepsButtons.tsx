@@ -1,5 +1,5 @@
 // StepsButtons.jsx
-import usePersonalizadoStore from "./usePersonalizadoStore";
+import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
 
 const StepsButtons = () => {
   const toggleShowMarca = usePersonalizadoStore(

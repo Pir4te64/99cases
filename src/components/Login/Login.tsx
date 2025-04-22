@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import loginPOST from "./LoginPOST";
+import loginPOST from "@/components/Login/LoginPOST";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

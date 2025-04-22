@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import fundaPersonalizada from "../assets/fundasPersonalizadas.jpg";
-import fundaPredeterminada from "../assets/fundasPredeterminadas.jpg";
-import useInViewMobile from "../utils/useInViewMobile";
+import fundaPersonalizada from "@/assets/fundasPersonalizadas.jpg";
+import fundaPredeterminada from "@/assets/fundasPredeterminadas.jpg";
+import useInViewMobile from "@/utils/useInViewMobile";
 
 const Coleccion = () => {
   const [ref1, isMobileVisible1] = useInViewMobile({ threshold: 0.5 });

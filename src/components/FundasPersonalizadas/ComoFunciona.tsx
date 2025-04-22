@@ -1,8 +1,8 @@
-import img1 from "../../assets/FundasPersonalizadas/ComoFunciona/1.png";
-import img2 from "../../assets/FundasPersonalizadas/ComoFunciona/2.png";
-import img3 from "../../assets/FundasPersonalizadas/ComoFunciona/3.png";
-import img4 from "../../assets/FundasPersonalizadas/ComoFunciona/4.png";
-import img5 from "../../assets/FundasPersonalizadas/ComoFunciona/5.png";
+import img1 from "@/assets/FundasPersonalizadas/ComoFunciona/1.png";
+import img2 from "@/assets/FundasPersonalizadas/ComoFunciona/2.png";
+import img3 from "@/assets/FundasPersonalizadas/ComoFunciona/3.png";
+import img4 from "@/assets/FundasPersonalizadas/ComoFunciona/4.png";
+import img5 from "@/assets/FundasPersonalizadas/ComoFunciona/5.png";
 
 const steps = [
   {

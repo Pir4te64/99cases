@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Select, { OnChangeValue } from "react-select";
-import { fetchPhoneModels, PhoneModel } from "./Peticiones/MarcaCelularesGET";
-import { usePhoneSelectionStore } from "./phoneSelectionStore";
+import { fetchPhoneModels, PhoneModel } from "@/components/PersonalizadosID/Peticiones/MarcaCelularesGET";
+import { usePhoneSelectionStore } from "@/components/PersonalizadosID/phoneSelectionStore";
 // Importa el store
 
 const MarcaCelularGET = () => {

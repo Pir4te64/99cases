@@ -1,17 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import FundasPredeterminadas from "./pages/FundasPredeterminadas";
-import PredeterminadosID from "./components/PredeterminadosID";
-import FundasPersonalizadas from "./pages/FundasPersonalizadas";
-import PersonalizadosID from "./components/PersonalizadosID/PersonalizadosID";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
+import Layout from "@/components/Layout";
+import Home from "@/pages/Home";
+import FundasPredeterminadas from "@/pages/FundasPredeterminadas";
+import PredeterminadosID from "@/components/PredeterminadosID";
+import FundasPersonalizadas from "@/pages/FundasPersonalizadas";
+import PersonalizadosID from "@/components/PersonalizadosID/PersonalizadosID";
+import LoginPage from "@/pages/Login";
+import RegisterPage from "@/pages/Register";
 import { ToastContainer } from "react-toastify";
-import PagosPage from "./pages/Pagos";
-import MediosDePagosPage from "./pages/MediosDePagos";
-import PaymentSuccessPage from "./pages/PaymentSuccess";
-import PaymentErrorPage from "./pages/PaymentError";
+import PagosPage from "@/pages/Pagos";
+import MediosDePagosPage from "@/pages/MediosDePagos";
+import PaymentSuccessPage from "@/pages/PaymentSuccess";
+import PaymentErrorPage from "@/pages/PaymentError";
 function App() {
   return (
     <Layout>

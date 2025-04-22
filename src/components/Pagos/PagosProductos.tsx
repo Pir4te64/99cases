@@ -1,6 +1,6 @@
 // ResumenCompra.tsx
 import React from "react";
-import { CartItem } from "../../store/cartStore";
+import { CartItem } from "@/store/cartStore";
 
 interface ResumenCompraProps {
   cartItems: CartItem[];

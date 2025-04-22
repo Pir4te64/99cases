@@ -1,7 +1,7 @@
 // PurchaseActions.tsx
 import { Minus, Plus } from "lucide-react";
-import tarjetas from "../../assets/predetermiandasCases/tarjetas.png";
-import useCartStore, { CartItem } from "../../store/cartStore";
+import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
+import useCartStore, { CartItem } from "@/store/cartStore";
 
 interface PurchaseActionsProps {
   product: {

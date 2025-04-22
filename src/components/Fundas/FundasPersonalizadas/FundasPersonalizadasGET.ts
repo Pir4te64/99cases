@@ -1,11 +1,11 @@
-import fundaFox from "../../../assets/Productos/FP1.png";
-import fundaFox2 from "../../../assets/Productos/FP2.png";
-import fundaFox3 from "../../../assets/Productos/FP3.png";
-import fundaFox4 from "../../../assets/Productos/FP4.png";
-import fundaFox5 from "../../../assets/Productos/FP5.png";
-import fundaFox6 from "../../../assets/Productos/FP6.png";
-import fundaFox7 from "../../../assets/Productos/FP7.png";
-import fundaFox8 from "../../../assets/Productos/FP8.png";
+import fundaFox from "@/assets/Productos/FP1.png";
+import fundaFox2 from "@/assets/Productos/FP2.png";
+import fundaFox3 from "@/assets/Productos/FP3.png";
+import fundaFox4 from "@/assets/Productos/FP4.png";
+import fundaFox5 from "@/assets/Productos/FP5.png";
+import fundaFox6 from "@/assets/Productos/FP6.png";
+import fundaFox7 from "@/assets/Productos/FP7.png";
+import fundaFox8 from "@/assets/Productos/FP8.png";
 
 interface ProductPersonalizadas {
   id: number;

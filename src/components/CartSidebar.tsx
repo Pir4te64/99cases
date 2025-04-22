@@ -2,8 +2,8 @@ import { X, Plus, Minus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2"; // Importa SweetAlert2
-import useCartStore from "../store/cartStore";
-import { API } from "../utils/Api";
+import useCartStore from "@/store/cartStore";
+import { API } from "@/utils/Api";
 
 export default function CartSidebar() {
   const {

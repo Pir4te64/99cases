@@ -45,6 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <img
           loading="lazy"
           src={imageSrc}
+          onContextMenu={e => e.preventDefault()}
           alt={title}
           className="mx-auto my-4 h-auto object-contain"
         />

@@ -1,8 +1,8 @@
 import React from "react";
-import iphone from "../assets/marcas/Iphone.png";
-import samsung from "../assets/marcas/Samsung.png";
-import moto from "../assets/marcas/moto.png";
-import xiaomi from "../assets/marcas/xia.png";
+import iphone from "@/assets/marcas/Iphone.png";
+import samsung from "@/assets/marcas/Samsung.png";
+import moto from "@/assets/marcas/moto.png";
+import xiaomi from "@/assets/marcas/xia.png";
 
 const Marcas: React.FC = () => {
     const images = [iphone, samsung, moto, xiaomi];

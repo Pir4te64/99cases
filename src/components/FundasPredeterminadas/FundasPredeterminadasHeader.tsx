@@ -1,4 +1,4 @@
-import headerPredeterminadas from "../../assets/predeterminadas/headerPredeterinadas.jpg";
+import headerPredeterminadas from "@/assets/predeterminadas/headerPredeterinadas.jpg";
 
 const FundasPredeterminadasHeader = () => {
   return (

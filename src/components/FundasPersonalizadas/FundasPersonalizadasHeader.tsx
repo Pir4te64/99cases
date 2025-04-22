@@ -1,5 +1,5 @@
-import headerDesktop from "../../assets/FundasPersonalizadas/HeaderDesktop.jpeg";
-import headerMobile from "../../assets/FundasPersonalizadas/HeaderMobile.jpeg";
+import headerDesktop from "@/assets/FundasPersonalizadas/HeaderDesktop.jpeg";
+import headerMobile from "@/assets/FundasPersonalizadas/HeaderMobile.jpeg";
 
 const FundasPredeterminadasHeader = () => {
   return (

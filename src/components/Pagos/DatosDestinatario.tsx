@@ -1,7 +1,7 @@
 // DatosDestinatario.tsx
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { validationSchema } from "./DatosDestinatario.data";
+import { validationSchema } from "@/components/Pagos/DatosDestinatario.data";
 
 interface DatosDestinatarioProps {
   nombre: string;

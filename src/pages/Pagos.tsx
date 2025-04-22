@@ -1,4 +1,4 @@
-import Pagos from "../components/Pagos/Pagos";
+import Pagos from "@/components/Pagos/Pagos";
 
 const PagosPage = () => {
   return (

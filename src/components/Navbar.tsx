@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
-import useCartStore from "../store/cartStore";
+import useCartStore from "@/store/cartStore";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

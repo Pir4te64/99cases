@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import s1 from "../assets/Scroll/s1.jpg";
-import s2 from "../assets/Scroll/s2.jpg";
+import s1 from "@/assets/Scroll/s1.jpg";
+import s2 from "@/assets/Scroll/s2.jpg";
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);

@@ -1,6 +1,6 @@
 // LoginPOST.js
 import axios from "axios";
-import { API } from "../../utils/Api";
+import { API } from "@/utils/Api";
 
 const loginPOST = async (email: string, password: string) => {
   try {

@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Breadcrumbs from "../Breadcrumbs"; // Ajusta la ruta si es necesario
-import useCartStore from "../../store/cartStore";
-import ResumenCompra from "./PagosProductos"; // Ajusta la ruta según tu estructura
-import usePaymentFormStore from "../../store/pagoStore";
-import DatosContacto from "./DatosContacto";
-import DatosDestinatario from "./DatosDestinatario";
+import Breadcrumbs from "@/components/Breadcrumbs"; // Ajusta la ruta si es necesario
+import useCartStore from "@/store/cartStore";
+import ResumenCompra from "@/components/Pagos/PagosProductos"; // Ajusta la ruta según tu estructura
+import usePaymentFormStore from "@/store/pagoStore";
+import DatosContacto from "@/components/Pagos/DatosContacto";
+import DatosDestinatario from "@/components/Pagos/DatosDestinatario";
 import axios from "axios";
-import { API } from "../../utils/Api";
+import { API } from "@/utils/Api";
 import Swal from "sweetalert2"; // Importación de SweetAlert2
-import useDeliveryStore from "./useDeliveryStore";
+import useDeliveryStore from "@/components/Pagos/useDeliveryStore";
 
 const Pagos = () => {
   const { cartItems, subtotal, total, idOrdenCompra } = useCartStore();

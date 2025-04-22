@@ -1,5 +1,5 @@
 import React from "react";
-import ProductosSimilaresPersonalizados from "./Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
+import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
 const PersonalizadosLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>

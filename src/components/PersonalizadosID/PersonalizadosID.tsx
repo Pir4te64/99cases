@@ -1,31 +1,31 @@
+// src/components/PersonalizadosID.tsx
+
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrumbs from "../Breadcrumbs";
-import imgVertical from "../../assets/predetermiandasCases/List.png";
-import imgHorizontal from "../../assets/predetermiandasCases/horizontal.png";
-import PersonalizadosLayout from "../PersonalizadosLayout";
-import ProductDetails from "./ProductoDetalles";
-import ProductImage from "./ProductoImagen";
-import MarcaCelular from "./MarcaCelular";
-import ProductInfo from "./ProductHeader";
-import PurchaseActions from "./PurchaseActions";
-import StepsButtons from "./StepsButtons";
-import usePersonalizadoStore from "./usePersonalizadoStore";
-import CustomName from "./CustomName";
-import Colores from "./Colores";
-import PreviewOverlay from "./PreviewOverlay";
+import html2canvas from "html2canvas";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import imgVertical from "@/assets/predetermiandasCases/List.png";
+import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
+import PersonalizadosLayout from "@/components/PersonalizadosLayout";
+import ProductDetails from "@/components/PersonalizadosID/ProductoDetalles";
+import ProductImage from "@/components/PersonalizadosID/ProductoImagen";
+import MarcaCelular from "@/components/PersonalizadosID/MarcaCelular";
+import ProductInfo from "@/components/PersonalizadosID/ProductHeader";
+import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
+import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
+import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import CustomName from "@/components/PersonalizadosID/CustomName";
+import Colores from "@/components/PersonalizadosID/Colores";
+import PreviewOverlay from "@/components/PersonalizadosID/PreviewOverlay";
 
-const PersonalizadosID = () => {
+const PersonalizadosID: React.FC = () => {
   const location = useLocation();
-
-  const product = usePersonalizadoStore((state: any) => state.product);
-  const showMarca = usePersonalizadoStore((state: any) => state.showMarca);
-  const step2Active = usePersonalizadoStore((state: any) => state.step2Active);
-  const showColors = usePersonalizadoStore((state: any) => state.showColors);
-  const setProduct = usePersonalizadoStore((state: any) => state.setProduct);
-  const setWindowWidth = usePersonalizadoStore(
-    (state: any) => state.setWindowWidth
-  );
+  const product = usePersonalizadoStore(s => s.product);
+  const showMarca = usePersonalizadoStore(s => s.showMarca);
+  const step2Active = usePersonalizadoStore(s => s.step2Active);
+  const showColors = usePersonalizadoStore(s => s.showColors);
+  const setProduct = usePersonalizadoStore(s => s.setProduct);
+  const setWindowWidth = usePersonalizadoStore(s => s.setWindowWidth);
 
   useEffect(() => {
     if (location.state?.product) {
@@ -46,47 +46,86 @@ const PersonalizadosID = () => {
     { label: product?.title || "Producto" },
   ];
 
+  // Función para capturar y descargar el preview
+  const handleDownload = async () => {
+    const el = document.getElementById("preview-container");
+    if (!el) return;
+
+    // Define aquí tu DPI objetivo y tu tamaño de impresión en pulgadas:
+    const targetDPI = 300;                     // lo que te pide la imprenta
+    const cssInchesPerPx = 1 / 96;             // 96px == 1" en CSS
+    const scale = targetDPI * cssInchesPerPx;  // ≃ 3.125
+
+    const canvas = await html2canvas(el, {
+      scale,          // escala el canvas para generar más píxeles
+      useCORS: true,
+      backgroundColor: null,
+    });
+
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "producto_300dpi.png";
+    link.click();
+  };
+
   return (
     <PersonalizadosLayout>
-      <div className='mx-auto px-4 py-6 bg-white text-black'>
+      <div className="mx-auto px-4 py-6 bg-white text-black">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className='flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4'>
+
+        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4">
+
+          {/* Columna 1: selector de orientación */}
           <ProductImage
             imgHorizontal={imgHorizontal}
             imgVertical={imgVertical}
           />
 
-          <div className='flex items-center justify-center'>
+          {/* Columna 2: preview */}
+          <div className="flex items-center justify-center">
             {product ? (
-              <PreviewOverlay />
+              // este div es el que capturamos con html2canvas
+              <div id="preview-container" className="w-full h-full">
+                <PreviewOverlay />
+              </div>
             ) : (
-              <p className='font-favoritMono font-bold italic'>
+              <p className="font-favoritMono font-bold italic">
                 No se encontró la imagen del producto.
               </p>
             )}
           </div>
 
-          {/* Columna 3 */}
-          <div className='flex-1 flex flex-col p-4 py-10 overflow-y-auto font-favoritMono'>
+          {/* Columna 3: ajustes y detalles */}
+          <div className="flex-1 flex flex-col p-4 py-10 overflow-y-auto font-favoritMono">
             {product ? (
               <>
                 <ProductInfo product={product} />
 
-                {/* Botones de pasos */}
                 <StepsButtons />
 
                 {showMarca && <MarcaCelular />}
                 {step2Active && <CustomName />}
                 {showColors && <Colores />}
+
                 {!(showMarca || step2Active || showColors) && (
                   <>
                     <PurchaseActions product={product} />
                     <ProductDetails />
+
+                    {/* Aquí colocamos el botón de descarga justo debajo de ProductDetails */}
+                    <div className="mt-4 text-center">
+                      <button
+                        onClick={handleDownload}
+                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                      >
+                        Descargar imagen
+                      </button>
+                    </div>
                   </>
                 )}
               </>
             ) : (
-              <p className='font-favoritMono font-bold italic'>
+              <p className="font-favoritMono font-bold italic">
                 No se encontró el producto.
               </p>
             )}

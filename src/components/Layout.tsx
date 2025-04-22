@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import CartSidebar from "./CartSidebar";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import CartSidebar from "@/components/CartSidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();

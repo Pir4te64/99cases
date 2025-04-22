@@ -53,6 +53,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       <picture>
         <img
           loading="lazy"
+          onContextMenu={e => e.preventDefault()}
           src={imageSrc}
           alt={title}
           className="mx-auto my-4 h-auto object-contain"

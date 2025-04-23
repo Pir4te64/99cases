@@ -1,19 +1,22 @@
-// tsconfig.json
+// tsconfig.json (base)
 {
   "compilerOptions": {
-    "outDir": "./dist",             // donde emitirá tsc si lo usas sin noEmit
-    "baseUrl": ".",                 // raíz del proyecto
-    "paths": {
-      "@/*": ["src/*"]              // alias @ → src
-    },
+    "target": "ES2020",
+    "module": "ESNext",
     "jsx": "react-jsx",
-    "lib": ["dom", "es2015"]        // soporte a DOM y ES2015
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]        // OJO: el “./” al inicio a veces marca la diferencia
+    },
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.vue"
+    "src/**/*"                 // que cubra .ts, .tsx, .js, .jsx de una
   ]
 }

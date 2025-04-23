@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -84,11 +84,10 @@ const Register = () => {
             <button
               type='submit'
               disabled={!isFormValid || loading}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${
-                isFormValid && !loading
+              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${isFormValid && !loading
                   ? "hover:bg-white hover:text-black"
                   : "opacity-50 cursor-not-allowed"
-              }`}>
+                }`}>
               {loading ? "Cargando..." : "Registrarse"}
             </button>
           </div>

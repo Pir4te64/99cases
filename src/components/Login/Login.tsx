@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import loginPOST from "@/components/Login/LoginPOST";
 import { toast } from "react-toastify";
@@ -70,11 +70,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${
-                isFormValid
+              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${isFormValid
                   ? "hover:bg-white hover:text-black"
                   : "opacity-50 cursor-not-allowed"
-              }`}
+                }`}
             >
               Iniciar Sesión
             </button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import s1 from "@/assets/Scroll/s1.jpg";
 import s2 from "@/assets/Scroll/s2.jpg";
 
@@ -96,9 +96,8 @@ const Scroll: React.FC = () => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full ${
-              currentIndex === index ? "bg-red-600" : "bg-white"
-            }`}
+            className={`w-3 h-3 rounded-full ${currentIndex === index ? "bg-red-600" : "bg-white"
+              }`}
           />
         ))}
       </div>

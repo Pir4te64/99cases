@@ -1,4 +1,3 @@
-import React from "react";
 import iphone from "@/assets/marcas/Iphone.png";
 import samsung from "@/assets/marcas/Samsung.png";
 import moto from "@/assets/marcas/moto.png";

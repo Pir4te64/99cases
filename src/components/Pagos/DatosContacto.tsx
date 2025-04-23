@@ -1,5 +1,5 @@
 // DatosContacto.tsx
-import React from "react";
+
 
 interface DatosContactoProps {
   email: string;

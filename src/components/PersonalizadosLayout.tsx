@@ -1,4 +1,3 @@
-import React from "react";
 import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
 const PersonalizadosLayout = ({ children }: { children: React.ReactNode }) => {
   return (

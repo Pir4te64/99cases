@@ -1,5 +1,5 @@
 // DatosDestinatario.tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import { validationSchema } from "@/components/Pagos/DatosDestinatario.data";
 

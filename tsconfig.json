@@ -1,13 +1,19 @@
+// tsconfig.json
 {
-  // "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",          // apunta a la raíz
+    "outDir": "./dist",             // donde emitirá tsc si lo usas sin noEmit
+    "baseUrl": ".",                 // raíz del proyecto
     "paths": {
-      "@/*": ["src/*"]      // tu alias @/
+      "@/*": ["src/*"]              // alias @ → src
     },
-     "jsx": "react-jsx",
-     "lib": ["dom", "es2015"]
+    "jsx": "react-jsx",
+    "lib": ["dom", "es2015"]        // soporte a DOM y ES2015
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.vue"
+  ]
 }

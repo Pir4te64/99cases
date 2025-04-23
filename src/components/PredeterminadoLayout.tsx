@@ -1,5 +1,4 @@
-// src/layouts/ProductDetailLayout.jsx
-import React from "react";
+
 import ProductosSimilares from "@/components/Fundas/FundasPredeterminadas/ProductosSimilares";
 const PredeterminadoLayout = ({ children }: { children: React.ReactNode }) => {
   return (

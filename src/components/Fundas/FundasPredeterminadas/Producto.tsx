@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           src={imageSrc}
           onContextMenu={e => e.preventDefault()}
           alt={title}
-          className="mx-auto my-4 h-auto object-contain"
+          className="mx-auto my-4 h-auto object-contain hover:scale-105 transition-transform duration-300 ease-in-out"
         />
       </picture>
       <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritExpandedBook">

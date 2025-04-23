@@ -112,7 +112,7 @@ const PredeterminadosID = () => {
             <img
               src={window.innerWidth < 1024 ? imgHorizontal : imgVertical}
               alt='Imagen del producto'
-              className='max-h-full object-contain'
+              className='max-h-full object-contain hover:scale-105 transition-transform duration-300 ease-in-out'
               onContextMenu={e => e.preventDefault()}
             />
           </div>
@@ -171,8 +171,8 @@ const PredeterminadosID = () => {
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
                     className={`flex-1 bg-black text-white px-4 py-2 font-favoritExpandedBook rounded transition-colors ${!isSelectionComplete
-                        ? "opacity-50 cursor-not-allowed"
-                        : "hover:bg-gray-800"
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-gray-800"
                       }`}>
                     Agregar al Carrito
                   </button>
@@ -182,8 +182,8 @@ const PredeterminadosID = () => {
                 <button
                   disabled={!isSelectionComplete}
                   className={`border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 transition-colors ${!isSelectionComplete
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-black hover:text-white"
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-black hover:text-white"
                     }`}>
                   Comprar Ahora
                 </button>

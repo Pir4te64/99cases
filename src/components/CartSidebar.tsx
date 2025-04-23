@@ -70,12 +70,6 @@ export default function CartSidebar() {
     }
   };
 
-  // Función que imprime en consola el contenido del FormData.
-  const printFormData = (formData: FormData) => {
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-  };
 
   // Función para crear la orden usando Axios, enviando los datos mediante FormData.
   const createOrder = async () => {
@@ -100,7 +94,6 @@ export default function CartSidebar() {
     await appendImagesFromURLs(formData);
 
     // Imprimimos en consola el contenido del FormData para depuración.
-    printFormData(formData);
 
     try {
       const response = await axios.post(API.order, formData, {
@@ -165,9 +158,8 @@ export default function CartSidebar() {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
-        isCartOpen ? "translate-x-0" : "translate-x-full"
-      }`}>
+      className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isCartOpen ? "translate-x-0" : "translate-x-full"
+        }`}>
       {/* Encabezado */}
       <div className='border-b flex justify-between items-center bg-gray-400 w-full p-4'>
         <h2 className='font-favoritExpandedBook text-black tracking-wide'>

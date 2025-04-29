@@ -15,7 +15,6 @@ const PaymentSuccess = () => {
       <p className='mt-2 text-lg text-gray-600'>
         Gracias por tu compra. Tu transacción se ha realizado correctamente.
       </p>
-      {/* Botón para volver al inicio */}
       <button
         onClick={() => navigate("/")}
         className='mt-8 px-6 py-3 bg-black text-white rounded transition-colors font-medium hover:bg-gray-800'>

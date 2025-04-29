@@ -14,7 +14,7 @@ export default function Navbar() {
 
   // Cada vez que cambia la URL se revisa el token en el localStorage.
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, [location]);
 
@@ -80,9 +80,9 @@ export default function Navbar() {
           </div>
 
           {/* Centro: Logo */}
-          <div className='text-xl font-bold text-center'>
-            <img src={logo} alt='logo' />
-          </div>
+            <Link to='/' className='text-xl font-bold text-center flex justify-center items-center'>
+              <img src={logo} alt='logo' className='h-16 md:h-20' />
+            </Link>
 
           {/* Derecha: Íconos y botones */}
           <div className='flex items-center space-x-4'>

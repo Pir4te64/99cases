@@ -34,7 +34,7 @@ const adaptProduct = (apiProduct: any): Product => {
 const fetchAndAdaptProducts = async () => {
   try {
     // Obtiene el token desde localStorage
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     const response = await axios.get(API.getAllCases, {
       headers: {

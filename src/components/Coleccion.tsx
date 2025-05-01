@@ -20,12 +20,13 @@ const Coleccion = () => {
               loading="lazy"
               src={fundaPredeterminada}
               alt="Funda Predeterminada"
-              className="w-full object-cover"
+              className="w-full object-cover hover:scale-105 transition-transform duration-300"
+
             />
           </picture>
           {/* Overlay limitado a la zona inferior */}
           <div
-            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
+            className={`absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
               isMobileVisible1 ? "opacity-100" : "opacity-0"
             } md:group-hover:opacity-100`}
           ></div>
@@ -42,7 +43,7 @@ const Coleccion = () => {
         </div>
 
         {/* Tarjeta 2 */}
-        <div ref={ref2} className="relative group overflow-hidden">
+        <div ref={ref2} className="relative group overflow-hidden cursor-pointer">
           <picture>
             <source media="(min-width: 768px)" srcSet={fundaPersonalizada} />
             <source media="(max-width: 767px)" srcSet={fundaPersonalizada} />
@@ -50,17 +51,17 @@ const Coleccion = () => {
               loading="lazy"
               src={fundaPersonalizada}
               alt="Funda Personalizada"
-              className="w-full object-cover"
+              className="w-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </picture>
           {/* Overlay limitado a la zona inferior */}
           <div
-            className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
+            className={`absolute bottom-0 left-0 right-0 h-full  bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${
               isMobileVisible2 ? "opacity-100" : "opacity-0"
             } md:group-hover:opacity-100`}
           ></div>
 
-          <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 cursor-pointer">
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 ">
             <Link to="/personalizadas">
               <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic font-bold tracking-wide uppercase">
                 Fundas Personalizadas

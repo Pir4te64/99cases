@@ -19,11 +19,11 @@ const steps = [
   },
   {
     img: img4,
-    text: "Pedido enviado a producción",
+    text: "El pedido se envia a producción",
   },
   {
     img: img5,
-    text: "Pedido empaquetado y enviado",
+    text: "El pedido se empaqueta y envia",
   },
 ];
 

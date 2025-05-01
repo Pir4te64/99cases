@@ -10,12 +10,23 @@ interface ProductsProps {
 const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
+  const STEP = 4;
 
   useEffect(() => {
     fetchAndAdaptProducts().then(setAllProducts);
   }, []);
 
   const displayedProducts = allProducts.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    // Calcula cuántos mostrar a continuación
+    const nextCount = Math.min(visibleCount + STEP, allProducts.length);
+    setVisibleCount(nextCount);
+  };
+
+  // Decide el texto del botón según cuántos falten
+  const isFinalStep = visibleCount + STEP >= allProducts.length;
+  const buttonText = isFinalStep ? "Mostrar todos" : "Mostrar más";
 
   return (
     <div className="bg-white mx-auto py-8 px-4">
@@ -44,9 +55,9 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
         <div className="flex justify-center mt-8">
           <button
             className="border border-black text-black px-6 py-2 rounded hover:bg-black hover:text-white font-bold font-favoritMono transition-colors"
-            onClick={() => setVisibleCount(allProducts.length)}
+            onClick={handleLoadMore}
           >
-            Ver Todos
+            {buttonText}
           </button>
         </div>
       )}

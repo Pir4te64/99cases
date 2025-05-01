@@ -26,6 +26,7 @@ export default function Navbar() {
 
   // Maneja el logout: remueve el token y actualiza el estado
   const handleLogout = () => {
+    sessionStorage.removeItem("token");
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
@@ -45,11 +46,11 @@ export default function Navbar() {
         </div>
       )}
 
-      <nav className='bg-black text-white p-5 mx-5 relative'>
+      <nav className='bg-black text-white p-4 mx-5 relative'>
         {/* Desktop Navbar */}
         <div className='hidden md:flex items-center justify-between'>
           {/* Izquierda: Enlaces */}
-          <div className='flex items-center space-x-6'>
+          <div className='flex items-center space-x-3'>
             <Link
               to='/'
               className='hover:text-gray-300 transition-colors font-favoritMono tracking-wide'>
@@ -76,7 +77,9 @@ export default function Navbar() {
                   </Link>
                 </div>
               )}
+              
             </div>
+           
           </div>
 
           {/* Centro: Logo */}
@@ -88,32 +91,32 @@ export default function Navbar() {
 
           {/* Derecha: Íconos y botones */}
           <div className='flex items-center space-x-4'>
-            <button className='hover:text-gray-300 transition-colors'>
-              <Search className='h-5 w-5' />
-            </button>
+          
             <button
               onClick={toggleCart}
               className='hover:text-gray-300 transition-colors'>
               <ShoppingCart className='h-5 w-5' />
             </button>
-
+            <button className='hover:text-gray-300 transition-colors'>
+              <Search className='h-5 w-5' />
+            </button>
             {/* Muestra "Cerrar Sesión" si está logueado, sino "Registrarse" y "Login" */}
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className='px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
+                className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
                 Cerrar Sesión
               </button>
             ) : (
               <>
                 <Link
                   to='/register'
-                  className='px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
+                  className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
                   Registrarse
                 </Link>
                 <Link
                   to='/login'
-                  className='px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
+                  className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
                   Login
                 </Link>
               </>
@@ -124,9 +127,11 @@ export default function Navbar() {
         {/* Mobile Navbar */}
         <div className='md:hidden flex items-center justify-between'>
           {/* Logo a la izquierda, más pequeño */}
+          <Link to='/'>
           <div className='text-xl font-bold'>
             <img src={logo} alt='logo' className='h-12' />
           </div>
+          </Link>
 
           {/* Íconos a la derecha: hamburguesa, búsqueda y carrito */}
           <div className='flex items-center space-x-4'>

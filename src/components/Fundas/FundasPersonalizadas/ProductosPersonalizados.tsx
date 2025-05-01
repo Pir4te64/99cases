@@ -7,7 +7,6 @@ interface ProductCardProps {
   title: string;
   price: string;
   oldPrice?: string;
-  cantidadesVendidos: number;
   description: string;
 }
 
@@ -18,7 +17,6 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   title,
   price,
   oldPrice,
-  cantidadesVendidos,
 }) => {
   const navigate = useNavigate();
 
@@ -30,7 +28,6 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       title,
       price,
       oldPrice,
-      cantidadesVendidos,
     };
     navigate(`/personalizadas/${id}`, { state: { product: productData } });
   };

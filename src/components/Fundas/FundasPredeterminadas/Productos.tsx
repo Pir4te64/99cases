@@ -1,50 +1,51 @@
-import { useState } from "react";
-import ProductCard from "@/components/Fundas/FundasPredeterminadas/Producto";
-import { products } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
+// Productos.tsx
+import { useEffect, useState } from "react";
+import ProductCard from "./Producto";
+import { fetchAndAdaptProducts, Product } from "./fundasGet";
 
 interface ProductsProps {
-  visibleTitle?: boolean; // Prop opcional
+  visibleTitle?: boolean;
 }
 
 const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
 
-  const handleLoadMore = () => {
-    setVisibleCount(products.length);
-  };
+  useEffect(() => {
+    fetchAndAdaptProducts().then(setAllProducts);
+  }, []);
 
-  const displayedProducts = products.slice(0, visibleCount);
+  const displayedProducts = allProducts.slice(0, visibleCount);
 
   return (
-    <div className='bg-white mx-auto py-8 px-4'>
-      {/* Renderizamos el título sólo si visibleTitle es true */}
+    <div className="bg-white mx-auto py-8 px-4">
       {visibleTitle && (
-        <h2 className='text-2xl sm:text-3xl md:text-4xl font-favorit uppercase font-bold text-black text-center my-4'>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-favorit uppercase font-bold text-black text-center my-4">
           Productos Destacados
         </h2>
       )}
 
-      <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container mx-auto'>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container mx-auto">
         {displayedProducts.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id.toString()}
-            discount={product.discount}
+            descuento={`${Math.round(product.descuento * 100)}%`}
             imageSrc={product.imageSrc}
             title={product.title}
             price={product.price}
             oldPrice={product.oldPrice}
-            cantidadesVendidos={product.cantidadesVendidos}
             description={product.description}
           />
         ))}
       </div>
 
-      {visibleCount < products.length && (
-        <div className='flex justify-center mt-8'>
+      {visibleCount < allProducts.length && (
+        <div className="flex justify-center mt-8">
           <button
-            className='border border-black text-black px-6 py-2 rounded hover:bg-black hover:text-white font-bold font-favoritMono transition-colors'
-            onClick={handleLoadMore}>
+            className="border border-black text-black px-6 py-2 rounded hover:bg-black hover:text-white font-bold font-favoritMono transition-colors"
+            onClick={() => setVisibleCount(allProducts.length)}
+          >
             Ver Todos
           </button>
         </div>

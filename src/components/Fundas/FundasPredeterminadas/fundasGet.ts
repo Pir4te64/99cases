@@ -3,56 +3,55 @@ import { API } from "@/utils/Api";
 
 export interface Product {
   id: number | string;
-  discount: string;
   imageSrc: string;
+  imageFinal: string;
   title: string;
   price: string;
   oldPrice: string;
-  cantidadesVendidos: number;
   description: string;
+  descuento: number;
+  predeterminado: boolean;
 }
 
-export const products: Product[] = [];
+// Tipado crudo según lo que devuelve tu API
+interface RawApiProduct {
+  id: number;
+  imagen: { url: string };
+  imagenFinal: { url: string };
+  nombre: string;
+  precio: number;
+  oldPrice?: number;
+  descripcion: string;
+  descuento?: number;
+  predeterminado: boolean;
+}
 
-// Función para adaptar el producto recibido desde la API
-const adaptProduct = (apiProduct: any): Product => {
-  return {
-    id: apiProduct.id || "",
-    discount: apiProduct.discount || "",
-    imageSrc: apiProduct.imagen?.url || "",
-    title: apiProduct.nombre || "",
-    price: apiProduct.precio !== undefined ? `$${apiProduct.precio}` : "",
-    oldPrice: apiProduct.oldPrice || "",
-    cantidadesVendidos:
-      apiProduct.cantidadesVendidos !== undefined
-        ? apiProduct.cantidadesVendidos
-        : 0,
-    description: apiProduct.descripcion || "",
-  };
-};
+// Adaptador de RawApiProduct → Product
+const adaptProduct = (api: RawApiProduct): Product => ({
+  id: api.id,
+  imageSrc: api.imagen.url,
+  imageFinal: api.imagenFinal.url,
+  title: api.nombre,
+  price: `$${api.precio}`,
+  oldPrice: api.oldPrice !== undefined ? `$${api.oldPrice}` : "",
+  description: api.descripcion,
+  descuento: api.descuento ?? 0,
+  predeterminado: api.predeterminado,
+});
 
-const fetchAndAdaptProducts = async () => {
+/**
+ * Obtiene los datos de la API y los adapta al interfaz Product.
+ */
+export const fetchAndAdaptProducts = async (): Promise<Product[]> => {
   try {
-    // Obtiene el token desde localStorage
-    const token = localStorage.getItem("token");
-
-    const response = await axios.get(API.getAllCases, {
+    const resp = await axios.get<RawApiProduct[]>(API.getAllCases, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
-
-    // Se asume que response.data es un array de productos
-    const apiProducts = response.data;
-    const adaptedProducts = apiProducts.map((prod: any) => adaptProduct(prod));
-
-    // Actualiza el arreglo exportado: se muta el array para conservar la referencia
-    products.splice(0, products.length, ...adaptedProducts);
+    return resp.data.map(adaptProduct);
   } catch (error) {
     console.error("Error al obtener los productos:", error);
+    return [];
   }
 };
-
-// Se ejecuta la petición al cargar el módulo
-fetchAndAdaptProducts();

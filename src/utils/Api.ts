@@ -1,4 +1,4 @@
-export const baseURL = "https://cases99.cruznegradev.com/v1";
+export const baseURL = "https://api.99cases.com.ar/v1";
 
 export const API = {
   login: `${baseURL}/login`,

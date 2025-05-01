@@ -81,7 +81,9 @@ export default function Navbar() {
 
           {/* Centro: Logo */}
           <div className='text-xl font-bold text-center'>
-            <img src={logo} alt='logo' />
+            <Link to='/'>
+              <img src={logo} alt='logo' className='h-12 md:h-16 mx-auto' />
+            </Link>
           </div>
 
           {/* Derecha: Íconos y botones */}

@@ -80,17 +80,11 @@ export default function Navbar() {
           </div>
 
           {/* Centro: Logo */}
-<<<<<<< HEAD
           <div className='text-xl font-bold text-center'>
             <Link to='/'>
               <img src={logo} alt='logo' className='h-12 md:h-16 mx-auto' />
             </Link>
           </div>
-=======
-            <Link to='/' className='text-xl font-bold text-center flex justify-center items-center'>
-              <img src={logo} alt='logo' className='h-16 md:h-20' />
-            </Link>
->>>>>>> 68b566cda78864ad1b01fe26fd881ba4141844cc
 
           {/* Derecha: Íconos y botones */}
           <div className='flex items-center space-x-4'>

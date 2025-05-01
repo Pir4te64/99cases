@@ -73,7 +73,7 @@ export default function CartSidebar() {
 
   // Función para crear la orden usando Axios, enviando los datos mediante FormData.
   const createOrder = async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       Swal.fire({
         icon: "error",

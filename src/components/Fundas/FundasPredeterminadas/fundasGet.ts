@@ -44,7 +44,14 @@ const adaptProduct = (api: RawApiProduct): Product => ({
  */
 export const fetchAndAdaptProducts = async (): Promise<Product[]> => {
   try {
+<<<<<<< HEAD
     const resp = await axios.get<RawApiProduct[]>(API.getAllCases, {
+=======
+    // Obtiene el token desde localStorage
+    const token = sessionStorage.getItem("token");
+
+    const response = await axios.get(API.getAllCases, {
+>>>>>>> 68b566cda78864ad1b01fe26fd881ba4141844cc
       headers: {
         "Content-Type": "application/json",
       },

@@ -30,7 +30,7 @@ export const handleMercadoPago = async (
     try {
       if (deliveryResponse && deliveryResponse.numeroOrden) {
         const orderId = Number(deliveryResponse.numeroOrden);
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,

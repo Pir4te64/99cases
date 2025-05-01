@@ -13,10 +13,10 @@ const Login = () => {
       const result = await loginPOST(email, password);
       // Si la respuesta es exitosa, mostramos un toast
       toast.success("¡Logeo exitoso!");
-      console.log("Datos de login:", result);
       // Guardamos el token en localStorage
       if (result.token) {
         localStorage.setItem("token", result.token);
+        sessionStorage.setItem("token", result.token);
       }
       // Redirigir al usuario a la página de inicio
       window.location.href = "/";

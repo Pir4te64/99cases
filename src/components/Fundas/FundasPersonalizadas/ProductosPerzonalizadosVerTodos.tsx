@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import ProductCardPersonalizadas from "./ProductosPersonalizados";
 import { fetchAndAdaptProducts, Product } from "../FundasPredeterminadas/fundasGet";
-
-const FundasPersonalizadasProductos: React.FC = () => {
+interface ProductsPersonalizadasVerTodosProps {
+  visibleTitle: boolean;
+}
+const FundasPersonalizadasProductos: React.FC<ProductsPersonalizadasVerTodosProps> = ({ visibleTitle }) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {

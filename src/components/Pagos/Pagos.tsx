@@ -1,10 +1,10 @@
+// src/pages/Pagos.tsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "@/components/Breadcrumbs"; // Ajusta la ruta si es necesario
 import useCartStore from "@/store/cartStore";
 import ResumenCompra from "@/components/Pagos/PagosProductos"; // Ajusta la ruta según tu estructura
 import usePaymentFormStore from "@/store/pagoStore";
-import DatosContacto from "@/components/Pagos/DatosContacto";
 import DatosDestinatario from "@/components/Pagos/DatosDestinatario";
 import axios from "axios";
 import { API } from "@/utils/Api";
@@ -30,7 +30,6 @@ const Pagos = () => {
   // Extraemos los valores y setters del store de formulario, incluyendo los nuevos estados:
   const {
     email,
-    aceptaNovedades,
     nombre,
     apellido,
     codigoPostal,
@@ -41,13 +40,15 @@ const Pagos = () => {
     barrio,
     ciudad,
     mismaFacturacion,
-    // Nuevos estados
+    // Nuevos estados de ubicación y teléfono
     telefono,
     localidad,
     provincia,
-    // Setters
+    // 🔹 Nuevos estados de documento
+    tipoDocumento,
+    numeroDocumento,
+    // Setters existentes...
     setEmail,
-    setAceptaNovedades,
     setNombre,
     setApellido,
     setCodigoPostal,
@@ -58,14 +59,15 @@ const Pagos = () => {
     setBarrio,
     setCiudad,
     setMismaFacturacion,
-    // Setters de nuevos campos
     setTelefono,
     setLocalidad,
     setProvincia,
+    // 🔹 Nuevos setters de documento
+    setTipoDocumento,
+    setNumeroDocumento,
   } = usePaymentFormStore();
 
   // Actualizamos la validación del formulario para incluir los nuevos campos.
-  // Puedes ajustar según la lógica deseada (por ejemplo, si son obligatorios o no).
   const isFormValid =
     nombre.trim() !== "" &&
     apellido.trim() !== "" &&
@@ -73,124 +75,123 @@ const Pagos = () => {
     calle.trim() !== "" &&
     (sinNumero ? true : numero.trim() !== "") &&
     barrio.trim() !== "" &&
-    ciudad.trim() !== "" &&
-    telefono.trim() !== "" && // Nuevo: validar teléfono
-    localidad.trim() !== "" && // Nuevo: validar localidad
-    provincia.trim() !== "" && // Nuevo: validar provincia
-    mismaFacturacion;
+    telefono.trim() !== "" &&   // validar teléfono
+    localidad.trim() !== "" &&  // validar localidad
+    provincia.trim() !== "" &&  // validar provincia
+    mismaFacturacion &&
+    // 🔹 validaciones de documento
+    tipoDocumento.trim() !== "" &&
+    numeroDocumento.trim() !== "";
 
   // handleSubmit usa SweetAlert2 para mostrar confirmación y loading
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isFormValid) {
-      // Se arma el objeto para el delivery con la estructura requerida.
-      // Aquí se reemplazan "ciudad" y "Provincia Ejemplo" por localidad y provincia
-      const deliveryData = {
-        destino: {
-          calle: calle,
-          numero: numero,
-          piso: "", // No tenemos campo para piso, se deja vacío o se puede agregar uno
-          departamento: departamento,
-          codigoPostal: codigoPostal,
-          localidad: localidad, // Usamos el estado "localidad"
-          provincia: provincia, // Usamos el estado "provincia"
-        },
-        destinatario: {
-          nombre: nombre,
-          apellido: apellido,
-          telefono: telefono, // Usamos el estado "telefono"
-          email: email,
-        },
-      };
-      //console.log("Delivery Data:", deliveryData);
+    if (!isFormValid) return;
 
-      // Mostrar modal de confirmación
-      const { isConfirmed } = await Swal.fire({
-        title: "¿Desea continuar?",
-        text: "Se va a procesar el delivery",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Sí, continuar",
-        cancelButtonText: "Cancelar",
+    // Se arma el objeto para el delivery con la estructura requerida.
+    const deliveryData = {
+      destino: {
+        calle: calle,
+        piso: numero,
+        numero: telefono,
+        codigoPostal: codigoPostal,
+        localidad: localidad,
+        provincia: provincia,
+      },
+      destinatario: {
+        nombre: nombre,
+        email: email,
+        // 🔹 agregamos tipo y número de documento
+        tipoDocumento: tipoDocumento,
+        numeroDocumento: numeroDocumento,
+      },
+    };
+    console.log("Delivery Data:", deliveryData);
+
+    // Mostrar modal de confirmación
+    const { isConfirmed } = await Swal.fire({
+      title: "¿Desea continuar?",
+      text: "Se va a procesar el delivery",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, continuar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (isConfirmed) {
+      // Mostrar modal de loading
+      Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
       });
 
-      if (isConfirmed) {
-        // Mostrar modal de loading
-        Swal.fire({
-          title: "Procesando...",
-          allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
+      try {
+        const token = sessionStorage.getItem("token");
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
+        };
+        // Se envía la petición PUT a API.delivery con idOrdenCompra
+        const response = await axios.put(
+          `${API.delivery}?orderId=${idOrdenCompra}`,
+          deliveryData,
+          config
+        );
+        console.log("Response Delivery:", response.data);
+        setDeliveryResponse(response.data);
+        Swal.close();
+
+        // Armar y navegar al paymentData
+        const formData = {
+          nombre,
+          apellido,
+          codigoPostal,
+          calle,
+          numero,
+          sinNumero,
+          departamento,
+          barrio,
+          ciudad,
+          telefono,
+          localidad,
+          provincia,
+          mismaFacturacion,
+          // 🔹 incluir en el paymentData si lo necesitas
+          tipoDocumento,
+          numeroDocumento,
+        };
+        const paymentData = {
+          cartItems,
+          subtotal,
+          total,
+          idOrdenCompra,
+          ...formData,
+        };
+
+        navigate("/medios-pagos", { state: paymentData });
+      } catch (error) {
+        console.error("Error en API.delivery:", error);
+        Swal.close();
+        await Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error en el servidor, intente nuevamente",
         });
-
-        try {
-          const token = sessionStorage.getItem("token");
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          };
-          // Se envía la petición PUT (o POST) a API.delivery con idOrdenCompra como parámetro en la URL
-          const response = await axios.put(
-            `${API.delivery}?orderId=${idOrdenCompra}`,
-            deliveryData,
-            config
-          );
-          console.log("Response Delivery:", response.data);
-          setDeliveryResponse(response.data);
-          // Cerramos el modal de loading
-          Swal.close();
-
-          // Una vez que la promesa se cumple sin errores, se arma el paymentData y se redirige.
-          const formData = {
-            nombre,
-            apellido,
-            codigoPostal,
-            calle,
-            numero,
-            sinNumero,
-            departamento,
-            barrio,
-            ciudad,
-            telefono, // Agregamos teléfono a formData si lo necesitas
-            localidad, // Agregamos localidad a formData
-            provincia, // Agregamos provincia a formData
-            mismaFacturacion,
-          };
-          const paymentData = {
-            cartItems,
-            subtotal,
-            total,
-            idOrdenCompra,
-            ...formData,
-          };
-
-          navigate("/medios-pagos", { state: paymentData });
-        } catch (error) {
-          console.error("Error en API.delivery:", error);
-          // Cerramos el modal de loading en caso de error
-          Swal.close();
-          await Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Error en el servidor, intente nuevamente",
-          });
-          // No se redirige en caso de error
-        }
       }
     }
   };
 
   return (
-    <div className='min-h-screen bg-white text-black'>
-      <div className='container mx-auto px-4 py-6'>
+    <div className="min-h-screen bg-white text-black">
+      <div className="container mx-auto px-4 py-6">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          {/* En móvil, el resumen se muestra primero (order-1) y el formulario después (order-2).
-              En md, se invierte el orden */}
-          <div className='order-1 md:order-2'>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="order-1 md:order-2">
             <ResumenCompra
               cartItems={cartItems}
               subtotal={subtotal}
@@ -198,19 +199,14 @@ const Pagos = () => {
             />
           </div>
 
-          <div className='order-2 md:order-1'>
-            <form onSubmit={handleSubmit} className='space-y-8'>
-              {/* Sección de Datos de Contacto */}
-              <DatosContacto
-                email={email}
-                aceptaNovedades={aceptaNovedades}
-                setEmail={setEmail}
-                setAceptaNovedades={setAceptaNovedades}
-              />
+          <div className="order-2 md:order-1">
+            <form onSubmit={handleSubmit} className="space-y-8">
               {/* Sección de Datos del Destinatario */}
               <DatosDestinatario
                 nombre={nombre}
                 apellido={apellido}
+                email={email}
+                telefono={telefono}
                 codigoPostal={codigoPostal}
                 calle={calle}
                 numero={numero}
@@ -218,12 +214,17 @@ const Pagos = () => {
                 departamento={departamento}
                 barrio={barrio}
                 ciudad={ciudad}
-                // Pasamos los nuevos estados y sus setters
-                telefono={telefono}
                 localidad={localidad}
                 provincia={provincia}
+                // 🔹 nuevos props de documento
+                tipoDocumento={tipoDocumento}
+                numeroDocumento={numeroDocumento}
                 setNombre={setNombre}
                 setApellido={setApellido}
+                setEmail={setEmail}
+                setTelefono={setTelefono}
+                setLocalidad={setLocalidad}
+                setProvincia={setProvincia}
                 setCodigoPostal={setCodigoPostal}
                 setCalle={setCalle}
                 setNumero={setNumero}
@@ -231,39 +232,40 @@ const Pagos = () => {
                 setDepartamento={setDepartamento}
                 setBarrio={setBarrio}
                 setCiudad={setCiudad}
-                setTelefono={setTelefono}
-                setLocalidad={setLocalidad}
-                setProvincia={setProvincia}
+                setTipoDocumento={setTipoDocumento}
+                setNumeroDocumento={setNumeroDocumento}
               />
               {/* Sección de Datos de Facturación */}
               <section>
-                <h2 className='text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook'>
+                <h2 className="text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook">
                   DATOS DE FACTURACIÓN
                 </h2>
-                <div className='flex items-center'>
+                <div className="flex items-center">
                   <input
-                    id='mismaFacturacion'
-                    type='checkbox'
-                    className='mr-2'
+                    id="mismaFacturacion"
+                    type="checkbox"
+                    className="mr-2"
                     checked={mismaFacturacion}
                     onChange={(e) => setMismaFacturacion(e.target.checked)}
                   />
                   <label
-                    htmlFor='mismaFacturacion'
-                    className='text-sm md:text-base font-favoritExpandedBook'>
+                    htmlFor="mismaFacturacion"
+                    className="text-sm md:text-base font-favoritExpandedBook"
+                  >
                     Mis datos de facturación y entrega son los mismos.
                   </label>
                 </div>
               </section>
 
               <button
-                type='submit'
+                type="submit"
                 disabled={!isFormValid}
                 className={`w-full px-6 py-3 rounded transition-colors font-favoritExpandedBook ${
                   isFormValid
                     ? "bg-black text-white hover:bg-gray-800"
                     : "bg-gray-500 text-white cursor-not-allowed"
-                }`}>
+                }`}
+              >
                 CONTINUAR PARA EL PAGO
               </button>
             </form>

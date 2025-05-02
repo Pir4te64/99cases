@@ -9,6 +9,7 @@ import PredeterminadoLayout from "@/components/PredeterminadoLayout";
 import MarcaCelular from "@/components/PersonalizadosID/MarcaCelular";
 import useCartStore, { CartItem } from "@/store/cartStore";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/phoneSelectionStore";
+import { useCheckout } from "@/store/useCheckout";
 // Importamos el store de selección de marca y modelo
 
 const PredeterminadosID = () => {
@@ -31,7 +32,7 @@ const PredeterminadosID = () => {
   // Extraemos marca y modelo seleccionados del store de teléfono
   // Se agregan ambas propiedades para poder validarlas.
   const { selectedModel, selectedBrand } = usePhoneSelectionStore();
-
+  const { handleCheckout } = useCheckout();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -97,7 +98,10 @@ const PredeterminadosID = () => {
     }
     openCart();
   };
-
+  const handleBuyNow = () => {
+    handleAgregarAlCarrito();
+    handleCheckout();
+  };
   // Se determina si los botones deben estar habilitados o deshabilitados
   const isSelectionComplete = selectedModel && selectedBrand;
 
@@ -145,9 +149,6 @@ const PredeterminadosID = () => {
                     </span>
                   )}
                 </p>
-                <p className='text-red-600 mb-2 font-favoritExpandedBook'>
-                  {product.cantidadesVendidos} VENDIDOS EN LAS ÚLTIMAS HORAS
-                </p>
                 <MarcaCelular />
 
                 {/* Contador y botón Agregar al Carrito */}
@@ -181,6 +182,7 @@ const PredeterminadosID = () => {
                 {/* Comprar ahora */}
                 <button
                   disabled={!isSelectionComplete}
+                  onClick={handleBuyNow}
                   className={`border font-favoritExpandedBook border-black text-black px-4 py-2 rounded mb-4 transition-colors ${!isSelectionComplete
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:bg-black hover:text-white"

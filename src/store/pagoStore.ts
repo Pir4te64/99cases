@@ -1,4 +1,4 @@
-// pagoStore.ts
+// src/store/pagoStore.ts
 import { create } from "zustand";
 
 interface PaymentFormState {
@@ -13,12 +13,16 @@ interface PaymentFormState {
   departamento: string;
   barrio: string;
   ciudad: string;
-  // Nuevos campos:
   telefono: string;
   localidad: string;
   provincia: string;
   mismaFacturacion: boolean;
-  // Setters
+
+  // 🔹 Nuevos campos:
+  tipoDocumento: string;
+  numeroDocumento: string;
+
+  // Setters existentes
   setEmail: (email: string) => void;
   setAceptaNovedades: (value: boolean) => void;
   setNombre: (value: string) => void;
@@ -30,11 +34,14 @@ interface PaymentFormState {
   setDepartamento: (value: string) => void;
   setBarrio: (value: string) => void;
   setCiudad: (value: string) => void;
-  // Setters para los nuevos campos:
   setTelefono: (value: string) => void;
   setLocalidad: (value: string) => void;
   setProvincia: (value: string) => void;
   setMismaFacturacion: (value: boolean) => void;
+
+  // 🔹 Nuevos setters:
+  setTipoDocumento: (value: string) => void;
+  setNumeroDocumento: (value: string) => void;
 }
 
 const usePaymentFormStore = create<PaymentFormState>((set) => ({
@@ -49,10 +56,15 @@ const usePaymentFormStore = create<PaymentFormState>((set) => ({
   departamento: "",
   barrio: "",
   ciudad: "",
-  telefono: "", // Inicialización de teléfono
-  localidad: "", // Inicialización de localidad
-  provincia: "", // Inicialización de provincia
+  telefono: "",
+  localidad: "",
+  provincia: "",
   mismaFacturacion: false,
+
+  // 🔹 Inicialización de nuevos campos
+  tipoDocumento: "",
+  numeroDocumento: "",
+
   setEmail: (email) => set({ email }),
   setAceptaNovedades: (value) => set({ aceptaNovedades: value }),
   setNombre: (value) => set({ nombre: value }),
@@ -64,10 +76,14 @@ const usePaymentFormStore = create<PaymentFormState>((set) => ({
   setDepartamento: (value) => set({ departamento: value }),
   setBarrio: (value) => set({ barrio: value }),
   setCiudad: (value) => set({ ciudad: value }),
-  setTelefono: (value) => set({ telefono: value }), // Setter para teléfono
-  setLocalidad: (value) => set({ localidad: value }), // Setter para localidad
-  setProvincia: (value) => set({ provincia: value }), // Setter para provincia
+  setTelefono: (value) => set({ telefono: value }),
+  setLocalidad: (value) => set({ localidad: value }),
+  setProvincia: (value) => set({ provincia: value }),
   setMismaFacturacion: (value) => set({ mismaFacturacion: value }),
+
+  // 🔹 Implementación de los nuevos setters
+  setTipoDocumento: (value) => set({ tipoDocumento: value }),
+  setNumeroDocumento: (value) => set({ numeroDocumento: value }),
 }));
 
 export default usePaymentFormStore;

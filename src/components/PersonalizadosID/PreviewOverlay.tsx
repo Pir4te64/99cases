@@ -36,6 +36,7 @@ const PreviewOverlay: React.FC = () => {
         <div className="relative w-full h-full bg-white overflow-hidden">
             {/* Imagen como fondo (invisible para conservar espacio) */}
             <img
+            loading="lazy"
                 src={product?.imageSrc}
                 alt={product?.title || "Producto"}
                 onContextMenu={e => e.preventDefault()}

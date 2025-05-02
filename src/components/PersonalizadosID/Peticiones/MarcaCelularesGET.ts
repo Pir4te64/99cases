@@ -10,16 +10,10 @@ export interface PhoneModel {
 }
 
 export const fetchPhoneModels = async (): Promise<PhoneModel[]> => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
-    throw new Error("Token no encontrado en localStorage");
-  }
+  
   try {
-    const response = await axios.get(API.modelsGetAll, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(API.modelsGetAll
+    );
     // Se asume que la respuesta tiene la forma correcta: un arreglo de PhoneModel
 
     return response.data;

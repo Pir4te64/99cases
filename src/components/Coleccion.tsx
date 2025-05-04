@@ -21,8 +21,9 @@ const Coleccion = () => {
                 loading="lazy"
                 src={fundaPredeterminada}
                 alt="Funda Predeterminada"
-                className="w-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
               />
+
             </picture>
             {/* Overlay limitado a la zona inferior */}
             <div
@@ -48,10 +49,11 @@ const Coleccion = () => {
               <source media="(max-width: 767px)" srcSet={fundaPersonalizada} />
               <img
                 loading="lazy"
-                src={fundaPersonalizada}
-                alt="Funda Personalizada"
-                className="w-full object-cover hover:scale-105 transition-transform duration-300"
+                src={fundaPredeterminada}
+                alt="Funda Predeterminada"
+                className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
               />
+
             </picture>
             {/* Overlay limitado a la zona inferior */}
             <div

@@ -25,7 +25,6 @@ const FundasPredeterminadasProductos = () => {
             imageSrc={product.imageSrc}
             title={product.title}
             price={product.price}
-            oldPrice={product.oldPrice}
             description={product.description}
           />
         ))}

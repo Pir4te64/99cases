@@ -2,6 +2,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { SiMercadopago } from "react-icons/si";
 import tarjeta from "@/assets/Pagos/tarjetas.png";
 import useDeliveryStore from "@/components/Pagos/useDeliveryStore";
 import DeliverySummary from "@/components/MediosPago/DeliverySummary";
@@ -54,8 +55,8 @@ export default function MediosDePago() {
       locale: "es-AR",
     });
     mp.bricks().create(
-      "payment",                   // Tipo de Brick: Payment :contentReference[oaicite:1]{index=1}
-      "paymentBrick_container",    // ID del div (sin '#')
+      "payment",                 // tipo de Brick
+      "paymentBrick_container",  // ID del div (sin '#')
       {
         initialization: { amount: total },
         customization: {
@@ -65,27 +66,24 @@ export default function MediosDePago() {
             debitCard: "all",
             ticket: "all",
             bankTransfer: "all",
-            mercadoPago: "all",    // activa Wallet :contentReference[oaicite:2]{index=2}
+            mercadoPago: "all",
             maxInstallments: 12,
           },
         },
         callbacks: {
           onReady: () => {
-            // Se llama cuando el Brick termina de cargar; aquí puedes ocultar spinners, etc.
+            // Se llama cuando el Brick termina de cargar
           },
-          onSubmit: (formData: any) => {
-            // Se llama al pulsar "Pagar"
-            return fetch(`${API.createPayment}`, {
+          onSubmit: (formData: any) =>
+            fetch(`${API.createPayment}`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 ...formData,
                 orderId: deliveryResponse.numeroOrden,
               }),
-            }).then((r) => r.json());
-          },
+            }).then((r) => r.json()),
           onError: (err: any) => {
-            // Se llama ante cualquier error en el Brick
             console.error("Error Payment Brick:", err);
           },
         },
@@ -102,17 +100,20 @@ export default function MediosDePago() {
       )}
 
       <div className="max-w-3xl mx-auto mb-8">
-        <div className="bg-gray-100 p-4 rounded mb-4 flex justify-between">
-          <span>Total:</span>
-          <span className="font-bold">
+        <div className="bg-gray-300 p-4 rounded mb-4 flex items-center justify-between">
+          <span className="text-black">Total:</span>
+          <span className="font-bold text-black">
             ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
           </span>
           <button
             onClick={onIniciarPago}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-blue-600 text-white px-4 py-2 rounded flex items-center space-x-2"
             disabled={brickReady}
           >
-            {brickReady ? "Formas de pago cargadas…" : "Iniciar Pago"}
+            <SiMercadopago className="h-5 w-5" />
+            <span>
+              {brickReady ? "Formas de pago cargadas…" : "Iniciar Pago"}
+            </span>
           </button>
         </div>
 

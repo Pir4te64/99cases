@@ -8,7 +8,7 @@ const DeliverySummary: React.FC<DeliverySummaryProps> = ({
   deliveryResponse,
 }) => {
   return (
-    <div className='border rounded p-4 mb-6'>
+    <div className='border rounded p-4 mb-6 text-black'>
       <h2 className='text-xl font-bold mb-2'>Resumen de Envío</h2>
       {deliveryResponse.origen && (
         <div className='mt-2'>

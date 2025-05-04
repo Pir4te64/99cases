@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
+import { FiUserPlus, FiLogIn, FiLogOut } from "react-icons/fi";
 import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
@@ -12,19 +13,18 @@ export default function Navbar() {
   const toggleCart = useCartStore((state) => state.toggleCart);
   const location = useLocation();
 
-  // Cada vez que cambia la URL se revisa el token en el localStorage.
+  // Cada vez que cambia la URL se revisa el token
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, [location]);
 
-  // Cierra ambos menús cuando cambia la URL
+  // Cierra menús al cambiar de ruta
   useEffect(() => {
     setMenuOpen(false);
     setIsOpen(false);
   }, [location]);
 
-  // Maneja el logout: remueve el token y actualiza el estado
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     localStorage.removeItem("token");
@@ -34,150 +34,164 @@ export default function Navbar() {
   return (
     <>
       {bannerOpen && (
-        <div className='relative bg-red-600 text-white px-4 py-2 flex items-center justify-center'>
-          <p className='text-md font-favoritMono'>
+        <div className="relative bg-red-600 text-white px-4 py-2 flex items-center justify-center">
+          <p className="text-md font-favoritMono">
             10% OFF abonando por transferencia
           </p>
           <button
             onClick={() => setBannerOpen(false)}
-            className='absolute right-4'>
-            <X className='h-4 w-4 text-white' />
+            className="absolute right-4"
+          >
+            <X className="h-4 w-4 text-white" />
           </button>
         </div>
       )}
 
-      <nav className='bg-black text-white p-4 mx-5 relative'>
+      <nav className="bg-black text-white p-4 mx-5 relative">
         {/* Desktop Navbar */}
-        <div className='hidden md:flex items-center justify-between'>
-          {/* Izquierda: Enlaces */}
-          <div className='flex items-center space-x-3'>
-            <div className='relative'>
+        <div className="hidden md:flex items-center justify-between">
+          {/* Izquierda: Productos + Sesión */}
+          <div className="flex items-center space-x-3">
+            <div className="relative">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className='flex items-center hover:text-gray-300 transition-colors'>
+                className="flex items-center hover:text-gray-300 transition-colors"
+              >
                 Productos
-                <ChevronDown className='ml-1 h-4 w-4' />
+                <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               {isOpen && (
-                <div className='absolute left-0 mt-2 bg-black text-white rounded py-2 w-64 border border-white z-10'>
+                <div className="absolute left-0 mt-2 bg-black text-white rounded py-2 w-64 border border-white z-10">
                   <Link
-                    to='/predeterminadas'
-                    className='block px-4 py-2 hover:bg-white hover:text-black transition-colors'>
+                    to="/predeterminadas"
+                    className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                  >
                     Fundas Predeterminadas
                   </Link>
                   <Link
-                    to='/personalizadas'
-                    className='block px-4 py-2 hover:bg-white hover:text-black transition-colors'>
+                    to="/personalizadas"
+                    className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                  >
                     Fundas Personalizadas
                   </Link>
                 </div>
               )}
-
             </div>
+
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
-                Cerrar Sesión
+                className="hover:text-gray-300 transition-colors"
+              >
+                <FiLogOut className="h-5 w-5" />
               </button>
             ) : (
               <>
                 <Link
-                  to='/register'
-                  className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
-                  Registrarse
+                  to="/register"
+                  className="hover:text-gray-300 transition-colors"
+                >
+                  <FiUserPlus className="h-5 w-5" />
                 </Link>
                 <Link
-                  to='/login'
-                  className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
-                  Login
+                  to="/login"
+                  className="hover:text-gray-300 transition-colors"
+                >
+                  <FiLogIn className="h-5 w-5" />
                 </Link>
               </>
             )}
           </div>
 
           {/* Centro: Logo */}
-          <div className='text-xl font-bold text-center'>
-            <Link to='/'>
-              <img src={logo} alt='logo' className='h-12 md:h-16 mx-auto' />
+          <div className="text-xl font-bold text-center">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="logo"
+                className="h-12 md:h-16 mx-auto"
+              />
             </Link>
           </div>
 
-          {/* Derecha: Íconos y botones */}
-          <div className='flex items-center space-x-4'>
-
+          {/* Derecha: Carrito y Búsqueda */}
+          <div className="flex items-center space-x-4">
             <button
               onClick={toggleCart}
-              className='hover:text-gray-300 transition-colors'>
-              <ShoppingCart className='h-5 w-5' />
+              className="hover:text-gray-300 transition-colors"
+            >
+              <ShoppingCart className="h-5 w-5" />
             </button>
-            <button className='hover:text-gray-300 transition-colors'>
-              <Search className='h-5 w-5' />
+            <button className="hover:text-gray-300 transition-colors">
+              <Search className="h-5 w-5" />
             </button>
           </div>
         </div>
 
         {/* Mobile Navbar */}
-        <div className='md:hidden flex items-center justify-between'>
-          {/* Logo a la izquierda, más pequeño */}
-          <Link to='/'>
-            <div className='text-xl font-bold'>
-              <img src={logo} alt='logo' className='h-12' />
-            </div>
+        <div className="md:hidden flex items-center justify-between">
+          <Link to="/">
+            <img src={logo} alt="logo" className="h-12" />
           </Link>
 
-          {/* Íconos a la derecha: hamburguesa, búsqueda y carrito */}
-          <div className='flex items-center space-x-4'>
+          <div className="flex items-center space-x-4">
             <button onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? (
-                <X className='h-6 w-6 text-white' />
+                <X className="h-6 w-6 text-white" />
               ) : (
-                <Menu className='h-6 w-6 text-white' />
+                <Menu className="h-6 w-6 text-white" />
               )}
             </button>
-            <div className='flex space-x-4'>
-              <button className='hover:text-gray-300 transition-colors'>
-                <Search className='h-5 w-5' />
-              </button>
-              <button
-                onClick={toggleCart} // se abre o cierra el sidebar del carrito
-                className='hover:text-gray-300 transition-colors'>
-                <ShoppingCart className='h-5 w-5' />
-              </button>
-            </div>
+            <button className="hover:text-gray-300 transition-colors">
+              <Search className="h-5 w-5" />
+            </button>
+            <button
+              onClick={toggleCart}
+              className="hover:text-gray-300 transition-colors"
+            >
+              <ShoppingCart className="h-5 w-5" />
+            </button>
           </div>
         </div>
-        {/* Menú de navegación en mobile */}
+
+        {/* Menú de navegación en Mobile */}
         {menuOpen && (
-          <div className='md:hidden absolute top-full left-0 w-full bg-black text-white p-4 flex flex-col space-y-4 z-10'>
+          <div className="md:hidden absolute top-full left-0 w-full bg-black text-white p-4 flex flex-col space-y-4 z-10">
             <Link
-              to='/predeterminadas'
-              className='hover:text-gray-300 transition-colors'>
+              to="/predeterminadas"
+              className="hover:text-gray-300 transition-colors"
+            >
               Fundas Predeterminadas
             </Link>
             <Link
-              to='/personalizadas'
-              className='hover:text-gray-300 transition-colors'>
+              to="/personalizadas"
+              className="hover:text-gray-300 transition-colors"
+            >
               Fundas Personalizadas
             </Link>
 
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className='text-left hover:text-gray-300 transition-colors'>
-                Cerrar Sesión
+                className="hover:text-gray-300 transition-colors flex items-center"
+              >
+                <FiLogOut className="h-5 w-5" />
               </button>
             ) : (
               <>
                 <Link
-                  to='/register'
-                  className='hover:text-gray-300 transition-colors'>
-                  Registrarse
+                  to="/register"
+                  className="hover:text-gray-300 transition-colors flex items-center space-x-2"
+                >
+                  <FiUserPlus className="h-5 w-5" />
+                  <span>Registrarse</span>
                 </Link>
                 <Link
-                  to='/login'
-                  className='hover:text-gray-300 transition-colors'>
-                  Login
+                  to="/login"
+                  className="hover:text-gray-300 transition-colors flex items-center space-x-2"
+                >
+                  <FiLogIn className="h-5 w-5" />
+                  <span>Iniciar Sesión</span>
                 </Link>
               </>
             )}

@@ -51,11 +51,6 @@ export default function Navbar() {
         <div className='hidden md:flex items-center justify-between'>
           {/* Izquierda: Enlaces */}
           <div className='flex items-center space-x-3'>
-            <Link
-              to='/'
-              className='hover:text-gray-300 transition-colors font-favoritMono tracking-wide'>
-              Inicio
-            </Link>
             <div className='relative'>
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -77,9 +72,28 @@ export default function Navbar() {
                   </Link>
                 </div>
               )}
-              
+
             </div>
-           
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
+                Cerrar Sesión
+              </button>
+            ) : (
+              <>
+                <Link
+                  to='/register'
+                  className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
+                  Registrarse
+                </Link>
+                <Link
+                  to='/login'
+                  className='hover:text-gray-300 transition-colors font-favoritMono underline tracking-wide'>
+                  Login
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Centro: Logo */}
@@ -91,7 +105,7 @@ export default function Navbar() {
 
           {/* Derecha: Íconos y botones */}
           <div className='flex items-center space-x-4'>
-          
+
             <button
               onClick={toggleCart}
               className='hover:text-gray-300 transition-colors'>
@@ -100,27 +114,6 @@ export default function Navbar() {
             <button className='hover:text-gray-300 transition-colors'>
               <Search className='h-5 w-5' />
             </button>
-            {/* Muestra "Cerrar Sesión" si está logueado, sino "Registrarse" y "Login" */}
-            {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
-                Cerrar Sesión
-              </button>
-            ) : (
-              <>
-                <Link
-                  to='/register'
-                  className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
-                  Registrarse
-                </Link>
-                <Link
-                  to='/login'
-                  className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-colors'>
-                  Login
-                </Link>
-              </>
-            )}
           </div>
         </div>
 
@@ -128,9 +121,9 @@ export default function Navbar() {
         <div className='md:hidden flex items-center justify-between'>
           {/* Logo a la izquierda, más pequeño */}
           <Link to='/'>
-          <div className='text-xl font-bold'>
-            <img src={logo} alt='logo' className='h-12' />
-          </div>
+            <div className='text-xl font-bold'>
+              <img src={logo} alt='logo' className='h-12' />
+            </div>
           </Link>
 
           {/* Íconos a la derecha: hamburguesa, búsqueda y carrito */}
@@ -157,9 +150,6 @@ export default function Navbar() {
         {/* Menú de navegación en mobile */}
         {menuOpen && (
           <div className='md:hidden absolute top-full left-0 w-full bg-black text-white p-4 flex flex-col space-y-4 z-10'>
-            <Link to='/' className='hover:text-gray-300 transition-colors'>
-              Inicio
-            </Link>
             <Link
               to='/predeterminadas'
               className='hover:text-gray-300 transition-colors'>

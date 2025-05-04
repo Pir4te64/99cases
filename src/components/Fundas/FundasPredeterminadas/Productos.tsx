@@ -26,7 +26,7 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
 
   // Decide el texto del botón según cuántos falten
   const isFinalStep = visibleCount + STEP >= allProducts.length;
-  const buttonText = isFinalStep ? "Mostrar todos" : "Mostrar más";
+  const buttonText = isFinalStep ? "Ver todos" : "Ver más";
 
   return (
     <div className="bg-white mx-auto py-8 px-4">

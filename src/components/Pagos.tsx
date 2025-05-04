@@ -1,6 +1,6 @@
 import creditIcon from "@/assets/Pagos/1.png";
 import storeIcon from "@/assets/Pagos/2.svg";
-import truckIcon from "@/assets/Pagos/3.png";
+import truckIcon from "@/assets/Pagos/elements.svg";
 
 const Pagos: React.FC = () => {
     const items = [

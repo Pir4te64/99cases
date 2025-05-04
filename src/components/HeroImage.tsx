@@ -6,7 +6,7 @@ const HeroImage = () => {
       </h1>
 
       <p className="text-xl md:text-2xl mt-4 mx-2 tracking-wide font-favoritMono">
-        ENCUENTRA EL DISEÑO PERFECTO PARA TU ESTILO
+        ENCONTRÁ EL DISEÑO PERFECTO PARA TU ESTILO
       </p>
     </div>
   );

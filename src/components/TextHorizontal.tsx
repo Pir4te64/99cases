@@ -1,55 +1,38 @@
+import { motion } from "framer-motion";
+
 const textItems = [
-  "Envíos a todo el país",
-  "Hecho en Argentina",
-  "Somos 99% Cases",
-  "Envíos a todo el país",
+  "ENVIOS A TODO EL PAÍS",
+  "HECHO EN ARGENTINA",
+  "SOMOS 99% CASES",
 ];
 
-const TextHorizontal = () => {
+const Marquee = () => {
+  const combinedItems = [...textItems, ...textItems]; // Duplicamos
+
   return (
-    <div>
-      {/* Texto principal en fondo negro */}
-      <div className="bg-black py-8 h-64 md:h-96 flex items-center justify-center text-center">
-        <h1 className="text-6xl sm:text-4xl md:text-9xl font-dharmaGothicM italic font-bold text-white uppercase px-4">
-          ¡Protegé tu teléfono con onda, estilo y calidad!
-        </h1>
-      </div>
-
-      {/* Contenedor de la franja roja con overflow oculto y texto en "marquee" */}
-      <div className="bg-red-600 overflow-hidden h-12 flex items-center whitespace-nowrap">
-        <div
-          className="
-            flex 
-            gap-16 
-            uppercase 
-            font-bold 
-            font-favoritMono 
-            tracking-wide 
-            py-2
-            italic
-            animate-scrollText
-          "
-        >
-          {/* Primera secuencia de texto */}
-          {textItems.map((item, i) => (
-            <span key={i} className="mx-4 text-xs sm:text-sm md:text-base">
-              {item}
-            </span>
-          ))}
-
-          {/* Repetición para scroll infinito */}
-          {textItems.map((item, i) => (
-            <span
-              key={i + textItems.length}
-              className="mx-4 text-xs sm:text-sm md:text-base"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
+    <div className="overflow-hidden bg-red-600 h-12 whitespace-nowrap relative">
+      <motion.div
+        className="flex gap-16 items-center absolute left-0 top-0 h-full"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          duration: 20,
+        }}
+        style={{ minWidth: "200%" }}
+      >
+        {combinedItems.map((item, i) => (
+          <span
+            key={i}
+            className="mx-4 text-white text-xs sm:text-sm md:text-base uppercase font-bold font-favoritMono italic"
+          >
+            {item}
+          </span>
+        ))}
+      </motion.div>
     </div>
   );
 };
 
-export default TextHorizontal;
+export default Marquee;

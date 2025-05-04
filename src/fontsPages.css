@@ -77,7 +77,7 @@
      ======================================== */
 @font-face {
     font-family: 'ABCFavoritExtended';
-    src: url('./assets/Fuentes/ABCFavoritExtended-Light.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/ABCFavoritExtended-Light.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
@@ -88,7 +88,7 @@
      ======================================== */
 @font-face {
     font-family: 'ABCFavoritMono';
-    src: url('./assets/fonts/   Fuentes/ABCFavoritMono-Book.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/ABCFavoritMono-Book.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
@@ -106,7 +106,7 @@
      ======================================== */
 @font-face {
     font-family: 'DharmaGothicM';
-    src: url('./assets/fonts/Fuentes/DharmaGothicM-Thin.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/DharmaGothicC-Thin.otf') format('opentype');
     font-weight: 100;
     /* Thin suele ser 100 */
     font-style: normal;
@@ -114,21 +114,21 @@
 
 @font-face {
     font-family: 'DharmaGothicM';
-    src: url('./assets/fonts/Fuentes/DharmaGothicM-Regular.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/DharmaGothicC-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'DharmaGothicM';
-    src: url('./assets/fonts/Fuentes/DharmaGothicM-RegularItalic.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/DharmaGothicC-RegularItalic.otf') format('opentype');
     font-weight: 400;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'DharmaGothicM';
-    src: url('./assets/fonts/Fuentes/DharmaGothicM-Heavy.otf') format('opentype');
+    src: url('./assets/fonts/Fuentes/DharmaGothicC-Heavy.otf') format('opentype');
     font-weight: 900;
     /* Heavy suele ser 800-900 */
     font-style: normal;

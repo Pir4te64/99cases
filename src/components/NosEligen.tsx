@@ -44,7 +44,7 @@ const NosEligen = () => {
             Protección con estilo
           </h3>
           <p className="text-sm md:text-base font-favoritMono mt-2">
-            Diseños que hablan por ti
+            Diseños que hablan por vos
           </p>
           <button className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold font-favoritMono py-2 px-4 rounded">
             Ver Todos
@@ -57,7 +57,7 @@ const NosEligen = () => {
             Protección con estilo
           </h3>
           <p className="text-sm md:text-base font-favoritMono mt-2">
-            Diseños que hablan por ti
+            Diseños que hablan por vos
           </p>
           <button className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold font-favoritMono py-2 px-4 rounded">
             Ver Todos

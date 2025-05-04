@@ -52,13 +52,13 @@ module.exports = {
 
       // Animación de scrolling de texto, si la usas en algún lado
       keyframes: {
-        scrollText: {
+        scroll: {
           "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
       },
       animation: {
-        scrollText: "scrollText 15s linear infinite",
+        scroll: 'scroll 20s linear infinite',
       }
     },
   },

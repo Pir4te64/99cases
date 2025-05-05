@@ -116,7 +116,7 @@ const PredeterminadosID = () => {
             <img
               src={window.innerWidth < 1024 ? imgHorizontal : imgVertical}
               alt='Imagen del producto'
-              className='max-h-full object-contain hover:scale-105 transition-transform duration-300 ease-in-out'
+              className='max-h-full object-contain transition-transform duration-300 ease-in-out'
               onContextMenu={e => e.preventDefault()}
             />
           </div>

@@ -33,14 +33,14 @@ const PreviewOverlay: React.FC = () => {
             ].join(",");
 
     return (
-        <div className="relative w-full h-full bg-white overflow-hidden">
+        <div className="relative h-full w-full overflow-hidden bg-white">
             {/* Imagen como fondo (invisible para conservar espacio) */}
             <img
-            loading="lazy"
+                loading="lazy"
                 src={product?.imageSrc}
                 alt={product?.title || "Producto"}
                 onContextMenu={e => e.preventDefault()}
-                className="w-full h-full object-contain opacity-0"
+                className="h-full w-full object-contain"
             />
 
             {/* Nombre absolutamente centrado */}

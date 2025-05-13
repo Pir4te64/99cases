@@ -1,5 +1,5 @@
 // FundasPersonalizadasProductos.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchAndAdaptProducts, Product } from "../Fundas/FundasPredeterminadas/fundasGet";
 import ProductCardPersonalizadas from "../Fundas/FundasPersonalizadas/ProductosPersonalizados";
 
@@ -10,7 +10,16 @@ const FundasPersonalizadasProductos: React.FC = () => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
 
-  const filteredProducts = products.filter(product => product.tipo === 'PERSONALIZADO');
+  const tiposPersonalizados = [
+    "PERSONALIZADO",
+    "PERSONALIZADO_CON_IMAGEN",
+    "PERSONALIZADO_CON_CARACTERES",
+  ];
+
+  const filteredProducts = useMemo(
+    () => products.filter((p) => tiposPersonalizados.includes(p.tipo)),
+    [products]
+  );
   console.log(filteredProducts);
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center bg-white px-4 py-8">
@@ -19,13 +28,16 @@ const FundasPersonalizadasProductos: React.FC = () => {
           <ProductCardPersonalizadas
             key={product.id}
             id={product.id.toString()}
-            discount={`${Math.round(product.descuento * 100)}%`}
             imageSrc={product.imageSrc}
             title={product.title}
-            price={product.price}
-            oldPrice={product.oldPrice}
+            price={product.price}          // número
+            descuento={product.descuento}   // 0.2 → 20 %
+            oldPrice={product.oldPrice}    // opcional
             description={product.description}
+            precioDescuento={product.precioDescuento}
+
           />
+
         ))}
       </div>
     </div>

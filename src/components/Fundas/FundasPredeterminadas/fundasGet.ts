@@ -12,6 +12,7 @@ export interface Product {
   descuento: number;
   predeterminado: boolean;
   tipo: string;
+  precioDescuento: number;
 }
 
 // Tipado crudo según lo que devuelve tu API
@@ -26,6 +27,7 @@ interface RawApiProduct {
   descuento?: number;
   predeterminado: boolean;
   tipo: string;
+  precioDescuento: number;
 }
 
 // Adaptador de RawApiProduct → Product
@@ -35,11 +37,12 @@ const adaptProduct = (api: RawApiProduct): Product => ({
   imageFinal: api.imagenFinal.url,
   title: api.nombre,
   price: `$${api.precio}`,
-  oldPrice: api.oldPrice !== undefined ? `$${api.oldPrice}` : "",
+  oldPrice: api.precioDescuento !== undefined ? `$${api.precioDescuento}` : "",
   description: api.descripcion,
   descuento: api.descuento ?? 0,
   predeterminado: api.predeterminado,
   tipo: api.tipo,
+  precioDescuento: api.precioDescuento,
 });
 
 /**

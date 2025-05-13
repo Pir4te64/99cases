@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
-import { FiUserPlus, FiLogIn, FiLogOut } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";          // ⬅️  solo queda el icono de logout
 import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
@@ -13,13 +13,11 @@ export default function Navbar() {
   const toggleCart = useCartStore((state) => state.toggleCart);
   const location = useLocation();
 
-  // Cada vez que cambia la URL se revisa el token
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, [location]);
 
-  // Cierra menús al cambiar de ruta
   useEffect(() => {
     setMenuOpen(false);
     setIsOpen(false);
@@ -34,7 +32,7 @@ export default function Navbar() {
   return (
     <>
       {bannerOpen && (
-        <div className="relative bg-red-600 text-white px-4 py-2 flex items-center justify-center">
+        <div className="relative flex items-center justify-center bg-red-600 px-4 py-2 text-white">
           <p className="text-md font-favoritMono">
             10% OFF abonando por transferencia
           </p>
@@ -47,30 +45,30 @@ export default function Navbar() {
         </div>
       )}
 
-      <nav className="bg-black text-white p-4 mx-5 relative">
+      <nav className="relative mx-5 bg-black p-4 text-white">
         {/* Desktop Navbar */}
-        <div className="hidden md:flex items-center justify-between">
+        <div className="hidden items-center justify-between md:flex">
           {/* Izquierda: Productos + Sesión */}
           <div className="flex items-center space-x-3">
             <div className="relative">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center hover:text-gray-300 transition-colors"
+                className="flex items-center transition-colors hover:text-gray-300"
               >
                 Productos
                 <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               {isOpen && (
-                <div className="absolute left-0 mt-2 bg-black text-white rounded py-2 w-64 border border-white z-10">
+                <div className="absolute left-0 z-10 mt-2 w-64 rounded border border-white bg-black py-2 text-white">
                   <Link
                     to="/predeterminadas"
-                    className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                    className="block px-4 py-2 transition-colors hover:bg-white hover:text-black"
                   >
                     Fundas Predeterminadas
                   </Link>
                   <Link
                     to="/personalizadas"
-                    className="block px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                    className="block px-4 py-2 transition-colors hover:bg-white hover:text-black"
                   >
                     Fundas Personalizadas
                   </Link>
@@ -81,7 +79,7 @@ export default function Navbar() {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="hover:text-gray-300 transition-colors"
+                className="transition-colors hover:text-gray-300"
               >
                 <FiLogOut className="h-5 w-5" />
               </button>
@@ -89,28 +87,24 @@ export default function Navbar() {
               <>
                 <Link
                   to="/register"
-                  className="hover:text-gray-300 transition-colors"
+                  className="transition-colors hover:text-gray-300"
                 >
-                  <FiUserPlus className="h-5 w-5" />
+                  Registrarse
                 </Link>
                 <Link
                   to="/login"
-                  className="hover:text-gray-300 transition-colors"
+                  className="transition-colors hover:text-gray-300"
                 >
-                  <FiLogIn className="h-5 w-5" />
+                  Iniciar Sesión
                 </Link>
               </>
             )}
           </div>
 
           {/* Centro: Logo */}
-          <div className="text-xl font-bold text-center">
+          <div className="text-center text-xl font-bold">
             <Link to="/">
-              <img
-                src={logo}
-                alt="logo"
-                className="h-12 md:h-16 mx-auto"
-              />
+              <img src={logo} alt="logo" className="mx-auto h-12 md:h-16" />
             </Link>
           </div>
 
@@ -118,18 +112,18 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleCart}
-              className="hover:text-gray-300 transition-colors"
+              className="transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
             </button>
-            <button className="hover:text-gray-300 transition-colors">
+            <button className="transition-colors hover:text-gray-300">
               <Search className="h-5 w-5" />
             </button>
           </div>
         </div>
 
         {/* Mobile Navbar */}
-        <div className="md:hidden flex items-center justify-between">
+        <div className="flex items-center justify-between md:hidden">
           <Link to="/">
             <img src={logo} alt="logo" className="h-12" />
           </Link>
@@ -142,12 +136,12 @@ export default function Navbar() {
                 <Menu className="h-6 w-6 text-white" />
               )}
             </button>
-            <button className="hover:text-gray-300 transition-colors">
+            <button className="transition-colors hover:text-gray-300">
               <Search className="h-5 w-5" />
             </button>
             <button
               onClick={toggleCart}
-              className="hover:text-gray-300 transition-colors"
+              className="transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
             </button>
@@ -156,16 +150,16 @@ export default function Navbar() {
 
         {/* Menú de navegación en Mobile */}
         {menuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-black text-white p-4 flex flex-col space-y-4 z-10">
+          <div className="absolute left-0 top-full z-10 flex w-full flex-col space-y-4 bg-black p-4 text-white md:hidden">
             <Link
               to="/predeterminadas"
-              className="hover:text-gray-300 transition-colors"
+              className="transition-colors hover:text-gray-300"
             >
               Fundas Predeterminadas
             </Link>
             <Link
               to="/personalizadas"
-              className="hover:text-gray-300 transition-colors"
+              className="transition-colors hover:text-gray-300"
             >
               Fundas Personalizadas
             </Link>
@@ -173,7 +167,7 @@ export default function Navbar() {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="hover:text-gray-300 transition-colors flex items-center"
+                className="transition-colors hover:text-gray-300"
               >
                 <FiLogOut className="h-5 w-5" />
               </button>
@@ -181,17 +175,15 @@ export default function Navbar() {
               <>
                 <Link
                   to="/register"
-                  className="hover:text-gray-300 transition-colors flex items-center space-x-2"
+                  className="transition-colors hover:text-gray-300"
                 >
-                  <FiUserPlus className="h-5 w-5" />
-                  <span>Registrarse</span>
+                  Registrarse
                 </Link>
                 <Link
                   to="/login"
-                  className="hover:text-gray-300 transition-colors flex items-center space-x-2"
+                  className="transition-colors hover:text-gray-300"
                 >
-                  <FiLogIn className="h-5 w-5" />
-                  <span>Iniciar Sesión</span>
+                  Iniciar Sesión
                 </Link>
               </>
             )}

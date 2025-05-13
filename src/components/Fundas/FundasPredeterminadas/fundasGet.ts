@@ -11,6 +11,7 @@ export interface Product {
   description: string;
   descuento: number;
   predeterminado: boolean;
+  tipo: string;
 }
 
 // Tipado crudo según lo que devuelve tu API
@@ -24,6 +25,7 @@ interface RawApiProduct {
   descripcion: string;
   descuento?: number;
   predeterminado: boolean;
+  tipo: string;
 }
 
 // Adaptador de RawApiProduct → Product
@@ -37,6 +39,7 @@ const adaptProduct = (api: RawApiProduct): Product => ({
   description: api.descripcion,
   descuento: api.descuento ?? 0,
   predeterminado: api.predeterminado,
+  tipo: api.tipo,
 });
 
 /**

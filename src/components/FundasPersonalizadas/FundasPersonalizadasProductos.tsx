@@ -10,10 +10,12 @@ const FundasPersonalizadasProductos: React.FC = () => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
 
+  const filteredProducts = products.filter(product => product.tipo === 'PERSONALIZADO');
+  console.log(filteredProducts);
   return (
-    <div className="mx-auto w-full flex flex-col items-center justify-center bg-white py-8 px-4">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-        {products.map((product) => (
+    <div className="mx-auto flex w-full flex-col items-center justify-center bg-white px-4 py-8">
+      <div className="grid w-full max-w-7xl grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {filteredProducts.map((product) => (
           <ProductCardPersonalizadas
             key={product.id}
             id={product.id.toString()}

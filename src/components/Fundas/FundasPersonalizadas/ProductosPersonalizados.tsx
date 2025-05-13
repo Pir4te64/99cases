@@ -19,6 +19,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   oldPrice,
 }) => {
   const navigate = useNavigate();
+  console.log(imageSrc);
 
   const handleClick = () => {
     const productData = {
@@ -35,11 +36,11 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   return (
     <div
       onClick={handleClick}
-      className="cursor-pointer relative text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]"
+      className="relative flex min-h-[400px] w-full cursor-pointer flex-col items-center justify-start p-4 text-center sm:w-72"
     >
-      <div className="h-8 flex justify-center items-center mb-2">
+      <div className="mb-2 flex h-8 items-center justify-center">
         {discount ? (
-          <div className="px-2 py-1 bg-gray-300 text-red-600  font-bold rounded-md font-favoritExpandedBook">
+          <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritExpandedBook font-bold text-red-600">
             {discount}
           </div>
         ) : (
@@ -52,18 +53,18 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
           onContextMenu={e => e.preventDefault()}
           src={imageSrc}
           alt={title}
-          className="mx-auto my-4 h-auto object-contain hover:scale-105 transition-transform duration-300 ease-in-out"
+          className="mx-auto my-4 h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
         />
       </picture>
-      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritExpandedBook tracking-wide">
+      <h3 className="mb-2 font-favoritExpandedBook text-base font-bold tracking-wide text-gray-800 sm:text-lg">
         {title}
       </h3>
-      <div className="flex justify-center items-baseline gap-2">
-        <span className="text-lg sm:text-xl font-bold text-black font-favoritExpandedBook">
+      <div className="flex items-baseline justify-center gap-2">
+        <span className="font-favoritExpandedBook text-lg font-bold text-black sm:text-xl">
           {price}
         </span>
         {oldPrice && (
-          <span className="text-sm sm:text-md line-through font-bold text-gray-400 font-favoritExpandedBook">
+          <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-gray-400 line-through">
             {oldPrice}
           </span>
         )}

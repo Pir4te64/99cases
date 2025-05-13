@@ -42,7 +42,7 @@ const PersonalizadosID: React.FC = () => {
 
   /** True si la funda admite subir imagen externa */
   const isPersonalizadoConImagen =
-    product?.tipo === "PERSONALIZADO_CON_IMAGEN";
+    product?.tipo === "PERSONALIZADO_CON_IMAGEN"
 
   /* -------- cargar producto desde Router -------- */
   useEffect(() => {

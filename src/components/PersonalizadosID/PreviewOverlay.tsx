@@ -12,7 +12,7 @@ const PreviewOverlay: React.FC = () => {
   const sel = usePersonalizadoStore((s) => s.selectedColors);
 
   // Ocultar texto para PERSONALIZADO_CON_IMAGEN
-  const hideTextAndNumber = product?.tipo === "PERSONALIZADO_CON_IMAGEN" ;
+  const hideTextAndNumber = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
 
   /* ───────────── Mostrar XML del SVG en consola ───────────── */
   useEffect(() => {
@@ -43,11 +43,11 @@ const PreviewOverlay: React.FC = () => {
     color === "transparent"
       ? "none"
       : [
-          `${-off}px ${-off}px ${color}`,
-          `${off}px ${-off}px ${color}`,
-          `${-off}px ${off}px ${color}`,
-          `${off}px ${off}px ${color}`,
-        ].join(",");
+        `${-off}px ${-off}px ${color}`,
+        `${off}px ${-off}px ${color}`,
+        `${-off}px ${off}px ${color}`,
+        `${off}px ${off}px ${color}`,
+      ].join(",");
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white">
@@ -74,10 +74,9 @@ const PreviewOverlay: React.FC = () => {
             className={`
               absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform
               pointer-events-none text-4xl sm:text-8xl
-              ${
-                nameStyleIndex !== null
-                  ? `font-${customNameStyles[nameStyleIndex]}`
-                  : "font-cmxShift2"
+              ${nameStyleIndex !== null
+                ? `font-${customNameStyles[nameStyleIndex]}`
+                : "font-cmxShift2"
               }
             `}
           >
@@ -94,10 +93,9 @@ const PreviewOverlay: React.FC = () => {
             className={`
               absolute bottom-10 left-1/2 -translate-x-1/2 transform
               pointer-events-none text-3xl sm:text-9xl
-              ${
-                numberStyleIndex !== null
-                  ? `font-${customNumberStyles[numberStyleIndex]}`
-                  : "font-cmxShift2"
+              ${numberStyleIndex !== null
+                ? `font-${customNumberStyles[numberStyleIndex]}`
+                : "font-cmxShift2"
               }
             `}
           >

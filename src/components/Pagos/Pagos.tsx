@@ -38,7 +38,6 @@ const Pagos = () => {
     sinNumero,
     departamento,
     barrio,
-    ciudad,
     mismaFacturacion,
     // Nuevos estados de ubicación y teléfono
     telefono,
@@ -57,7 +56,6 @@ const Pagos = () => {
     setSinNumero,
     setDepartamento,
     setBarrio,
-    setCiudad,
     setMismaFacturacion,
     setTelefono,
     setLocalidad,
@@ -156,7 +154,6 @@ const Pagos = () => {
           sinNumero,
           departamento,
           barrio,
-          ciudad,
           telefono,
           localidad,
           provincia,
@@ -190,7 +187,7 @@ const Pagos = () => {
     <div className="min-h-screen bg-white text-black">
       <div className="container mx-auto px-4 py-6">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="order-1 md:order-2">
             <ResumenCompra
               cartItems={cartItems}
@@ -213,7 +210,6 @@ const Pagos = () => {
                 sinNumero={sinNumero}
                 departamento={departamento}
                 barrio={barrio}
-                ciudad={ciudad}
                 localidad={localidad}
                 provincia={provincia}
                 // 🔹 nuevos props de documento
@@ -231,13 +227,12 @@ const Pagos = () => {
                 setSinNumero={setSinNumero}
                 setDepartamento={setDepartamento}
                 setBarrio={setBarrio}
-                setCiudad={setCiudad}
                 setTipoDocumento={setTipoDocumento}
                 setNumeroDocumento={setNumeroDocumento}
               />
               {/* Sección de Datos de Facturación */}
               <section>
-                <h2 className="text-lg md:text-xl font-bold mb-2 font-favoritExpandedBook">
+                <h2 className="mb-2 font-favoritExpandedBook text-lg font-bold md:text-xl">
                   DATOS DE FACTURACIÓN
                 </h2>
                 <div className="flex items-center">
@@ -250,7 +245,7 @@ const Pagos = () => {
                   />
                   <label
                     htmlFor="mismaFacturacion"
-                    className="text-sm md:text-base font-favoritExpandedBook"
+                    className="font-favoritExpandedBook text-sm md:text-base"
                   >
                     Mis datos de facturación y entrega son los mismos.
                   </label>
@@ -260,11 +255,10 @@ const Pagos = () => {
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className={`w-full px-6 py-3 rounded transition-colors font-favoritExpandedBook ${
-                  isFormValid
-                    ? "bg-black text-white hover:bg-gray-800"
-                    : "bg-gray-500 text-white cursor-not-allowed"
-                }`}
+                className={`w-full px-6 py-3 rounded transition-colors font-favoritExpandedBook ${isFormValid
+                  ? "bg-black text-white hover:bg-gray-800"
+                  : "bg-gray-500 text-white cursor-not-allowed"
+                  }`}
               >
                 CONTINUAR PARA EL PAGO
               </button>

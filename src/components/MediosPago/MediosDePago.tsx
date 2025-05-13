@@ -74,15 +74,21 @@ export default function MediosDePago() {
           onReady: () => {
             // Se llama cuando el Brick termina de cargar
           },
-          onSubmit: (formData: any) =>
-            fetch(`${API.createPayment}`, {
+          onSubmit: (formData: any) => {
+            const token = localStorage.getItem("token");
+            const response = fetch(`${API.createPayment}`, {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
               body: JSON.stringify({
                 ...formData,
                 orderId: deliveryResponse.numeroOrden,
               }),
-            }).then((r) => r.json()),
+            }).then((r) => r.json());
+            console.log(response);
+          },
           onError: (err: any) => {
             console.error("Error Payment Brick:", err);
           },
@@ -93,21 +99,21 @@ export default function MediosDePago() {
 
   return (
     <div className="min-h-screen bg-white px-4 py-6">
-      <h1 className="text-center text-3xl font-bold mb-6">MEDIOS DE PAGO</h1>
+      <h1 className="mb-6 text-center text-3xl font-bold">MEDIOS DE PAGO</h1>
 
       {deliveryResponse && (
         <DeliverySummary deliveryResponse={deliveryResponse} />
       )}
 
-      <div className="max-w-3xl mx-auto mb-8">
-        <div className="bg-gray-300 p-4 rounded mb-4 flex items-center justify-between">
+      <div className="mx-auto mb-8 max-w-3xl">
+        <div className="mb-4 flex items-center justify-between rounded bg-gray-300 p-4">
           <span className="text-black">Total:</span>
           <span className="font-bold text-black">
             ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
           </span>
           <button
             onClick={onIniciarPago}
-            className="bg-blue-600 text-white px-4 py-2 rounded flex items-center space-x-2"
+            className="flex items-center space-x-2 rounded bg-blue-600 px-4 py-2 text-white"
             disabled={brickReady}
           >
             <SiMercadopago className="h-5 w-5" />
@@ -125,7 +131,7 @@ export default function MediosDePago() {
         <img
           src={tarjeta}
           alt="Métodos de pago"
-          className="max-w-full mx-auto"
+          className="mx-auto max-w-full"
         />
       </div>
 

@@ -1,4 +1,4 @@
-import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 
 const ProductImage = ({
   imgHorizontal,

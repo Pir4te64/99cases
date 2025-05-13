@@ -3,7 +3,7 @@
 const ProductHeader = ({ product }: { product: any }) => {
   return (
     <div>
-      <h1 className='text-4xl md:text-6xl font-bold mb-2 w-full font-favoritExpandedBook'>
+      <h1 className='text-4xl md:text-5xl font-bold mb-2 w-full font-favoritExpandedBook'>
         {product.title}
       </h1>
       <p className='text-lg text-red-600 font-semibold mb-2 font-favoritExpandedBook'>

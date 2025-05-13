@@ -1,7 +1,7 @@
 // src/components/CustomName.tsx
 
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
-import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 
 const CustomName = () => {
   const {

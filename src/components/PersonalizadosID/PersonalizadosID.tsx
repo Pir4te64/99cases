@@ -1,5 +1,3 @@
-// src/components/PersonalizadosID.tsx
-
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import html2canvas from "html2canvas";
@@ -9,24 +7,27 @@ import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
 import PersonalizadosLayout from "@/components/PersonalizadosLayout";
 import ProductDetails from "@/components/PersonalizadosID/ProductoDetalles";
 import ProductImage from "@/components/PersonalizadosID/ProductoImagen";
-import MarcaCelular from "@/components/PersonalizadosID/MarcaCelular";
+import MarcaCelular from "@/components/PersonalizadosID/Actions/MarcaCelular";
 import ProductInfo from "@/components/PersonalizadosID/ProductHeader";
 import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
 import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
-import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
-import CustomName from "@/components/PersonalizadosID/CustomName";
-import Colores from "@/components/PersonalizadosID/Colores";
+import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
+import CustomName from "@/components/PersonalizadosID/Actions/CustomName";
+import Colores from "@/components/PersonalizadosID/Actions/Colores";
 import PreviewOverlay from "@/components/PersonalizadosID/PreviewOverlay";
+import DynamicCaseDesigner from "./DynamicCaseDesigner";
+import CaseDesignerSimple from "./DynamicCaseDesigner";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
-  const product = usePersonalizadoStore(s => s.product);
-  const showMarca = usePersonalizadoStore(s => s.showMarca);
-  const step2Active = usePersonalizadoStore(s => s.step2Active);
-  const showColors = usePersonalizadoStore(s => s.showColors);
-  const setProduct = usePersonalizadoStore(s => s.setProduct);
-  const setWindowWidth = usePersonalizadoStore(s => s.setWindowWidth);
-
+  const product = usePersonalizadoStore((s) => s.product);
+  const showMarca = usePersonalizadoStore((s) => s.showMarca);
+  const step2Active = usePersonalizadoStore((s) => s.step2Active);
+  const showColors = usePersonalizadoStore((s) => s.showColors);
+  const setProduct = usePersonalizadoStore((s) => s.setProduct);
+  const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
+  console.log(product);
+  
   useEffect(() => {
     if (location.state?.product) {
       setProduct(location.state.product);
@@ -46,18 +47,17 @@ const PersonalizadosID: React.FC = () => {
     { label: product?.title || "Producto" },
   ];
 
-  // Función para capturar y descargar el preview
+  // Captura y descarga del preview en 300 DPI
   const handleDownload = async () => {
     const el = document.getElementById("preview-container");
     if (!el) return;
 
-    // Define aquí tu DPI objetivo y tu tamaño de impresión en pulgadas:
-    const targetDPI = 300;                     // lo que te pide la imprenta
-    const cssInchesPerPx = 1 / 96;             // 96px == 1" en CSS
-    const scale = targetDPI * cssInchesPerPx;  // ≃ 3.125
+    const targetDPI = 300;
+    const cssInchesPerPx = 1 / 96;
+    const scale = targetDPI * cssInchesPerPx;
 
     const canvas = await html2canvas(el, {
-      scale,          // escala el canvas para generar más píxeles
+      scale,
       useCORS: true,
       backgroundColor: null,
     });
@@ -70,23 +70,18 @@ const PersonalizadosID: React.FC = () => {
 
   return (
     <PersonalizadosLayout>
-      <div className="mx-auto px-4 py-6 bg-white text-black">
+      <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex flex-col lg:flex-row lg:h-[600px] container mx-auto px-4">
-
+        <div className="container mx-auto flex flex-col px-4 lg:h-[600px] lg:flex-row">
           {/* Columna 1: selector de orientación */}
-          <ProductImage
-            imgHorizontal={imgHorizontal}
-            imgVertical={imgVertical}
-          />
+          <ProductImage imgHorizontal={imgHorizontal} imgVertical={imgVertical} />
 
           {/* Columna 2: preview */}
           <div className="flex items-center justify-center">
             {product ? (
-              // este div es el que capturamos con html2canvas
-              <div id="preview-container" className="w-full h-full">
-                <PreviewOverlay />
+              <div id="preview-container" className="h-full w-full">
+               <CaseDesignerSimple frameUrl={product.imageSrc} />
               </div>
             ) : (
               <p className="font-favoritMono font-bold italic">
@@ -96,7 +91,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: ajustes y detalles */}
-          <div className="flex-1 flex flex-col p-4 py-10 overflow-y-auto font-favoritMono">
+          <div className="flex flex-1 flex-col overflow-y-auto p-4 py-10 font-favoritMono">
             {product ? (
               <>
                 <ProductInfo product={product} />
@@ -112,11 +107,11 @@ const PersonalizadosID: React.FC = () => {
                     <PurchaseActions product={product} />
                     <ProductDetails />
 
-                    {/* Aquí colocamos el botón de descarga justo debajo de ProductDetails */}
+                    {/* Botón de descarga */}
                     <div className="mt-4 text-center">
                       <button
                         onClick={handleDownload}
-                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                        className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                       >
                         Descargar imagen
                       </button>

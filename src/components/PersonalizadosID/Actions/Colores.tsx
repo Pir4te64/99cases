@@ -1,5 +1,5 @@
 // src/components/Colores.jsx
-import usePersonalizadoStore from "@/components/PersonalizadosID/usePersonalizadoStore";
+import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { colorSections } from "@/components/PersonalizadosID/ColorSectionsProvider";
 
 const Colores = () => {

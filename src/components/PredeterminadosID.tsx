@@ -6,9 +6,9 @@ import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
 import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import { Minus, Plus } from "lucide-react";
 import PredeterminadoLayout from "@/components/PredeterminadoLayout";
-import MarcaCelular from "@/components/PersonalizadosID/MarcaCelular";
+import MarcaCelular from "@/components/PersonalizadosID/Actions/MarcaCelular";
 import useCartStore, { CartItem } from "@/store/cartStore";
-import { usePhoneSelectionStore } from "@/components/PersonalizadosID/phoneSelectionStore";
+import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
 import { useCheckout } from "@/store/useCheckout";
 // Importamos el store de selección de marca y modelo
 

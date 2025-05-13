@@ -10,6 +10,7 @@ const FundasPersonalizadasProductos: React.FC = () => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const tiposPersonalizados = [
     "PERSONALIZADO",
     "PERSONALIZADO_CON_IMAGEN",
@@ -18,7 +19,7 @@ const FundasPersonalizadasProductos: React.FC = () => {
 
   const filteredProducts = useMemo(
     () => products.filter((p) => tiposPersonalizados.includes(p.tipo)),
-    [products]
+    [products, tiposPersonalizados]
   );
   console.log(filteredProducts);
   return (
@@ -35,7 +36,7 @@ const FundasPersonalizadasProductos: React.FC = () => {
             oldPrice={product.oldPrice}    // opcional
             description={product.description}
             precioDescuento={product.precioDescuento}
-
+            tipo={product.tipo}
           />
 
         ))}

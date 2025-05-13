@@ -2,20 +2,19 @@
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 
 interface Props {
-  /** URL (o ruta local) del SVG de la funda, con hueco transparente y <clipPath id="clip_safe"> */
+  /** URL del SVG de la funda, con hueco transparente */
   frameUrl: string;
-  /** ID del clipPath en el SVG (por defecto "clip_safe") */
-  clipId?: string;
 }
 
-const CaseDesignerSimple: React.FC<Props> = ({ frameUrl, clipId = "clip_safe" }) => {
+const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
+  // Foto y transform del store
   const photo = usePersonalizadoStore((s) => s.photo);
   const scale = usePersonalizadoStore((s) => s.scale);
   const rotation = usePersonalizadoStore((s) => s.rotation);
   const flipH = usePersonalizadoStore((s) => s.flipH);
   const flipV = usePersonalizadoStore((s) => s.flipV);
 
-  // Construye la cadena CSS de transformaciones
+  // Cadena CSS de transformaciones
   const transform = [
     `scale(${scale})`,
     `rotate(${rotation}deg)`,
@@ -26,26 +25,27 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl, clipId = "clip_safe" })
     .join(" ");
 
   return (
-    <div className="relative w-[300px] select-none">
-      {/* Foto del cliente con transform */}
+    <div
+      className="/* Ancho fijo igual al SVG */ Alto relative h-[500px] w-[300px] select-none overflow-hidden"
+    >
+      {/* FOTO DEL CLIENTE */}
       {photo && (
         <img
           src={photo}
           alt="Personalizada"
+          className="absolute inset-0 z-0 h-full w-full object-cover"
           style={{
             transform,
-            clipPath: `url(#${clipId})`,
-            WebkitClipPath: `url(#${clipId})`,
+            transformOrigin: "center center",
           }}
-          className="absolute inset-0 z-0 h-full w-full object-cover"
         />
       )}
 
-      {/* Marco SVG encima */}
+      {/* MARCO SVG ENCIMA */}
       <img
         src={frameUrl}
         alt="Carcasa"
-        className="pointer-events-none relative z-10 h-auto w-full"
+        className="pointer-events-none absolute inset-0 z-10 h-full w-full"
       />
     </div>
   );

@@ -127,7 +127,7 @@ const Pagos = () => {
       });
 
       try {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         const config = {
           headers: {
             "Content-Type": "application/json",

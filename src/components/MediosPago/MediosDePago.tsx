@@ -2,6 +2,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 import { SiMercadopago } from "react-icons/si";
 import tarjeta from "@/assets/Pagos/tarjetas.png";
 import useDeliveryStore from "@/components/Pagos/useDeliveryStore";
@@ -26,7 +27,9 @@ export default function MediosDePago() {
   const onIniciarPago = async () => {
     const { isConfirmed } = await Swal.fire({
       title: "Confirmar Pago",
-      text: `Vas a pagar $${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}`,
+      text: `Vas a pagar $${total.toLocaleString("es-AR", {
+        minimumFractionDigits: 2,
+      })}`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Sí, pagar",
@@ -40,9 +43,6 @@ export default function MediosDePago() {
       didOpen: () => Swal.showLoading(),
     });
 
-    // Aquí podrías llamar a tu endpoint de orden si lo necesitas…
-    // await fetch(`${API.createPayment}?orderId=${deliveryResponse.numeroOrden}`, …)
-
     Swal.close();
     setBrickReady(true);
   };
@@ -54,6 +54,7 @@ export default function MediosDePago() {
     const mp = new window.MercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY, {
       locale: "es-AR",
     });
+
     mp.bricks().create(
       "payment",                 // tipo de Brick
       "paymentBrick_container",  // ID del div (sin '#')
@@ -74,23 +75,59 @@ export default function MediosDePago() {
           onReady: () => {
             // Se llama cuando el Brick termina de cargar
           },
-          onSubmit: (formData: any) => {
-            const token = localStorage.getItem("token");
-            const response = fetch(`${API.createPayment}`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                ...formData,
-                orderId: deliveryResponse.numeroOrden,
-              }),
-            }).then((r) => r.json());
-            console.log(response);
+
+          onSubmit: async (formData: any) => {
+            try {
+              const token = localStorage.getItem("token");
+              if (!token) throw new Error("No hay token de usuario");
+
+              // Armamos la URL con el orderId como query param
+              const url = `${API.createPayment}?orderId=${deliveryResponse.numeroOrden}`;
+
+              // Llamada POST con axios
+              const { data } = await axios.post(url, formData, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+
+              // Backend puede devolver { details: "...", ... } en caso de error
+              if (data.details) {
+                console.error("Error del servidor:", data);
+                return Swal.fire({
+                  icon: "error",
+                  title: "Error al procesar el pago",
+                  text: data.details,
+                });
+              }
+
+              console.log("Pago creado:", data);
+              return Swal.fire({
+                icon: "success",
+                title: "Pago iniciado",
+                text: "Redirigiendo al formulario de MercadoPago...",
+              });
+            } catch (err: any) {
+              console.error("Excepción en onSubmit:", err);
+              Swal.fire({
+                icon: "error",
+                title: "Error al iniciar el pago",
+                text:
+                  err.response?.data?.details ||
+                  err.message ||
+                  "Ocurrió un problema inesperado.",
+              });
+            }
           },
+
           onError: (err: any) => {
             console.error("Error Payment Brick:", err);
+            Swal.fire({
+              icon: "error",
+              title: "Error en MercadoPago",
+              text: "No se pudieron cargar las formas de pago.",
+            });
           },
         },
       }

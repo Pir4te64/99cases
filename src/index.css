@@ -30,4 +30,5 @@
 html {
     scrollbar-width: thin;
     scrollbar-color: red black;
+    overflow-x: hidden;
 }

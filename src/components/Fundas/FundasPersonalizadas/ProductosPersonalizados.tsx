@@ -1,4 +1,4 @@
-// ProductCardPersonalizadas.tsx
+// src/components/PersonalizadosID/ProductCardPersonalizadas.tsx
 import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
@@ -37,10 +37,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       ? `${Math.round(descuento * 100)}%`
       : undefined;
 
-  /* ───── Precio tachado ─────
-     1) Prioriza `oldPrice`
-     2) Si no hay, usa `precioDescuento` formateado
-  */
+  /* ───── Precio tachado ───── */
   const crossedPrice =
     oldPrice ??
     (typeof precioDescuento === "number"
@@ -65,11 +62,10 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       },
     });
 
-  /* ───── Render ───── */
   return (
     <div
       onClick={handleClick}
-      className="relative flex min-h-[400px] w-full cursor-pointer flex-col items-center justify-start p-4 text-center sm:w-72"
+      className="relative flex min-h-[400px] w-full min-w-0 cursor-pointer flex-col items-center justify-start overflow-hidden p-4 text-center sm:w-72"
     >
       {/* Badge */}
       <div className="mb-2 flex h-8 items-center justify-center">
@@ -83,7 +79,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Imagen */}
-      <picture>
+      <picture className="w-full overflow-hidden">
         <img
           src={imageSrc}
           alt={title}
@@ -93,13 +89,13 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       </picture>
 
       {/* Título */}
-      <h3 className="mb-2 font-favoritExpandedBook text-base font-bold tracking-wide text-gray-800 sm:text-lg">
+      <h3 className="/* más pequeño en mobile */ tamaño base sm+ grande md+ para que haga wrap y no provoque scroll mb-2 whitespace-normal font-favoritExpandedBook text-sm font-bold tracking-wide text-gray-800 sm:text-base md:text-lg">
         {title}
       </h3>
 
       {/* Precios */}
       <div className="flex items-baseline justify-center gap-2">
-        <span className="font-favoritExpandedBook text-lg font-bold text-black sm:text-xl">
+        <span className="text-md font-favoritExpandedBook font-bold text-black sm:text-xl">
           {price}
         </span>
         {crossedPrice && (

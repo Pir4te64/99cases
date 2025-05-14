@@ -7,7 +7,6 @@ interface Props {
 }
 
 const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
-  // Foto y transform del store
   const photo = usePersonalizadoStore((s) => s.photo);
   const scale = usePersonalizadoStore((s) => s.scale);
   const rotation = usePersonalizadoStore((s) => s.rotation);
@@ -26,7 +25,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
 
   return (
     <div
-      className="/* Ancho fijo igual al SVG */ Alto relative h-[500px] w-[300px] select-none overflow-hidden"
+      className="/* full ancho en móvil */ fijo md+ alto relative h-[300px] w-full select-none overflow-hidden md:h-[500px] md:w-[400px]"
     >
       {/* FOTO DEL CLIENTE */}
       {photo && (

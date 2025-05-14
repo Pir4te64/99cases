@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const showCartSidebar = pathname !== "/pagos" && pathname !== "/medios-pagos";
 
   return (
-    <div className='min-h-screen flex flex-col bg-black text-white'>
+    <div className='flex min-h-screen flex-col overflow-x-hidden bg-black text-white'>
       <Navbar />
       {showCartSidebar && <CartSidebar />}
       <main className='flex-1'>{children}</main>

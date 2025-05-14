@@ -30,6 +30,7 @@ import CustomName from "@/components/PersonalizadosID/Actions/CustomName";
 import Colores from "@/components/PersonalizadosID/Actions/Colores";
 import PreviewOverlay from "@/components/PersonalizadosID/PreviewOverlay";
 import CaseDesignerSimple from "./CaseDesignerSimple";
+import SvgColorEditor from "./SvgColorEditor";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
@@ -95,9 +96,14 @@ const PersonalizadosID: React.FC = () => {
             {product ? (
               <div id="preview-container" className="h-full w-full">
                 {isPersonalizadoConImagen ? (
-                  <CaseDesignerSimple frameUrl={product.imageSrc} />
+                  <>
+                    <CaseDesignerSimple frameUrl={product.imageSrc} />
+                  </>
                 ) : (
-                  <PreviewOverlay />
+                  <>
+                    {/* <PreviewOverlay /> */}
+                    <SvgColorEditor svgUrl={product.imageSrc} />
+                  </>
                 )}
               </div>
             ) : (

@@ -13,7 +13,6 @@ const PreviewOverlay: React.FC = () => {
 
   const hideTextAndNumber = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO";
-  console.log(product?.tipo);
 
   /* ───── colores ───── */
   const [nFill, nBorder, nBorder2, numFill, numBorder, numBorder2] = [
@@ -41,7 +40,7 @@ const PreviewOverlay: React.FC = () => {
       try {
         const resp = await fetch(product.imageSrc, { mode: "cors" });
         const svgText = await resp.text();
-        //console.log("🔎 Contenido SVG:\n", svgText);
+        console.log("🔎 Contenido SVG:\n", svgText);
       } catch (err) {
         console.error("Error al obtener SVG:", err);
       }
@@ -64,14 +63,14 @@ const PreviewOverlay: React.FC = () => {
       {!hideTextAndNumber && (
         isConCaracteres ? (
           // para PERSONALIZADO_CON_CARACTERES: texto + número más pequeños, centrados juntos
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+          <div className="pointer-events-none absolute inset-0 -left-3 mt-12 flex flex-col items-center justify-center">
             <span
               style={{
                 color: nFill,
                 WebkitTextStroke: `1px ${nBorder}`,
                 textShadow: makeShadow(nBorder2, 2),
               }}
-              className={`text-xl sm:text-4xl ${nameStyleIndex !== null
+              className={`text-[8px]  ${nameStyleIndex !== null
                 ? `font-${customNameStyles[nameStyleIndex]}`
                 : "font-cmxShift2"
                 }`}
@@ -84,7 +83,7 @@ const PreviewOverlay: React.FC = () => {
                 WebkitTextStroke: `1px ${numBorder}`,
                 textShadow: makeShadow(numBorder2, 1),
               }}
-              className={`mt-2 text-lg sm:text-2xl ${numberStyleIndex !== null
+              className={`mt-2 text-[15px] ${numberStyleIndex !== null
                 ? `font-${customNumberStyles[numberStyleIndex]}`
                 : "font-cmxShift2"
                 }`}

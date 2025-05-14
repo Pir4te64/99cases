@@ -27,7 +27,7 @@ function App() {
         <Route path='/pagos' element={<PagosPage />} />
         <Route path='/medios-pagos' element={<MediosDePagosPage />} />
         <Route path='/payments/success' element={<PaymentSuccessPage />} />
-        <Route path='/payment/error' element={<PaymentErrorPage />} />
+        <Route path='/payments/error' element={<PaymentErrorPage />} />
       </Routes>
     </Layout>
   );

@@ -40,7 +40,7 @@ const PreviewOverlay: React.FC = () => {
       try {
         const resp = await fetch(product.imageSrc, { mode: "cors" });
         const svgText = await resp.text();
-        console.log("🔎 Contenido SVG:\n", svgText);
+        //console.log("🔎 Contenido SVG:\n", svgText);
       } catch (err) {
         console.error("Error al obtener SVG:", err);
       }

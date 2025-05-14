@@ -1,15 +1,4 @@
-/****************************************************************************************
- *  PersonalizadosID.tsx  —  Versión final
- *
- *  ➜  PREVIEW
- *      • Si product.tipo === "PERSONALIZADO_CON_IMAGEN"  →  CaseDesignerSimple
- *      • En cualquier otro caso                         →  PreviewOverlay
- *
- *  ➜  STEP 2 (CustomName) y Colores
- *      • Solo se renderizan cuando el tipo NO es PERSONALIZADO_CON_IMAGEN
- *
- *  Los demás componentes permanecen igual.
- ****************************************************************************************/
+// src/components/PersonalizadosID.tsx
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import html2canvas from "html2canvas";
@@ -34,48 +23,46 @@ import SvgColorEditor from "./SvgColorEditor";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
-  const product = usePersonalizadoStore((s) => s.product);
-  const showMarca = usePersonalizadoStore((s) => s.showMarca);
-  const step2Active = usePersonalizadoStore((s) => s.step2Active);
-  const showColors = usePersonalizadoStore((s) => s.showColors);
-  const setProduct = usePersonalizadoStore((s) => s.setProduct);
-  const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
+  const product = usePersonalizadoStore(s => s.product);
+  const showMarca = usePersonalizadoStore(s => s.showMarca);
+  const step2Active = usePersonalizadoStore(s => s.step2Active);
+  const showColors = usePersonalizadoStore(s => s.showColors);
+  const setProduct = usePersonalizadoStore(s => s.setProduct);
+  const setWindowWidth = usePersonalizadoStore(s => s.setWindowWidth);
 
-  /** True si la funda admite subir imagen externa */
-  const isPersonalizadoConImagen =
-    product?.tipo === "PERSONALIZADO_CON_IMAGEN"
+  // Tres flags basados en el tipo
+  const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
+  const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
+  const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
-  /* -------- cargar producto desde Router -------- */
+  // Carga inicial desde router
   useEffect(() => {
     if (location.state?.product) setProduct(location.state.product);
     window.scrollTo(0, 0);
   }, [location, setProduct]);
 
-  /* -------- listener de resize para la store -------- */
+  // Trackeo de resize
   useEffect(() => {
     const fn = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", fn);
     return () => window.removeEventListener("resize", fn);
   }, [setWindowWidth]);
 
-  /* -------- breadcrumbs -------- */
   const breadcrumbItems = [
     { label: "Inicio", link: "/" },
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
 
-  /* -------- descarga preview 300 DPI -------- */
+  // Descarga del preview
   const handleDownload = async () => {
     const el = document.getElementById("preview-container");
     if (!el) return;
-
     const canvas = await html2canvas(el, {
       scale: 300 / 96,
       useCORS: true,
       backgroundColor: null,
     });
-
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = "producto_300dpi.png";
@@ -88,22 +75,21 @@ const PersonalizadosID: React.FC = () => {
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="container mx-auto flex flex-col px-4 lg:h-[600px] lg:flex-row">
-          {/* Columna 1 — selector de orientación */}
+          {/* Columna 1 */}
           <ProductImage imgHorizontal={imgHorizontal} imgVertical={imgVertical} />
 
-          {/* Columna 2 — preview */}
+          {/* Columna 2: PREVIEW */}
           <div className="flex items-center justify-center">
             {product ? (
               <div id="preview-container" className="h-full w-full">
-                {isPersonalizadoConImagen ? (
-                  <>
-                    <CaseDesignerSimple frameUrl={product.imageSrc} />
-                  </>
-                ) : (
-                  <>
-                    {/* <PreviewOverlay /> */}
-                    <SvgColorEditor svgUrl={product.imageSrc} />
-                  </>
+                {isConImagen && (
+                  <CaseDesignerSimple frameUrl={product.imageSrc} />
+                )}
+                {isConCaracteres && (
+                  <PreviewOverlay />
+                )}
+                {isPersonalizado && (
+                  <SvgColorEditor svgUrl={product.imageSrc} />
                 )}
               </div>
             ) : (
@@ -113,7 +99,7 @@ const PersonalizadosID: React.FC = () => {
             )}
           </div>
 
-          {/* Columna 3 — ajustes & detalles */}
+          {/* Columna 3 — Ajustes y detalles */}
           <div className="flex flex-1 flex-col overflow-y-auto p-4 py-10 font-favoritMono">
             {product ? (
               <>
@@ -122,9 +108,11 @@ const PersonalizadosID: React.FC = () => {
 
                 {showMarca && <MarcaCelular />}
 
-                {/* Step 2 y Colores solo para fundas SIN imagen externa */}
-                {!isPersonalizadoConImagen && step2Active && <CustomName />}
-                {!isPersonalizadoConImagen && showColors && <Colores />}
+                {/* Paso 2 */}
+                {!isConImagen && step2Active && <CustomName />}
+
+                {/* Colores: solo en tipo PERSONALIZADO */}
+                {isPersonalizado && showColors && <Colores />}
 
                 {/* Acciones finales */}
                 {!(showMarca || step2Active || showColors) && (

@@ -72,7 +72,6 @@ const Pagos = () => {
     codigoPostal.trim() !== "" &&
     calle.trim() !== "" &&
     (sinNumero ? true : numero.trim() !== "") &&
-    barrio.trim() !== "" &&
     telefono.trim() !== "" &&   // validar teléfono
     localidad.trim() !== "" &&  // validar localidad
     provincia.trim() !== "" &&  // validar provincia

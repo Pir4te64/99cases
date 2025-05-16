@@ -1,14 +1,28 @@
 // src/components/Pagos/DatosDestinatario.tsx
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { validationSchema } from "@/components/Pagos/DatosDestinatario.data";
-import { DatosDestinatarioProps } from "@/components/Pagos/Interface";
-import InputField from "@/components/Pagos/InputField";
-import SelectField from "@/components/Pagos/SelectField";
+import { validationSchema } from "@/components/Pagos/store/DatosDestinatario.data";
+import usePaymentFormStore from "@/store/pagoStore";
+import InputField from "@/components/Pagos/UI/InputField";
+import SelectField from "@/components/Pagos/UI/SelectField";
+import { citiesByProvince, tipoDocumentoOptions } from "@/components/Pagos/UI/estaticos";
+import { provinces } from "@/components/Pagos/UI/estaticos";
 
-const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
+const DatosDestinatario: React.FC = () => {
   const {
-    /* setters */
+    nombre,
+    apellido,
+    email,
+    telefono,
+    codigoPostal,
+    calle,
+    numero,
+    sinNumero,
+    departamento,
+    localidad,
+    provincia,
+    tipoDocumento,
+    numeroDocumento,
     setNombre,
     setApellido,
     setEmail,
@@ -18,35 +32,75 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
     setNumero,
     setSinNumero,
     setDepartamento,
-    setBarrio,
     setLocalidad,
     setProvincia,
     setTipoDocumento,
     setNumeroDocumento,
-    /* valores … */
-    ...values
-  } = props;
+  } = usePaymentFormStore();
 
   const formik = useFormik({
-    initialValues: values,
+    initialValues: {
+      nombre,
+      apellido,
+      email,
+      telefono,
+      codigoPostal,
+      calle,
+      numero,
+      sinNumero,
+      departamento,
+      localidad,
+      provincia,
+      tipoDocumento,
+      numeroDocumento,
+    },
     validationSchema,
     onSubmit: () => { },
   });
 
-  /* Sincronizar externos ↔ internos */
   useEffect(() => {
-    formik.setValues(values);
+    formik.setValues({
+      nombre,
+      apellido,
+      email,
+      telefono,
+      codigoPostal,
+      calle,
+      numero,
+      sinNumero,
+      departamento,
+      localidad,
+      provincia,
+      tipoDocumento,
+      numeroDocumento,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, Object.values(values));
+  }, [
+    nombre,
+    apellido,
+    email,
+    telefono,
+    codigoPostal,
+    calle,
+    numero,
+    sinNumero,
+    departamento,
+    localidad,
+    provincia,
+    tipoDocumento,
+    numeroDocumento,
+  ]);
+
+  const provinceOptions = provinces.map((p) => ({ value: p, text: p }));
+  const cityOptions = citiesByProvince[formik.values.provincia] || [];
 
   return (
-    <section>
-      <h2 className="mb-2 font-favoritExpandedBook text-lg font-bold md:text-xl">
-        DATOS DEL DESTINATARIO
+    <section className="space-y-6 rounded-lg bg-white p-6 shadow-md">
+      <h2 className="text-xl font-bold text-gray-700">
+        Datos del destinatario
       </h2>
 
-      {/* Email, Nombre, Apellido */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <form className="space-y-4">
         <InputField
           id="email"
           label="E-mail"
@@ -87,81 +141,76 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
           error={formik.errors.apellido as string}
           touched={formik.touched.apellido}
         />
-      </div>
 
-      <InputField
-        id="telefono"
-        label="Teléfono"
-        value={formik.values.telefono}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setTelefono(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.telefono as string}
-        touched={formik.touched.telefono}
-      />
+        <InputField
+          id="telefono"
+          label="Teléfono"
+          value={formik.values.telefono}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setTelefono(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+          error={formik.errors.telefono as string}
+          touched={formik.touched.telefono}
+        />
 
-      <SelectField
-        id="tipoDocumento"
-        label="Tipo de Documento"
-        value={formik.values.tipoDocumento}
-        options={[
-          { value: "", text: "Selecciona..." },
-          { value: "DNI", text: "DNI" },
-          { value: "PASAPORTE", text: "Pasaporte" },
-        ]}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setTipoDocumento(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.tipoDocumento as string}
-        touched={formik.touched.tipoDocumento}
-      />
+        <SelectField
+          id="tipoDocumento"
+          label="Tipo de documento"
+          value={formik.values.tipoDocumento}
+          options={tipoDocumentoOptions}
+          onChange={(val) => {
+            formik.setFieldValue("tipoDocumento", val);
+            setTipoDocumento(val);
+          }}
+          onBlur={() => formik.setFieldTouched("tipoDocumento", true)}
+          error={formik.errors.tipoDocumento as string}
+          touched={formik.touched.tipoDocumento}
+          placeholder="Selecciona..."
+          isSearchable
+        />
 
-      <InputField
-        id="numeroDocumento"
-        label="Número de Documento"
-        value={formik.values.numeroDocumento}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setNumeroDocumento(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.numeroDocumento as string}
-        touched={formik.touched.numeroDocumento}
-      />
+        <InputField
+          id="numeroDocumento"
+          label="Número de documento"
+          value={formik.values.numeroDocumento}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setNumeroDocumento(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+          error={formik.errors.numeroDocumento as string}
+          touched={formik.touched.numeroDocumento}
+        />
 
-      <InputField
-        id="codigoPostal"
-        label="Código Postal"
-        value={formik.values.codigoPostal}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setCodigoPostal(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.codigoPostal as string}
-        touched={formik.touched.codigoPostal}
-      />
+        <InputField
+          id="codigoPostal"
+          label="Código postal"
+          value={formik.values.codigoPostal}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setCodigoPostal(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+          error={formik.errors.codigoPostal as string}
+          touched={formik.touched.codigoPostal}
+        />
 
-      <InputField
-        id="calle"
-        label="Calle"
-        value={formik.values.calle}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setCalle(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.calle as string}
-        touched={formik.touched.calle}
-      />
+        <InputField
+          id="calle"
+          label="Calle"
+          value={formik.values.calle}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setCalle(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+          error={formik.errors.calle as string}
+          touched={formik.touched.calle}
+        />
 
-      {/* Número + Sin número + Departamento */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div>
+        <div className="space-y-2">
           <InputField
             id="numero"
             label="Número"
@@ -175,8 +224,7 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
             touched={formik.touched.numero}
             disabled={formik.values.sinNumero}
           />
-
-          <div className="flex items-center">
+          <label className="inline-flex items-center text-sm">
             <input
               id="sinNumero"
               name="sinNumero"
@@ -188,16 +236,9 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
                 setSinNumero(e.target.checked);
               }}
             />
-            <label
-              htmlFor="sinNumero"
-              className="font-favoritExpandedBook text-sm md:text-base"
-            >
-              Sin Número
-            </label>
-          </div>
-
+            Sin número
+          </label>
         </div>
-
 
         <InputField
           id="departamento"
@@ -211,35 +252,41 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
           error={formik.errors.departamento as string}
           touched={formik.touched.departamento}
         />
-      </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <InputField
-          id="localidad"
-          label="Localidad"
-          value={formik.values.localidad}
-          onChange={(e) => {
-            formik.handleChange(e);
-            setLocalidad(e.target.value);
-          }}
-          onBlur={formik.handleBlur}
-          error={formik.errors.localidad as string}
-          touched={formik.touched.localidad}
-        />
-
-        <InputField
+        <SelectField
           id="provincia"
           label="Provincia"
           value={formik.values.provincia}
-          onChange={(e) => {
-            formik.handleChange(e);
-            setProvincia(e.target.value);
+          options={provinceOptions}
+          onChange={(val) => {
+            formik.setFieldValue("provincia", val);
+            setProvincia(val);
+            formik.setFieldValue("localidad", "");
+            setLocalidad("");
           }}
-          onBlur={formik.handleBlur}
+          onBlur={() => formik.setFieldTouched("provincia", true)}
           error={formik.errors.provincia as string}
           touched={formik.touched.provincia}
+          placeholder="Selecciona provincia"
+          isSearchable
         />
-      </div>
+
+        <SelectField
+          id="localidad"
+          label="Ciudad"
+          value={formik.values.localidad}
+          options={cityOptions}
+          onChange={(val) => {
+            formik.setFieldValue("localidad", val);
+            setLocalidad(val);
+          }}
+          onBlur={() => formik.setFieldTouched("localidad", true)}
+          error={formik.errors.localidad as string}
+          touched={formik.touched.localidad}
+          placeholder="Selecciona ciudad"
+          isSearchable
+        />
+      </form>
     </section>
   );
 };

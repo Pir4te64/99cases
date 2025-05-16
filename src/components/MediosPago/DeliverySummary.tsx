@@ -1,4 +1,4 @@
-import { DeliveryResponse } from "@/components/Pagos/useDeliveryStore";
+import { DeliveryResponse } from "@/components/Pagos/store/useDeliveryStore";
 
 interface DeliverySummaryProps {
   deliveryResponse: DeliveryResponse;

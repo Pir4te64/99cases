@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { SiMercadopago } from "react-icons/si";
 import tarjeta from "@/assets/Pagos/tarjetas.png";
-import useDeliveryStore from "@/components/Pagos/useDeliveryStore";
+import useDeliveryStore from "@/components/Pagos/store/useDeliveryStore";
 import DeliverySummary from "@/components/MediosPago/DeliverySummary";
 import { API } from "@/utils/Api";
 
@@ -66,9 +66,9 @@ export default function MediosDePago() {
       Swal.fire({
         icon: "error",
         title: "Error al iniciar el pago",
-        text: (err instanceof Error) 
-          ? err.message 
-          : (err as { response?: { data?: { details?: string } } })?.response?.data?.details 
+        text: (err instanceof Error)
+          ? err.message
+          : (err as { response?: { data?: { details?: string } } })?.response?.data?.details
           || "Ocurrió un problema.",
       });
     } finally {

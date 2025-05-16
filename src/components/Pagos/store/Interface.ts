@@ -11,7 +11,6 @@ export interface DatosDestinatarioProps {
     numero: string;
     sinNumero: boolean;
     departamento: string;
-    barrio: string;
     localidad: string;
     provincia: string;
 
@@ -29,7 +28,6 @@ export interface DatosDestinatarioProps {
     setNumero: (v: string) => void;
     setSinNumero: (v: boolean) => void;
     setDepartamento: (v: string) => void;
-    setBarrio: (v: string) => void;
     setLocalidad: (v: string) => void;
     setProvincia: (v: string) => void;
     setTipoDocumento: (v: string) => void;

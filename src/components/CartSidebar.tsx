@@ -2,6 +2,8 @@
 import { X, Plus, Minus } from "lucide-react";
 import useCartStore from "@/store/cartStore";
 import { useCheckout } from "@/store/useCheckout";
+import useAuthStore from "@/store/authStore";
+import { useEffect } from "react";
 
 export default function CartSidebar() {
   const {
@@ -12,9 +14,15 @@ export default function CartSidebar() {
     total,
     updateItemQuantity,
     removeFromCart,
+    clearCart,
   } = useCartStore();
   const { handleCheckout } = useCheckout();
-
+  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      clearCart();
+    }
+  }, [isAuthenticated, clearCart]);
   const removeItem = (id: string): void => {
     removeFromCart(id);
   };
@@ -33,13 +41,12 @@ export default function CartSidebar() {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
-        isCartOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isCartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
     >
       {/* Encabezado */}
-      <div className="border-b flex justify-between items-center bg-gray-400 w-full p-4">
-        <h2 className="font-favoritExpandedBook text-black tracking-wide">
+      <div className="flex w-full items-center justify-between border-b bg-gray-400 p-4">
+        <h2 className="font-favoritExpandedBook tracking-wide text-black">
           CARRITO DE COMPRAS
         </h2>
         <button onClick={closeCart}>
@@ -48,7 +55,7 @@ export default function CartSidebar() {
       </div>
 
       {/* Contenedor de productos y resumen */}
-      <div className="p-4 h-[600px] overflow-y-auto">
+      <div className="h-[600px] overflow-y-auto p-4">
         {cartItems.length > 0 ? (
           <ul className="space-y-4">
             {cartItems.map(item => (
@@ -61,21 +68,21 @@ export default function CartSidebar() {
                     className="h-auto w-20 object-cover"
                   />
                   <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                      <p className="uppercase font-bold text-sm leading-tight text-black font-favoritExpandedBook">
-                         {item.title}
+                    <div className="flex items-start justify-between">
+                      <p className="font-favoritExpandedBook text-sm font-bold uppercase leading-tight text-black">
+                        {item.title}
                       </p>
                       <button
-                        className="text-xs underline text-black font-favoritExpandedBook"
+                        className="font-favoritExpandedBook text-xs text-black underline"
                         onClick={() => removeItem(item.id)}
                       >
                         BORRAR
                       </button>
                     </div>
-                    <p className="mt-1 text-sm text-black font-favoritExpandedBook">
+                    <p className="mt-1 font-favoritExpandedBook text-sm text-black">
                       {item.price}
                     </p>
-                    <div className="mt-2 inline-flex items-center bg-gray-200 px-2 py-1 rounded">
+                    <div className="mt-2 inline-flex items-center rounded bg-gray-200 px-2 py-1">
                       <button
                         onClick={() =>
                           decreaseQuantity(item.id, item.quantity)
@@ -108,19 +115,19 @@ export default function CartSidebar() {
         {cartItems.length > 0 && (
           <div className="mt-4">
             <div className="border-black pt-4">
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-bold text-black font-favoritExpandedBook">
+              <div className="mb-2 flex justify-between">
+                <span className="font-favoritExpandedBook text-sm font-bold text-black">
                   $
                   {subtotal.toLocaleString("es-AR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
               </div>
-              <div className="flex justify-between mb-4">
-                <span className="text-sm uppercase text-black font-favoritExpandedBook">
+              <div className="mb-4 flex justify-between">
+                <span className="font-favoritExpandedBook text-sm uppercase text-black">
                   TOTAL
                 </span>
-                <span className="text-sm font-bold text-black font-favoritExpandedBook">
+                <span className="font-favoritExpandedBook text-sm font-bold text-black">
                   $
                   {total.toLocaleString("es-AR", {
                     minimumFractionDigits: 2,
@@ -130,7 +137,7 @@ export default function CartSidebar() {
             </div>
             <button
               onClick={handleCheckout}
-              className="bg-black text-white w-full py-2 mb-2 rounded font-favoritExpandedBook"
+              className="mb-2 w-full rounded bg-black py-2 font-favoritExpandedBook text-white"
             >
               INICIAR COMPRA
             </button>

@@ -1,7 +1,7 @@
 // FundasPersonalizadasProductos.tsx
 import { useEffect, useState } from "react";
-import ProductCardPersonalizadas from "./ProductosPersonalizados";
-import { fetchAndAdaptProducts, Product } from "../FundasPredeterminadas/fundasGet";
+import ProductCardPersonalizadas from "@/components/Fundas/FundasPersonalizadas/ProductosPersonalizados";
+import { fetchAndAdaptProducts, Product } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
 interface ProductsPersonalizadasVerTodosProps {
   visibleTitle: boolean;
 }
@@ -24,6 +24,7 @@ const FundasPersonalizadasProductos: React.FC<ProductsPersonalizadasVerTodosProp
             price={product.price}
             oldPrice={product.oldPrice}
             description={product.description}
+            tipo={product.tipo}
           />
         ))}
       </div>

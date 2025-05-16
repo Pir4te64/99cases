@@ -2,9 +2,9 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { validationSchema } from "@/components/Pagos/DatosDestinatario.data";
-import { DatosDestinatarioProps } from "./Interface";
-import InputField from "./InputField";
-import SelectField from "./SelectField";
+import { DatosDestinatarioProps } from "@/components/Pagos/Interface";
+import InputField from "@/components/Pagos/InputField";
+import SelectField from "@/components/Pagos/SelectField";
 
 const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
   const {
@@ -161,43 +161,47 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
 
       {/* Número + Sin número + Departamento */}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <InputField
-          id="numero"
-          label="Número"
-          value={formik.values.numero}
-          onChange={(e) => {
-            formik.handleChange(e);
-            setNumero(e.target.value);
-          }}
-          onBlur={formik.handleBlur}
-          error={formik.errors.numero as string}
-          touched={formik.touched.numero}
-          disabled={formik.values.sinNumero}
-        />
-
-        <div className="flex items-center">
-          <input
-            id="sinNumero"
-            name="sinNumero"
-            type="checkbox"
-            className="mr-2"
-            checked={formik.values.sinNumero}
+        <div>
+          <InputField
+            id="numero"
+            label="Número"
+            value={formik.values.numero}
             onChange={(e) => {
               formik.handleChange(e);
-              setSinNumero(e.target.checked);
+              setNumero(e.target.value);
             }}
+            onBlur={formik.handleBlur}
+            error={formik.errors.numero as string}
+            touched={formik.touched.numero}
+            disabled={formik.values.sinNumero}
           />
-          <label
-            htmlFor="sinNumero"
-            className="font-favoritExpandedBook text-sm md:text-base"
-          >
-            Sin Número
-          </label>
+
+          <div className="flex items-center">
+            <input
+              id="sinNumero"
+              name="sinNumero"
+              type="checkbox"
+              className="mr-2"
+              checked={formik.values.sinNumero}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setSinNumero(e.target.checked);
+              }}
+            />
+            <label
+              htmlFor="sinNumero"
+              className="font-favoritExpandedBook text-sm md:text-base"
+            >
+              Sin Número
+            </label>
+          </div>
+
         </div>
+
 
         <InputField
           id="departamento"
-          label="Departamento (opcional)"
+          label="Departamento"
           value={formik.values.departamento}
           onChange={(e) => {
             formik.handleChange(e);
@@ -208,19 +212,6 @@ const DatosDestinatario: React.FC<DatosDestinatarioProps> = (props) => {
           touched={formik.touched.departamento}
         />
       </div>
-
-      <InputField
-        id="barrio"
-        label="Barrio"
-        value={formik.values.barrio}
-        onChange={(e) => {
-          formik.handleChange(e);
-          setBarrio(e.target.value);
-        }}
-        onBlur={formik.handleBlur}
-        error={formik.errors.barrio as string}
-        touched={formik.touched.barrio}
-      />
 
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         <InputField

@@ -1,7 +1,7 @@
 // FundasPredeterminadasProductos.tsx
 import { useEffect, useState } from "react";
-import { fetchAndAdaptProducts, Product } from "../Fundas/FundasPredeterminadas/fundasGet";
-import ProductCard from "../Fundas/FundasPredeterminadas/Producto";
+import { fetchAndAdaptProducts, Product } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
+import ProductCard from "@/components/Fundas/FundasPredeterminadas/Producto";
 
 const FundasPredeterminadasProductos = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,14 +10,17 @@ const FundasPredeterminadasProductos = () => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
 
+  // Filtramos aquí
+  const predeterminados = products.filter(p => p.tipo === "PREDETERMINADO");
+
   return (
-    <div className="bg-white flex flex-col items-center justify-center py-8 px-4">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-favoritMono tracking-wide uppercase font-bold text-black text-center mb-6">
+    <div className="flex flex-col items-center justify-center bg-white px-4 py-8">
+      <h2 className="mb-6 text-center font-favoritMono text-2xl font-bold uppercase tracking-wide text-black sm:text-3xl md:text-4xl">
         Productos Destacados
       </h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-        {products.map((product) => (
+      <div className="grid w-full max-w-7xl grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {predeterminados.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id.toString()}

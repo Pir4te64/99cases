@@ -46,6 +46,10 @@ export function useCheckout() {
         icon: "error",
         title: "Error",
         text: "Usuario no autenticado. Por favor, inicia sesión.",
+        confirmButtonText: "Ir a login",
+        showConfirmButton: true,
+      }).then(() => {
+        navigate("/login");
       });
       return null;
     }
@@ -90,38 +94,38 @@ export function useCheckout() {
     }
   };
 
-/** Flujo de confirmación, creación de orden y redirección */
-const handleCheckout = async () => {
-  const { isConfirmed } = await Swal.fire({
-    title: "¿Desea continuar?",
-    text: "Se va a iniciar el proceso de compra",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "Sí, continuar",
-    cancelButtonText: "Cancelar",
-  });
-  if (!isConfirmed) return;
+  /** Flujo de confirmación, creación de orden y redirección */
+  const handleCheckout = async () => {
+    const { isConfirmed } = await Swal.fire({
+      title: "¿Desea continuar?",
+      text: "Se va a iniciar el proceso de compra",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, continuar",
+      cancelButtonText: "Cancelar",
+    });
+    if (!isConfirmed) return;
 
-  console.log("Continuando con el checkout...");
+    console.log("Continuando con el checkout...");
 
-  // Mostramos el modal de loading SIN await
-  Swal.fire({
-    title: "Procesando...",
-    allowOutsideClick: false,
-    didOpen: () => Swal.showLoading(),
-  });
+    // Mostramos el modal de loading SIN await
+    Swal.fire({
+      title: "Procesando...",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
+    });
 
-  // Ahora sí ejecutamos la petición y veremos los console.log() dentro de createOrder
-  const order = await createOrder();
+    // Ahora sí ejecutamos la petición y veremos los console.log() dentro de createOrder
+    const order = await createOrder();
 
-  // Cerramos el modal de loading
-  Swal.close();
+    // Cerramos el modal de loading
+    Swal.close();
 
-  if (order) {
-    setIdOrdenCompra(order.id);
-    navigate("/pagos", { state: { cartItems, subtotal, total } });
-  }
-};
+    if (order) {
+      setIdOrdenCompra(order.id);
+      navigate("/pagos", { state: { cartItems, subtotal, total } });
+    }
+  };
 
 
   return { handleCheckout };

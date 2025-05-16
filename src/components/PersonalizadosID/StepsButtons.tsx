@@ -1,6 +1,6 @@
 // src/components/PersonalizadosID/StepsButtons.tsx
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import FileUploader from "./Actions/FileUploader";
+import FileUploader from "@/components/PersonalizadosID/Actions/FileUploader";
 
 const StepsButtons: React.FC = () => {
   const toggleShowMarca = usePersonalizadoStore((s) => s.toggleShowMarca);

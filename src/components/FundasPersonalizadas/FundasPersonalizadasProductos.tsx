@@ -1,7 +1,7 @@
 // src/components/FundasPersonalizadas/FundasPersonalizadasProductos.tsx
 import { useEffect, useMemo, useState } from "react";
-import { fetchAndAdaptProducts, Product } from "../Fundas/FundasPredeterminadas/fundasGet";
-import ProductCardPersonalizadas from "../Fundas/FundasPersonalizadas/ProductosPersonalizados";
+import { fetchAndAdaptProducts, Product } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
+import ProductCardPersonalizadas from "@/components/Fundas/FundasPersonalizadas/ProductosPersonalizados";
 
 const FundasPersonalizadasProductos: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

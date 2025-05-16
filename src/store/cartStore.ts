@@ -18,6 +18,7 @@ interface CartState {
   selectedQuantity: number;
   subtotal: number;
   total: number;
+
   idOrdenCompra: number | null; // Estado para guardar el id de la orden de compra
 }
 
@@ -32,6 +33,7 @@ interface CartActions {
   updateItemQuantity: (id: string, quantity: number) => void;
   removeFromCart: (id: string) => void;
   setIdOrdenCompra: (id: number | null) => void; // Acción para actualizar idOrdenCompra
+  clearCart: () => void;
 }
 
 // Función para convertir un precio (string con "$") a número
@@ -79,6 +81,11 @@ const useCartStore = create<
       openCart: () => set({ isCartOpen: true }),
       closeCart: () => set({ isCartOpen: false }),
       toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
+      clearCart: () => set({
+        cartItems: [],
+        subtotal: 0,
+        total: 0,
+      }),
       addToCart: (item) => {
         const existingItem = get().cartItems.find(
           (cartItem) => cartItem.id === item.id

@@ -1,7 +1,7 @@
 // Productos.tsx
 import { useEffect, useState } from "react";
-import ProductCard from "./Producto";
-import { fetchAndAdaptProducts, Product } from "./fundasGet";
+import ProductCard from "@/components/Fundas/FundasPredeterminadas/Producto";
+import { fetchAndAdaptProducts, Product } from "@/components/Fundas/FundasPredeterminadas/fundasGet";
 
 interface ProductsProps {
   visibleTitle?: boolean;

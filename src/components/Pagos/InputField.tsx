@@ -27,7 +27,7 @@ const InputField: React.FC<InputFieldProps> = ({
     error,
     touched,
 }) => (
-    <div className="mb-4">
+    <div className="my-4">
         <label
             htmlFor={id}
             className="mb-1 block font-favoritExpandedBook text-sm font-medium md:text-base"

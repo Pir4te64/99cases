@@ -7,7 +7,10 @@ import ResumenCompra from "@/components/Pagos/PagosProductos";
 import usePaymentFormStore from "@/store/pagoStore";
 import DatosDestinatario from "@/components/Pagos/DatosDestinatario";
 import useDeliveryStore from "@/components/Pagos/store/useDeliveryStore";
-import { submitDelivery, SubmitParams } from "@/components/Pagos/SubmitDelivery";
+import {
+  submitDelivery,
+  SubmitParams,
+} from "@/components/Pagos/SubmitDelivery";
 
 const Pagos = () => {
   const { cartItems, subtotal, total, idOrdenCompra } = useCartStore();
@@ -63,7 +66,9 @@ const Pagos = () => {
   return (
     <div className="min-h-screen bg-white text-black">
       <div className="container mx-auto px-4 py-6">
-        <Breadcrumbs items={[{ label: "Inicio", link: "/" }, { label: "Pago" }]} />
+        <Breadcrumbs
+          items={[{ label: "Inicio", link: "/" }, { label: "Pago" }]}
+        />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="order-1 md:order-2">
             <ResumenCompra
@@ -79,7 +84,6 @@ const Pagos = () => {
               onSubmit={(e) => submitDelivery({ e, ...submitParams })}
               className="space-y-8"
             >
-
               <section className="mt-4 space-y-4">
                 <h2 className="mb-2 font-favoritExpandedBook text-lg font-bold md:text-xl">
                   DATOS DE FACTURACIÓN

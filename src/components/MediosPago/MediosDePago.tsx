@@ -19,7 +19,9 @@ export default function MediosDePago() {
   const iniciarPago = async () => {
     const { isConfirmed } = await Swal.fire({
       title: "Confirmar Pago",
-      text: `Vas a pagar $${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}`,
+      text: `Vas a pagar $${total.toLocaleString("es-AR", {
+        minimumFractionDigits: 2,
+      })}`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Sí, pagar",
@@ -66,21 +68,24 @@ export default function MediosDePago() {
       Swal.fire({
         icon: "error",
         title: "Error al iniciar el pago",
-        text: (err instanceof Error)
-          ? err.message
-          : (err as { response?: { data?: { details?: string } } })?.response?.data?.details
-          || "Ocurrió un problema.",
+        text:
+          err instanceof Error
+            ? err.message
+            : (err as { response?: { data?: { details?: string } } })?.response
+                ?.data?.details || "Ocurrió un problema.",
       });
     } finally {
       setLoading(false);
     }
   };
-
+  console.log(deliveryResponse);
   return (
     <div className="min-h-screen bg-white px-4 py-6">
       <h1 className="mb-6 text-center text-3xl font-bold">MEDIOS DE PAGO</h1>
 
-      {deliveryResponse && <DeliverySummary deliveryResponse={deliveryResponse} />}
+      {deliveryResponse && (
+        <DeliverySummary deliveryResponse={deliveryResponse} />
+      )}
 
       <div className="mx-auto mb-8 max-w-3xl">
         <div className="mb-4 flex items-center justify-between rounded bg-gray-300 p-4">
@@ -98,7 +103,11 @@ export default function MediosDePago() {
           </button>
         </div>
 
-        <img src={tarjeta} alt="Métodos de pago" className="mx-auto max-w-full" />
+        <img
+          src={tarjeta}
+          alt="Métodos de pago"
+          className="mx-auto max-w-full"
+        />
       </div>
 
       <div className="text-center">

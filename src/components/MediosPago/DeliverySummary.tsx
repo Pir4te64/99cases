@@ -1,28 +1,4 @@
-import React from "react";
-
-export interface DeliveryOption {
-  modoDeEntrega: string;
-  modoDeEntregaId: string;
-  tarifaConIva: number;
-  tarifaSinIva: number;
-  iva: number;
-  contratoId: string;
-}
-
-export interface DeliveryResponse {
-  id: number;
-  deliveryOptions: DeliveryOption[];
-  destino: string;
-  datosDeContacto: string;
-  costoOrden: number;
-  numeroOrden?: string;
-}
-
-interface Props {
-  deliveryResponse: DeliveryResponse;
-  selectedOption: string;
-  onSelectOption: (modo: string) => void;
-}
+import { Props } from "@/components/Pagos/store/types";
 
 export default function DeliverySummary({
   deliveryResponse,
@@ -30,7 +6,7 @@ export default function DeliverySummary({
   onSelectOption,
 }: Props) {
   return (
-    <div className="mb-6 rounded bg-gray-900 p-4">
+    <div className="mb-6 rounded bg-black p-4 shadow-lg">
       <h2 className="mb-2 text-xl font-semibold">Resumen de Envío</h2>
 
       <p>

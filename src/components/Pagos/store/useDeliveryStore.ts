@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { DeliveryResponse } from "../types";
+import type { DeliveryResponse } from "@/components/Pagos/store/types";
 
 interface DeliveryState {
   deliveryResponse: DeliveryResponse | null;

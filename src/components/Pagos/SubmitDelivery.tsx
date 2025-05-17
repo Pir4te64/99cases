@@ -89,6 +89,7 @@ export async function submitDelivery({
     },
     destinatario: {
       nombre,
+      apellido,
       email,
       tipoDocumento,
       numeroDocumento,

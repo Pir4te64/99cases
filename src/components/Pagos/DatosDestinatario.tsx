@@ -1,12 +1,22 @@
 // src/components/Pagos/DatosDestinatario.tsx
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
+import AsyncSelect from "react-select/async";
+import axios from "axios";
 import { validationSchema } from "@/components/Pagos/store/DatosDestinatario.data";
 import usePaymentFormStore from "@/store/pagoStore";
 import InputField from "@/components/Pagos/UI/InputField";
 import SelectField from "@/components/Pagos/UI/SelectField";
-import { citiesByProvince, tipoDocumentoOptions } from "@/components/Pagos/UI/estaticos";
-import { provinces } from "@/components/Pagos/UI/estaticos";
+import { tipoDocumentoOptions } from "@/components/Pagos/UI/estaticos";
+import { API } from "@/utils/Api";
+
+interface UbicacionOption {
+  label: string;
+  value: string;         // códigoPostal
+  localidad: string;
+  provincia: string;
+  codigoPostal: string;
+}
 
 const DatosDestinatario: React.FC = () => {
   const {
@@ -14,26 +24,26 @@ const DatosDestinatario: React.FC = () => {
     apellido,
     email,
     telefono,
+    provincia,
+    localidad,
     codigoPostal,
     calle,
     numero,
     sinNumero,
     departamento,
-    localidad,
-    provincia,
     tipoDocumento,
     numeroDocumento,
     setNombre,
     setApellido,
     setEmail,
     setTelefono,
+    setProvincia,
+    setLocalidad,
     setCodigoPostal,
     setCalle,
     setNumero,
     setSinNumero,
     setDepartamento,
-    setLocalidad,
-    setProvincia,
     setTipoDocumento,
     setNumeroDocumento,
   } = usePaymentFormStore();
@@ -44,13 +54,13 @@ const DatosDestinatario: React.FC = () => {
       apellido,
       email,
       telefono,
+      provincia,
+      localidad,
       codigoPostal,
       calle,
       numero,
       sinNumero,
       departamento,
-      localidad,
-      provincia,
       tipoDocumento,
       numeroDocumento,
     },
@@ -58,19 +68,20 @@ const DatosDestinatario: React.FC = () => {
     onSubmit: () => { },
   });
 
+  // Sincroniza store → Formik
   useEffect(() => {
     formik.setValues({
       nombre,
       apellido,
       email,
       telefono,
+      provincia,
+      localidad,
       codigoPostal,
       calle,
       numero,
       sinNumero,
       departamento,
-      localidad,
-      provincia,
       tipoDocumento,
       numeroDocumento,
     });
@@ -80,19 +91,50 @@ const DatosDestinatario: React.FC = () => {
     apellido,
     email,
     telefono,
+    provincia,
+    localidad,
     codigoPostal,
     calle,
     numero,
     sinNumero,
     departamento,
-    localidad,
-    provincia,
     tipoDocumento,
     numeroDocumento,
   ]);
 
-  const provinceOptions = provinces.map((p) => ({ value: p, text: p }));
-  const cityOptions = citiesByProvince[formik.values.provincia] || [];
+  // Llama al POST /CodigoPostal/getLocation con { parametroBusqueda }
+  const loadUbicaciones = async (inputValue: string) => {
+    if (!inputValue) return [];
+    try {
+      const token = localStorage.getItem("token");
+      const resp = await axios.post(
+        API.getLocation,
+        { parametroBusqueda: inputValue },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
+      console.log("Respuesta completa getLocation:", resp.data);
+
+      // Extrae el array de resultados
+      const lista = Array.isArray(resp.data.resultados)
+        ? resp.data.resultados
+        : [];
+      return lista.map((item: any) => ({
+        label: `${item.localidad} — ${item.provincia} (CP: ${item.codigoPostal})`,
+        value: item.codigoPostal,
+        localidad: item.localidad,
+        provincia: item.provincia,
+        codigoPostal: item.codigoPostal,
+      }));
+    } catch (error) {
+      console.error("Error al cargar ubicaciones:", error);
+      return [];
+    }
+  };
 
   return (
     <section className="space-y-6 rounded-lg bg-white p-6 shadow-md">
@@ -101,6 +143,7 @@ const DatosDestinatario: React.FC = () => {
       </h2>
 
       <form className="space-y-4">
+        {/* E-mail */}
         <InputField
           id="email"
           label="E-mail"
@@ -116,6 +159,7 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.email}
         />
 
+        {/* Nombre */}
         <InputField
           id="nombre"
           label="Nombre"
@@ -129,6 +173,7 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.nombre}
         />
 
+        {/* Apellido */}
         <InputField
           id="apellido"
           label="Apellido"
@@ -142,6 +187,7 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.apellido}
         />
 
+        {/* Teléfono */}
         <InputField
           id="telefono"
           label="Teléfono"
@@ -155,6 +201,7 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.telefono}
         />
 
+        {/* Tipo de documento */}
         <SelectField
           id="tipoDocumento"
           label="Tipo de documento"
@@ -171,6 +218,7 @@ const DatosDestinatario: React.FC = () => {
           isSearchable
         />
 
+        {/* Número de documento */}
         <InputField
           id="numeroDocumento"
           label="Número de documento"
@@ -184,19 +232,35 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.numeroDocumento}
         />
 
-        <InputField
-          id="codigoPostal"
-          label="Código postal"
-          value={formik.values.codigoPostal}
-          onChange={(e) => {
-            formik.handleChange(e);
-            setCodigoPostal(e.target.value);
-          }}
-          onBlur={formik.handleBlur}
-          error={formik.errors.codigoPostal as string}
-          touched={formik.touched.codigoPostal}
-        />
+        {/* Ubicación AsyncSelect */}
+        <div className="space-y-2">
+          <label
+            htmlFor="ubicacion-select"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Ubicación
+          </label>
+          <AsyncSelect<UbicacionOption, false>
+            cacheOptions
+            loadOptions={loadUbicaciones}
+            defaultOptions
+            onChange={(option) => {
+              if (!option) return;
+              console.log("Seleccionado:", option);
+              formik.setFieldValue("localidad", option.localidad);
+              setLocalidad(option.localidad);
+              formik.setFieldValue("provincia", option.provincia);
+              setProvincia(option.provincia);
+              formik.setFieldValue("codigoPostal", option.codigoPostal);
+              setCodigoPostal(option.codigoPostal);
+            }}
+            placeholder="Escribe una localidad..."
+            classNamePrefix="react-select"
+            inputId="ubicacion-select"
+          />
+        </div>
 
+        {/* Calle */}
         <InputField
           id="calle"
           label="Calle"
@@ -210,6 +274,7 @@ const DatosDestinatario: React.FC = () => {
           touched={formik.touched.calle}
         />
 
+        {/* Número / Sin número */}
         <div className="space-y-2">
           <InputField
             id="numero"
@@ -240,6 +305,7 @@ const DatosDestinatario: React.FC = () => {
           </label>
         </div>
 
+        {/* Departamento */}
         <InputField
           id="departamento"
           label="Departamento"
@@ -251,40 +317,6 @@ const DatosDestinatario: React.FC = () => {
           onBlur={formik.handleBlur}
           error={formik.errors.departamento as string}
           touched={formik.touched.departamento}
-        />
-
-        <SelectField
-          id="provincia"
-          label="Provincia"
-          value={formik.values.provincia}
-          options={provinceOptions}
-          onChange={(val) => {
-            formik.setFieldValue("provincia", val);
-            setProvincia(val);
-            formik.setFieldValue("localidad", "");
-            setLocalidad("");
-          }}
-          onBlur={() => formik.setFieldTouched("provincia", true)}
-          error={formik.errors.provincia as string}
-          touched={formik.touched.provincia}
-          placeholder="Selecciona provincia"
-          isSearchable
-        />
-
-        <SelectField
-          id="localidad"
-          label="Ciudad"
-          value={formik.values.localidad}
-          options={cityOptions}
-          onChange={(val) => {
-            formik.setFieldValue("localidad", val);
-            setLocalidad(val);
-          }}
-          onBlur={() => formik.setFieldTouched("localidad", true)}
-          error={formik.errors.localidad as string}
-          touched={formik.touched.localidad}
-          placeholder="Selecciona ciudad"
-          isSearchable
         />
       </form>
     </section>

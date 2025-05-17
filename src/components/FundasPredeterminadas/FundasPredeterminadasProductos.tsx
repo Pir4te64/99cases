@@ -22,6 +22,7 @@ const FundasPredeterminadasProductos = () => {
       <div className="grid w-full max-w-7xl grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {predeterminados.map((product) => (
           <ProductCard
+            imageFinal={product.imageFinal}
             key={product.id}
             id={product.id.toString()}
             descuento={`${Math.round(product.descuento * 100)}%`}

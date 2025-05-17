@@ -32,6 +32,7 @@ const FundasPersonalizadasProductos: React.FC = () => {
             {filteredProducts.map((product) => (
               <div key={product.id} className="min-w-0">
                 <ProductCardPersonalizadas
+                  imageFinal={product.imageFinal}
                   id={product.id.toString()}
                   imageSrc={product.imageSrc}
                   title={product.title}

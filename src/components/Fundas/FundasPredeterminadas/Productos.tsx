@@ -29,16 +29,17 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
   const buttonText = isFinalStep ? "Ver todos" : "Ver más";
 
   return (
-    <div className="bg-white mx-auto py-8 px-4">
+    <div className="mx-auto bg-white px-4 py-8">
       {visibleTitle && (
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-favorit uppercase font-bold text-black text-center my-4">
+        <h2 className="my-4 text-center font-favorit text-2xl font-bold uppercase text-black sm:text-3xl md:text-4xl">
           Productos Destacados
         </h2>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container mx-auto">
+      <div className="container mx-auto grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {displayedProducts.map((product) => (
           <ProductCard
+            imageFinal={product.imageFinal}
             key={product.id}
             id={product.id.toString()}
             descuento={`${Math.round(product.descuento * 100)}%`}
@@ -51,9 +52,9 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
       </div>
 
       {visibleCount < allProducts.length && (
-        <div className="flex justify-center mt-8">
+        <div className="mt-8 flex justify-center">
           <button
-            className="border border-black text-black px-6 py-2 rounded hover:bg-black hover:text-white font-bold font-favoritMono transition-colors"
+            className="rounded border border-black px-6 py-2 font-favoritMono font-bold text-black transition-colors hover:bg-black hover:text-white"
             onClick={handleLoadMore}
           >
             {buttonText}

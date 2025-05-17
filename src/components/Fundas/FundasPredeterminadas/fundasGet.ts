@@ -55,6 +55,7 @@ export const fetchAndAdaptProducts = async (): Promise<Product[]> => {
         "Content-Type": "application/json",
       },
     });
+
     return resp.data.map(adaptProduct);
   } catch (error) {
     console.error("Error al obtener los productos:", error);

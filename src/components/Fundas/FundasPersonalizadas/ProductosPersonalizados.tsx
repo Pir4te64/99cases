@@ -11,6 +11,7 @@ interface ProductCardProps {
   precioDescuento?: number; // 40000          (opcional, usado solo si oldPrice no viene)
   description?: string;
   tipo: string;
+  imageFinal: string;
 }
 
 const fmtARS = new Intl.NumberFormat("es-AR", {
@@ -27,10 +28,10 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   descuento,
   precioDescuento,
   description,
-  tipo
+  tipo,
+  imageFinal
 }) => {
   const navigate = useNavigate();
-
   /* ───── Badge de descuento ───── */
   const badge =
     typeof descuento === "number" && descuento > 0
@@ -57,7 +58,8 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
           descuento,
           precioDescuento,
           description,
-          tipo
+          tipo,
+          imageFinal
         },
       },
     });

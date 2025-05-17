@@ -7,7 +7,6 @@ interface ProductsPersonalizadasVerTodosProps {
 }
 const FundasPersonalizadasProductos: React.FC<ProductsPersonalizadasVerTodosProps> = ({ visibleTitle }) => {
   const [products, setProducts] = useState<Product[]>([]);
-
   useEffect(() => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
@@ -25,6 +24,7 @@ const FundasPersonalizadasProductos: React.FC<ProductsPersonalizadasVerTodosProp
             oldPrice={product.oldPrice}
             description={product.description}
             tipo={product.tipo}
+            imageFinal={product.imageFinal}
           />
         ))}
       </div>

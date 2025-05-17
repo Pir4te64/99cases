@@ -7,6 +7,7 @@ interface ProductCardProps {
   title: string;
   price: string; // ejemplo: "$1.200"
   description: string;
+  imageFinal: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -15,11 +16,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageSrc,
   title,
   price,
+  imageFinal
 }) => {
   const navigate = useNavigate();
-
   const handleClick = () => {
-    const productData = { id, descuento, imageSrc, title, price };
+    const productData = { id, descuento, imageSrc, title, price, imageFinal };
     navigate(`/predeterminadas/${id}`, { state: { product: productData } });
   };
 
@@ -36,11 +37,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div
       onClick={handleClick}
-      className="cursor-pointer relative text-center flex flex-col items-center justify-start w-full sm:w-72 p-4 min-h-[400px]"
+      className="relative flex min-h-[400px] w-full cursor-pointer flex-col items-center justify-start p-4 text-center sm:w-72"
     >
-      <div className="h-8 flex justify-center items-center mb-2">
+      <div className="mb-2 flex h-8 items-center justify-center">
         {descuento ? (
-          <div className="px-2 py-1 bg-gray-300 text-red-600 font-favoritMono font-bold rounded-md">
+          <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritMono font-bold text-red-600">
             {descuento}
           </div>
         ) : (
@@ -53,18 +54,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
           src={imageSrc}
           onContextMenu={e => e.preventDefault()}
           alt={title}
-          className="mx-auto my-4 h-auto object-contain hover:scale-105 transition-transform duration-300 ease-in-out"
+          className="mx-auto my-4 h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
         />
       </picture>
-      <h3 className="text-gray-800 text-base sm:text-lg font-bold mb-2 font-favoritExpandedBook">
+      <h3 className="mb-2 font-favoritExpandedBook text-base font-bold text-gray-800 sm:text-lg">
         {title}
       </h3>
-      <div className="flex justify-center items-baseline gap-2">
-        <span className="text-lg sm:text-xl font-bold text-black font-favoritExpandedBook">
+      <div className="flex items-baseline justify-center gap-2">
+        <span className="font-favoritExpandedBook text-lg font-bold text-black sm:text-xl">
           {price}
         </span>
         {descuento && (
-          <span className="text-sm sm:text-md font-favoritExpandedBook line-through font-bold text-gray-400">
+          <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-gray-400 line-through">
             {formattedOldPrice}
           </span>
         )}

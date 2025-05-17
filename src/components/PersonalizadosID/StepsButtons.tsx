@@ -44,14 +44,14 @@ const StepsButtons: React.FC = () => {
           <button
             key={key}
             onClick={onClick}
-            className="flex items-center justify-center gap-2 rounded-md border border-black bg-white p-3 text-black transition-colors hover:bg-red-600 hover:text-white md:justify-start md:gap-3 md:p-4"
+            className="flex items-center justify-center gap-2 rounded-md border border-black bg-white p-3 text-black transition-colors hover:bg-red-600 hover:text-white md:justify-start md:gap-3 md:p-2"
           >
             <div
-              className="md:text-md flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-black font-favoritExpandedBook font-bold text-white md:h-12 md:w-12"
+              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-black font-favoritExpandedBook font-bold text-white md:h-12 md:w-12 md:text-2xl"
             >
               {key}
             </div>
-            <span className="text-center font-favoritExpandedBook font-bold uppercase md:text-left md:text-sm">
+            <span className="text-center font-favoritExpandedBook text-sm font-bold uppercase md:text-left">
               {label}
             </span>
           </button>

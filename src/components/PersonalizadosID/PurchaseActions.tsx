@@ -82,23 +82,23 @@ const PurchaseActions = ({ product }: PurchaseActionsProps) => {
   return (
     <>
       {/* Contador y Agregar al Carrito */}
-      <div className='flex items-center mb-4 my-4 w-full space-x-4'>
+      <div className='my-4 mb-4 flex w-full items-center space-x-4'>
         <div className='flex items-center space-x-2'>
           <button
             onClick={handleDecrement}
-            className='border border-gray-400 px-2 py-1 rounded hover:bg-gray-200'>
+            className='rounded border border-gray-400 px-2 py-1 hover:bg-gray-200'>
             <Minus size={16} />
           </button>
           <span className='font-semibold'>{displayQuantity}</span>
           <button
             onClick={handleIncrement}
-            className='border border-gray-400 px-2 py-1 rounded hover:bg-gray-200'>
+            className='rounded border border-gray-400 px-2 py-1 hover:bg-gray-200'>
             <Plus size={16} />
           </button>
         </div>
         <button
           onClick={handleAddToCart}
-          className='flex-1 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors'>
+          className='flex-1 rounded bg-black px-4 py-2 text-white transition-colors hover:bg-gray-800'>
           Agregar al Carrito
         </button>
       </div>
@@ -106,14 +106,15 @@ const PurchaseActions = ({ product }: PurchaseActionsProps) => {
       {/* Comprar Ahora */}
       <button
         onClick={() => {
-          // Implementa la lógica de "Comprar Ahora" si es necesario.
+          handleAddToCart();
+          openCart();
         }}
-        className='border border-black text-black px-4 py-2 rounded mb-4 hover:bg-black hover:text-white transition-colors'>
+        className='mb-4 rounded border border-black px-4 py-2 text-black transition-colors hover:bg-black hover:text-white'>
         Comprar Ahora
       </button>
 
       {/* Imagen de tarjetas */}
-      <div className='flex justify-center items-center my-4'>
+      <div className='my-4 flex items-center justify-center'>
         <img src={tarjetas} alt='Tarjetas de pago' className='max-w-full' />
       </div>
     </>

@@ -1,70 +1,75 @@
-import { DeliveryResponse } from "@/components/Pagos/store/useDeliveryStore";
+import React from "react";
 
-interface DeliverySummaryProps {
-  deliveryResponse: DeliveryResponse;
+export interface DeliveryOption {
+  modoDeEntrega: string;
+  modoDeEntregaId: string;
+  tarifaConIva: number;
+  tarifaSinIva: number;
+  iva: number;
+  contratoId: string;
 }
 
-const DeliverySummary: React.FC<DeliverySummaryProps> = ({
+export interface DeliveryResponse {
+  id: number;
+  deliveryOptions: DeliveryOption[];
+  destino: string;
+  datosDeContacto: string;
+  costoOrden: number;
+  numeroOrden?: string;
+}
+
+interface Props {
+  deliveryResponse: DeliveryResponse;
+  selectedOption: string;
+  onSelectOption: (modo: string) => void;
+}
+
+export default function DeliverySummary({
   deliveryResponse,
-}) => {
+  selectedOption,
+  onSelectOption,
+}: Props) {
   return (
-    <div className='border rounded p-4 mb-6 text-black'>
-      <h2 className='text-xl font-bold mb-2'>Resumen de Envío</h2>
-      {deliveryResponse.origen && (
-        <div className='mt-2'>
-          <p className='font-favoritExpandedBook'>
-            <strong>Origen:</strong>
-          </p>
-          <p className='font-favoritExpandedBook'>
-            {deliveryResponse.origen.calle} {deliveryResponse.origen.numero},{" "}
-            {deliveryResponse.origen.localidad} (CP:{" "}
-            {deliveryResponse.origen.codigoPostal}) -{" "}
-            {deliveryResponse.origen.pais}
-          </p>
-        </div>
-      )}
-      {deliveryResponse.destino && (
-        <div className='mt-2'>
-          <p className='font-favoritExpandedBook'>
-            <strong>Destino:</strong>
-          </p>
-          <p className='font-favoritExpandedBook'>
-            {deliveryResponse.destino.calle} {deliveryResponse.destino.numero},{" "}
-            {deliveryResponse.destino.localidad} (CP:{" "}
-            {deliveryResponse.destino.codigoPostal}) -{" "}
-          </p>
-        </div>
-      )}
-      {deliveryResponse.remitente && (
-        <div className='mt-2'>
-          <p className='font-favoritExpandedBook'>
-            <strong>Remitente:</strong>
-          </p>
-          <p className='font-favoritExpandedBook'>
-            {deliveryResponse.remitente.nombre} (
-            {deliveryResponse.remitente.tipoDocumento}:{" "}
-            {deliveryResponse.remitente.numeroDocumento})
-          </p>
-        </div>
-      )}
-      {deliveryResponse.destinatario && (
-        <div className='mt-2'>
-          <p className='font-favoritExpandedBook'>
-            <strong>Destinatario:</strong>
-          </p>
-          <p className='font-favoritExpandedBook'>
-            {deliveryResponse.destinatario.nombre}
-          </p>
-        </div>
-      )}
-      {deliveryResponse.fechaEnvio && (
-        <p className='mt-2 font-favoritExpandedBook'>
-          <strong>Fecha de Envío:</strong>{" "}
-          {new Date(deliveryResponse.fechaEnvio).toLocaleString()}
-        </p>
-      )}
+    <div className="mb-6 rounded bg-gray-900 p-4">
+      <h2 className="mb-2 text-xl font-semibold">Resumen de Envío</h2>
+
+      <p>
+        <strong>Destino:</strong> {deliveryResponse.destino}
+      </p>
+      <p>
+        <strong>Contacto:</strong> {deliveryResponse.datosDeContacto}
+      </p>
+      <p>
+        <strong>Costo de Orden:</strong>{" "}
+        ${deliveryResponse.costoOrden.toLocaleString("es-AR", {
+          minimumFractionDigits: 2,
+        })}
+      </p>
+
+      <div className="mt-4">
+        <p className="mb-2 font-medium">Opciones de Entrega:</p>
+        <ul>
+          {deliveryResponse.deliveryOptions.map((opt) => (
+            <li key={opt.modoDeEntregaId} className="mb-2 flex items-center">
+              <input
+                type="radio"
+                id={opt.modoDeEntregaId}
+                name="deliveryOption"
+                value={opt.modoDeEntrega}
+                checked={selectedOption === opt.modoDeEntrega}
+                onChange={() => onSelectOption(opt.modoDeEntrega)}
+                className="mr-2"
+              />
+              <label htmlFor={opt.modoDeEntregaId}>
+                {opt.modoDeEntrega} — $
+                {opt.tarifaConIva.toLocaleString("es-AR", {
+                  minimumFractionDigits: 2,
+                })}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
-};
-
-export default DeliverySummary;
+}

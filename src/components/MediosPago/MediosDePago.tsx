@@ -1,4 +1,3 @@
-// src/components/MediosPago/MediosDePago.tsx
 import { useLocation, Link } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -9,14 +8,28 @@ import useDeliveryStore from "@/components/Pagos/store/useDeliveryStore";
 import DeliverySummary from "@/components/MediosPago/DeliverySummary";
 import { API } from "@/utils/Api";
 
+
+
 export default function MediosDePago() {
-  const { state: paymentData } = useLocation() as { state: { total: number } };
+  const { state: paymentData } = useLocation();
   const { deliveryResponse } = useDeliveryStore();
   const total = paymentData?.total ?? 0;
 
   const [loading, setLoading] = useState(false);
+  // Inicializamos con el texto del primer modo de entrega
+  const [selectedOption, setSelectedOption] = useState<string>(
+    deliveryResponse?.deliveryOptions?.[0]?.modoDeEntrega ?? ""
+  );
 
   const iniciarPago = async () => {
+    if (!selectedOption) {
+      await Swal.fire({
+        icon: "warning",
+        title: "Debes elegir un modo de entrega",
+      });
+      return;
+    }
+
     const { isConfirmed } = await Swal.fire({
       title: "Confirmar Pago",
       text: `Vas a pagar $${total.toLocaleString("es-AR", {
@@ -40,10 +53,15 @@ export default function MediosDePago() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Sesión expirada, vuelve a iniciar sesión.");
 
-      // POST → /api/payments/create?orderId=...
+      // Enviamos el texto del modoDeEntrega 
+      const query = `?orderId=${deliveryResponse.id}&modoEntrega=${encodeURIComponent(
+        selectedOption
+      )}`;
+      console.log(query);
+
       const { data } = await axios.post(
-        `${API.createPayment}?orderId=${deliveryResponse.numeroOrden}`,
-        {}, // sin body; tu backend ya sabe el monto
+        `${API.createPayment}${query}`,
+        {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -55,7 +73,6 @@ export default function MediosDePago() {
         throw new Error(data.details || "No se obtuvo el link de pago.");
       }
 
-      // Redirigimos en nueva pestaña:
       window.open(data.paymentLink, "_blank");
 
       await Swal.fire({
@@ -71,20 +88,23 @@ export default function MediosDePago() {
         text:
           err instanceof Error
             ? err.message
-            : (err as { response?: { data?: { details?: string } } })?.response
-                ?.data?.details || "Ocurrió un problema.",
+            : (err as any)?.response?.data?.details || "Ocurrió un problema.",
       });
     } finally {
       setLoading(false);
     }
   };
-  console.log(deliveryResponse);
+
   return (
     <div className="min-h-screen bg-white px-4 py-6">
       <h1 className="mb-6 text-center text-3xl font-bold">MEDIOS DE PAGO</h1>
 
       {deliveryResponse && (
-        <DeliverySummary deliveryResponse={deliveryResponse} />
+        <DeliverySummary
+          deliveryResponse={deliveryResponse}
+          selectedOption={selectedOption}
+          onSelectOption={setSelectedOption}
+        />
       )}
 
       <div className="mx-auto mb-8 max-w-3xl">
@@ -103,11 +123,7 @@ export default function MediosDePago() {
           </button>
         </div>
 
-        <img
-          src={tarjeta}
-          alt="Métodos de pago"
-          className="mx-auto max-w-full"
-        />
+        <img src={tarjeta} alt="Métodos de pago" className="mx-auto max-w-full" />
       </div>
 
       <div className="text-center">

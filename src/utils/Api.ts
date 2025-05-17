@@ -19,4 +19,5 @@ export const API = {
   paymentSucces: `${baseURL}/payments/success`,
   paymentError: `${baseURL}/payments/error`,
   getLocation: `${baseURL}/codigo-postal/validar`,
+  getMe: `${baseURL}/me`,
 };

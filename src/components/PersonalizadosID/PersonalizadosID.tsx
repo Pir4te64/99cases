@@ -74,12 +74,12 @@ const PersonalizadosID: React.FC = () => {
       <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="container mx-auto flex flex-col px-4 lg:h-[600px] lg:flex-row">
+        <div className="container mx-auto flex w-full flex-col px-4 lg:h-[600px] lg:flex-row">
           {/* Columna 1 */}
           <ProductImage imgHorizontal={imgHorizontal} imgVertical={imgVertical} />
 
           {/* Columna 2: PREVIEW */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center bg-red-500">
             {product ? (
               <div id="preview-container" className="h-full w-full">
                 {isConImagen && (

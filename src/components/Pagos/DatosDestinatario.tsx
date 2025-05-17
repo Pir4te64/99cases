@@ -65,15 +65,25 @@ const DatosDestinatario: React.FC = () => {
       numeroDocumento,
     },
     validationSchema,
-    onSubmit: () => { },
+    onSubmit: () => { /* tu lógica de submit aquí */ },
   });
 
-  // Sincroniza store → Formik
+  // 1) Prefill email from localStorage on mount
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      formik.setFieldValue("email", storedEmail);
+      setEmail(storedEmail);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 2) Sincroniza store → Formik cuando cambian otros campos
   useEffect(() => {
     formik.setValues({
       nombre,
       apellido,
-      email,
+      email: formik.values.email, // preserva el email ya seteado
       telefono,
       provincia,
       localidad,
@@ -89,7 +99,6 @@ const DatosDestinatario: React.FC = () => {
   }, [
     nombre,
     apellido,
-    email,
     telefono,
     provincia,
     localidad,
@@ -119,7 +128,6 @@ const DatosDestinatario: React.FC = () => {
       );
       console.log("Respuesta completa getLocation:", resp.data);
 
-      // Extrae el array de resultados
       const lista = Array.isArray(resp.data.resultados)
         ? resp.data.resultados
         : [];
@@ -142,7 +150,7 @@ const DatosDestinatario: React.FC = () => {
         Datos del destinatario
       </h2>
 
-      <form className="space-y-4">
+      <form onSubmit={formik.handleSubmit} className="space-y-4">
         {/* E-mail */}
         <InputField
           id="email"
@@ -154,6 +162,7 @@ const DatosDestinatario: React.FC = () => {
             formik.handleChange(e);
             setEmail(e.target.value);
           }}
+          disabled={true}
           onBlur={formik.handleBlur}
           error={formik.errors.email as string}
           touched={formik.touched.email}
@@ -236,7 +245,7 @@ const DatosDestinatario: React.FC = () => {
         <div className="space-y-2">
           <label
             htmlFor="ubicacion-select"
-            className="block text-sm font-medium text-gray-700"
+            className="mb-1 block font-favoritExpandedBook text-sm font-medium md:text-base"
           >
             Ubicación
           </label>

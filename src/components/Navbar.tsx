@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
-import { FiLogOut } from "react-icons/fi";          // ⬅️  solo queda el icono de logout
 import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
-
+import useAuthStore from "@/store/authStore";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +26,8 @@ export default function Navbar() {
     sessionStorage.removeItem("token");
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    useAuthStore.getState().clearToken();
+    window.location.href = "/";
   };
 
   return (
@@ -81,7 +82,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="transition-colors hover:text-gray-300"
               >
-                <FiLogOut className="h-5 w-5" />
+                Cerrar sesión
               </button>
             ) : (
               <>
@@ -169,7 +170,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="transition-colors hover:text-gray-300"
               >
-                <FiLogOut className="h-5 w-5" />
+                Cerrar sesión
               </button>
             ) : (
               <>

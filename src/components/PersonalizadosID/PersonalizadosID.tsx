@@ -79,7 +79,7 @@ const PersonalizadosID: React.FC = () => {
           <ProductImage imgHorizontal={imgHorizontal} imgVertical={imgVertical} />
 
           {/* Columna 2: PREVIEW */}
-          <div className="flex items-center justify-center bg-red-500">
+          <div className="flex items-center justify-center">
             {product ? (
               <div id="preview-container" className="h-full w-full">
                 {isConImagen && (
@@ -112,7 +112,7 @@ const PersonalizadosID: React.FC = () => {
                 {!isConImagen && step2Active && <CustomName />}
 
                 {/* Colores: solo en tipo PERSONALIZADO */}
-                {isPersonalizado && showColors && <Colores />}
+                {(isPersonalizado || isConCaracteres) && showColors && <Colores />}
 
                 {/* Acciones finales */}
                 {!(showMarca || step2Active || showColors) && (

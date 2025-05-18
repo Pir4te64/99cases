@@ -45,10 +45,9 @@ export function useCheckout() {
       await Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Usuario no autenticado. Por favor, inicia sesión.",
+        text: "Usuario no autenticado. Haga click a fuera para inicia sesión.",
         confirmButtonText: "Ir a login",
         showConfirmButton: true,
-        timer: 2000,
       }).then(() => {
         navigate("/login");
       });

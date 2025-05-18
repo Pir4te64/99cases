@@ -1,5 +1,7 @@
-// PurchaseActions.tsx
+// src/components/PersonalizadosID/PurchaseActions.tsx
+import React, { useState } from "react";
 import { Minus, Plus } from "lucide-react";
+import html2canvas from "html2canvas";
 import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import useCartStore, { CartItem } from "@/store/cartStore";
 
@@ -8,31 +10,34 @@ interface PurchaseActionsProps {
     id: string;
     title: string;
     imageSrc: string;
-    price: number; // asumimos número
+    price: number;
   };
+  offscreenRef: React.RefObject<HTMLDivElement>;
 }
 
-const PurchaseActions = ({ product }: PurchaseActionsProps) => {
-  // Acciones y estados del carrito
-  const selectedQuantity = useCartStore((state) => state.selectedQuantity);
+export default function PurchaseActions({
+  product,
+  offscreenRef,
+}: PurchaseActionsProps) {
+  const [loading, setLoading] = useState(false);
+
+  // Cantidad seleccionada y acciones del carrito
+  const selectedQuantity = useCartStore((s) => s.selectedQuantity);
   const incrementSelectedQuantity = useCartStore(
-    (state) => state.incrementSelectedQuantity
+    (s) => s.incrementSelectedQuantity
   );
   const decrementSelectedQuantity = useCartStore(
-    (state) => state.decrementSelectedQuantity
+    (s) => s.decrementSelectedQuantity
   );
-  const addToCart = useCartStore((state) => state.addToCart);
-  const openCart = useCartStore((state) => state.openCart);
-  const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
-  const cartItems = useCartStore((state) => state.cartItems);
+  const addToCart = useCartStore((s) => s.addToCart);
+  const openCart = useCartStore((s) => s.openCart);
+  const updateItemQuantity = useCartStore((s) => s.updateItemQuantity);
+  const cartItems = useCartStore((s) => s.cartItems);
 
-  // Buscamos si el producto ya está en el carrito
-  const cartItem = cartItems.find((item) => item.id === product.id);
-
-  // Si ya está, mostramos la cantidad del carrito; de lo contrario, usamos selectedQuantity
+  // Si ya está en el carrito, usamos su cantidad
+  const cartItem = cartItems.find((it) => it.id === product.id);
   const displayQuantity = cartItem ? cartItem.quantity : selectedQuantity;
 
-  // Función para incrementar: si ya está en el carrito, se actualiza ahí; sino, se actualiza el valor de selección
   const handleIncrement = () => {
     if (cartItem) {
       updateItemQuantity(product.id, cartItem.quantity + 1);
@@ -41,84 +46,103 @@ const PurchaseActions = ({ product }: PurchaseActionsProps) => {
     }
   };
 
-  // Función para decrementar
   const handleDecrement = () => {
     if (cartItem) {
-      // Si la cantidad en el carrito es 1, podemos optar por remover el producto
-      if (cartItem.quantity <= 1) {
-        // Aquí podrías llamar a removeFromCart, pero por simplicidad solo dejamos 1
-        updateItemQuantity(product.id, 1);
-      } else {
-        updateItemQuantity(product.id, cartItem.quantity - 1);
-      }
+      const newQty = Math.max(1, cartItem.quantity - 1);
+      updateItemQuantity(product.id, newQty);
     } else {
       decrementSelectedQuantity();
     }
   };
 
-  // Al hacer "Agregar al Carrito", si el producto ya existe, se actualiza su cantidad;
-  // de lo contrario, se agrega con la cantidad seleccionada.
-  const handleAddToCart = () => {
-    if (!product) {
-      console.warn("No se encontró el producto");
-      return;
-    }
-    if (cartItem) {
-      // Actualizamos el ítem en el carrito con la cantidad actual de selección
-      updateItemQuantity(product.id, selectedQuantity);
-    } else {
+  const handleAddToCart = async () => {
+    setLoading(true);
+    try {
+      // Generar la imagen de preview desde el offscreen
+      let previewImage = product.imageSrc;
+      if (offscreenRef.current) {
+        const { width, height } =
+          offscreenRef.current.getBoundingClientRect();
+        const canvas = await html2canvas(offscreenRef.current, {
+          useCORS: true,
+          backgroundColor: null,
+          width,
+          height,
+          scale: 300 / 96, // opcional: para 300 DPI
+        });
+        previewImage = canvas.toDataURL("image/png");
+      }
+
+      // Preparar el ítem
       const item: CartItem = {
         id: product.id,
         title: product.title,
-        imageSrc: product.imageSrc,
+        imageSrc: previewImage,
         price: product.price,
-        quantity: selectedQuantity,
+        quantity: displayQuantity,
       };
-      addToCart(item);
+
+      // Agregar o actualizar
+      if (cartItem) {
+        updateItemQuantity(product.id, displayQuantity);
+      } else {
+        addToCart(item);
+      }
+
+      openCart();
+    } catch (err) {
+      console.error("Error al generar imagen para el carrito:", err);
+    } finally {
+      setLoading(false);
     }
-    openCart();
+  };
+
+  const handleBuyNow = async () => {
+    await handleAddToCart();
+    // redirigir al checkout si lo tienes implementado
+    // navigate("/checkout");
   };
 
   return (
-    <>
-      {/* Contador y Agregar al Carrito */}
-      <div className='my-4 mb-4 flex w-full items-center space-x-4'>
-        <div className='flex items-center space-x-2'>
-          <button
-            onClick={handleDecrement}
-            className='rounded border border-gray-400 px-2 py-1 hover:bg-gray-200'>
-            <Minus size={16} />
-          </button>
-          <span className='font-semibold'>{displayQuantity}</span>
-          <button
-            onClick={handleIncrement}
-            className='rounded border border-gray-400 px-2 py-1 hover:bg-gray-200'>
-            <Plus size={16} />
-          </button>
-        </div>
+    <div className="space-y-4">
+      <div className="my-4 flex items-center space-x-3">
+        <button
+          onClick={handleDecrement}
+          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
+          disabled={loading}
+        >
+          <Minus size={16} />
+        </button>
+        <span className="font-semibold">{displayQuantity}</span>
+        <button
+          onClick={handleIncrement}
+          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
+          disabled={loading}
+        >
+          <Plus size={16} />
+        </button>
         <button
           onClick={handleAddToCart}
-          className='flex-1 rounded bg-black px-4 py-2 text-white transition-colors hover:bg-gray-800'>
-          Agregar al Carrito
+          disabled={loading}
+          className="w-full rounded bg-black px-4 py-2 text-white transition hover:bg-gray-800 disabled:opacity-50"
+        >
+          {loading ? "Agregando…" : "Agregar al Carrito"}
         </button>
       </div>
 
-      {/* Comprar Ahora */}
+
+
       <button
-        onClick={() => {
-          handleAddToCart();
-          openCart();
-        }}
-        className='mb-4 rounded border border-black px-4 py-2 text-black transition-colors hover:bg-black hover:text-white'>
-        Comprar Ahora
+        onClick={handleBuyNow}
+        disabled={loading}
+        className="w-full rounded border border-black px-4 py-2 text-black transition hover:bg-black hover:text-white disabled:opacity-50"
+      >
+        {loading ? "Procesando…" : "Comprar Ahora"}
       </button>
 
-      {/* Imagen de tarjetas */}
-      <div className='my-4 flex items-center justify-center'>
-        <img src={tarjetas} alt='Tarjetas de pago' className='max-w-full' />
+      <div className="flex justify-center">
+        <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" />
       </div>
-    </>
+    </div>
   );
-};
-
-export default PurchaseActions;
+}

@@ -1,11 +1,11 @@
 // src/components/PersonalizadosID.tsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import html2canvas from "html2canvas";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
-import imgFinal from "@/assets/predetermiandasCases/fondo.svg";
-import imgVertical from "@/assets/predetermiandasCases/List.png";
+import imgVertical from "@/assets/predetermiandasCases/List.png";    // textura on-screen
+import imgFinal from "@/assets/predetermiandasCases/fondo.svg";   // textura para descarga
 import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
 import PersonalizadosLayout from "@/components/PersonalizadosLayout";
 
@@ -37,14 +37,36 @@ const PersonalizadosID: React.FC = () => {
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
-  // ref para off-screen download de textura + texto
+  // ref al div off-screen para descarga
   const downloadRef = useRef<HTMLDivElement>(null);
+
+  // 1) Cargar dimensiones reales de imgFinal (SVG)
+  const [imgSize, setImgSize] = useState({ width: 600, height: 600 });
+  useEffect(() => {
+    fetch(imgFinal)
+      .then(r => r.text())
+      .then(svgText => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgText, "image/svg+xml");
+        const svgEl = doc.querySelector("svg");
+        if (!svgEl) return;
+        let w = 0, h = 0;
+        const vb = svgEl.getAttribute("viewBox");
+        if (vb) {
+          const parts = vb.split(/\s+|,/).map(Number);
+          if (parts.length === 4) [, , w, h] = parts;
+        } else {
+          w = parseFloat(svgEl.getAttribute("width") || "0");
+          h = parseFloat(svgEl.getAttribute("height") || "0");
+        }
+        if (w && h) setImgSize({ width: w, height: h });
+      })
+      .catch(console.error);
+  }, []);
 
   // inicializar producto desde el router
   useEffect(() => {
-    if (location.state?.product) {
-      setProduct(location.state.product);
-    }
+    if (location.state?.product) setProduct(location.state.product);
     window.scrollTo(0, 0);
   }, [location.state, setProduct]);
 
@@ -61,12 +83,14 @@ const PersonalizadosID: React.FC = () => {
     { label: product?.title || "Producto" },
   ];
 
-  // descarga de textura cuadrada + texto
+  // descarga de textura + texto
   const handleDownloadTextura = async () => {
     if (!downloadRef.current) return;
     const canvas = await html2canvas(downloadRef.current, {
       useCORS: true,
       backgroundColor: null,
+      width: imgSize.width,
+      height: imgSize.height,
     });
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
@@ -74,14 +98,13 @@ const PersonalizadosID: React.FC = () => {
     link.click();
   };
 
-  // valores para texto
+  // valores para overlay de texto
   const userName = usePersonalizadoStore(s => s.userName);
   const userNumber = usePersonalizadoStore(s => s.userNumber);
   const selectedColors = usePersonalizadoStore(s => s.selectedColors);
   const selectedNameStyle = usePersonalizadoStore(s => s.selectedNameStyle);
   const selectedNumberStyle = usePersonalizadoStore(s => s.selectedNumberStyle);
 
-  // desempaquetar colores, blanco por defecto
   const [
     nFill, nBorder, nBorder2,
     numFill, numBorder, numBorder2
@@ -157,15 +180,15 @@ const PersonalizadosID: React.FC = () => {
           </div>
         </div>
 
-        {/* OFF-SCREEN: textura pura en mosaico + texto/número centrado */}
+        {/* OFF-SCREEN: textura + texto centrado, con tamaño real del SVG */}
         <div
           ref={downloadRef}
           style={{
             position: "absolute",
             top: -9999,
             left: -9999,
-            width: 600,
-            height: 600,
+            width: imgSize.width,
+            height: imgSize.height,
             backgroundImage: `url(${imgFinal})`,
             backgroundRepeat: "repeat",
             backgroundSize: "auto",
@@ -194,7 +217,7 @@ const PersonalizadosID: React.FC = () => {
                   WebkitTextStroke: `1px ${nBorder}`,
                   textShadow: makeShadow(nBorder2, 2),
                 }}
-                className={`mt-4 text-3xl sm:text-5xl text-center font-bold ${selectedNameStyle != null
+                className={`text-3xl sm:text-5xl text-center font-bold ${selectedNameStyle != null
                   ? `font-${customNameStyles[selectedNameStyle]}`
                   : "font-cmxShift2"
                   }`}

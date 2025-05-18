@@ -59,7 +59,7 @@ const PreviewOverlay: React.FC = () => {
         onError={() =>
           console.error("❌ Error cargando imagen:", product.imageSrc)
         }
-        className="h-full w-full object-contain"
+        className="h-[calc(100vh-200px)] w-full object-contain"
       />
 
       {/* overlay solo para PERSONALIZADO_CON_CARACTERES */}

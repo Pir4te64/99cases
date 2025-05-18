@@ -48,6 +48,7 @@ export function useCheckout() {
         text: "Usuario no autenticado. Por favor, inicia sesión.",
         confirmButtonText: "Ir a login",
         showConfirmButton: true,
+        timer: 2000,
       }).then(() => {
         navigate("/login");
       });

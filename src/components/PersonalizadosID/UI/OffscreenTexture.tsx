@@ -82,7 +82,7 @@ const OffscreenTexture = forwardRef<HTMLDivElement>((_, ref) => {
                         WebkitTextStroke: `2px ${numBorder}`,
                         textShadow: makeShadow(numBorder2, 2),
                     }}
-                    className={`text-[14rem] sm:text-[18rem] text-center font-bold ${selectedNumberStyle != null
+                    className={`text-[10rem]  text-center ${selectedNumberStyle != null
                         ? `font-${customNumberStyles[selectedNumberStyle]}`
                         : "font-cmxShift2"
                         }`}
@@ -96,7 +96,7 @@ const OffscreenTexture = forwardRef<HTMLDivElement>((_, ref) => {
                         WebkitTextStroke: `2px ${nBorder}`,
                         textShadow: makeShadow(nBorder2, 2),
                     }}
-                    className={`mt-4 text-[6rem] sm:text-[8rem] text-center font-bold ${selectedNameStyle != null
+                    className={`text-[4rem]  text-center  ${selectedNameStyle != null
                         ? `font-${customNameStyles[selectedNameStyle]}`
                         : "font-cmxShift2"
                         }`}

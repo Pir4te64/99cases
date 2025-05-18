@@ -72,7 +72,7 @@ const PreviewOverlay: React.FC = () => {
               WebkitTextStroke: `1px ${numBorder}`,
               textShadow: makeShadow(numBorder2, 1),
             }}
-            className={`text-9xl text-center ${numberStyleIndex != null
+            className={`text-[6rem]  text-center ${numberStyleIndex != null
               ? `font-${customNumberStyles[numberStyleIndex]}`
               : "font-cmxShift2"
               }`}
@@ -86,7 +86,7 @@ const PreviewOverlay: React.FC = () => {
               WebkitTextStroke: `1px ${nBorder}`,
               textShadow: makeShadow(nBorder2, 2),
             }}
-            className={`mt-1 text-5xl text-center ${nameStyleIndex != null
+            className={`text-[2rem] stext-center ${nameStyleIndex != null
               ? `font-${customNameStyles[nameStyleIndex]}`
               : "font-cmxShift2"
               }`}

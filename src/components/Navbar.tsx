@@ -46,7 +46,7 @@ export default function Navbar() {
         </div>
       )}
 
-      <nav className="relative mx-5 bg-black p-4 text-white">
+      <nav className="relative mr-5 bg-black p-4 text-white">
         {/* Desktop Navbar */}
         <div className="hidden items-center justify-between md:flex">
           {/* Izquierda: Productos + Sesión */}

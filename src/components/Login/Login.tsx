@@ -4,10 +4,12 @@ import loginPOST from "@/components/Login/LoginPOST";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "@/store/authStore";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const setToken = useAuthStore((state: any) => state.setToken);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,26 +59,40 @@ const Login = () => {
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="relative block w-full appearance-none rounded-b-md border border-white bg-black px-3 py-2 text-white placeholder-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="relative block w-full appearance-none rounded-b-md border border-white bg-black px-3 py-2 text-white placeholder-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-white"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
           <div>
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${isFormValid
-                ? "hover:bg-white hover:text-black"
-                : "opacity-50 cursor-not-allowed"
-                }`}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${
+                isFormValid
+                  ? "hover:bg-white hover:text-black"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
             >
               Iniciar Sesión
             </button>

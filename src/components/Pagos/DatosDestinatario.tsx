@@ -12,17 +12,19 @@ import { API } from "@/utils/Api";
 
 interface UbicacionOption {
   label: string;
-  value: string;         // códigoPostal
+  value: string; // códigoPostal
   localidad: string;
   provincia: string;
   codigoPostal: string;
 }
 
 const DatosDestinatario: React.FC = () => {
+  // 1) Recuperamos el email de localStorage, si existe:
+  const storedEmail = localStorage.getItem("userEmail") || "";
+
   const {
     nombre,
     apellido,
-    email,
     telefono,
     provincia,
     localidad,
@@ -52,7 +54,8 @@ const DatosDestinatario: React.FC = () => {
     initialValues: {
       nombre,
       apellido,
-      email,
+      // inicializamos directamente el campo email con localStorage
+      email: storedEmail,
       telefono,
       provincia,
       localidad,
@@ -65,25 +68,25 @@ const DatosDestinatario: React.FC = () => {
       numeroDocumento,
     },
     validationSchema,
-    onSubmit: () => { /* tu lógica de submit aquí */ },
+    onSubmit: () => {
+      // tu lógica de submit aquí
+    },
   });
 
-  // 1) Prefill email from localStorage on mount
+  // 2) Sincronizamos la store con el email guardado en localStorage al montar
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
-      formik.setFieldValue("email", storedEmail);
       setEmail(storedEmail);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 2) Sincroniza store → Formik cuando cambian otros campos
+  // 3) Sincroniza store → Formik cuando cambian otros campos de la store
   useEffect(() => {
     formik.setValues({
       nombre,
       apellido,
-      email: formik.values.email, // preserva el email ya seteado
+      email: formik.values.email, // preservamos el email actual de Formik
       telefono,
       provincia,
       localidad,
@@ -111,7 +114,7 @@ const DatosDestinatario: React.FC = () => {
     numeroDocumento,
   ]);
 
-  // Llama al POST /CodigoPostal/getLocation con { parametroBusqueda }
+  // 4) Función para cargar opciones de ubicación vía API
   const loadUbicaciones = async (inputValue: string) => {
     if (!inputValue) return [];
     try {
@@ -162,7 +165,7 @@ const DatosDestinatario: React.FC = () => {
             formik.handleChange(e);
             setEmail(e.target.value);
           }}
-          disabled={true}
+          disabled
           onBlur={formik.handleBlur}
           error={formik.errors.email as string}
           touched={formik.touched.email}
@@ -253,6 +256,7 @@ const DatosDestinatario: React.FC = () => {
             cacheOptions
             loadOptions={loadUbicaciones}
             defaultOptions
+            noOptionsMessage={() => "No hay resultados"}
             onChange={(option) => {
               if (!option) return;
               console.log("Seleccionado:", option);

@@ -34,7 +34,7 @@ const Registro = () => {
         </button>
       </form>
       <p className="mt-4 text-base md:text-sm underline ">
-        Al hacer clic en Registrarse, confirmo que acepto nuestros
+        Al hacer clic en Registrarse <br></br> confirmo que acepto nuestros{" "}
         <a href="#">Términos y Condiciones</a>.
       </p>
     </div>

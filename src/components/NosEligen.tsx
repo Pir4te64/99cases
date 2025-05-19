@@ -1,5 +1,6 @@
 import img1 from "@/assets/Eligen/1.jpg";
 import img2 from "@/assets/Eligen/2.jpg";
+import { Link } from "react-router-dom";
 
 const NosEligen = () => {
   return (
@@ -47,7 +48,7 @@ const NosEligen = () => {
             Diseños que hablan por vos
           </p>
           <button className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold font-favoritMono py-2 px-4 rounded">
-            Ver Todos
+            <Link to="/predeterminadas">Ver Todos</Link>
           </button>
         </div>
 
@@ -60,7 +61,7 @@ const NosEligen = () => {
             Diseños que hablan por vos
           </p>
           <button className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold font-favoritMono py-2 px-4 rounded">
-            Ver Todos
+            <Link to="/predeterminadas">Ver Todos</Link>
           </button>
         </div>
       </div>

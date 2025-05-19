@@ -12,13 +12,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     getMe();
+    window.scrollTo(0, 0);
   }, [getMe]);
 
   return (
-    <div className='flex min-h-screen flex-col overflow-x-hidden bg-black text-white'>
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-black text-white">
       <Navbar />
       {showCartSidebar && <CartSidebar />}
-      <main className='flex-1'>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@ import { FaYoutube, FaTiktok } from "react-icons/fa";
 import logo from "@/assets/logo.png";
 import tarjetas from "@/assets/Tarjetas.png";
 import andreani from "@/assets/Andreani.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -15,9 +16,16 @@ export default function Footer() {
         <div className="flex flex-col items-center space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           {/* Marca */}
           <div className="text-center text-xl font-bold">
-            <picture>
-              <img loading="lazy" src={logo} alt="Logo de la marca 99% Cases" />
-            </picture>
+            <Link to="/">
+              <picture>
+                <img
+                  loading="lazy"
+                  src={logo}
+                  alt="Logo de la marca 99% Cases"
+                  className="w-20 h-20"
+                />
+              </picture>
+            </Link>
           </div>
 
           {/* Navegación */}
@@ -25,7 +33,10 @@ export default function Footer() {
             <a href="/" className="transition-colors hover:text-gray-300">
               Inicio
             </a>
-            <a href="/predeterminadas" className="transition-colors hover:text-gray-300">
+            <a
+              href="/predeterminadas"
+              className="transition-colors hover:text-gray-300"
+            >
               Productos
             </a>
           </nav>

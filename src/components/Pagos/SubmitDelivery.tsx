@@ -68,7 +68,10 @@ export async function submitDelivery({
     !localidad.trim() ||
     !provincia.trim() ||
     !tipoDocumento.trim() ||
-    !numeroDocumento.trim()
+    !numeroDocumento.trim() ||
+    !localidad.trim() ||
+    !provincia.trim() ||
+    !codigoPostal.trim()
   ) {
     await Swal.fire({
       icon: "warning",

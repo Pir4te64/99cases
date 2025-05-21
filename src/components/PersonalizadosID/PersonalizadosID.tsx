@@ -20,20 +20,20 @@ import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import OffscreenTexture from "@/components/PersonalizadosID/UI/OffscreenTexture";
-import DownloadTextureButton from "@/components/PersonalizadosID/UI/DownloadTextureButton";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
   const product = usePersonalizadoStore((s) => s.product);
-  const showMarca = usePersonalizadoStore((s) => s.showMarca);
-  const step2Active = usePersonalizadoStore((s) => s.step2Active);
-  const showColors = usePersonalizadoStore((s) => s.showColors);
+  /*  const showMarca = usePersonalizadoStore((s) => s.showMarca);
+   const step2Active = usePersonalizadoStore((s) => s.step2Active);
+   const showColors = usePersonalizadoStore((s) => s.showColors); */
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
+  console.log(isConImagen, isConCaracteres, isPersonalizado);
 
   const offscreenRef = useRef<HTMLDivElement>(null);
 
@@ -103,10 +103,8 @@ const PersonalizadosID: React.FC = () => {
                 <StepsButtons />
 
                 <MarcaCelular />
-
-                <CustomName />
-
-                <Colores />
+                {!isConImagen && <CustomName />}
+                {!isConImagen && <Colores />}
 
                 <>
                   <PurchaseActions product={product!} offscreenRef={offscreenRef} />

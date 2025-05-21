@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import React from "react";
+import FastMarquee from "react-fast-marquee";
 
 const textItems = [
   "ENVIOS A TODO EL PAÍS",
@@ -7,30 +8,25 @@ const textItems = [
 ];
 
 const Marquee = () => {
-  const combinedItems = [...textItems, ...textItems]; // Duplicamos
-
   return (
-    <div className="overflow-hidden bg-red-600 h-12 whitespace-nowrap relative">
-      <motion.div
-        className="flex gap-16 items-center absolute left-0 top-0 h-full"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-          duration: 20,
-        }}
-        style={{ minWidth: "200%" }}
+    <div className="h-12 overflow-hidden whitespace-nowrap bg-red-600">
+      <FastMarquee
+        gradient={false}
+        speed={50}
+        pauseOnHover={true}
+        loop={0}
+        autoFill={true}
+        className="flex h-full items-center"
       >
-        {combinedItems.map((item, i) => (
+        {textItems.map((item, i) => (
           <span
             key={i}
-            className="mx-4 text-white text-xs sm:text-sm md:text-base uppercase font-bold font-favoritMono italic"
+            className="mx-8 font-favoritMono text-xs font-bold uppercase italic text-white sm:text-sm md:text-base"
           >
             {item}
           </span>
         ))}
-      </motion.div>
+      </FastMarquee>
     </div>
   );
 };

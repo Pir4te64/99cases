@@ -30,13 +30,18 @@ export default function Navbar() {
     useAuthStore.getState().clearToken();
     window.location.href = "/";
   };
+  const cartItems = useCartStore(state => state.cartItems);
 
+  // si quieres mostrar la cantidad de líneas:
+  const lineCount = cartItems.length;
+  // o si cada item tiene una propiedad quantity y quieres el total:
+  const totalCount = cartItems.reduce((sum, it) => sum + it.quantity, 0);
   return (
     <div className="fixed inset-x-0 top-0 z-50">
       {bannerOpen && (
         <div className="relative flex items-center justify-center bg-red-600 px-4 py-2 text-white">
           <p className="text-md font-favoritMono">
-            10% OFF abonando por transferencia
+            ENVÍO GRATIS A PARTIR DE  $100.000
           </p>
           <button
             onClick={() => setBannerOpen(false)}
@@ -126,9 +131,14 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleCart}
-              className="transition-colors hover:text-gray-300"
+              className="relative transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
+              {totalCount >= 0 && (
+                <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                  {totalCount}
+                </span>
+              )}
             </button>
             <button className="transition-colors hover:text-gray-300">
               <Search className="h-5 w-5" />

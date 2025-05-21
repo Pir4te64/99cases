@@ -45,10 +45,10 @@ const MarcaCelularGET = () => {
   );
 
   return (
-    <div className='mb-4 w-full my-6'>
+    <div className='my-6 mb-4 w-full'>
       {/* Selección de marca */}
-      <p className='uppercase mb-2'>¿Cuál es la marca de tu celular?</p>
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 w-full'>
+      <p className='mb-2 uppercase'>¿Cuál es la marca de tu celular?</p>
+      <div className='grid w-full grid-cols-2 gap-2 sm:grid-cols-4'>
         {uniqueBrands.map((brand) => (
           <button
             key={brand}
@@ -57,11 +57,10 @@ const MarcaCelularGET = () => {
               setSelectedModel(null); // Reinicia el modelo local
               setStoreSelectedModel(null); // Reinicia el modelo en el store también
             }}
-            className={`border border-black bg-white rounded-md py-2 uppercase transition-colors ${
-              selectedBrand === brand
-                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
-                : "hover:bg-gray-400 hover:border-gray-400 hover:text-white"
-            }`}>
+            className={`border border-black bg-white rounded-md py-2 uppercase transition-colors ${selectedBrand === brand
+              ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
+              : "hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+              }`}>
             {brand}
           </button>
         ))}
@@ -72,7 +71,7 @@ const MarcaCelularGET = () => {
 
       {/* Selección de modelo */}
       <div className='w-full'>
-        <p className='uppercase mb-2'>¿Cuál es el modelo de tu celular?</p>
+        <p className='mb-2 uppercase'>¿Cuál es el modelo de tu celular?</p>
         <Select<PhoneModel, false>
           options={filteredPhoneModels}
           value={selectedModel}

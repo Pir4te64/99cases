@@ -47,6 +47,7 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
             title={product.title}
             price={product.price}
             description={product.description}
+            oldPrice={product.oldPrice}
           />
         ))}
       </div>

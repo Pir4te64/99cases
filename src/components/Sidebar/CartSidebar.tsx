@@ -10,7 +10,6 @@ export default function CartSidebar() {
     isCartOpen,
     closeCart,
     cartItems,
-    subtotal,
     total,
     updateItemQuantity,
     removeFromCart,

@@ -1,9 +1,10 @@
 // src/components/Colores.jsx
+import React from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { colorSections } from "@/components/PersonalizadosID/ColorSectionsProvider";
+import transparentIcon from "@/assets/transparent.svg";
 
 const Colores = () => {
-  // Leemos y escribimos directamente en el store
   const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
   const setSelectedColor = usePersonalizadoStore((s) => s.setSelectedColor);
 
@@ -23,7 +24,6 @@ const Colores = () => {
   );
 };
 
-// Componente sin cambios lógicos, solo recibe onSelectColor del store
 interface ColorSectionProps {
   index: number;
   label: string;
@@ -40,19 +40,32 @@ const ColorSection: React.FC<ColorSectionProps> = ({
   onSelectColor,
 }) => (
   <div>
-    <h2 className="font-bold mb-2">{label}</h2>
-    <div className="flex flex-wrap gap-2">
+    <h2 className="mb-2 font-bold">{label}</h2>
+    <div className="mx-2 flex flex-wrap gap-2">
       {colors.map((color, colorIndex) => {
         const isSelected = selectedColor === color;
-        const style =
-          color === "transparent"
-            ? {
-              backgroundColor: "transparent",
-              backgroundImage:
-                "repeating-linear-gradient(45deg, red 0, red 2px, transparent 2px, transparent 4px)",
-            }
-            : { backgroundColor: color };
 
+        // Si es transparent, renderizamos el icono SVG
+        if (color === "transparent") {
+          return (
+            <button
+              key={colorIndex}
+              onClick={() => onSelectColor(index, color)}
+              title="Transparente"
+              className={`w-8 h-8 p-0 rounded-full border-2 transition-transform
+                ${isSelected ? "border-black scale-110" : "border-gray-300 hover:scale-105"}`}
+              aria-label="Color transparente"
+            >
+              <img
+                src={transparentIcon}
+                alt="Transparente"
+                className="h-full w-full rounded-full object-cover"
+              />
+            </button>
+          );
+        }
+
+        // Caso normal: color de fondo sólido
         return (
           <button
             key={colorIndex}
@@ -60,7 +73,7 @@ const ColorSection: React.FC<ColorSectionProps> = ({
             title={color}
             className={`w-8 h-8 rounded-full border-2 transition-transform
               ${isSelected ? "border-black scale-110" : "border-gray-300 hover:scale-105"}`}
-            style={style}
+            style={{ backgroundColor: color }}
             aria-label={`Color ${color}`}
           />
         );

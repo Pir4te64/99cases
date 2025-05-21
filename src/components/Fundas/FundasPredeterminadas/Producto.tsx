@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id: string;
-  descuento: string; // ejemplo: "14%"
+  descuento: string;
   imageSrc: string;
   title: string;
-  price: string; // ejemplo: "$1.200"
+  price: string;
   description: string;
   imageFinal: string;
+  oldPrice: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,14 +17,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageSrc,
   title,
   price,
-  imageFinal
+  imageFinal,
+  oldPrice
 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    const productData = { id, descuento, imageSrc, title, price, imageFinal };
+    const productData = { id, descuento, imageSrc, title, price, imageFinal, oldPrice };
     navigate(`/predeterminadas/${id}`, { state: { product: productData } });
   };
-
   // Convertir precio y descuento
   const numericPrice = Number(price.replace(/[^0-9.-]+/g, ""));
   const discountPercent = Number(descuento.replace("%", ""));

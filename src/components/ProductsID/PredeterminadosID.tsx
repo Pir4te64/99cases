@@ -14,7 +14,6 @@ import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();
   const product = location.state?.product;
-
   // Carrito
   const cartItems = useCartStore((state) => state.cartItems);
   const selectedQuantity = useCartStore((state) => state.selectedQuantity);
@@ -86,7 +85,7 @@ const PredeterminadosID: React.FC = () => {
   };
 
   const isSelectionComplete = Boolean(selectedModel && selectedBrand);
-
+  console.log(product);
   return (
     <PredeterminadoLayout>
       <div className="mx-auto bg-white px-4 py-6 text-black">
@@ -130,15 +129,17 @@ const PredeterminadosID: React.FC = () => {
                 <h1 className="mb-2 w-full text-4xl font-bold md:text-7xl">
                   {product.title}
                 </h1>
-                <p className="mb-2 text-lg font-semibold text-red-600">
+                <p className='mb-2 font-favoritExpandedBook text-xl font-semibold text-gray-900'>
                   {product.price}{" "}
                   {product.oldPrice && (
-                    <span className="ml-2 text-gray-500 line-through">
+                    <span className='ml-2 font-favoritExpandedBook text-gray-500 line-through'>
                       {product.oldPrice}
                     </span>
                   )}
                 </p>
-
+                <p className="mb-2 font-favoritExpandedBook font-bold uppercase text-red-600">
+                  3 vendidos en las últimas horas
+                </p>
                 <MarcaCelular />
 
                 {/* Contador y botón */}

@@ -58,6 +58,10 @@ export interface PersonalizadoState {
 
   flipV: boolean;
   toggleFlipV: () => void;
+
+  // Original antes de recorte
+  originalPhoto: string | null;
+  setOriginalPhoto: (src: string | null) => void;
 }
 
 const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
@@ -83,6 +87,9 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   rotation: 0,
   flipH: false,
   flipV: false,
+
+  // Añadido para conservar la imagen original
+  originalPhoto: null,
 
   // --- Acciones ---
   setProduct: (product) => set({ product }),
@@ -120,6 +127,9 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
 
   toggleFlipH: () => set((s) => ({ flipH: !s.flipH })),
   toggleFlipV: () => set((s) => ({ flipV: !s.flipV })),
+
+  // Acción para la original
+  setOriginalPhoto: (src) => set({ originalPhoto: src }),
 }));
 
 export default usePersonalizadoStore;

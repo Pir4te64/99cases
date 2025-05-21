@@ -50,14 +50,14 @@ const StepsButtons: React.FC = () => {
           <button
             key={key}
             onClick={onClick}
-            className={`flex items-center justify-start gap-2 rounded-md border border-black p-3 transition-colors md:gap-3 md:p-2
+            className={`flex items-center justify-start gap-2 rounded-md border border-black p-2 transition-colors md:gap-3 md:p-2
               ${isActive
                 ? "bg-red-600 text-white hover:bg-red-700"
                 : "bg-white text-black hover:bg-red-600 hover:text-white"
               }`}
           >
             <div
-              className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full font-favoritExpandedBook font-bold md:h-12 md:w-12 md:text-2xl
+              className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full font-dharmaGothicM italic font-bold md:h-12 md:w-12 md:text-2xl
                 ${isActive
                   ? "bg-white text-red-600"
                   : "bg-black text-white"
@@ -65,7 +65,7 @@ const StepsButtons: React.FC = () => {
             >
               {key}
             </div>
-            <span className="text-left font-favoritExpandedBook text-sm font-bold uppercase">
+            <span className="text-left font-dharmaGothicM text-3xl font-bold uppercase italic tracking-wide sm:text-4xl">
               {label}
             </span>
           </button>

@@ -95,33 +95,23 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* ─────────── Columna 3 (muy ancha) ─────────── */}
-          <div className="flex-1 overflow-y-auto p-4 py-10 font-favoritMono lg:w-[50%]">
+          <div className="flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono lg:w-[50%]">
             {product && <ProductInfo product={product} />}
 
             {product && (
               <>
                 <StepsButtons />
 
-                {showMarca && <MarcaCelular />}
+                <MarcaCelular />
 
-                {!showMarca && !isConImagen && step2Active && (
-                  <CustomName />
-                )}
+                <CustomName />
 
-                {!showMarca && !step2Active && (isPersonalizado || isConCaracteres) && showColors && (
-                  <Colores />
-                )}
+                <Colores />
 
-                {/* Acciones finales */}
-                {!(showMarca || step2Active || showColors) && (
-                  <>
-                    <PurchaseActions product={product!} offscreenRef={offscreenRef} />
-                    <ProductDetails />
-                    <div className="mt-6 text-center">
-                      <DownloadTextureButton offscreenRef={offscreenRef} />
-                    </div>
-                  </>
-                )}
+                <>
+                  <PurchaseActions product={product!} offscreenRef={offscreenRef} />
+                  <ProductDetails />
+                </>
               </>
             )}
           </div>

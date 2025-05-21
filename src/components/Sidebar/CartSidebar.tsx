@@ -115,21 +115,13 @@ export default function CartSidebar() {
         {cartItems.length > 0 && (
           <div className="mt-4">
             <div className="border-black pt-4">
-              <div className="mb-2 flex justify-between">
-                <span className="font-favoritExpandedBook text-sm font-bold text-black">
-                  $
-                  {subtotal.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
               <div className="mb-4 flex justify-between">
                 <span className="font-favoritExpandedBook text-sm uppercase text-black">
                   TOTAL
                 </span>
                 <span className="font-favoritExpandedBook text-sm font-bold text-black">
                   $
-                  {total.toLocaleString("es-AR", {
+                  {(total ?? 0).toLocaleString("es-AR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>

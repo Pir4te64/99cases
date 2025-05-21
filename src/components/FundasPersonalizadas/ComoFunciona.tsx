@@ -22,7 +22,7 @@ const ComoFunciona: React.FC = () => {
       </h2>
 
       {/* Contenedor de los pasos */}
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 justify-items-center gap-8 text-center md:grid-cols-5">
+      <div className="max-w-9xl mx-auto grid w-full grid-cols-2 justify-items-center gap-8 text-center md:grid-cols-5">
         {steps.map((step, index) => (
           <div
             key={index}
@@ -37,7 +37,7 @@ const ComoFunciona: React.FC = () => {
               onContextMenu={(e) => e.preventDefault()}
             />
             {/* Texto del paso con máximo de dos líneas */}
-            <p className="text-center font-favoritExpandedBook text-[10px] text-black">
+            <p className="text-center font-favoritExpandedBook text-sm text-black">
               <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-red-500 font-favoritExpandedBook font-bold text-white">
                 {index + 1}
               </span>

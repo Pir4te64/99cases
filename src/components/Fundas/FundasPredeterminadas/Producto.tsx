@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="mb-2 flex h-8 items-center justify-center">
         {descuento ? (
           <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritMono font-bold text-red-600">
-            {descuento} OFF
+            -{descuento} OFF
           </div>
         ) : (
           <div className="w-20" />
@@ -57,15 +57,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="mx-auto my-4 h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
         />
       </picture>
-      <h3 className="mb-2 font-favoritExpandedBook text-base font-bold text-gray-800 sm:text-lg">
+      <h3 className="sm:text-md mb-2 font-favoritExpandedBook text-base font-bold text-gray-800">
         {title}
       </h3>
       <div className="flex items-baseline justify-center gap-2">
-        <span className="font-favoritExpandedBook text-lg font-bold text-black sm:text-xl">
+        <span className="font-favoritExpandedBook text-lg font-bold text-black sm:text-sm">
           {price}
         </span>
         {descuento && (
-          <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-gray-400 line-through">
+          <span className="font-favoritExpandedBook text-sm font-bold text-gray-400 line-through sm:text-sm">
             {formattedOldPrice}
           </span>
         )}

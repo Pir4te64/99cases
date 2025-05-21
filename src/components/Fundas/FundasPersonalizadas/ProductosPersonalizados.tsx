@@ -73,7 +73,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       <div className="mb-2 flex h-8 items-center justify-center">
         {badge ? (
           <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritExpandedBook font-bold text-red-600">
-            {badge} OFF
+            -{badge} OFF
           </div>
         ) : (
           <div className="w-20" />
@@ -92,17 +92,17 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       </picture>
 
       {/* Título */}
-      <h3 className="/* más pequeño en mobile */ tamaño base sm+ grande md+ para que haga wrap y no provoque scroll mb-2 whitespace-normal font-favoritExpandedBook text-sm font-bold tracking-wide text-gray-800 sm:text-base md:text-lg">
+      <h3 className="mb-2 whitespace-normal font-favoritExpandedBook text-sm font-bold tracking-wide text-gray-800 sm:text-base md:text-sm">
         {title}
       </h3>
 
       {/* Precios */}
       <div className="flex items-baseline justify-center gap-2">
-        <span className="text-md font-favoritExpandedBook font-bold text-black sm:text-xl">
+        <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-black">
           {price}
         </span>
         {crossedPrice && (
-          <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-gray-400 line-through">
+          <span className="font-favoritExpandedBook text-sm font-bold text-gray-400 line-through sm:text-sm">
             {crossedPrice}
           </span>
         )}

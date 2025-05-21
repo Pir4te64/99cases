@@ -3,7 +3,7 @@
 const ProductDetails = () => {
   return (
     <div>
-      <details className="mb-4" open>
+      <details className="my-4" open>
         <summary className="mb-2 cursor-pointer font-bold">
           Descripción del producto
         </summary>
@@ -19,7 +19,7 @@ const ProductDetails = () => {
         </ul>
       </details>
 
-      <details className="mb-4" open>
+      <details className="my-4" open>
         <summary className="mb-2 cursor-pointer font-bold">
           Información del envío
         </summary>

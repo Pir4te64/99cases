@@ -1,4 +1,4 @@
-import creditIcon from "@/assets/Pagos/1.png";
+import creditIcon from "@/assets/Pagos/uno.svg";
 import storeIcon from "@/assets/Pagos/2.svg";
 import truckIcon from "@/assets/Pagos/elements.svg";
 

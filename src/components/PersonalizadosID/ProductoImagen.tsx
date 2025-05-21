@@ -11,13 +11,19 @@ const ProductImage = ({
   const windowWidth = usePersonalizadoStore((state: any) => state.windowWidth);
 
   return (
-    <div className="flex flex-none items-center justify-center">
-      <img
-        src={windowWidth < 1024 ? imgHorizontal : imgVertical}
-        alt="Imagen del producto"
-        className="max-h-full object-contain"
-        onContextMenu={(e) => e.preventDefault()}
-      />
+    <div className="flex flex-none items-start justify-center">
+      <picture>
+        <source
+          media="(min-width: 1024px)"
+          srcSet={imgVertical}
+        />
+        <img
+          src={imgHorizontal}
+          alt="Imagen del producto"
+          className="max-h-full object-contain"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      </picture>
     </div>
   );
 };

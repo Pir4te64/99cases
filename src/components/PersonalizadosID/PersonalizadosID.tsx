@@ -66,9 +66,9 @@ const PersonalizadosID: React.FC = () => {
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* GRID PRINCIPAL */}
-        <div className="container mx-auto flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
+        <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
           {/* ─────────── Columna 1 (angosta) ─────────── */}
-          <div className="flex-shrink-0 lg:w-1/6 lg:pr-4">
+          <div className="flex-shrink-0 lg:w-[20%] lg:pr-4">
             <div className="lg:sticky lg:top-24">
               <ProductImage
                 imgHorizontal={imgHorizontal}
@@ -78,8 +78,8 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* ─────────── Columna 2 (pequeña) ─────────── */}
-          <div className="flex-shrink-0 lg:w-1/4 lg:px-4">
-            <div className="flex justify-center lg:sticky lg:top-24">
+          <div className="flex-shrink-0 lg:w-[30%] lg:px-4">
+            <div className="flex justify-start lg:sticky lg:top-24">
               {product ? (
                 <div id="preview-container" className="h-full w-full">
                   {isConImagen && <CaseDesignerSimple frameUrl={product.imageSrc} />}
@@ -95,7 +95,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* ─────────── Columna 3 (muy ancha) ─────────── */}
-          <div className="flex-1 overflow-y-auto p-4 py-10 font-favoritMono">
+          <div className="flex-1 overflow-y-auto p-4 py-10 font-favoritMono lg:w-[50%]">
             {product && <ProductInfo product={product} />}
 
             {product && (

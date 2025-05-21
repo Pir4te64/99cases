@@ -75,6 +75,12 @@ export default function Navbar() {
                   >
                     Fundas Personalizadas
                   </Link>
+                  <Link
+                    to="/"
+                    className="block px-4 py-2 transition-colors hover:bg-white hover:text-black"
+                  >
+                    Calcos
+                  </Link>
                 </div>
               )}
             </div>
@@ -175,6 +181,12 @@ export default function Navbar() {
               className="transition-colors hover:text-gray-300"
             >
               Fundas Personalizadas
+            </Link>
+            <Link
+              to="/"
+              className="transition-colors hover:text-gray-300"
+            >
+              Calcos
             </Link>
 
             {isLoggedIn ? (

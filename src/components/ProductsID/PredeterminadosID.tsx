@@ -92,19 +92,25 @@ const PredeterminadosID: React.FC = () => {
       <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="container mx-auto flex flex-col gap-6 lg:flex-row">
+        <div className="flex flex-col gap-6 lg:flex-row">
           {/* Imagen de fondo (20%) */}
-          <div className="flex w-full items-center justify-center lg:w-[20%]">
-            <img
-              src={window.innerWidth < 1024 ? imgHorizontal : imgVertical}
-              alt="Imagen del producto"
-              className="max-w-full object-contain"
-              onContextMenu={(e) => e.preventDefault()}
-            />
+          <div className="flex w-full items-start justify-center lg:w-[20%]">
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcSet={imgVertical}
+              />
+              <img
+                src={imgHorizontal}
+                alt="Imagen del producto"
+                className="max-w-full object-contain"
+                onContextMenu={(e) => e.preventDefault()}
+              />
+            </picture>
           </div>
 
           {/* Imagen principal (30%) */}
-          <div className="flex w-full items-center justify-center lg:w-[30%]">
+          <div className="flex w-full items-start justify-center lg:w-[30%]">
             {product ? (
               <img
                 src={product.imageSrc}
@@ -155,9 +161,9 @@ const PredeterminadosID: React.FC = () => {
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 px-4 py-2 rounded transition-colors ${isSelectionComplete
+                    className={`flex-1 rounded border px-4 py-2 transition-colors ${isSelectionComplete
                       ? "bg-black text-white hover:bg-gray-800"
-                      : "opacity-50 cursor-not-allowed"
+                      : "cursor-not-allowed border-gray-300"
                       }`}
                   >
                     Agregar al Carrito
@@ -169,18 +175,18 @@ const PredeterminadosID: React.FC = () => {
                   disabled={!isSelectionComplete}
                   className={`border px-4 py-2 rounded mb-4 transition-colors ${isSelectionComplete
                     ? "border-black text-black hover:bg-black hover:text-white"
-                    : "opacity-50 cursor-not-allowed"
+                    : " cursor-not-allowed border-gray-300"
                     }`}
                 >
                   Comprar Ahora
                 </button>
 
-                <div className="justify-spinner-center my-4 flex items-center">
+                <div className="my-4 flex items-center justify-center">
                   <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" onContextMenu={(e) => e.preventDefault()} />
                 </div>
 
                 {/* Información adicional */}
-                <details className="mb-4">
+                <details className="my-4" open>
                   <summary className="cursor-pointer font-bold">
                     Descripción del producto
                   </summary>
@@ -195,7 +201,7 @@ const PredeterminadosID: React.FC = () => {
                     <li>No se despintan</li>
                   </ul>
                 </details>
-                <details>
+                <details className="my-4" open>
                   <summary className="cursor-pointer font-bold">
                     Información del envío
                   </summary>

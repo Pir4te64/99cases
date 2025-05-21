@@ -37,7 +37,7 @@ const ComoFunciona: React.FC = () => {
               onContextMenu={(e) => e.preventDefault()}
             />
             {/* Texto del paso con máximo de dos líneas */}
-            <p className="text-center font-favoritExpandedBook text-sm text-black">
+            <p className="text-center font-favoritExpandedBook text-[10px] text-black">
               <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-red-500 font-favoritExpandedBook font-bold text-white">
                 {index + 1}
               </span>

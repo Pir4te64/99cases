@@ -9,7 +9,7 @@ import MarcaCelular from "@/components/PersonalizadosID/Actions/MarcaCelular";
 import useCartStore, { CartItem } from "@/store/cartStore";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
 import { useCheckout } from "@/store/useCheckout";
-import PredeterminadoLayout from "../UI/PredeterminadoLayout";
+import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
 
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();

@@ -95,7 +95,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* ─────────── Columna 3 (muy ancha) ─────────── */}
-          <div className="flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono lg:w-[50%]">
+          <div className="h-[calc(100vh-10rem)] flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono scrollbar-hide lg:w-[50%]">
             {product && <ProductInfo product={product} />}
 
             {product && (

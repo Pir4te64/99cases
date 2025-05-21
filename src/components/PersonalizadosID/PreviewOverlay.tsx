@@ -1,93 +1,97 @@
 // src/components/PersonalizadosID/PreviewOverlay.tsx
-import { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 
+// Crea un “segundo trazo” usando text-shadow
+const makeShadow = (color: string, radius = 3) => {
+  if (color === "transparent") return "none";
+  const shadows: string[] = [];
+  for (let x = -radius; x <= radius; x++) {
+    for (let y = -radius; y <= radius; y++) {
+      if (x === 0 && y === 0) continue;
+      shadows.push(`${x}px ${y}px 0 ${color}`);
+    }
+  }
+  return shadows.join(", ");
+};
+
 const PreviewOverlay: React.FC = () => {
-  // ─── Hooks ───
   const product = usePersonalizadoStore(s => s.product);
   const userName = usePersonalizadoStore(s => s.userName);
   const userNumber = usePersonalizadoStore(s => s.userNumber);
-  const nameStyleIndex = usePersonalizadoStore(s => s.selectedNameStyle);
-  const numberStyleIndex = usePersonalizadoStore(s => s.selectedNumberStyle);
-  const sel = usePersonalizadoStore(s => s.selectedColors);
+  const selectedNameStyle = usePersonalizadoStore(s => s.selectedNameStyle);
+  const selectedNumberStyle = usePersonalizadoStore(s => s.selectedNumberStyle);
+  const selectedColors = usePersonalizadoStore(s => s.selectedColors);
 
   if (!product) return null;
   const isConCaracteres = product.tipo === "PERSONALIZADO_CON_CARACTERES";
 
-  // ─── Desempaquetar colores con valor por defecto blanco ───
+  // [rellenoNombre, borde1Nombre, borde2Nombre, rellenoNum, borde1Num, borde2Num]
   const [
     nFill, nBorder, nBorder2,
-    numFill, numBorder, numBorder2
+    numFill, numBorder, numBorder2,
   ] = [
-      sel[0] || "#ffffff",
-      sel[1] || "transparent",
-      sel[2] || "transparent",
-      sel[3] || "#ffffff",
-      sel[4] || "transparent",
-      sel[5] || "transparent",
+      selectedColors[0] || "#ffffff",
+      selectedColors[1] || "transparent",
+      selectedColors[2] || "transparent",
+      selectedColors[3] || "#ffffff",
+      selectedColors[4] || "transparent",
+      selectedColors[5] || "transparent",
     ];
-  const makeShadow = (color: string, off = 2) =>
-    color === "transparent"
-      ? "none"
-      : [
-        `${-off}px ${-off}px ${color}`,
-        `${off}px ${-off}px ${color}`,
-        `${-off}px ${off}px ${color}`,
-        `${off}px ${off}px ${color}`,
-      ].join(",");
 
-  // ─── (Opcional) debug SVG ───
+  // Debug SVG (opcional)
   useEffect(() => {
     if (!product.imageSrc?.toLowerCase().endsWith(".svg")) return;
     (async () => {
       try {
-        const resp = await fetch(product.imageSrc, { mode: "cors" });
-        await resp.text();
+        await fetch(product.imageSrc, { mode: "cors" }).then(r => r.text());
       } catch { }
     })();
   }, [product.imageSrc]);
 
+  const numTextShadow = useMemo(() => makeShadow(numBorder2, 3), [numBorder2]);
+  const nameTextShadow = useMemo(() => makeShadow(nBorder2, 2), [nBorder2]);
+
   return (
     <div className="relative h-full w-full overflow-hidden bg-white">
-      {/* imagen de fondo */}
       <img
         loading="lazy"
         src={product.imageSrc}
         alt={product.title || "Producto"}
-        onContextMenu={e => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
         onError={() =>
           console.error("❌ Error cargando imagen:", product.imageSrc)
         }
         className="w-full max-w-full object-contain"
       />
 
-      {/* overlay solo para PERSONALIZADO_CON_CARACTERES */}
       {isConCaracteres && (
         <div className="pointer-events-none absolute inset-0 mt-12 flex flex-col items-center justify-center">
-          {/* número arriba */}
+          {/* Número */}
           <span
             style={{
               color: numFill,
-              WebkitTextStroke: `1px ${numBorder}`,
-              textShadow: makeShadow(numBorder2, 1),
+              WebkitTextStroke: `2px ${numBorder}`,
+              textShadow: numTextShadow,
             }}
-            className={`text-[6rem]  text-center ${numberStyleIndex != null
-              ? `font-${customNumberStyles[numberStyleIndex]}`
+            className={`text-[6rem] text-center ${selectedNumberStyle != null
+              ? `font-${customNumberStyles[selectedNumberStyle]}`
               : "font-cmxShift2"
               }`}
           >
             {userNumber || "15"}
           </span>
-          {/* nombre abajo */}
+
+          {/* Nombre */}
           <span
             style={{
               color: nFill,
-              WebkitTextStroke: `1px ${nBorder}`,
-              textShadow: makeShadow(nBorder2, 2),
+              WebkitTextStroke: `2px ${nBorder}`,
+              textShadow: nameTextShadow,
             }}
-            className={`text-[2rem] stext-center ${nameStyleIndex != null
-              ? `font-${customNameStyles[nameStyleIndex]}`
+            className={`text-[2rem] text-center ${selectedNameStyle != null
+              ? `font-${customNameStyles[selectedNameStyle]}`
               : "font-cmxShift2"
               }`}
           >

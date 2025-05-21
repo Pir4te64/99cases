@@ -31,7 +31,9 @@ module.exports = {
     "italic",
     "font-bold"
   ],
-
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
   theme: {
     extend: {
       fontFamily: {

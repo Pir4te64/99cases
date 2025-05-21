@@ -21,7 +21,6 @@ const StepsButtons: React.FC = () => {
       label: "Elegir Modelo",
       onClick: toggleShowMarca,
       always: true,
-      isActive: showMarca,
     },
     {
       key: "2",
@@ -32,37 +31,25 @@ const StepsButtons: React.FC = () => {
       ),
       onClick: toggleStep2,
       always: !isPersonalizadoConImagen,
-      isActive: step2Active,
     },
     {
       key: "3",
       label: "Colores",
       onClick: toggleShowColors,
       always: !isPersonalizadoConImagen,
-      isActive: showColors,
     },
   ];
 
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-      {steps.map(({ key, label, onClick, always, isActive }) =>
+      {steps.map(({ key, label, onClick, always }) =>
         always ? (
           <button
             key={key}
             onClick={onClick}
-            className={`flex items-center justify-start gap-2 rounded-md border border-black p-2 transition-colors md:gap-3 md:p-2
-              ${isActive
-                ? "bg-red-600 text-white hover:bg-red-700"
-                : "bg-white text-black hover:bg-red-600 hover:text-white"
-              }`}
+            className="flex items-center justify-start gap-2 rounded-md border border-black bg-white p-2 text-black transition-colors hover:bg-red-600 hover:text-white md:gap-3 md:p-2"
           >
-            <div
-              className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full font-dharmaGothicM italic font-bold md:h-12 md:w-12 md:text-2xl
-                ${isActive
-                  ? "bg-white text-red-600"
-                  : "bg-black text-white"
-                }`}
-            >
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-black font-dharmaGothicM font-bold italic text-white md:h-12 md:w-12 md:text-2xl">
               {key}
             </div>
             <span className="text-left font-dharmaGothicM text-3xl font-bold uppercase italic tracking-wide sm:text-4xl">

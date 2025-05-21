@@ -40,7 +40,7 @@ const PreviewOverlay: React.FC = () => {
       selectedColors[5] || "transparent",
     ];
 
-  // Debug SVG (opcional)
+  // Opcional: debug SVG
   useEffect(() => {
     if (!product.imageSrc?.toLowerCase().endsWith(".svg")) return;
     (async () => {
@@ -50,8 +50,9 @@ const PreviewOverlay: React.FC = () => {
     })();
   }, [product.imageSrc]);
 
-  const numTextShadow = useMemo(() => makeShadow(numBorder2, 3), [numBorder2]);
-  const nameTextShadow = useMemo(() => makeShadow(nBorder2, 2), [nBorder2]);
+  // Aumentamos el radius para el segundo borde
+  const numTextShadow = useMemo(() => makeShadow(numBorder2, 5), [numBorder2]);
+  const nameTextShadow = useMemo(() => makeShadow(nBorder2, 4), [nBorder2]);
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white">
@@ -59,40 +60,37 @@ const PreviewOverlay: React.FC = () => {
         loading="lazy"
         src={product.imageSrc}
         alt={product.title || "Producto"}
-        onContextMenu={(e) => e.preventDefault()}
-        onError={() =>
-          console.error("❌ Error cargando imagen:", product.imageSrc)
-        }
+        onContextMenu={e => e.preventDefault()}
         className="w-full max-w-full object-contain"
       />
 
       {isConCaracteres && (
         <div className="pointer-events-none absolute inset-0 mt-12 flex flex-col items-center justify-center">
-          {/* Número */}
+          {/* Número con primer borde más ancho y segundo borde aumentado */}
           <span
             style={{
               color: numFill,
-              WebkitTextStroke: `2px ${numBorder}`,
-              textShadow: numTextShadow,
+              WebkitTextStroke: `4px ${numBorder}`,  // primer borde ampliado
+              textShadow: numTextShadow,             // segundo borde más grueso
             }}
             className={`text-[6rem] text-center ${selectedNumberStyle != null
-              ? `font-${customNumberStyles[selectedNumberStyle]}`
-              : "font-cmxShift2"
+                ? `font-${customNumberStyles[selectedNumberStyle]}`
+                : "font-cmxShift2"
               }`}
           >
             {userNumber || "15"}
           </span>
 
-          {/* Nombre */}
+          {/* Nombre con primer borde y segundo borde también más gruesos */}
           <span
             style={{
               color: nFill,
-              WebkitTextStroke: `2px ${nBorder}`,
-              textShadow: nameTextShadow,
+              WebkitTextStroke: `3px ${nBorder}`,   // primer borde ampliado
+              textShadow: nameTextShadow,            // segundo borde más grueso
             }}
             className={`text-[2rem] text-center ${selectedNameStyle != null
-              ? `font-${customNameStyles[selectedNameStyle]}`
-              : "font-cmxShift2"
+                ? `font-${customNameStyles[selectedNameStyle]}`
+                : "font-cmxShift2"
               }`}
           >
             {userName || "TU NOMBRE"}

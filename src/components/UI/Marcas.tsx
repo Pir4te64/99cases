@@ -8,13 +8,14 @@ const Marcas: React.FC = () => {
 
     return (
         <div className="bg-black py-8">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 justify-items-center items-center">
+            <div className="grid grid-cols-2 items-center justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-4">
                 {images.map((img, index) => (
                     <img
                         key={index}
                         src={img}
                         alt={`Marca ${index + 1}`}
-                        className="h-8 sm:h-10 md:h-10 object-contain"
+                        className="h-8 object-contain sm:h-10 md:h-10"
+                        onContextMenu={(e) => e.preventDefault()}
                     />
                 ))}
             </div>

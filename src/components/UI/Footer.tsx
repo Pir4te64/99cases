@@ -22,7 +22,8 @@ export default function Footer() {
                   loading="lazy"
                   src={logo}
                   alt="Logo de la marca 99% Cases"
-                  className="w-20 h-20"
+                  className="h-20 w-20"
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               </picture>
             </Link>
@@ -74,6 +75,7 @@ export default function Footer() {
               src={tarjetas}
               alt="Métodos de pago aceptados"
               className="max-w-md md:max-w-full"
+              onContextMenu={(e) => e.preventDefault()}
             />
           </picture>
         </div>
@@ -81,7 +83,12 @@ export default function Footer() {
         {/* Sección de envío (Andreani) */}
         <div className="flex justify-center">
           <picture>
-            <img loading="lazy" src={andreani} alt="Logística con Andreani" />
+            <img
+              loading="lazy"
+              src={andreani}
+              alt="Logística con Andreani"
+              onContextMenu={(e) => e.preventDefault()}
+            />
           </picture>
         </div>
 

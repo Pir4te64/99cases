@@ -141,7 +141,7 @@ export default function PurchaseActions({
       </button>
 
       <div className="flex justify-center">
-        <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" />
+        <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" onContextMenu={(e) => e.preventDefault()} />
       </div>
     </div>
   );

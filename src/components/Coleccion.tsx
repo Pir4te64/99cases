@@ -9,10 +9,10 @@ const Coleccion = () => {
 
   return (
     <div className="bg-black py-8 text-white" id="productos">
-      <div className="w-full px-4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="mx-auto grid w-full grid-cols-1 gap-4 px-4 md:grid-cols-2">
         {/* Tarjeta 1 */}
         <Link to="/predeterminadas">
-          <div ref={ref1} className="relative group overflow-hidden">
+          <div ref={ref1} className="group relative overflow-hidden">
             <picture>
               {/* Si tienes versiones optimizadas para mobile y desktop, se pueden definir aquí */}
               <source media="(min-width: 768px)" srcSet={fundaPredeterminada} />
@@ -21,7 +21,8 @@ const Coleccion = () => {
                 loading="lazy"
                 src={fundaPredeterminada}
                 alt="Funda Predeterminada"
-                className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                className="w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
+                onContextMenu={(e) => e.preventDefault()}
               />
 
             </picture>
@@ -30,12 +31,12 @@ const Coleccion = () => {
               className={`absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 z-0 ${isMobileVisible1 ? "opacity-100" : "opacity-0"
                 } md:group-hover:opacity-100`}
             ></div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 cursor-pointer">
+            <div className="absolute bottom-0 left-0 right-0 z-10 cursor-pointer p-4 text-center">
 
-              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic font-bold tracking-wide uppercase">
+              <h2 className="font-dharmaGothicM text-5xl font-bold uppercase italic tracking-wide md:text-9xl">
                 Fundas Predeterminadas
               </h2>
-              <p className="text-sm md:text-lg font-favoritMono uppercase mt-2">
+              <p className="mt-2 font-favoritMono text-sm uppercase md:text-lg">
                 Ver Colección
               </p>
             </div>
@@ -43,7 +44,7 @@ const Coleccion = () => {
         </Link>
         {/* Tarjeta 2 */}
         <Link to="/personalizadas">
-          <div ref={ref2} className="relative group overflow-hidden cursor-pointer">
+          <div ref={ref2} className="group relative cursor-pointer overflow-hidden">
             <picture>
               <source media="(min-width: 768px)" srcSet={fundaPersonalizada} />
               <source media="(max-width: 767px)" srcSet={fundaPersonalizada} />
@@ -51,7 +52,8 @@ const Coleccion = () => {
                 loading="lazy"
                 src={fundaPredeterminada}
                 alt="Funda Predeterminada"
-                className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                className="w-full transform object-cover transition-transform duration-300 group-hover:scale-105"
+                onContextMenu={(e) => e.preventDefault()}
               />
 
             </picture>
@@ -61,11 +63,11 @@ const Coleccion = () => {
                 } md:group-hover:opacity-100`}
             ></div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10 ">
-              <h2 className="text-5xl md:text-9xl font-dharmaGothicM italic font-bold tracking-wide uppercase">
+            <div className="absolute bottom-0 left-0 right-0 z-10 p-4 text-center">
+              <h2 className="font-dharmaGothicM text-5xl font-bold uppercase italic tracking-wide md:text-9xl">
                 Fundas Personalizadas
               </h2>
-              <p className="text-sm md:text-lg font-favoritMono uppercase mt-2">
+              <p className="mt-2 font-favoritMono text-sm uppercase md:text-lg">
                 Ver Colección
               </p>
             </div>

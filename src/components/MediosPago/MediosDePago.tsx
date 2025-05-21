@@ -142,7 +142,12 @@ export default function MediosDePago() {
           </button>
         </div>
 
-        <img src={tarjeta} alt="Métodos de pago" className="mx-auto max-w-full" />
+        <img
+          src={tarjeta}
+          alt="Métodos de pago"
+          className="mx-auto max-w-full"
+          onContextMenu={(e) => e.preventDefault()}
+        />
       </div>
 
       <div className="text-center">

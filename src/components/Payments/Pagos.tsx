@@ -22,16 +22,16 @@ const Pagos: React.FC = () => {
     ];
 
     return (
-        <div className="bg-red-600 text-white py-8">
-            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-red-600 py-8 text-white">
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 md:grid-cols-3">
                 {items.map((item, index) => (
                     <div key={index} className="flex items-center text-left">
-                        <img src={item.icon} alt={item.title} className="w-12 h-12 mr-4" />
+                        <img src={item.icon} alt={item.title} className="mr-4 h-12 w-12" onContextMenu={(e) => e.preventDefault()} />
                         <div>
-                            <h3 className="font-bold text-lg uppercase font-favoritMono">
+                            <h3 className="font-favoritMono text-lg font-bold uppercase">
                                 {item.title}
                             </h3>
-                            <p className="text-sm font-favoritMono">{item.description}</p>
+                            <p className="font-favoritMono text-sm">{item.description}</p>
                         </div>
                     </div>
                 ))}

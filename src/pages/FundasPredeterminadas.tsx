@@ -1,8 +1,8 @@
 import FundasPredeterminadasHeader from "@/components/FundasPredeterminadas/FundasPredeterminadasHeader";
-import Marcas from "@/components/Marcas";
-import Pagos from "@/components/Pagos";
-import Scroll from "@/components/Scroll";
-import TextHorizontal from "@/components/TextHorizontal";
+import Marcas from "@/components/UI/Marcas";
+import Pagos from "@/components/Payments/Pagos";
+import Scroll from "@/components/UI/Scroll";
+import TextHorizontal from "@/components/UI/TextHorizontal";
 import FormularioContacto from "@/components/FormularioContacto";
 import FundasPredeterminadasProductos from "@/components/FundasPredeterminadas/FundasPredeterminadasProductos";
 import { useEffect } from "react";

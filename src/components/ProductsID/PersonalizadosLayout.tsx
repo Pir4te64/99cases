@@ -1,10 +1,30 @@
 // src/components/PersonalizadosID/PersonalizadosLayout.tsx
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
 
 const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire({
+        title: "Antes de Personalizar un Case se le recomienda Iniciar sesión",
+        icon: "warning",
+        confirmButtonText: "Ir al Login",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { replace: true });
+        }
+      });
+    }
+  }, [navigate]);
+
   return (
-    // Evita overflow horizontal en toda la sección
     <div className="overflow-x-hidden">
       {/* Contenido principal */}
       <div className="min-w-0">

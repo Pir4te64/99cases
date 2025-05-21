@@ -1,7 +1,7 @@
 // src/pages/Pagos.tsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import useCartStore from "@/store/cartStore";
 import ResumenCompra from "@/components/Pagos/PagosProductos";
 import usePaymentFormStore from "@/store/pagoStore";

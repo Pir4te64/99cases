@@ -2,8 +2,8 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-import Breadcrumbs from "@/components/Breadcrumbs";
-import PersonalizadosLayout from "@/components/PersonalizadosLayout";
+import Breadcrumbs from "@/components/UI/Breadcrumbs";
+import PersonalizadosLayout from "@/components/ProductsID/PersonalizadosLayout";
 import imgVertical from "@/assets/predetermiandasCases/List.png";
 import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
 import ProductImage from "@/components/PersonalizadosID/ProductoImagen";

@@ -65,7 +65,7 @@ const Scroll: React.FC = () => {
   };
 
   return (
-    <div className="w-full mx-auto my-8">
+    <div className="mx-auto my-8 w-full">
       <div
         className="relative overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -77,13 +77,14 @@ const Scroll: React.FC = () => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {slides.map((slideImages, index) => (
-            <div key={index} className="w-full flex-shrink-0 flex">
+            <div key={index} className="flex w-full flex-shrink-0">
               {slideImages.map((img, i) => (
                 <div key={i} className={chunkSize === 2 ? "w-1/2" : "w-full"}>
                   <img
                     src={img}
                     alt={`Slide ${index}-${i}`}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                 </div>
               ))}
@@ -91,7 +92,7 @@ const Scroll: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="mt-4 flex justify-center gap-2">
         {Array.from({ length: totalSlides }).map((_, index) => (
           <button
             key={index}

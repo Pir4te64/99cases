@@ -73,7 +73,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       <div className="mb-2 flex h-8 items-center justify-center">
         {badge ? (
           <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritExpandedBook font-bold text-red-600">
-            {badge}
+            {badge} OFF
           </div>
         ) : (
           <div className="w-20" />
@@ -87,6 +87,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
           alt={title}
           className="mx-auto my-4 h-auto w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105"
           onError={(e) => console.error("No se cargó:", e.nativeEvent)}
+          onContextMenu={(e) => e.preventDefault()}
         />
       </picture>
 

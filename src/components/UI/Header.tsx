@@ -9,7 +9,13 @@ function Header() {
       {/* Imagen para dispositivos móviles */}
       <source media="(max-width: 767px)" srcSet={headerMobile} />
       {/* Fallback: se usará la imagen de escritorio */}
-      <img loading="lazy" src={headerDesktop} alt="header" className="w-full" />
+      <img
+        loading="lazy"
+        src={headerDesktop}
+        alt="header"
+        className="w-full"
+        onContextMenu={(e) => e.preventDefault()}
+      />
     </picture>
   );
 }

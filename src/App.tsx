@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "@/components/Layout";
+import Layout from "@/components/UI/Layout";
 import Home from "@/pages/Home";
 import FundasPredeterminadas from "@/pages/FundasPredeterminadas";
-import PredeterminadosID from "@/components/PredeterminadosID";
+import PredeterminadosID from "@/components/ProductsID/PredeterminadosID";
 import FundasPersonalizadas from "@/pages/FundasPersonalizadas";
 import PersonalizadosID from "@/components/PersonalizadosID/PersonalizadosID";
 import LoginPage from "@/pages/Login";

@@ -34,6 +34,7 @@ const ComoFunciona: React.FC = () => {
               src={step.img}
               alt={`Paso ${index + 1}`}
               className="mb-4 h-16 w-16"
+              onContextMenu={(e) => e.preventDefault()}
             />
             {/* Texto del paso con máximo de dos líneas */}
             <p className="text-center font-favoritExpandedBook text-sm text-black">

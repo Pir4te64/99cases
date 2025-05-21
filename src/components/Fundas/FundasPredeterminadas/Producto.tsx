@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="mb-2 flex h-8 items-center justify-center">
         {descuento ? (
           <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritMono font-bold text-red-600">
-            {descuento}
+            {descuento} OFF
           </div>
         ) : (
           <div className="w-20" />

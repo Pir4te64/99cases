@@ -24,16 +24,17 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
                   <img
                     src={item.imageSrc}
                     alt={item.title}
-                    className='w-24 h-auto object-cover'
+                    className='h-auto w-24 object-cover'
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   <div className='flex-1'>
-                    <p className='text-sm font-semibold font-favoritExpandedBook'>
+                    <p className='font-favoritExpandedBook text-sm font-semibold'>
                       {item.title}
                     </p>
-                    <p className='text-xs text-gray-600 font-favoritExpandedBook'>
+                    <p className='font-favoritExpandedBook text-xs text-gray-600'>
                       Cantidad: {item.quantity}
                     </p>
-                    <p className='text-sm font-bold font-favoritExpandedBook'>
+                    <p className='font-favoritExpandedBook text-sm font-bold'>
                       {item.price}
                     </p>
                   </div>
@@ -43,29 +44,29 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
           </ul>
 
           {/* Subtotal, Envío y Total */}
-          <div className=' pt-4'>
-            <div className='flex justify-between mb-2'>
-              <span className='text-sm uppercase text-gray-700 font-favoritExpandedBook'>
+          <div className='pt-4'>
+            <div className='mb-2 flex justify-between'>
+              <span className='font-favoritExpandedBook text-sm uppercase text-gray-700'>
                 SUBTOTAL
               </span>
-              <span className='text-sm font-bold font-favoritExpandedBook'>
+              <span className='font-favoritExpandedBook text-sm font-bold'>
                 $
                 {subtotal.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
               </span>
             </div>
-            <div className='flex justify-between mb-2'>
-              <span className='text-sm uppercase text-gray-700 font-favoritExpandedBook'>
+            <div className='mb-2 flex justify-between'>
+              <span className='font-favoritExpandedBook text-sm uppercase text-gray-700'>
                 COSTO DE ENVÍO
               </span>
-              <span className='text-sm font-bold font-favoritExpandedBook'>
+              <span className='font-favoritExpandedBook text-sm font-bold'>
                 A CONVENIR
               </span>
             </div>
-            <div className='flex justify-between mb-2'>
-              <span className='text-sm uppercase text-gray-700 font-favoritExpandedBook'>
+            <div className='mb-2 flex justify-between'>
+              <span className='font-favoritExpandedBook text-sm uppercase text-gray-700'>
                 TOTAL
               </span>
-              <span className='text-sm font-bold font-favoritExpandedBook'>
+              <span className='font-favoritExpandedBook text-sm font-bold'>
                 ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
               </span>
             </div>

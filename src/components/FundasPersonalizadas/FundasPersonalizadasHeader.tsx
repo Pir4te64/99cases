@@ -13,6 +13,7 @@ const FundasPredeterminadasHeader: React.FC = () => {
         src={headerDesktop}
         alt="Fundas Personalizadas Desktop"
         className="hidden h-full w-full object-cover md:block"
+        onContextMenu={(e) => e.preventDefault()}
       />
 
       {/* Imagen de fondo para mobile */}
@@ -20,6 +21,7 @@ const FundasPredeterminadasHeader: React.FC = () => {
         src={headerMobile}
         alt="Fundas Personalizadas Mobile"
         className="block h-full w-full object-cover md:hidden"
+        onContextMenu={(e) => e.preventDefault()}
       />
 
       {/* Capa gradiente (de negro a transparente) ocupando la mitad inferior */}

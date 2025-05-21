@@ -1,4 +1,4 @@
-import PaymentError from "@/components/PaymentError";
+import PaymentError from "@/components/Payments/PaymentError";
 
 const PaymentErrorPage = () => {
   return (

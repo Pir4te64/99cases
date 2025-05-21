@@ -4,6 +4,7 @@ import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
 import useAuthStore from "@/store/authStore";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <>
+    <div className="fixed inset-x-0 top-0 z-50">
       {bannerOpen && (
         <div className="relative flex items-center justify-center bg-red-600 px-4 py-2 text-white">
           <p className="text-md font-favoritMono">
@@ -46,7 +47,8 @@ export default function Navbar() {
         </div>
       )}
 
-      <nav className="relative mr-5 bg-black p-4 text-white">
+      {/* Sticky Navbar */}
+      <nav className="sticky top-0 z-50 bg-black p-4 text-white">
         {/* Desktop Navbar */}
         <div className="hidden items-center justify-between md:flex">
           {/* Izquierda: Productos + Sesión */}
@@ -105,7 +107,12 @@ export default function Navbar() {
           {/* Centro: Logo */}
           <div className="text-center text-xl font-bold">
             <Link to="/">
-              <img src={logo} alt="logo" className="mx-auto h-12 md:h-16" />
+              <img
+                src={logo}
+                alt="logo"
+                className="mx-auto h-12 md:h-16"
+                onContextMenu={(e) => e.preventDefault()}
+              />
             </Link>
           </div>
 
@@ -126,7 +133,12 @@ export default function Navbar() {
         {/* Mobile Navbar */}
         <div className="flex items-center justify-between md:hidden">
           <Link to="/">
-            <img src={logo} alt="logo" className="h-12" />
+            <img
+              src={logo}
+              alt="logo"
+              className="h-12"
+              onContextMenu={(e) => e.preventDefault()}
+            />
           </Link>
 
           <div className="flex items-center space-x-4">
@@ -191,6 +203,6 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-    </>
+    </div>
   );
 }

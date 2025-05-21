@@ -32,6 +32,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
         <img
           src={photo}
           alt="Personalizada"
+          onContextMenu={(e) => e.preventDefault()}
           className="absolute inset-0 z-0 h-full w-full object-cover"
           style={{
             transform,
@@ -44,6 +45,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
       <img
         src={frameUrl}
         alt="Carcasa"
+        onContextMenu={(e) => e.preventDefault()}
         className="pointer-events-none absolute inset-0 z-10 h-full w-full"
       />
     </div>

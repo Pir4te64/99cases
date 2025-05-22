@@ -59,7 +59,7 @@ const PersonalizadosID: React.FC = () => {
 
         <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
           {/* Columna 1 */}
-          <div className="flex-shrink-0 lg:w-[20%] lg:pr-4">
+          <div className="flex-shrink-0 lg:w-[10%] lg:pr-4">
             <div className="lg:sticky lg:top-24">
               <ProductImage
                 imgHorizontal={imgHorizontal}

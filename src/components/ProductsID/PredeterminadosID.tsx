@@ -85,7 +85,6 @@ const PredeterminadosID: React.FC = () => {
   };
 
   const isSelectionComplete = Boolean(selectedModel && selectedBrand);
-  console.log(product);
   return (
     <PredeterminadoLayout>
       <div className="mx-auto bg-white px-4 py-6 text-black">
@@ -93,7 +92,7 @@ const PredeterminadosID: React.FC = () => {
 
         <div className="flex flex-col gap-6 lg:flex-row">
           {/* Imagen de fondo (20%) */}
-          <div className="flex w-full items-start justify-center lg:w-[20%]">
+          <div className="flex flex-none items-start justify-center">
             <picture>
               <source
                 media="(min-width: 1024px)"
@@ -102,7 +101,7 @@ const PredeterminadosID: React.FC = () => {
               <img
                 src={imgHorizontal}
                 alt="Imagen del producto"
-                className="max-w-full object-contain"
+                className="h-[calc(100vh-20rem)] w-full object-contain"
                 onContextMenu={(e) => e.preventDefault()}
               />
             </picture>

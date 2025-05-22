@@ -8,9 +8,6 @@ const StepsButtons: React.FC = () => {
   const toggleStep2 = usePersonalizadoStore((s) => s.toggleStep2);
   const toggleShowColors = usePersonalizadoStore((s) => s.toggleShowColors);
   const product = usePersonalizadoStore((s) => s.product);
-  const showMarca = usePersonalizadoStore((s) => s.showMarca);
-  const step2Active = usePersonalizadoStore((s) => s.step2Active);
-  const showColors = usePersonalizadoStore((s) => s.showColors);
 
   const isPersonalizadoConImagen =
     product?.tipo === "PERSONALIZADO_CON_IMAGEN";
@@ -41,18 +38,18 @@ const StepsButtons: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+    <div className="flex flex-row gap-1 overflow-x-auto md:grid md:grid-cols-3 md:gap-3 md:overflow-visible">
       {steps.map(({ key, label, onClick, always }) =>
         always ? (
           <button
             key={key}
             onClick={onClick}
-            className="flex items-center justify-start gap-2 rounded-md border border-black bg-white p-2 text-black transition-colors hover:bg-red-600 hover:text-white md:gap-3 md:p-2"
+            className="flex items-center justify-start gap-1 rounded-md border border-black bg-white p-1 text-black transition-colors hover:bg-red-600 hover:text-white md:gap-3 md:p-2"
           >
-            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-black font-dharmaGothicM font-bold italic text-white md:h-12 md:w-12 md:text-2xl">
+            <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-black font-dharmaGothicM font-bold italic text-white md:h-12 md:w-12 md:text-2xl">
               {key}
             </div>
-            <span className="text-left font-dharmaGothicM text-3xl font-bold uppercase italic tracking-wide sm:text-4xl">
+            <span className="text-left font-dharmaGothicM text-xl font-bold uppercase italic tracking-wide sm:text-3xl md:text-4xl">
               {label}
             </span>
           </button>

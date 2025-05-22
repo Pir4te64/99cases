@@ -20,7 +20,7 @@ import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
 import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import FileUploader from "./Actions/FileUploader";
+import FileUploader from "@/components/PersonalizadosID/Actions/FileUploader";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();

@@ -1,7 +1,7 @@
 // src/components/PersonalizadosID/UploadAndEditImage.tsx
 import { useRef, useState, ChangeEvent, DragEvent } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import { CropModal } from "@/components/PersonalizadosID/UI/CropModal";
+import CropModal from "@/components/PersonalizadosID/UI/CropModal";
 
 export default function UploadAndEditImage() {
     // Leemos del store originalPhoto, photo, y sus setters

@@ -11,9 +11,12 @@ interface PurchaseActionsProps {
     id: string;
     title: string;
     imageSrc: string;
-    imageFinal: string;
+    imageFinal: string; // URL SVG con texto + número pre-renderizado
     price: number;
-    tipo: string;
+    tipo:
+    | "PERSONALIZADO_CON_IMAGEN"
+    | "PERSONALIZADO_CON_CARACTERES"
+    | "PERSONALIZADO";
   };
   previewRef: React.RefObject<HTMLDivElement>;
 }
@@ -24,7 +27,6 @@ export default function PurchaseActions({
 }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
 
-  // Zustand selectors
   const selectedQuantity = useCartStore((s) => s.selectedQuantity);
   const incrementSelectedQuantity = useCartStore(
     (s) => s.incrementSelectedQuantity
@@ -37,7 +39,6 @@ export default function PurchaseActions({
   const updateItemQuantity = useCartStore((s) => s.updateItemQuantity);
   const cartItems = useCartStore((s) => s.cartItems);
 
-  // Si ya existe en el carrito, usamos la cantidad guardada allí
   const cartItem = cartItems.find((it) => it.id === product.id);
   const displayQuantity = cartItem ? cartItem.quantity : selectedQuantity;
 
@@ -63,15 +64,8 @@ export default function PurchaseActions({
     try {
       let previewImage: string;
 
-      // 1) Si es CASE con CARACTERES, enviamos directamente imageFinal (que ya incluye fondo+texto)
-      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
-        previewImage = product.imageFinal;
-
-        // 2) Si es CASE con IMAGEN, capturamos el DOM completo (imagen + marco) con html2canvas
-      } else if (
-        product.tipo === "PERSONALIZADO_CON_IMAGEN" &&
-        previewRef.current
-      ) {
+      // 1) Si existe el contenedor de preview, capturamos TODO el DOM
+      if (previewRef.current) {
         const { width, height } =
           previewRef.current.getBoundingClientRect();
         const canvas = await html2canvas(previewRef.current, {
@@ -83,7 +77,14 @@ export default function PurchaseActions({
         });
         previewImage = canvas.toDataURL("image/png");
 
-        // 3) Para cualquier otro tipo de producto, usamos imageSrc
+        // 2) Si no hay ref pero es caracteres, fallback a imageFinal
+      } else if (
+        product.tipo === "PERSONALIZADO_CON_CARACTERES" &&
+        product.imageFinal
+      ) {
+        previewImage = product.imageFinal;
+
+        // 3) En cualquier otro caso, usamos imageSrc
       } else {
         previewImage = product.imageSrc;
       }
@@ -96,7 +97,6 @@ export default function PurchaseActions({
         quantity: displayQuantity,
       };
 
-      // Depuración en consola
       console.log("🛒 Payload enviado al carrito:", item);
 
       if (cartItem) {
@@ -104,6 +104,7 @@ export default function PurchaseActions({
       } else {
         addToCart(item);
       }
+
       openCart();
     } catch (err) {
       console.error("Error al generar imagen para el carrito:", err);
@@ -114,7 +115,6 @@ export default function PurchaseActions({
 
   const handleBuyNow = async () => {
     await handleAddToCart();
-    // Si tienes ruta de checkout:
     // navigate("/checkout");
   };
 

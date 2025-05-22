@@ -26,13 +26,12 @@ const PersonalizadosID: React.FC = () => {
   const product = usePersonalizadoStore((s) => s.product);
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
-  console.log(product);
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
-  // Referencia al contenedor de preview para html2canvas
+  // Ref para capturar TODO el preview (funda + texto/número)
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const PersonalizadosID: React.FC = () => {
             </div>
           </div>
 
-          {/* Columna 2: preview */}
+          {/* Columna 2: Preview */}
           <div className="flex-shrink-0 lg:w-[30%] lg:px-4">
             <div className="flex justify-start lg:sticky lg:top-24">
               {product ? (
@@ -93,7 +92,7 @@ const PersonalizadosID: React.FC = () => {
             </div>
           </div>
 
-          {/* Columna 3: detalles y acciones */}
+          {/* Columna 3: Detalles y acciones */}
           <div className="h-[calc(100vh-10rem)] flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono scrollbar-hide lg:w-[50%]">
             {product && <ProductInfo product={product} />}
 
@@ -102,7 +101,6 @@ const PersonalizadosID: React.FC = () => {
                 <StepsButtons />
                 <MarcaCelular />
 
-                {/* Ocultar nombre y colores si es con imagen */}
                 {!isConImagen && <CustomName />}
                 {!isConImagen && <Colores />}
 

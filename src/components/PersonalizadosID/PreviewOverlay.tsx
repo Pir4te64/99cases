@@ -1,5 +1,5 @@
 // src/components/PersonalizadosID/PreviewOverlay.tsx
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, forwardRef } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 
@@ -16,7 +16,7 @@ const makeShadow = (color: string, radius = 3) => {
   return shadows.join(", ");
 };
 
-const PreviewOverlay: React.FC = () => {
+const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
   const product = usePersonalizadoStore(s => s.product);
   const userName = usePersonalizadoStore(s => s.userName);
   const userNumber = usePersonalizadoStore(s => s.userNumber);
@@ -40,22 +40,14 @@ const PreviewOverlay: React.FC = () => {
       selectedColors[5] || "transparent",
     ];
 
-  // Opcional: debug SVG
-  useEffect(() => {
-    if (!product.imageSrc?.toLowerCase().endsWith(".svg")) return;
-    (async () => {
-      try {
-        await fetch(product.imageSrc, { mode: "cors" }).then(r => r.text());
-      } catch { }
-    })();
-  }, [product.imageSrc]);
-
-  // Aumentamos el radius para el segundo borde
   const numTextShadow = useMemo(() => makeShadow(numBorder2, 5), [numBorder2]);
   const nameTextShadow = useMemo(() => makeShadow(nBorder2, 4), [nBorder2]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-white">
+    <div
+      ref={ref}
+      className="relative h-full w-full overflow-hidden"
+    >
       <img
         loading="lazy"
         src={product.imageSrc}
@@ -66,31 +58,28 @@ const PreviewOverlay: React.FC = () => {
 
       {isConCaracteres && (
         <div className="pointer-events-none absolute inset-0 mt-12 flex flex-col items-center justify-center">
-          {/* Número con primer borde más ancho y segundo borde aumentado */}
           <span
             style={{
               color: numFill,
-              WebkitTextStroke: `4px ${numBorder}`,  // primer borde ampliado
-              textShadow: numTextShadow,             // segundo borde más grueso
+              WebkitTextStroke: `4px ${numBorder}`,
+              textShadow: numTextShadow,
             }}
             className={`text-[6rem] text-center ${selectedNumberStyle != null
-                ? `font-${customNumberStyles[selectedNumberStyle]}`
-                : "font-cmxShift2"
+              ? `font-${customNumberStyles[selectedNumberStyle]}`
+              : "font-cmxShift2"
               }`}
           >
             {userNumber || "15"}
           </span>
-
-          {/* Nombre con primer borde y segundo borde también más gruesos */}
           <span
             style={{
               color: nFill,
-              WebkitTextStroke: `3px ${nBorder}`,   // primer borde ampliado
-              textShadow: nameTextShadow,            // segundo borde más grueso
+              WebkitTextStroke: `3px ${nBorder}`,
+              textShadow: nameTextShadow,
             }}
             className={`text-[2rem] text-center ${selectedNameStyle != null
-                ? `font-${customNameStyles[selectedNameStyle]}`
-                : "font-cmxShift2"
+              ? `font-${customNameStyles[selectedNameStyle]}`
+              : "font-cmxShift2"
               }`}
           >
             {userName || "TU NOMBRE"}
@@ -99,6 +88,6 @@ const PreviewOverlay: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default PreviewOverlay;

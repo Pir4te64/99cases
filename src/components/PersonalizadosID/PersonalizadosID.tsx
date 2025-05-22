@@ -27,7 +27,6 @@ const PersonalizadosID: React.FC = () => {
   const product = usePersonalizadoStore((s) => s.product);
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
-  console.log(product);
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
@@ -52,8 +51,7 @@ const PersonalizadosID: React.FC = () => {
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
-  const isPersonalizadoConImagen =
-    product?.tipo === "PERSONALIZADO_CON_IMAGEN";
+  const isPersonalizadoConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
 
   return (
     <PersonalizadosLayout>
@@ -97,7 +95,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: detalles y acciones */}
-          <div className="mt-48 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
+          <div className="mt-56 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
             {product && <ProductInfo product={product} />}
 
             {product && (

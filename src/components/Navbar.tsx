@@ -30,7 +30,7 @@ export default function Navbar() {
     useAuthStore.getState().clearToken();
     window.location.href = "/";
   };
-  const cartItems = useCartStore(state => state.cartItems);
+  const cartItems = useCartStore((state) => state.cartItems);
 
   // si quieres mostrar la cantidad de líneas:
   const lineCount = cartItems.length;
@@ -40,8 +40,8 @@ export default function Navbar() {
     <div className="fixed inset-x-0 top-0 z-50">
       {bannerOpen && (
         <div className="relative flex items-center justify-center bg-red-600 px-4 py-2 text-white">
-          <p className="text-md font-favoritMono">
-            ENVÍO GRATIS A PARTIR DE  $100.000
+          <p className="text-sm font-favoritMono">
+            ENVÍO GRATIS A PARTIR DE $100.000
           </p>
           <button
             onClick={() => setBannerOpen(false)}
@@ -170,9 +170,14 @@ export default function Navbar() {
             </button>
             <button
               onClick={toggleCart}
-              className="transition-colors hover:text-gray-300"
+              className="relative transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
+              {lineCount >= 0 && (
+                <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                  {lineCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -192,10 +197,7 @@ export default function Navbar() {
             >
               Fundas Personalizadas
             </Link>
-            <Link
-              to="/"
-              className="transition-colors hover:text-gray-300"
-            >
+            <Link to="/" className="transition-colors hover:text-gray-300">
               Calcos
             </Link>
 

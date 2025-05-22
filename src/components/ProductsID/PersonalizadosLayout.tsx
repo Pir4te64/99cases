@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
 
-const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,9 +29,7 @@ const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <div className="overflow-x-hidden">
       {/* Contenido principal */}
-      <div className="min-w-0">
-        {children}
-      </div>
+      <div className="min-w-0">{children}</div>
 
       {/* Llamado a la acción y productos similares */}
       <section className="overflow-x-hidden text-center">

@@ -9,8 +9,7 @@ const StepsButtons: React.FC = () => {
   const toggleShowColors = usePersonalizadoStore((s) => s.toggleShowColors);
   const product = usePersonalizadoStore((s) => s.product);
 
-  const isPersonalizadoConImagen =
-    product?.tipo === "PERSONALIZADO_CON_IMAGEN";
+  const isPersonalizadoConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
 
   const steps = [
     {
@@ -49,14 +48,12 @@ const StepsButtons: React.FC = () => {
             <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-black font-dharmaGothicM font-bold italic text-white md:h-12 md:w-12 md:text-2xl">
               {key}
             </div>
-            <span className="text-left font-dharmaGothicM text-xl font-bold uppercase italic tracking-wide sm:text-3xl md:text-4xl">
+            <span className="text-left font-dharmaGothicM text-md font-bold uppercase italic tracking-wide sm:text-3xl md:text-4xl">
               {label}
             </span>
           </button>
         ) : null
       )}
-
-
     </div>
   );
 };

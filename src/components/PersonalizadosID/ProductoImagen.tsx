@@ -13,10 +13,7 @@ const ProductImage = ({
   return (
     <div className="flex flex-none items-start justify-center">
       <picture>
-        <source
-          media="(min-width: 1024px)"
-          srcSet={imgVertical}
-        />
+        <source media="(min-width: 1024px)" srcSet={imgVertical} />
         <img
           src={imgHorizontal}
           alt="Imagen del producto"

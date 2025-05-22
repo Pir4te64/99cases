@@ -17,8 +17,12 @@ const PredeterminadosID: React.FC = () => {
   // Carrito
   const cartItems = useCartStore((state) => state.cartItems);
   const selectedQuantity = useCartStore((state) => state.selectedQuantity);
-  const incrementSelectedQuantity = useCartStore((state) => state.incrementSelectedQuantity);
-  const decrementSelectedQuantity = useCartStore((state) => state.decrementSelectedQuantity);
+  const incrementSelectedQuantity = useCartStore(
+    (state) => state.incrementSelectedQuantity
+  );
+  const decrementSelectedQuantity = useCartStore(
+    (state) => state.decrementSelectedQuantity
+  );
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
   const addToCart = useCartStore((state) => state.addToCart);
   const openCart = useCartStore((state) => state.openCart);
@@ -94,14 +98,11 @@ const PredeterminadosID: React.FC = () => {
           {/* Imagen de fondo (20%) */}
           <div className="flex flex-none items-start justify-center">
             <picture>
-              <source
-                media="(min-width: 1024px)"
-                srcSet={imgVertical}
-              />
+              <source media="(min-width: 1024px)" srcSet={imgVertical} />
               <img
                 src={imgHorizontal}
                 alt="Imagen del producto"
-                className="h-[calc(100vh-20rem)] w-full object-contain"
+                className="max-h-full object-contain"
                 onContextMenu={(e) => e.preventDefault()}
               />
             </picture>
@@ -128,10 +129,10 @@ const PredeterminadosID: React.FC = () => {
                 <h1 className="mb-2 w-full text-4xl font-bold md:text-7xl">
                   {product.title}
                 </h1>
-                <p className='mb-2 font-favoritExpandedBook text-xl font-semibold text-gray-900'>
+                <p className="mb-2 font-favoritExpandedBook text-xl font-semibold text-gray-900">
                   {product.price}{" "}
                   {product.oldPrice && (
-                    <span className='ml-2 font-favoritExpandedBook text-gray-500 line-through'>
+                    <span className="ml-2 font-favoritExpandedBook text-gray-500 line-through">
                       {product.oldPrice}
                     </span>
                   )}
@@ -161,10 +162,11 @@ const PredeterminadosID: React.FC = () => {
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 rounded border px-4 py-2 transition-colors ${isSelectionComplete
-                      ? "bg-black text-white hover:bg-gray-800"
-                      : "cursor-not-allowed border-gray-300"
-                      }`}
+                    className={`flex-1 rounded border px-4 py-2 transition-colors ${
+                      isSelectionComplete
+                        ? "bg-black text-white hover:bg-gray-800"
+                        : "cursor-not-allowed border-gray-300"
+                    }`}
                   >
                     Agregar al Carrito
                   </button>
@@ -173,27 +175,33 @@ const PredeterminadosID: React.FC = () => {
                 <button
                   onClick={handleBuyNow}
                   disabled={!isSelectionComplete}
-                  className={`border px-4 py-2 rounded mb-4 transition-colors ${isSelectionComplete
-                    ? "border-black text-black hover:bg-black hover:text-white"
-                    : " cursor-not-allowed border-gray-300"
-                    }`}
+                  className={`border px-4 py-2 rounded mb-4 transition-colors ${
+                    isSelectionComplete
+                      ? "border-black text-black hover:bg-black hover:text-white"
+                      : " cursor-not-allowed border-gray-300"
+                  }`}
                 >
                   Comprar Ahora
                 </button>
 
                 <div className="my-4 flex items-center justify-center">
-                  <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" onContextMenu={(e) => e.preventDefault()} />
+                  <img
+                    src={tarjetas}
+                    alt="Tarjetas de pago"
+                    className="max-w-full"
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
                 </div>
 
                 {/* Información adicional */}
-                <details className="my-4" open>
-                  <summary className="cursor-pointer font-bold">
+                <details className="my-3 sm:my-4" open>
+                  <summary className="cursor-pointer text-base sm:text-lg md:text-xl font-bold">
                     Descripción del producto
                   </summary>
-                  <p className="mt-2">
+                  <p className="mt-2 text-sm sm:text-base">
                     Nuestras fundas combinan diseño único y materiales premium:
                   </p>
-                  <ul className="mt-2 list-inside list-disc">
+                  <ul className="mt-2 list-inside list-disc text-sm sm:text-base space-y-1">
                     <li>Parte trasera de aluminio.</li>
                     <li>Bordes de silicona reforzada.</li>
                     <li>Agarre antideslizante.</li>
@@ -201,14 +209,14 @@ const PredeterminadosID: React.FC = () => {
                     <li>No se despintan</li>
                   </ul>
                 </details>
-                <details className="my-4" open>
-                  <summary className="cursor-pointer font-bold">
+                <details className="my-3 sm:my-4" open>
+                  <summary className="cursor-pointer text-base sm:text-lg md:text-xl font-bold">
                     Información del envío
                   </summary>
-                  <p className="mt-2">🏭 Tiempo de producción: 1-3 días hábiles</p>
-                  <p className="mt-2">
-                    ✈️ Tiempo de envío: desde Santa Fe (Arg), 1-5 días.
-                  </p>
+                  <div className="space-y-2 text-sm sm:text-base">
+                    <p>🏭 Tiempo de producción: 1-3 días hábiles</p>
+                    <p>✈️ Tiempo de envío: desde Santa Fe (Arg), 1-5 días.</p>
+                  </div>
                 </details>
               </>
             ) : (

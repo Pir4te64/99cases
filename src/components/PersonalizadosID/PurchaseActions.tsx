@@ -64,10 +64,41 @@ export default function PurchaseActions({
     try {
       let previewImage: string;
 
-      // 1) Si existe el contenedor de preview, capturamos TODO el DOM
-      if (previewRef.current) {
-        const { width, height } =
-          previewRef.current.getBoundingClientRect();
+      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
+        // 1) Si tenemos el contenedor de preview...
+        if (previewRef.current) {
+          const el = previewRef.current;
+
+          // Guarda estilo previo para restaurar luego
+          const prevBg = el.style.backgroundImage;
+
+          // Aplica imageFinal como fondo
+          el.style.backgroundImage = `url(${product.imageFinal})`;
+          el.style.backgroundSize = "contain";
+          el.style.backgroundPosition = "center";
+          el.style.backgroundRepeat = "no-repeat";
+
+          // Captura con html2canvas
+          const { width, height } = el.getBoundingClientRect();
+          const canvas = await html2canvas(el, {
+            useCORS: true,
+            backgroundColor: null,
+            width,
+            height,
+            scale: 300 / 96,
+          });
+          previewImage = canvas.toDataURL("image/png");
+
+          // Restaura estilo original
+          el.style.backgroundImage = prevBg;
+        } else {
+          // Fallback si previewRef no está
+          previewImage = product.imageFinal;
+        }
+
+      } else if (previewRef.current) {
+        // Lógica existente para PERSONALIZADO_CON_IMAGEN y PERSONALIZADO
+        const { width, height } = previewRef.current.getBoundingClientRect();
         const canvas = await html2canvas(previewRef.current, {
           useCORS: true,
           backgroundColor: null,
@@ -77,15 +108,8 @@ export default function PurchaseActions({
         });
         previewImage = canvas.toDataURL("image/png");
 
-        // 2) Si no hay ref pero es caracteres, fallback a imageFinal
-      } else if (
-        product.tipo === "PERSONALIZADO_CON_CARACTERES" &&
-        product.imageFinal
-      ) {
-        previewImage = product.imageFinal;
-
-        // 3) En cualquier otro caso, usamos imageSrc
       } else {
+        // Fallback general
         previewImage = product.imageSrc;
       }
 
@@ -97,15 +121,13 @@ export default function PurchaseActions({
         quantity: displayQuantity,
       };
 
-      console.log("🛒 Payload enviado al carrito:", item);
-
       if (cartItem) {
         updateItemQuantity(product.id, displayQuantity);
       } else {
         addToCart(item);
       }
-
       openCart();
+
     } catch (err) {
       console.error("Error al generar imagen para el carrito:", err);
     } finally {

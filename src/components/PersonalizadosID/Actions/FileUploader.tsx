@@ -1,6 +1,5 @@
 // src/components/PersonalizadosID/UploadAndEditImage.tsx
-
-import React, { useRef, useState, ChangeEvent, DragEvent } from "react";
+import { useRef, useState, ChangeEvent, DragEvent } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { CropModal } from "@/components/PersonalizadosID/UI/CropModal";
 
@@ -51,15 +50,16 @@ export default function UploadAndEditImage() {
     return (
         <div className="space-y-6 text-center">
             {/* Zona de subida */}
+
             <div
                 onDragOver={e => e.preventDefault()}
                 onDrop={onDrop}
-                className="rounded-lg border-2 border-dashed border-gray-400 p-6 text-center"
+                className="rounded-lg border-2 border-gray-400 p-6 text-center"
             >
                 <p className="mb-4 text-gray-600">Arrastrar y soltar foto o</p>
                 <button
                     onClick={() => inputRef.current?.click()}
-                    className="rounded bg-gray-800 px-6 py-2 text-white transition hover:bg-gray-700"
+                    className="rounded bg-[#666666] px-6 py-2 text-white transition hover:bg-gray-700"
                 >
                     SUBIR ARCHIVO
                 </button>

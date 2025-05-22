@@ -20,6 +20,7 @@ import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
 import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
+import FileUploader from "./Actions/FileUploader";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
@@ -51,6 +52,8 @@ const PersonalizadosID: React.FC = () => {
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
+  const isPersonalizadoConImagen =
+    product?.tipo === "PERSONALIZADO_CON_IMAGEN";
 
   return (
     <PersonalizadosLayout>
@@ -59,7 +62,7 @@ const PersonalizadosID: React.FC = () => {
 
         <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
           {/* Columna 1 */}
-          <div className="hidden lg:block lg:w-[10%] lg:flex-shrink-0 lg:pr-4">
+          <div className="hidden lg:block lg:w-[10%] lg:flex-shrink-0">
             <div className="lg:sticky lg:top-24">
               <ProductImage
                 imgHorizontal={imgHorizontal}
@@ -94,7 +97,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: detalles y acciones */}
-          <div className="mt-[calc(40vh+2rem)] h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
+          <div className="mt-48 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
             {product && <ProductInfo product={product} />}
 
             {product && (
@@ -105,7 +108,11 @@ const PersonalizadosID: React.FC = () => {
                 {/* Ocultar nombre y colores si es con imagen */}
                 {!isConImagen && <CustomName />}
                 {!isConImagen && <Colores />}
-
+                {isPersonalizadoConImagen && (
+                  <div className="md:col-span-3">
+                    <FileUploader />
+                  </div>
+                )}
                 <PurchaseActions
                   product={{
                     id: product.id,

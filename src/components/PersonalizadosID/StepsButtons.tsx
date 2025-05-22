@@ -56,11 +56,7 @@ const StepsButtons: React.FC = () => {
         ) : null
       )}
 
-      {isPersonalizadoConImagen && (
-        <div className="md:col-span-3">
-          <FileUploader />
-        </div>
-      )}
+
     </div>
   );
 };

@@ -25,7 +25,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
 
   return (
     <div
-      className="/* full ancho en móvil */ fijo md+ alto relative h-[300px] w-full select-none overflow-hidden md:h-[500px] md:w-[400px]"
+      className="relative mt-28 h-[300px] w-full select-none overflow-hidden md:mt-0 md:h-[500px] md:w-[400px]"
     >
       {/* FOTO DEL CLIENTE */}
       {photo && (

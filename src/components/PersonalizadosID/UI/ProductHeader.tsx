@@ -2,7 +2,7 @@
 
 const ProductHeader = ({ product }: { product: any }) => {
   return (
-    <div className="px-2 md:px-0">
+    <div className="mt-20 px-2 md:mt-0 md:px-0">
       <h1 className='mb-1.5 w-full font-favoritExpandedBook text-xl font-bold sm:text-2xl md:mb-2 md:text-4xl'>
         {product.title}
       </h1>

@@ -10,11 +10,12 @@ const FundasPersonalizadasProductos: React.FC<ProductsPersonalizadasVerTodosProp
   useEffect(() => {
     fetchAndAdaptProducts().then(setProducts);
   }, []);
-
+  console.log(products);
+  const filteredProducts = products.filter(product => product.tipo === "PERSONALIZADO_CON_CARACTERES" || product.tipo === "PERSONALIZADO_CON_IMAGEN");
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center bg-white px-4 py-8">
       <div className="grid w-full max-w-7xl grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCardPersonalizadas
             key={product.id}
             id={product.id.toString()}

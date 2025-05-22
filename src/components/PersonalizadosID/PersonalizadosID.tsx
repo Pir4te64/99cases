@@ -59,7 +59,7 @@ const PersonalizadosID: React.FC = () => {
 
         <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
           {/* Columna 1 */}
-          <div className="flex-shrink-0 lg:w-[10%] lg:pr-4">
+          <div className="hidden lg:block lg:w-[10%] lg:flex-shrink-0 lg:pr-4">
             <div className="lg:sticky lg:top-24">
               <ProductImage
                 imgHorizontal={imgHorizontal}
@@ -69,7 +69,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 2: preview */}
-          <div className="flex-shrink-0 lg:w-[30%] lg:px-4">
+          <div className="fixed left-0 top-0 z-10 w-full bg-white p-4 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
             <div className="flex justify-start lg:sticky lg:top-24">
               {product ? (
                 <div
@@ -94,7 +94,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: detalles y acciones */}
-          <div className="h-[calc(100vh-10rem)] flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono scrollbar-hide lg:w-[50%]">
+          <div className="mt-[calc(40vh+2rem)] h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
             {product && <ProductInfo product={product} />}
 
             {product && (

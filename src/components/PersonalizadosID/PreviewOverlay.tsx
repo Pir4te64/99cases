@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, forwardRef } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 
-// Crea un “segundo trazo” usando text-shadow
+// Crea un "segundo trazo" usando text-shadow
 const makeShadow = (color: string, radius = 3) => {
   if (color === "transparent") return "none";
   const shadows: string[] = [];
@@ -46,25 +46,25 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
-      className="relative h-full w-full overflow-hidden"
+      className="relative mt-28 h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
     >
       <img
         loading="lazy"
         src={product.imageSrc}
         alt={product.title || "Producto"}
         onContextMenu={e => e.preventDefault()}
-        className="w-full max-w-full object-contain"
+        className="h-full w-full object-contain md:max-w-full"
       />
 
       {isConCaracteres && (
-        <div className="pointer-events-none absolute inset-0 mt-12 flex flex-col items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <span
             style={{
               color: numFill,
               WebkitTextStroke: `4px ${numBorder}`,
               textShadow: numTextShadow,
             }}
-            className={`text-[6rem] text-center ${selectedNumberStyle != null
+            className={`text-[3rem] sm:text-[4rem] md:text-[6rem] text-center ${selectedNumberStyle != null
               ? `font-${customNumberStyles[selectedNumberStyle]}`
               : "font-cmxShift2"
               }`}
@@ -77,7 +77,7 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
               WebkitTextStroke: `3px ${nBorder}`,
               textShadow: nameTextShadow,
             }}
-            className={`text-[2rem] text-center ${selectedNameStyle != null
+            className={`text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] text-center ${selectedNameStyle != null
               ? `font-${customNameStyles[selectedNameStyle]}`
               : "font-cmxShift2"
               }`}

@@ -37,7 +37,6 @@ export default function CartSidebar() {
   const increaseQuantity = (id: string, currentQuantity: number): void => {
     updateItemQuantity(id, currentQuantity + 1);
   };
-  console.log(cartItems);
 
   return (
     <div

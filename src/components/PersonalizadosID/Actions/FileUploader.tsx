@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, ChangeEvent, DragEvent } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import { CropModal } from "../UI/CropModal";
+import { CropModal } from "@/components/PersonalizadosID/UI/CropModal";
 
 export default function UploadAndEditImage() {
     // Leemos del store originalPhoto, photo, y sus setters

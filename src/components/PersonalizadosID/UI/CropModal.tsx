@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
-import { getCroppedImg } from "../utils/cropUtils";
+import { getCroppedImg } from "@/components/PersonalizadosID/utils/cropUtils";
 
 interface CropModalProps {
     imageSrc: string;

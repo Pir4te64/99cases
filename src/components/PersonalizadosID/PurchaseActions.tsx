@@ -1,4 +1,5 @@
 // src/components/PersonalizadosID/PurchaseActions.tsx
+
 import React, { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import html2canvas from "html2canvas";
@@ -10,18 +11,20 @@ interface PurchaseActionsProps {
     id: string;
     title: string;
     imageSrc: string;
+    imageFinal: string;
     price: number;
+    tipo: string;
   };
-  offscreenRef: React.RefObject<HTMLDivElement>;
+  previewRef: React.RefObject<HTMLDivElement>;
 }
 
 export default function PurchaseActions({
   product,
-  offscreenRef,
+  previewRef,
 }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
 
-  // Cantidad seleccionada y acciones del carrito
+  // Zustand selectors
   const selectedQuantity = useCartStore((s) => s.selectedQuantity);
   const incrementSelectedQuantity = useCartStore(
     (s) => s.incrementSelectedQuantity
@@ -34,7 +37,7 @@ export default function PurchaseActions({
   const updateItemQuantity = useCartStore((s) => s.updateItemQuantity);
   const cartItems = useCartStore((s) => s.cartItems);
 
-  // Si ya está en el carrito, usamos su cantidad
+  // Si ya existe en el carrito, usamos la cantidad guardada allí
   const cartItem = cartItems.find((it) => it.id === product.id);
   const displayQuantity = cartItem ? cartItem.quantity : selectedQuantity;
 
@@ -58,22 +61,33 @@ export default function PurchaseActions({
   const handleAddToCart = async () => {
     setLoading(true);
     try {
-      // Generar la imagen de preview desde el offscreen
-      let previewImage = product.imageSrc;
-      if (offscreenRef.current) {
+      let previewImage: string;
+
+      // 1) Si es CASE con CARACTERES, enviamos directamente imageFinal (que ya incluye fondo+texto)
+      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
+        previewImage = product.imageFinal;
+
+        // 2) Si es CASE con IMAGEN, capturamos el DOM completo (imagen + marco) con html2canvas
+      } else if (
+        product.tipo === "PERSONALIZADO_CON_IMAGEN" &&
+        previewRef.current
+      ) {
         const { width, height } =
-          offscreenRef.current.getBoundingClientRect();
-        const canvas = await html2canvas(offscreenRef.current, {
+          previewRef.current.getBoundingClientRect();
+        const canvas = await html2canvas(previewRef.current, {
           useCORS: true,
           backgroundColor: null,
           width,
           height,
-          scale: 300 / 96, // opcional: para 300 DPI
+          scale: 300 / 96,
         });
         previewImage = canvas.toDataURL("image/png");
+
+        // 3) Para cualquier otro tipo de producto, usamos imageSrc
+      } else {
+        previewImage = product.imageSrc;
       }
 
-      // Preparar el ítem
       const item: CartItem = {
         id: product.id,
         title: product.title,
@@ -82,13 +96,14 @@ export default function PurchaseActions({
         quantity: displayQuantity,
       };
 
-      // Agregar o actualizar
+      // Depuración en consola
+      console.log("🛒 Payload enviado al carrito:", item);
+
       if (cartItem) {
         updateItemQuantity(product.id, displayQuantity);
       } else {
         addToCart(item);
       }
-
       openCart();
     } catch (err) {
       console.error("Error al generar imagen para el carrito:", err);
@@ -99,7 +114,7 @@ export default function PurchaseActions({
 
   const handleBuyNow = async () => {
     await handleAddToCart();
-    // redirigir al checkout si lo tienes implementado
+    // Si tienes ruta de checkout:
     // navigate("/checkout");
   };
 
@@ -108,16 +123,16 @@ export default function PurchaseActions({
       <div className="my-4 flex items-center space-x-3">
         <button
           onClick={handleDecrement}
-          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
           disabled={loading}
+          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
         >
           <Minus size={16} />
         </button>
         <span className="font-semibold">{displayQuantity}</span>
         <button
           onClick={handleIncrement}
-          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
           disabled={loading}
+          className="rounded border border-gray-400 p-1 hover:bg-gray-200 disabled:opacity-50"
         >
           <Plus size={16} />
         </button>
@@ -130,8 +145,6 @@ export default function PurchaseActions({
         </button>
       </div>
 
-
-
       <button
         onClick={handleBuyNow}
         disabled={loading}
@@ -141,7 +154,12 @@ export default function PurchaseActions({
       </button>
 
       <div className="flex justify-center">
-        <img src={tarjetas} alt="Tarjetas de pago" className="max-w-full" onContextMenu={(e) => e.preventDefault()} />
+        <img
+          src={tarjetas}
+          alt="Tarjetas de pago"
+          className="max-w-full"
+          onContextMenu={(e) => e.preventDefault()}
+        />
       </div>
     </div>
   );

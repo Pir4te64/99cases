@@ -1,4 +1,5 @@
 // src/components/PersonalizadosID.tsx
+
 import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -19,25 +20,20 @@ import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
 import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import OffscreenTexture from "@/components/PersonalizadosID/UI/OffscreenTexture";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
   const product = usePersonalizadoStore((s) => s.product);
-  /*  const showMarca = usePersonalizadoStore((s) => s.showMarca);
-   const step2Active = usePersonalizadoStore((s) => s.step2Active);
-   const showColors = usePersonalizadoStore((s) => s.showColors); */
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
+  console.log(product);
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
-  console.log(isConImagen, isConCaracteres, isPersonalizado);
 
-  const offscreenRef = useRef<HTMLDivElement>(null);
-
-  /* ---------- efectos ---------- */
+  // Referencia al contenedor de preview para html2canvas
+  const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (location.state?.product) setProduct(location.state.product);
@@ -50,24 +46,19 @@ const PersonalizadosID: React.FC = () => {
     return () => window.removeEventListener("resize", onResize);
   }, [setWindowWidth]);
 
-  /* ---------- breadcrumbs ---------- */
-
   const breadcrumbItems = [
     { label: "Inicio", link: "/" },
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
 
-  /* ---------- render ---------- */
-
   return (
     <PersonalizadosLayout>
       <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        {/* GRID PRINCIPAL */}
         <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
-          {/* ─────────── Columna 1 (angosta) ─────────── */}
+          {/* Columna 1 */}
           <div className="flex-shrink-0 lg:w-[20%] lg:pr-4">
             <div className="lg:sticky lg:top-24">
               <ProductImage
@@ -77,14 +68,22 @@ const PersonalizadosID: React.FC = () => {
             </div>
           </div>
 
-          {/* ─────────── Columna 2 (pequeña) ─────────── */}
+          {/* Columna 2: preview */}
           <div className="flex-shrink-0 lg:w-[30%] lg:px-4">
             <div className="flex justify-start lg:sticky lg:top-24">
               {product ? (
-                <div id="preview-container" className="h-full w-full">
-                  {isConImagen && <CaseDesignerSimple frameUrl={product.imageSrc} />}
+                <div
+                  id="preview-container"
+                  ref={previewRef}
+                  className="h-full w-full"
+                >
+                  {isConImagen && (
+                    <CaseDesignerSimple frameUrl={product.imageSrc} />
+                  )}
                   {isConCaracteres && <PreviewOverlay />}
-                  {isPersonalizado && <SvgColorEditor svgUrl={product.imageSrc} />}
+                  {isPersonalizado && (
+                    <SvgColorEditor svgUrl={product.imageSrc} />
+                  )}
                 </div>
               ) : (
                 <p className="font-favoritMono font-bold italic">
@@ -94,29 +93,35 @@ const PersonalizadosID: React.FC = () => {
             </div>
           </div>
 
-          {/* ─────────── Columna 3 (muy ancha) ─────────── */}
+          {/* Columna 3: detalles y acciones */}
           <div className="h-[calc(100vh-10rem)] flex-1 space-y-4 overflow-y-auto py-10 font-favoritMono scrollbar-hide lg:w-[50%]">
             {product && <ProductInfo product={product} />}
 
             {product && (
               <>
                 <StepsButtons />
-
                 <MarcaCelular />
+
+                {/* Ocultar nombre y colores si es con imagen */}
                 {!isConImagen && <CustomName />}
                 {!isConImagen && <Colores />}
 
-                <>
-                  <PurchaseActions product={product!} offscreenRef={offscreenRef} />
-                  <ProductDetails />
-                </>
+                <PurchaseActions
+                  product={{
+                    id: product.id,
+                    title: product.title,
+                    imageSrc: product.imageSrc,
+                    price: product.price,
+                    tipo: product.tipo,
+                    imageFinal: product.imageFinal,
+                  }}
+                  previewRef={previewRef}
+                />
+                <ProductDetails />
               </>
             )}
           </div>
         </div>
-
-        {/* Textura off-screen */}
-        <OffscreenTexture ref={offscreenRef} />
       </div>
     </PersonalizadosLayout>
   );

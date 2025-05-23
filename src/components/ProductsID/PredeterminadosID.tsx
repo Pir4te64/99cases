@@ -11,6 +11,7 @@ import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phon
 import { useCheckout } from "@/store/useCheckout";
 import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
 import premiumCase from "@/assets/marcas/premiumCase.svg";
+import Features from "../Features";
 
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();
@@ -97,17 +98,7 @@ const PredeterminadosID: React.FC = () => {
 
         <div className="flex flex-col gap-6 lg:flex-row">
           {/* Imagen de fondo (20%) */}
-          <div className="flex flex-none items-start justify-center">
-            <picture>
-              <source media="(min-width: 1024px)" srcSet={imgVertical} />
-              <img
-                src={imgHorizontal}
-                alt="Imagen del producto"
-                className="max-h-full object-contain"
-                onContextMenu={(e) => e.preventDefault()}
-              />
-            </picture>
-          </div>
+          <Features />
 
           {/* Imagen principal (30%) */}
           <div className="flex w-full items-start justify-center lg:w-[30%]">

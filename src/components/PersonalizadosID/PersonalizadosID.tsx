@@ -21,6 +21,7 @@ import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import FileUploader from "@/components/PersonalizadosID/Actions/FileUploader";
+import Features from "../Features";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
@@ -59,13 +60,8 @@ const PersonalizadosID: React.FC = () => {
 
         <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
           {/* Columna 1 */}
-          <div className="hidden lg:block lg:w-[10%] lg:flex-shrink-0">
-            <div className="lg:sticky lg:top-24">
-              <ProductImage
-                imgHorizontal={imgHorizontal}
-                imgVertical={imgVertical}
-              />
-            </div>
+          <div className="hidden lg:block lg:w-1/12">
+            <Features />
           </div>
 
           {/* Columna 2: preview */}
@@ -94,7 +90,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: detalles y acciones */}
-          <div className="mt-56 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
+          <div className="mt-40 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
             {product && <ProductInfo product={product} />}
 
             {product && (

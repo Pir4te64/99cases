@@ -26,7 +26,7 @@ const features = [
 
 const Features: React.FC = () => {
   return (
-    <div className="flex w-full flex-row flex-wrap justify-center gap-4 lg:flex-col lg:w-1/12 lg:gap-6">
+    <div className="flex w-full flex-row flex-wrap justify-start gap-4 lg:w-1/12 lg:flex-col lg:gap-6">
       {features.map(({ icon, title }, idx) => (
         <div
           key={idx}
@@ -36,11 +36,11 @@ const Features: React.FC = () => {
             <img
               src={icon}
               alt={title}
-              className="max-w-full max-h-full"
+              className="max-h-full max-w-full"
               onContextMenu={(e) => e.preventDefault()}
             />
           </div>
-          <span className="font-favoritExpanded text-left text-sm font-bold lg:text-center lg:text-base">
+          <span className="text-left font-favoritExpanded text-sm font-bold lg:text-center lg:text-base">
             {title}
           </span>
         </div>

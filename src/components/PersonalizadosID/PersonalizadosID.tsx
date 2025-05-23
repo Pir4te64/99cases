@@ -27,12 +27,12 @@ const PersonalizadosID: React.FC = () => {
   const product = usePersonalizadoStore((s) => s.product);
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
+  const activeStep = usePersonalizadoStore((s) => s.activeStep); // ✅ Agregado aquí
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
-  // Referencia al contenedor de preview para html2canvas
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,7 +51,6 @@ const PersonalizadosID: React.FC = () => {
     { label: "Fundas Personalizadas", link: "/personalizadas" },
     { label: product?.title || "Producto" },
   ];
-  const isPersonalizadoConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
 
   return (
     <PersonalizadosLayout>
@@ -101,16 +100,21 @@ const PersonalizadosID: React.FC = () => {
             {product && (
               <>
                 <StepsButtons />
-                <MarcaCelular />
 
-                {/* Ocultar nombre y colores si es con imagen */}
-                {!isConImagen && <CustomName />}
-                {!isConImagen && <Colores />}
-                {isPersonalizadoConImagen && (
+                {/* Renderizado condicional basado en activeStep */}
+                {activeStep === 1 && <MarcaCelular />}
+
+                {activeStep === 2 && !isConImagen && <CustomName />}
+
+                {activeStep === 3 && !isConImagen && <Colores />}
+
+                {isConImagen && activeStep === 1 && (
                   <div className="md:col-span-3">
                     <FileUploader />
                   </div>
                 )}
+
+                {/* Siempre visibles: */}
                 <PurchaseActions
                   product={{
                     id: product.id,

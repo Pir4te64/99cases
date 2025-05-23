@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/99cases.svg";
 import { Link, useLocation } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
 import useAuthStore from "@/store/authStore";
@@ -204,7 +204,7 @@ export default function Navbar() {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="transition-colors hover:text-gray-300"
+                className="transition-colors text-left  hover:text-gray-300"
               >
                 Cerrar sesión
               </button>

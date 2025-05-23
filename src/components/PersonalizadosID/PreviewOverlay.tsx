@@ -1,7 +1,8 @@
 // src/components/PersonalizadosID/PreviewOverlay.tsx
-import React, { useEffect, useMemo, forwardRef } from "react";
+import React, { useMemo, forwardRef } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
+import premiumCase from "@/assets/marcas/premiumCase.svg";
 
 // Crea un "segundo trazo" usando text-shadow
 const makeShadow = (color: string, radius = 3) => {
@@ -17,28 +18,27 @@ const makeShadow = (color: string, radius = 3) => {
 };
 
 const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
-  const product = usePersonalizadoStore(s => s.product);
-  const userName = usePersonalizadoStore(s => s.userName);
-  const userNumber = usePersonalizadoStore(s => s.userNumber);
-  const selectedNameStyle = usePersonalizadoStore(s => s.selectedNameStyle);
-  const selectedNumberStyle = usePersonalizadoStore(s => s.selectedNumberStyle);
-  const selectedColors = usePersonalizadoStore(s => s.selectedColors);
+  const product = usePersonalizadoStore((s) => s.product);
+  const userName = usePersonalizadoStore((s) => s.userName);
+  const userNumber = usePersonalizadoStore((s) => s.userNumber);
+  const selectedNameStyle = usePersonalizadoStore((s) => s.selectedNameStyle);
+  const selectedNumberStyle = usePersonalizadoStore(
+    (s) => s.selectedNumberStyle
+  );
+  const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
 
   if (!product) return null;
   const isConCaracteres = product.tipo === "PERSONALIZADO_CON_CARACTERES";
 
   // [rellenoNombre, borde1Nombre, borde2Nombre, rellenoNum, borde1Num, borde2Num]
-  const [
-    nFill, nBorder, nBorder2,
-    numFill, numBorder, numBorder2,
-  ] = [
-      selectedColors[0] || "#ffffff",
-      selectedColors[1] || "transparent",
-      selectedColors[2] || "transparent",
-      selectedColors[3] || "#ffffff",
-      selectedColors[4] || "transparent",
-      selectedColors[5] || "transparent",
-    ];
+  const [nFill, nBorder, nBorder2, numFill, numBorder, numBorder2] = [
+    selectedColors[0] || "#ffffff",
+    selectedColors[1] || "transparent",
+    selectedColors[2] || "transparent",
+    selectedColors[3] || "#ffffff",
+    selectedColors[4] || "transparent",
+    selectedColors[5] || "transparent",
+  ];
 
   const numTextShadow = useMemo(() => makeShadow(numBorder2, 5), [numBorder2]);
   const nameTextShadow = useMemo(() => makeShadow(nBorder2, 4), [nBorder2]);
@@ -48,12 +48,21 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
       ref={ref}
       className="relative mt-28 h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
     >
+      {/* Imagen base */}
       <img
         loading="lazy"
         src={product.imageSrc}
         alt={product.title || "Producto"}
-        onContextMenu={e => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
         className="h-full w-full object-contain md:max-w-full"
+      />
+
+      {/* Banner “Premium Case” superpuesto */}
+      <img
+        src={premiumCase}
+        alt="Premium Case"
+        onContextMenu={(e) => e.preventDefault()}
+        className="absolute bottom-0 right-4 w-24 sm:w-32 pointer-events-none"
       />
 
       {isConCaracteres && (
@@ -64,10 +73,11 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
               WebkitTextStroke: `4px ${numBorder}`,
               textShadow: numTextShadow,
             }}
-            className={`text-[3rem] sm:text-[4rem] md:text-[6rem] text-center ${selectedNumberStyle != null
-              ? `font-${customNumberStyles[selectedNumberStyle]}`
-              : "font-cmxShift2"
-              }`}
+            className={`text-[3rem] sm:text-[4rem] md:text-[6rem] text-center ${
+              selectedNumberStyle != null
+                ? `font-${customNumberStyles[selectedNumberStyle]}`
+                : "font-cmxShift2"
+            }`}
           >
             {userNumber || "15"}
           </span>
@@ -77,10 +87,11 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
               WebkitTextStroke: `3px ${nBorder}`,
               textShadow: nameTextShadow,
             }}
-            className={`text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] text-center ${selectedNameStyle != null
-              ? `font-${customNameStyles[selectedNameStyle]}`
-              : "font-cmxShift2"
-              }`}
+            className={`text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] text-center ${
+              selectedNameStyle != null
+                ? `font-${customNameStyles[selectedNameStyle]}`
+                : "font-cmxShift2"
+            }`}
           >
             {userName || "TU NOMBRE"}
           </span>

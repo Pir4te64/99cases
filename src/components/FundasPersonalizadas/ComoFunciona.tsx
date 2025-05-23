@@ -15,30 +15,29 @@ const steps = [
 
 const ComoFunciona: React.FC = () => {
   return (
-    <div className="mx-auto w-full overflow-x-hidden bg-white px-4 py-8">
+    <div className="mx-auto w-full overflow-x-auto bg-white px-4 py-8">
       {/* Título */}
-      <h2 className="mb-8 text-center font-favoritExpandedBook text-4xl uppercase tracking-wide text-black md:text-5xl">
+      <h2 className="mb-8 text-center font-favoritExpandedBook text-2xl sm:text-4xl uppercase tracking-wide text-black md:text-5xl">
         ¿CÓMO FUNCIONA?
       </h2>
 
       {/* Contenedor de los pasos */}
-      <div className="max-w-9xl mx-auto grid w-full grid-cols-2 justify-items-center gap-8 text-center md:grid-cols-5">
+      <div className="flex w-full flex-nowrap gap-1 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 md:grid-cols-5">
         {steps.map((step, index) => (
           <div
             key={index}
-            className={`min-w-0 flex flex-col items-center ${index === 4 ? "col-span-2 md:col-span-1" : ""
-              }`}
+            className="flex min-w-[120px] flex-col items-center space-y-2 sm:min-w-0"
           >
             {/* Icono/paso */}
             <img
               src={step.img}
               alt={`Paso ${index + 1}`}
-              className="mb-4 h-16 w-16"
+              className="h-10 w-10 sm:h-16 sm:w-16"
               onContextMenu={(e) => e.preventDefault()}
             />
-            {/* Texto del paso con máximo de dos líneas */}
-            <p className="text-center font-favoritExpandedBook text-sm text-black">
-              <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-red-500 font-favoritExpandedBook font-bold text-white">
+            {/* Texto del paso */}
+            <p className="flex flex-col items-center text-center font-favoritExpandedBook text-xs text-black sm:text-sm">
+              <span className="mb-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-favoritExpandedBook text-xs font-bold text-white sm:h-8 sm:w-8 sm:text-base">
                 {index + 1}
               </span>
               {step.text}

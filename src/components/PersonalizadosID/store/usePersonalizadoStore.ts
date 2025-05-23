@@ -2,6 +2,10 @@
 import { create } from "zustand";
 
 export interface PersonalizadoState {
+  // Estado activo del paso actual
+  activeStep: number;
+  setActiveStep: (step: number) => void;
+
   // Datos del producto
   product: any | null;
   setProduct: (product: any) => void;
@@ -22,7 +26,7 @@ export interface PersonalizadoState {
   showColors: boolean;
   toggleShowColors: () => void;
 
-  // Ancho de la ventana para manejo de responsive
+  // Ancho de la ventana para manejo responsive
   windowWidth: number;
   setWindowWidth: (width: number) => void;
 
@@ -66,6 +70,8 @@ export interface PersonalizadoState {
 
 const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   // --- Valores iniciales ---
+  activeStep: 1, // <-- Nuevo estado agregado aquí ✅
+
   product: null,
   quantity: 1,
 
@@ -88,10 +94,11 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   flipH: false,
   flipV: false,
 
-  // Añadido para conservar la imagen original
   originalPhoto: null,
 
   // --- Acciones ---
+  setActiveStep: (step) => set({ activeStep: step }), // <-- Nueva acción ✅
+
   setProduct: (product) => set({ product }),
 
   increment: () => set((s) => ({ quantity: s.quantity + 1 })),
@@ -128,7 +135,6 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   toggleFlipH: () => set((s) => ({ flipH: !s.flipH })),
   toggleFlipV: () => set((s) => ({ flipV: !s.flipV })),
 
-  // Acción para la original
   setOriginalPhoto: (src) => set({ originalPhoto: src }),
 }));
 

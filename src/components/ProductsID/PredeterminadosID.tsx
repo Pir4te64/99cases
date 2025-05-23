@@ -10,6 +10,7 @@ import useCartStore, { CartItem } from "@/store/cartStore";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
 import { useCheckout } from "@/store/useCheckout";
 import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
+import premiumCase from "@/assets/marcas/premiumCase.svg";
 
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();
@@ -111,12 +112,28 @@ const PredeterminadosID: React.FC = () => {
           {/* Imagen principal (30%) */}
           <div className="flex w-full items-start justify-center lg:w-[30%]">
             {product ? (
-              <img
-                src={product.imageSrc}
-                alt={product.title}
-                className="max-w-full object-contain"
-                onContextMenu={(e) => e.preventDefault()}
-              />
+              <div className="relative inline-block w-64 sm:w-80 md:w-96">
+                {/* Imagen principal más pequeña */}
+                <img
+                  src={product.imageSrc}
+                  alt={product.title}
+                  className="w-full h-auto object-contain"
+                  onContextMenu={(e) => e.preventDefault()}
+                />
+
+                {/* Banner superpuesto */}
+                <img
+                  src={premiumCase}
+                  alt="Premium Case"
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="
+                  absolute 
+                  bottom-0 right-4        
+                  w-24 sm:w-32            
+                  pointer-events-none
+                "
+                />
+              </div>
             ) : (
               <p>No se encontró la imagen del producto.</p>
             )}

@@ -1,5 +1,6 @@
 // src/components/PersonalizadosID/CaseDesignerSimple.tsx
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
+import premiumCase from "@/assets/marcas/premiumCase.svg";
 
 interface Props {
   /** URL del SVG de la funda, con hueco transparente */
@@ -24,9 +25,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
     .join(" ");
 
   return (
-    <div
-      className="relative mt-28 h-[300px] w-full select-none overflow-hidden md:mt-0 md:h-[500px] md:w-[400px]"
-    >
+    <div className="relative mt-28 h-[300px] w-full select-none overflow-hidden md:mt-0 md:h-[500px] md:w-[400px]">
       {/* FOTO DEL CLIENTE */}
       {photo && (
         <img
@@ -47,6 +46,14 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
         alt="Carcasa"
         onContextMenu={(e) => e.preventDefault()}
         className="pointer-events-none absolute inset-0 z-10 h-full w-full"
+      />
+
+      {/* Banner "Premium Case" superpuesto */}
+      <img
+        src={premiumCase}
+        alt="Premium Case"
+        onContextMenu={(e) => e.preventDefault()}
+        className="absolute bottom-0 right-4 w-24 sm:w-32 pointer-events-none z-20"
       />
     </div>
   );

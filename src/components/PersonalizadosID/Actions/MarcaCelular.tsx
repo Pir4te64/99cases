@@ -1,124 +1,104 @@
-import { useState, useEffect } from "react";
-import Select, { OnChangeValue } from "react-select";
+// src/components/PersonalizadosID/UI/MarcaCelularGET.tsx
+import React, { useState, useEffect, useMemo } from "react";
+import { Dialog } from "@headlessui/react";
 import {
   fetchPhoneModels,
   PhoneModel,
 } from "@/components/PersonalizadosID/Peticiones/MarcaCelularesGET";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
-// Importa el store
+import ModelSelectionModal from "@/components/PersonalizadosID/Actions/ModelSelectionModal";
 
-const MarcaCelularGET = () => {
+const MarcaCelularGET: React.FC = () => {
   const [phoneModels, setPhoneModels] = useState<PhoneModel[]>([]);
-  const [selectedModel, setSelectedModel] = useState<PhoneModel | null>(null);
-  const [inputValue, setInputValue] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Extraemos las funciones del store para actualizar la marca y el modelo.
   const {
     selectedBrand,
     setSelectedBrand,
+    selectedModel,
     setSelectedModel: setStoreSelectedModel,
   } = usePhoneSelectionStore();
 
   useEffect(() => {
-    const getPhoneModels = async () => {
+    (async () => {
       try {
         const models = await fetchPhoneModels();
         setPhoneModels(models);
       } catch (error) {
-        console.error("Error al obtener los modelos:", error);
+        console.error("Error al obtener modelos:", error);
       }
-    };
-    getPhoneModels();
+    })();
   }, []);
 
-  // Al seleccionar un modelo en el dropdown, actualizamos tanto el estado local como el store
-  const handleChange = (selectedOption: OnChangeValue<PhoneModel, false>) => {
-    setSelectedModel(selectedOption);
-    setStoreSelectedModel(selectedOption);
-  };
-
-  // Filtrar los modelos según la marca seleccionada
-  const filteredPhoneModels = selectedBrand
-    ? phoneModels.filter((model) => model.marca === selectedBrand)
-    : [];
-
-  // Extraer las marcas únicas desde los datos recibidos
-  const uniqueBrands = Array.from(
-    new Set(phoneModels.map((model) => model.marca))
+  const uniqueBrands = useMemo(
+    () => Array.from(new Set(phoneModels.map((m) => m.marca))).sort(),
+    [phoneModels]
+  );
+  const filteredModels = useMemo(
+    () =>
+      selectedBrand
+        ? phoneModels.filter((m) => m.marca === selectedBrand)
+        : [],
+    [phoneModels, selectedBrand]
   );
 
-  return (
-    <div className="my-6 mb-4 w-full">
-      {/* Selección de marca */}
-      <p className="mb-2 uppercase">¿Cuál es la marca de tu celular?</p>
-      <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
-        {uniqueBrands.map((brand) => (
-          <button
-            key={brand}
-            onClick={() => {
-              setSelectedBrand(brand);
-              setSelectedModel(null);
-              setStoreSelectedModel(null);
-            }}
-            className={`border border-black bg-white rounded-md py-1 sm:py-2 text-sm sm:text-base uppercase transition-colors ${
-              selectedBrand === brand
-                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
-                : "hover:bg-gray-400 hover:border-gray-400 hover:text-white"
-            }`}
-          >
-            {brand}
-          </button>
-        ))}
-      </div>
+  const handleBrandSelect = (brand: string) => {
+    setSelectedBrand(brand);
+    setStoreSelectedModel(null);
+  };
+  const handleModelSelect = (model: PhoneModel) => {
+    setStoreSelectedModel(model);
+    setIsModalOpen(false);
+  };
 
-      {/* Línea divisoria */}
+  return (
+    <div className="my-6 w-full">
+      {/* Selección de Marca */}
+      <fieldset className="mb-4">
+        <legend className="mb-2 text-sm font-medium uppercase">
+          ¿Cuál es la marca de tu celular?
+        </legend>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {uniqueBrands.map((brand) => (
+            <button
+              key={brand}
+              type="button"
+              onClick={() => handleBrandSelect(brand)}
+              className={`border rounded-md py-1 sm:py-2 text-sm sm:text-base uppercase transition-colors ${selectedBrand === brand
+                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
+                : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+                }`}
+            >
+              {brand}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
       <div className="my-4 h-px bg-gray-300" />
 
-      {/* Selección de modelo */}
-      <div className="w-full">
-        <p className="mb-2 uppercase">¿Cuál es el modelo de tu celular?</p>
-        <Select<PhoneModel, false>
-          options={filteredPhoneModels}
-          value={selectedModel}
-          onChange={handleChange}
-          noOptionsMessage={() => "No hay modelos disponibles"}
-          placeholder={
-            selectedBrand
-              ? "Selecciona tu modelo de celular"
-              : "Primero selecciona una marca"
-          }
-          isSearchable={true}
-          inputValue={inputValue}
-          onInputChange={setInputValue}
-          styles={{
-            control: (base) => ({
-              ...base,
-              minHeight: "36px",
-              fontSize: "0.875rem",
-              "@media (min-width: 640px)": {
-                minHeight: "48px",
-                fontSize: "1rem",
-              },
-            }),
-            option: (base) => ({
-              ...base,
-              fontSize: "0.875rem",
-              "@media (min-width: 640px)": {
-                fontSize: "1rem",
-              },
-            }),
-            placeholder: (base) => ({
-              ...base,
-              fontSize: "0.875rem",
-              "@media (min-width: 640px)": {
-                fontSize: "1rem",
-              },
-            }),
-          }}
-          getOptionLabel={(option) => option.modelo}
-          getOptionValue={(option) => option.id.toString()}
-        />
-      </div>
+      {/* Botón que abre el modal */}
+      <button
+        type="button"
+        disabled={!selectedBrand}
+        onClick={() => setIsModalOpen(true)}
+        className={`w-full p-2 border rounded text-left bg-white disabled:opacity-50 ${selectedBrand ? "hover:bg-gray-100" : "cursor-not-allowed"
+          }`}
+      >
+        {selectedModel
+          ? selectedModel.modelo
+          : selectedBrand
+            ? "Selecciona tu modelo"
+            : "Primero selecciona una marca"}
+      </button>
+
+      {/* Modal de selección de modelo */}
+      <ModelSelectionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        models={filteredModels}
+        onModelSelect={handleModelSelect}
+      />
     </div>
   );
 };

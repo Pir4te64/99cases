@@ -17,6 +17,8 @@ interface ProductCardProps {
 const fmtARS = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
 });
 
 const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
@@ -97,13 +99,23 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
       </h3>
 
       {/* Precios */}
-      <div className="flex items-baseline justify-center gap-2">
+      <div className="flex flex-col items-center justify-center gap-1">
         <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-black">
-          {price}
+          {Number(price.replace(/[^0-9.-]+/g, "")).toLocaleString("es-AR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+            style: "currency",
+            currency: "ARS"
+          })}
         </span>
         {crossedPrice && (
           <span className="font-favoritExpandedBook text-sm font-bold text-gray-400 line-through sm:text-sm">
-            {crossedPrice}
+            {Number(crossedPrice.replace(/[^0-9.-]+/g, "")).toLocaleString("es-AR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+              style: "currency",
+              currency: "ARS"
+            })}
           </span>
         )}
       </div>

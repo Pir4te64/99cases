@@ -26,13 +26,13 @@ const features = [
 
 const Features: React.FC = () => {
   return (
-    <div className="flex w-full flex-row flex-wrap justify-start gap-4 lg:w-1/12 lg:flex-col lg:gap-6">
+    <div className="grid w-full grid-cols-4 gap-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-start lg:w-1/12 lg:flex-col lg:gap-6">
       {features.map(({ icon, title }, idx) => (
         <div
           key={idx}
-          className="flex flex-row items-center space-x-2 lg:flex-col lg:space-x-0 lg:space-y-2"
+          className="flex flex-col items-center space-y-2 text-center sm:flex-row sm:space-x-2 sm:space-y-0 sm:text-left lg:flex-col lg:space-x-0 lg:space-y-2"
         >
-          <div className="h-10 w-10 flex-shrink-0 p-2 sm:h-12 sm:w-12 lg:h-16 lg:w-16">
+          <div className="h-24 w-24 flex-shrink-0 p-2 sm:h-12 sm:w-12 lg:h-16 lg:w-16">
             <img
               src={icon}
               alt={title}
@@ -40,7 +40,7 @@ const Features: React.FC = () => {
               onContextMenu={(e) => e.preventDefault()}
             />
           </div>
-          <span className="text-left font-favoritExpanded text-sm font-bold lg:text-center lg:text-base">
+          <span className="text-center font-favoritExpanded text-[8px] font-bold sm:text-sm lg:text-base">
             {title}
           </span>
         </div>

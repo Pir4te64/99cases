@@ -40,7 +40,7 @@ export default function Navbar() {
     <div className="fixed inset-x-0 top-0 z-50">
       {bannerOpen && (
         <div className="relative flex items-center justify-center bg-red-600 px-4 py-2 text-white">
-          <p className="text-sm font-favoritMono">
+          <p className="font-favoritMono text-sm italic">
             ENVÍO GRATIS A PARTIR DE $100.000
           </p>
           <button
@@ -116,7 +116,7 @@ export default function Navbar() {
           </div>
 
           {/* Centro: Logo */}
-          <div className="text-center text-xl font-bold">
+          <div className="logo text-center text-xl font-bold">
             <Link to="/">
               <img
                 src={logo}
@@ -204,7 +204,7 @@ export default function Navbar() {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="transition-colors text-left  hover:text-gray-300"
+                className="text-left transition-colors hover:text-gray-300"
               >
                 Cerrar sesión
               </button>

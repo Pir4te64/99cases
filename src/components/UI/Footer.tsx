@@ -1,5 +1,5 @@
-import { FaYoutube, FaTiktok } from "react-icons/fa";
-import logo from "@/assets/logo.png";
+import { FaYoutube, FaTiktok, FaInstagram, FaFacebook } from "react-icons/fa";
+import logo from "@/assets/99cases.svg";
 import tarjetas from "@/assets/Tarjetas.png";
 import andreani from "@/assets/Andreani.png";
 import { Link } from "react-router-dom";
@@ -45,7 +45,37 @@ export default function Footer() {
           {/* Redes Sociales */}
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://www.instagram.com/99cases_"
+              className="transition-colors hover:text-gray-300"
+              aria-label="Instagram"
+              title="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram className="h-5 w-5" />
+            </a>
+            <a
+              href="https://www.facebook.com/people/99-Cases/61573962440115/?mibextid=wwXIfr&rdid=yLj4G83UERq0v6Yq&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1ANEgfNEZv%2F%3Fmibextid%3DwwXIfr"
+              className="transition-colors hover:text-gray-300"
+              aria-label="Facebook"
+              title="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook className="h-5 w-5" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@99cases_"
+              className="transition-colors hover:text-gray-300"
+              aria-label="TikTok"
+              title="TikTok"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTiktok className="h-5 w-5" />
+            </a>
+            <a
+              href="https://www.youtube.com/@99cases_1"
               className="transition-colors hover:text-gray-300"
               aria-label="YouTube"
               title="YouTube"
@@ -53,16 +83,6 @@ export default function Footer() {
               rel="noopener noreferrer"
             >
               <FaYoutube className="h-5 w-5" />
-            </a>
-            <a
-              href="#"
-              className="transition-colors hover:text-gray-300"
-              aria-label="TikTok"
-              title="TikTok"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTiktok className="h-4 w-4" />
             </a>
           </div>
         </div>

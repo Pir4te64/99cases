@@ -11,7 +11,7 @@ import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phon
 import { useCheckout } from "@/store/useCheckout";
 import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
 import premiumCase from "@/assets/marcas/premiumCase.svg";
-import Features from "../Features";
+import Features from "@/components/Features";
 
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();

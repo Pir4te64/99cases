@@ -21,7 +21,7 @@ import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import FileUploader from "@/components/PersonalizadosID/Actions/FileUploader";
-import Features from "../Features";
+import Features from "@/components/Features";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
@@ -66,7 +66,9 @@ const PersonalizadosID: React.FC = () => {
 
           {/* Columna 2: preview */}
           <div className="fixed left-0 top-0 z-10 w-full bg-white p-4 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
+
             <div className="flex justify-start lg:sticky lg:top-24">
+
               {product ? (
                 <div
                   id="preview-container"

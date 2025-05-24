@@ -67,7 +67,7 @@ const Pagos = () => {
     <div className="min-h-screen bg-white text-black">
       <div className="container mx-auto px-4 py-6">
         <Breadcrumbs
-          items={[{ label: "Inicio", link: "/" }, { label: "Pago" }]}
+          items={[{ label: "Entrega", link: "/" }, { label: "Pago" }]}
         />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="order-1 md:order-2">
@@ -85,7 +85,7 @@ const Pagos = () => {
               className="space-y-8"
             >
               <section className="mt-4 space-y-4">
-                <h2 className="mb-2 font-favoritExpandedBook text-lg font-bold md:text-xl">
+                <h2 className="mb-2 font-favoritExpanded text-lg font-bold md:text-xl">
                   DATOS DE FACTURACIÓN
                 </h2>
                 <div className="flex items-center">
@@ -98,7 +98,7 @@ const Pagos = () => {
                   />
                   <label
                     htmlFor="mismaFacturacion"
-                    className="font-favoritExpandedBook text-sm md:text-base"
+                    className="font-favoritExpanded text-sm md:text-base"
                   >
                     Mis datos de facturación y entrega son los mismos.
                   </label>

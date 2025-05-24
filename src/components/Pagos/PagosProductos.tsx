@@ -28,11 +28,9 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
                     onContextMenu={(e) => e.preventDefault()}
                   />
                   <div className='flex-1'>
-                    <p className='font-favoritExpandedBook text-sm font-semibold'>
-                      {item.title}
-                    </p>
-                    <p className='font-favoritExpandedBook text-xs text-gray-600'>
-                      Cantidad: {item.quantity}
+
+                    <p className='text-md font-favoritExpandedBook text-gray-600'>
+                      Cantidad: x{item.quantity}
                     </p>
                     <p className='font-favoritExpandedBook text-sm font-bold'>
                       {item.price}
@@ -46,13 +44,6 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
           {/* Subtotal, Envío y Total */}
           <div className='pt-4'>
             <div className='mb-2 flex justify-between'>
-              <span className='font-favoritExpandedBook text-sm uppercase text-gray-700'>
-                SUBTOTAL
-              </span>
-              <span className='font-favoritExpandedBook text-sm font-bold'>
-                $
-                {subtotal.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
-              </span>
             </div>
             <div className='mb-2 flex justify-between'>
               <span className='font-favoritExpandedBook text-sm uppercase text-gray-700'>

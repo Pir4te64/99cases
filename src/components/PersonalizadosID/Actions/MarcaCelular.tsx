@@ -55,7 +55,7 @@ const MarcaCelularGET: React.FC = () => {
     <div className="my-6 w-full">
       {/* Selección de Marca */}
       <fieldset className="mb-4">
-        <legend className="mb-2 text-sm font-medium uppercase">
+        <legend className="mb-2 font-favoritExpanded text-xs">
           ¿Cuál es la marca de tu celular?
         </legend>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -64,7 +64,7 @@ const MarcaCelularGET: React.FC = () => {
               key={brand}
               type="button"
               onClick={() => handleBrandSelect(brand)}
-              className={`border rounded-md py-1 sm:py-2 text-sm sm:text-base uppercase transition-colors ${selectedBrand === brand
+              className={`border rounded-md py-1 font-favoritExpanded sm:py-2 text-sm sm:text-base uppercase transition-colors ${selectedBrand === brand
                 ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
                 : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
                 }`}

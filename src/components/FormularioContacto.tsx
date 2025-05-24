@@ -10,30 +10,30 @@ const Registro = () => {
   };
 
   return (
-    <div className="bg-black text-white w-full h-[500px] flex flex-col items-center space-y-4 justify-center text-center">
-      <h2 className="mb-6 text-2xl sm:text-3xl md:text-4xl font-favoritMono">
+    <div className="flex h-[500px] w-full flex-col items-center justify-center space-y-4 bg-black text-center text-white">
+      <h2 className="text-md mb-6 font-favoritExpanded sm:text-3xl md:text-xl">
         Regístrate y recibe nuestras ofertas.
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col sm:flex-row items-center justify-center  w-full px-4"
+        className="flex w-full flex-col items-center justify-center px-4 sm:flex-row"
       >
         <input
           type="email"
           placeholder="nombre@ejemplo.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full sm:w-96 px-4 py-2 bg-black text-white border border-white rounded-sm md:rounded-s-md"
+          className="w-full rounded-sm border border-white bg-black px-4 py-2 font-favoritExpanded text-white sm:w-96 md:rounded-s-md"
           required
         />
         <button
           type="submit"
-          className="w-full sm:w-auto mt-2 sm:mt-0 p-2 font-favoritMono bg-white text-black rounded-sm md:rounded-e-md hover:bg-black border border-black hover:border-white hover:text-white"
+          className="mt-2 w-full rounded-sm border border-black bg-white p-2 font-favoritExpanded text-black hover:border-white hover:bg-black hover:text-white sm:mt-0 sm:w-auto md:rounded-e-md"
         >
           Registrarse
         </button>
       </form>
-      <p className="mt-4 text-base md:text-sm underline ">
+      <p className="mt-4 font-favoritExpanded text-base underline md:text-sm">
         Al hacer clic en Registrarse <br></br> confirmo que acepto nuestros{" "}
         <a href="#">Términos y Condiciones</a>.
       </p>

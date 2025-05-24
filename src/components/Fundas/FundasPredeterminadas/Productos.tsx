@@ -31,7 +31,7 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
   return (
     <div className="mx-auto bg-white px-4 py-8">
       {visibleTitle && (
-        <h2 className="my-4 text-center font-favorit text-2xl font-bold uppercase text-black sm:text-3xl md:text-4xl">
+        <h2 className="my-4 text-center font-favoritExpanded text-xl font-bold uppercase text-black sm:text-3xl md:text-4xl">
           Productos Destacados
         </h2>
       )}
@@ -55,7 +55,7 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
       {visibleCount < allProducts.length && (
         <div className="mt-8 flex justify-center">
           <button
-            className="rounded border border-black px-6 py-2 font-favoritMono font-bold text-black transition-colors hover:bg-black hover:text-white"
+            className="rounded border border-black px-6 py-2 font-favoritExpanded font-bold text-black transition-colors hover:bg-black hover:text-white"
             onClick={handleLoadMore}
           >
             {buttonText}

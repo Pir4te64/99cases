@@ -31,14 +31,8 @@ export default function Footer() {
 
           {/* Navegación */}
           <nav className="flex space-x-6 text-sm">
-            <a href="/" className="transition-colors hover:text-gray-300">
+            <a href="/" className="font-favoritExpanded transition-colors hover:text-gray-300">
               Inicio
-            </a>
-            <a
-              href="/predeterminadas"
-              className="transition-colors hover:text-gray-300"
-            >
-              Productos
             </a>
           </nav>
 
@@ -113,7 +107,7 @@ export default function Footer() {
         </div>
 
         {/* Derechos reservados */}
-        <div className="w-full text-center text-xs text-gray-400">
+        <div className="w-full text-center font-favoritExpanded text-xs text-gray-200">
           © 2025 – 99% CASES. Todos los derechos reservados.
         </div>
       </div>

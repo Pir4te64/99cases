@@ -149,7 +149,7 @@ const DatosDestinatario: React.FC = () => {
 
   return (
     <section className="space-y-6 rounded-lg bg-white p-6 shadow-md">
-      <h2 className="text-xl font-bold text-gray-700">
+      <h2 className="font-favoritExpanded text-xl font-bold text-gray-700">
         Datos del destinatario
       </h2>
 
@@ -226,8 +226,7 @@ const DatosDestinatario: React.FC = () => {
           onBlur={() => formik.setFieldTouched("tipoDocumento", true)}
           error={formik.errors.tipoDocumento as string}
           touched={formik.touched.tipoDocumento}
-          placeholder="Selecciona..."
-          isSearchable
+          placeholder="Selecciona un tipo de documento"
         />
 
         {/* Número de documento */}
@@ -256,6 +255,7 @@ const DatosDestinatario: React.FC = () => {
             cacheOptions
             loadOptions={loadUbicaciones}
             defaultOptions
+            loadingMessage={() => "Cargando..."}
             noOptionsMessage={() => "No hay resultados"}
             onChange={(option) => {
               if (!option) return;
@@ -267,7 +267,8 @@ const DatosDestinatario: React.FC = () => {
               formik.setFieldValue("codigoPostal", option.codigoPostal);
               setCodigoPostal(option.codigoPostal);
             }}
-            placeholder="Escribe una localidad..."
+            className="font-favoritExpanded"
+            placeholder="Escribe una ubicación"
             classNamePrefix="react-select"
             inputId="ubicacion-select"
           />

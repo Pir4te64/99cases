@@ -6,27 +6,27 @@ export default function DeliverySummary({
   onSelectOption,
 }: Props) {
   return (
-    <div className="mb-6 rounded bg-black p-4 shadow-lg">
-      <h2 className="mb-2 text-xl font-semibold">Resumen de Envío</h2>
+    <div className="mb-6 rounded bg-[#EEEEEE] p-4 shadow-lg">
+      <h2 className="mb-2 font-favoritExpanded text-xl text-[#000000]">Resumen de Envío</h2>
 
-      <p>
-        <strong>Destino:</strong> {deliveryResponse.destino}
+      <p className="font-favoritExpanded text-[#000000]">
+        <strong className="font-favoritExpanded text-[#000000]">Destino:</strong> {deliveryResponse.destino}
       </p>
-      <p>
-        <strong>Contacto:</strong> {deliveryResponse.datosDeContacto}
+      <p className="font-favoritExpanded text-[#000000]">
+        <strong className="font-favoritExpanded text-[#000000]">Contacto:</strong> {deliveryResponse.datosDeContacto}
       </p>
-      <p>
-        <strong>Costo de Orden:</strong>{" "}
+      <p className="font-favoritExpanded text-[#000000]">
+        <strong className="font-favoritExpanded text-[#000000]">Costo de Orden:</strong>{" "}
         ${deliveryResponse.costoOrden.toLocaleString("es-AR", {
           minimumFractionDigits: 2,
         })}
       </p>
 
       <div className="mt-4">
-        <p className="mb-2 font-medium">Opciones de Entrega:</p>
+        <p className="mb-2 font-favoritExpanded text-[#000000]">Opciones de Entrega:</p>
         <ul>
           {deliveryResponse.deliveryOptions.map((opt) => (
-            <li key={opt.modoDeEntregaId} className="mb-2 flex items-center">
+            <li key={opt.modoDeEntregaId} className="mb-2 flex items-center font-favoritExpanded text-[#000000]">
               <input
                 type="radio"
                 id={opt.modoDeEntregaId}
@@ -36,7 +36,7 @@ export default function DeliverySummary({
                 onChange={() => onSelectOption(opt.modoDeEntrega)}
                 className="mr-2"
               />
-              <label htmlFor={opt.modoDeEntregaId}>
+              <label htmlFor={opt.modoDeEntregaId} className="font-favoritExpanded text-[#000000]">
                 {opt.modoDeEntrega} — $
                 {opt.tarifaConIva.toLocaleString("es-AR", {
                   minimumFractionDigits: 2,

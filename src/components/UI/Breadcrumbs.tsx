@@ -19,7 +19,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
               <>
                 <Link
                   to={item.link}
-                  className="text-gray-600 transition-colors duration-200 hover:text-black hover:underline"
+                  className="font-favoritExpanded text-gray-600 transition-colors duration-200 hover:text-black hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -28,7 +28,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
                 )}
               </>
             ) : (
-              <span className="font-favoritMono font-semibold tracking-wide text-black">
+              <span className="font-favoritExpanded font-semibold tracking-wide text-black">
                 {item.label}
               </span>
             )}

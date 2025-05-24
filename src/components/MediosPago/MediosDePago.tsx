@@ -109,8 +109,8 @@ export default function MediosDePago() {
       <div className="mx-auto mb-8 max-w-3xl">
         <div className="mb-4 space-y-2 rounded bg-gray-300 p-4">
           <p className="text-black">
-            <strong>Envío:</strong>{" "}
-            <span className="font-semibold">
+            <strong className="font-favoritExpanded">Envío:</strong>{" "}
+            <span className="font-favoritExpanded">
               {selectedOption} ($
               {shippingCost.toLocaleString("es-AR", {
                 minimumFractionDigits: 2,
@@ -119,14 +119,14 @@ export default function MediosDePago() {
             </span>
           </p>
           <p className="text-black">
-            <strong>Subtotal:</strong>{" "}
-            <span className="font-bold">
+            <strong className="font-favoritExpanded">Subtotal:</strong>{" "}
+            <span className="font-favoritExpanded">
               ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
             </span>
           </p>
           <p className="text-black">
-            <strong>Total con envío:</strong>{" "}
-            <span className="font-bold">
+            <strong className="font-favoritExpanded">Total con envío:</strong>{" "}
+            <span className="font-favoritExpanded">
               ${totalWithShipping.toLocaleString("es-AR", {
                 minimumFractionDigits: 2,
               })}
@@ -134,11 +134,11 @@ export default function MediosDePago() {
           </p>
           <button
             onClick={iniciarPago}
-            className="flex w-full items-center justify-center space-x-2 rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
+            className="flex w-full items-center justify-center space-x-2 rounded bg-blue-600 px-4 py-2 font-favoritExpanded text-white disabled:opacity-50"
             disabled={loading}
           >
             <SiMercadopago className="h-5 w-5" />
-            <span>{loading ? "Procesando…" : "Pagar con Mercado Pago"}</span>
+            <span className="font-favoritExpanded text-sm">{loading ? "Procesando…" : "Pagar con Mercado Pago"}</span>
           </button>
         </div>
 
@@ -151,7 +151,7 @@ export default function MediosDePago() {
       </div>
 
       <div className="text-center">
-        <Link to="/" className="text-black underline hover:text-gray-600">
+        <Link to="/" className="font-favoritExpanded text-black underline hover:text-gray-600">
           VOLVER AL INICIO
         </Link>
       </div>

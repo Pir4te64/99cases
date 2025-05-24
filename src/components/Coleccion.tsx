@@ -36,7 +36,7 @@ const Coleccion = () => {
               <h2 className="font-dharmaGothicM text-5xl font-bold uppercase italic tracking-wide md:text-9xl">
                 Fundas Predeterminadas
               </h2>
-              <p className="mt-2 font-favoritMono text-sm uppercase md:text-lg">
+              <p className="mt-2 font-favoritExpanded text-sm uppercase md:text-lg">
                 Ver Colección
               </p>
             </div>
@@ -67,7 +67,7 @@ const Coleccion = () => {
               <h2 className="font-dharmaGothicM text-5xl font-bold uppercase italic tracking-wide md:text-9xl">
                 Fundas Personalizadas
               </h2>
-              <p className="mt-2 font-favoritMono text-sm uppercase md:text-lg">
+              <p className="mt-2 font-favoritExpanded text-sm uppercase md:text-lg">
                 Ver Colección
               </p>
             </div>

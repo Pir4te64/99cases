@@ -15,7 +15,7 @@ const FundasPredeterminadasProductos = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-white px-4 py-8">
-      <h2 className="mb-6 text-center font-favoritMono text-2xl font-bold uppercase tracking-wide text-black sm:text-3xl md:text-4xl">
+      <h2 className="text-md mb-6 text-center font-favoritExpanded font-bold uppercase text-black sm:text-3xl md:text-4xl">
         Productos Destacados
       </h2>
 

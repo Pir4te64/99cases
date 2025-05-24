@@ -1,11 +1,11 @@
 const HeroImage = () => {
   return (
-    <div className="bg-black h-[500px] text-white text-center items-center flex flex-col justify-center py-8">
-      <h1 className="font-dharmaGothicM italic text-6xl md:text-9xl font-extrabold m-0">
+    <div className="flex h-[400px] flex-col items-center justify-center bg-black py-8 text-center text-white">
+      <h1 className="m-0 font-dharmaGothicM text-6xl font-extrabold italic md:text-9xl">
         ¡BIENVENIDOS A NUESTRA TIENDA ONLINE!
       </h1>
 
-      <p className="text-xl md:text-2xl mt-4 mx-2 tracking-wide font-favoritMono">
+      <p className="mx-2 mt-4 font-favoritExpanded text-xl tracking-wide md:text-2xl">
         ENCONTRÁ EL DISEÑO PERFECTO PARA TU ESTILO
       </p>
     </div>

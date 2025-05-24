@@ -46,7 +46,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         <div className="mt-4">
             <label
                 htmlFor={id}
-                className="mb-1 block font-favoritExpandedBook text-sm font-medium md:text-base"
+                className="mb-1 block font-favoritExpanded text-sm font-medium md:text-base"
             >
                 {label}
             </label>
@@ -60,7 +60,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 onBlur={onBlur}
                 placeholder={placeholder}
                 isSearchable={isSearchable}
-                className="react-select-container"
+                className="react-select-container font-favoritExpanded"
                 classNamePrefix="react-select"
             />
 

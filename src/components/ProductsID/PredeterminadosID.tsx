@@ -93,7 +93,7 @@ const PredeterminadosID: React.FC = () => {
   const isSelectionComplete = Boolean(selectedModel && selectedBrand);
   return (
     <PredeterminadoLayout>
-      <div className="mx-auto bg-white px-4 py-6 text-black">
+      <div className="mx-auto bg-white py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="flex flex-col gap-6 lg:flex-row">
@@ -108,7 +108,7 @@ const PredeterminadosID: React.FC = () => {
                 <img
                   src={product.imageSrc}
                   alt={product.title}
-                  className="w-full h-auto object-contain"
+                  className="h-auto w-full object-contain"
                   onContextMenu={(e) => e.preventDefault()}
                 />
 
@@ -117,12 +117,7 @@ const PredeterminadosID: React.FC = () => {
                   src={premiumCase}
                   alt="Premium Case"
                   onContextMenu={(e) => e.preventDefault()}
-                  className="
-                  absolute 
-                  bottom-0 right-4        
-                  w-24 sm:w-32            
-                  pointer-events-none
-                "
+                  className="pointer-events-none absolute bottom-0 right-4 w-24 sm:w-32"
                 />
               </div>
             ) : (
@@ -134,10 +129,10 @@ const PredeterminadosID: React.FC = () => {
           <div className="flex w-full flex-col p-4 lg:w-[50%]">
             {product ? (
               <>
-                <h1 className="mb-2 w-full text-4xl font-bold md:text-7xl">
+                <h1 className="mb-2 w-full text-left text-2xl font-bold sm:text-3xl md:text-7xl">
                   {product.title}
                 </h1>
-                <p className="mb-2 font-favoritExpandedBook text-xl font-semibold text-gray-900">
+                <p className="mb-2 text-left font-favoritExpandedBook text-base font-semibold text-gray-900 sm:text-lg md:text-xl">
                   {product.price}{" "}
                   {product.oldPrice && (
                     <span className="ml-2 font-favoritExpandedBook text-gray-500 line-through">
@@ -145,36 +140,41 @@ const PredeterminadosID: React.FC = () => {
                     </span>
                   )}
                 </p>
-                <p className="mb-2 font-favoritExpandedBook font-bold uppercase text-red-600">
+                <p className="mb-2 text-left font-favoritExpandedBook text-sm font-bold uppercase text-red-600 sm:text-base md:text-lg">
                   3 vendidos en las últimas horas
                 </p>
                 <MarcaCelular />
 
                 {/* Contador y botón */}
                 <div className="mb-4 flex w-full items-center space-x-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="inline-flex items-center overflow-hidden rounded-md border border-gray-400">
                     <button
                       onClick={handleDecrement}
-                      className="rounded border px-2 py-1 hover:bg-gray-200"
+                      aria-label="Disminuir cantidad"
+                      className="px-2 py-1 text-gray-800 hover:bg-gray-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={!isSelectionComplete}
                     >
-                      <Minus size={16} />
+                      <Minus size={12} />
                     </button>
-                    <span className="font-semibold">{displayQuantity}</span>
+                    <div className="px-3 py-1 text-center font-medium text-gray-800">
+                      {displayQuantity}
+                    </div>
                     <button
                       onClick={handleIncrement}
-                      className="rounded border px-2 py-1 hover:bg-gray-200"
+                      aria-label="Aumentar cantidad"
+                      className="px-2 py-1 text-gray-800 hover:bg-gray-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={!isSelectionComplete}
                     >
-                      <Plus size={16} />
+                      <Plus size={12} />
                     </button>
                   </div>
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 rounded border px-4 py-2 transition-colors ${
-                      isSelectionComplete
-                        ? "bg-black text-white hover:bg-gray-800"
-                        : "cursor-not-allowed border-gray-300"
-                    }`}
+                    className={`flex-1 rounded border font-favoritExpanded px-4 py-2 transition-colors ${isSelectionComplete
+                      ? "bg-black text-white hover:bg-gray-800"
+                      : "cursor-not-allowed border-gray-300"
+                      }`}
                   >
                     Agregar al Carrito
                   </button>
@@ -183,11 +183,10 @@ const PredeterminadosID: React.FC = () => {
                 <button
                   onClick={handleBuyNow}
                   disabled={!isSelectionComplete}
-                  className={`border px-4 py-2 rounded mb-4 transition-colors ${
-                    isSelectionComplete
-                      ? "border-black text-black hover:bg-black hover:text-white"
-                      : " cursor-not-allowed border-gray-300"
-                  }`}
+                  className={`border font-favoritExpanded px-4 py-2 rounded text-sm mb-4 transition-colors ${isSelectionComplete
+                    ? "border-black text-black hover:bg-black hover:text-white"
+                    : " cursor-not-allowed border-gray-300"
+                    }`}
                 >
                   Comprar Ahora
                 </button>
@@ -203,25 +202,25 @@ const PredeterminadosID: React.FC = () => {
 
                 {/* Información adicional */}
                 <details className="my-3 sm:my-4" open>
-                  <summary className="cursor-pointer text-base sm:text-lg md:text-xl font-bold">
+                  <summary className="cursor-pointer font-favoritExpanded text-base font-bold sm:text-lg md:text-xl">
                     Descripción del producto
                   </summary>
-                  <p className="mt-2 text-sm sm:text-base">
+                  <p className="mt-2 font-favoritExpanded text-sm sm:text-base">
                     Nuestras fundas combinan diseño único y materiales premium:
                   </p>
-                  <ul className="mt-2 list-inside list-disc text-sm sm:text-base space-y-1">
-                    <li>Parte trasera de aluminio.</li>
-                    <li>Bordes de silicona reforzada.</li>
-                    <li>Agarre antideslizante.</li>
-                    <li>No se rayan</li>
-                    <li>No se despintan</li>
+                  <ul className="mt-2 list-inside list-none space-y-1 font-favoritExpanded text-sm sm:text-base">
+                    <li className="before:mr-2 before:content-['-']">Parte trasera de aluminio.</li>
+                    <li className="before:mr-2 before:content-['-']">Bordes de silicona reforzada.</li>
+                    <li className="before:mr-2 before:content-['-']">Agarre antideslizante.</li>
+                    <li className="before:mr-2 before:content-['-']">No se rayan</li>
+                    <li className="before:mr-2 before:content-['-']">No se despintan</li>
                   </ul>
                 </details>
                 <details className="my-3 sm:my-4" open>
-                  <summary className="cursor-pointer text-base sm:text-lg md:text-xl font-bold">
+                  <summary className="cursor-pointer font-favoritExpanded text-base font-bold sm:text-lg md:text-xl">
                     Información del envío
                   </summary>
-                  <div className="space-y-2 text-sm sm:text-base">
+                  <div className="space-y-2 font-favoritExpanded text-sm sm:text-base">
                     <p>🏭 Tiempo de producción: 1-3 días hábiles</p>
                     <p>✈️ Tiempo de envío: desde Santa Fe (Arg), 1-5 días.</p>
                   </div>

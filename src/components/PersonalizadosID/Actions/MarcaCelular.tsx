@@ -82,7 +82,7 @@ const MarcaCelularGET: React.FC = () => {
         type="button"
         disabled={!selectedBrand}
         onClick={() => setIsModalOpen(true)}
-        className={`w-full p-2 border rounded text-left bg-white disabled:opacity-50 ${selectedBrand ? "hover:bg-gray-100" : "cursor-not-allowed"
+        className={`w-full p-2 border font-favoritExpanded text-sm rounded text-left bg-white disabled:opacity-50 ${selectedBrand ? "hover:bg-gray-100" : "cursor-not-allowed"
           }`}
       >
         {selectedModel

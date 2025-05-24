@@ -1,54 +1,86 @@
-# React + TypeScript + Vite
+# 99% Cases - E-commerce de Fundas Personalizadas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una plataforma de e-commerce especializada en la venta de fundas personalizadas para celulares, desarrollada con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+## Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Fundas Personalizadas**: Sistema completo para personalizar fundas con:
+  - Subida y edición de imágenes
+  - Personalización de texto y números
+  - Selección de colores y estilos
+  - Vista previa en tiempo real
 
-## Expanding the ESLint configuration
+- **Fundas Predeterminadas**: Catálogo de fundas pre-diseñadas con:
+  - Filtrado por marca y modelo
+  - Sistema de descuentos
+  - Vista detallada de productos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Sistema de Pagos**:
+  - Integración con múltiples métodos de pago
+  - Proceso de checkout seguro
+  - Gestión de envíos con Andreani
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Características Técnicas**:
+  - Diseño responsive optimizado para móviles
+  - Interfaz moderna y atractiva
+  - Gestión de estado con Zustand
+  - Enrutamiento con React Router
+  - Integración con redes sociales
+
+## Tecnologías Utilizadas
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Zustand (Gestión de estado)
+- React Router
+- React Icons
+- Axios
+
+## Requisitos del Sistema
+
+- Node.js 16.x o superior
+- npm 7.x o superior
+
+## Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone [URL_DEL_REPOSITORIO]
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Instalar dependencias:
+```bash
+npm install
 ```
+
+3. Iniciar el servidor de desarrollo:
+```bash
+npm run dev
+```
+
+## Estructura del Proyecto
+
+```
+src/
+├── components/         # Componentes React
+│   ├── UI/            # Componentes de interfaz reutilizables
+│   ├── Fundas/        # Componentes específicos de fundas
+│   └── PersonalizadosID/ # Componentes de personalización
+├── pages/             # Páginas principales
+├── assets/            # Recursos estáticos
+└── utils/             # Utilidades y helpers
+```
+
+## Contribución
+
+1. Fork el proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
+
+## Licencia
+
+Todos los derechos reservados © 2025 - 99% CASES

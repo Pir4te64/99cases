@@ -2,11 +2,11 @@ import ProductsPersonalizadasVerTodos from "@/components/Fundas/FundasPersonaliz
 
 function ProductosSimilares() {
   return (
-    <div className="bg-white w-full flex flex-col items-center justify-center">
-      <h3 className="text-xl font-bold  text-black mb-3 pt-10 md:pt-5">
+    <div className="flex w-full flex-col items-center justify-center bg-white">
+      <h3 className="mb-3 pt-10 text-xl font-bold text-black md:pt-5">
         PODRÍA INTERESARTE
       </h3>
-      <span className="text-black text-2xl md:text-7xl uppercase my-3 font-favorit">
+      <span className="my-3 font-favorit text-2xl uppercase text-black md:text-7xl">
         Productos SIMILARES
       </span>
       <ProductsPersonalizadasVerTodos visibleTitle={false} />

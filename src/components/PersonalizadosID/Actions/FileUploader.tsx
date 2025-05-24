@@ -59,7 +59,7 @@ export default function UploadAndEditImage() {
                 <p className="mb-4 text-gray-600">Arrastrar y soltar foto o</p>
                 <button
                     onClick={() => inputRef.current?.click()}
-                    className="rounded bg-[#666666] px-6 py-2 text-white transition hover:bg-gray-700"
+                    className="rounded bg-[#666666] px-6 py-2 font-favoritExpanded text-sm text-white transition hover:bg-gray-700"
                 >
                     SUBIR ARCHIVO
                 </button>

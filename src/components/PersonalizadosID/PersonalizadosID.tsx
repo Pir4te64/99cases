@@ -58,7 +58,7 @@ const PersonalizadosID: React.FC = () => {
       <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex w-full flex-col gap-8 px-4 lg:flex-row lg:items-start">
+        <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start">
           {/* Columna 1 */}
           <div className="hidden lg:block lg:w-1/12">
             <Features />

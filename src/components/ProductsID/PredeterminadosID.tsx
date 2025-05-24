@@ -10,7 +10,7 @@ import useCartStore, { CartItem } from "@/store/cartStore";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
 import { useCheckout } from "@/store/useCheckout";
 import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
-import premiumCase from "@/assets/marcas/premiumCase.svg";
+import premiumCase from "@/assets/marcas/premiumcase.svg";
 import Features from "@/components/Features";
 
 const PredeterminadosID: React.FC = () => {

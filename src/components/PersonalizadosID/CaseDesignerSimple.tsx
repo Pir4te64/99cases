@@ -1,6 +1,6 @@
 // src/components/PersonalizadosID/CaseDesignerSimple.tsx
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
-import premiumCase from "@/assets/marcas/premiumCase.svg";
+import premiumCase from "@/assets/marcas/premiumcase.svg";
 
 interface Props {
   /** URL del SVG de la funda, con hueco transparente */
@@ -53,7 +53,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="absolute bottom-0 right-4 w-24 sm:w-32 pointer-events-none z-20"
+        className="pointer-events-none absolute bottom-0 right-4 z-20 w-24 sm:w-32"
       />
     </div>
   );

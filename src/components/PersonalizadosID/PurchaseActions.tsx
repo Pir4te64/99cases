@@ -137,7 +137,6 @@ export default function PurchaseActions({
 
   const handleBuyNow = async () => {
     await handleAddToCart();
-    // navigate("/checkout");
   };
 
   return (

@@ -50,46 +50,33 @@ export default function PurchaseActions({
   const handleAddToCart = async () => {
     setLoading(true);
     try {
-      const container = previewRef.current;
-      if (!container) throw new Error("Vista previa no disponible");
+      let dataURL: string;
 
-      /* 1️⃣ Captura del contenedor completo */
-      const fullCanvas = await html2canvas(container, {
-        useCORS: true,
-        backgroundColor: null,
-        scale: window.devicePixelRatio || 2,
-      });
+      /* ─── 1. ¿Qué miniatura vamos a usar? ─── */
+      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
+        // 👉  Solo la imagen base que ya trae el producto
+        dataURL = product.imageSrc;              // o product.imagen.url
+      } else {
+        // 👉  Para los demás tipos, seguimos capturando con html2canvas
+        const node = previewRef.current;
+        if (!node) throw new Error("Vista previa no disponible");
 
-      /* 2️⃣ Ubicar el <img> de la funda dentro del contenedor */
-      const phoneImg = container.querySelector("img");   // el primero es la funda base
-      if (!phoneImg) throw new Error("No se encontró la imagen de la funda");
+        const canvas = await html2canvas(node, {
+          useCORS: true,
+          backgroundColor: null,
+          scale: window.devicePixelRatio || 2,
+        });
+        dataURL = canvas.toDataURL("image/png");
+      }
 
-      const phoneRect = phoneImg.getBoundingClientRect();
-      const contRect = container.getBoundingClientRect();
-
-      // Coordenadas relativas al contenedor
-      const sx = phoneRect.left - contRect.left;
-      const sy = phoneRect.top - contRect.top;
-      const sw = phoneRect.width;
-      const sh = phoneRect.height;
-
-      /* 3️⃣ Recortar esa región en un nuevo canvas */
-      const cropCanvas = document.createElement("canvas");
-      cropCanvas.width = sw;
-      cropCanvas.height = sh;
-      const ctx = cropCanvas.getContext("2d")!;
-      ctx.drawImage(fullCanvas, sx, sy, sw, sh, 0, 0, sw, sh);
-
-      const dataURL = cropCanvas.toDataURL("image/png");
-
-      /* 4️⃣ Crear / actualizar ítem de carrito */
+      /* ─── 2. Crear / actualizar ítem de carrito ─── */
       const item: CartItem = {
         id: product.id,
         title: product.title,
-        imageSrc: dataURL,                // miniatura optimizada
+        imageSrc: dataURL,              // ← la miniatura
         price: product.price,
         quantity: displayQuantity,
-        imageFinalUrl: product.imageFinal // seguimos guardando la URL final
+        imageFinalUrl: product.imageFinal, // Por si tu backend lo necesita
       };
 
       cartItem
@@ -98,11 +85,13 @@ export default function PurchaseActions({
 
       openCart();
     } catch (err) {
-      console.error("Error al generar la miniatura:", err);
+      console.error("Error al agregar al carrito:", err);
     } finally {
       setLoading(false);
     }
   };
+
+
 
   const handleBuyNow = async () => {
     await handleAddToCart();

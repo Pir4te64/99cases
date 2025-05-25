@@ -45,8 +45,8 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
 
   return (
     <div
-      ref={ref}
-      className="relative mt-28 h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="relative h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
     >
       {/* Imagen base */}
       <img

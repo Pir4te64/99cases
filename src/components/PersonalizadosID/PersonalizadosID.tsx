@@ -35,7 +35,7 @@ const PersonalizadosID: React.FC = () => {
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
   const previewRef = useRef<HTMLDivElement>(null);
-
+  const overlayOnlyRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (location.state?.product) setProduct(location.state.product);
     window.scrollTo(0, 0);
@@ -78,7 +78,7 @@ const PersonalizadosID: React.FC = () => {
                   {isConImagen && (
                     <CaseDesignerSimple frameUrl={product.imageSrc} />
                   )}
-                  {isConCaracteres && <PreviewOverlay />}
+                  {isConCaracteres && <PreviewOverlay ref={overlayOnlyRef} />}
                   {isPersonalizado && (
                     <SvgColorEditor svgUrl={product.imageSrc} />
                   )}
@@ -122,7 +122,7 @@ const PersonalizadosID: React.FC = () => {
                     tipo: product.tipo,
                     imageFinal: product.imageFinal,
                   }}
-                  previewRef={previewRef}
+                  previewRef={isConCaracteres ? overlayOnlyRef : previewRef}
                 />
                 <ProductDetails />
               </>

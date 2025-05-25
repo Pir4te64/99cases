@@ -10,6 +10,7 @@ export interface CartItem {
   // Propiedades para datos del celular
   selectedBrand?: string;
   selectedModel?: number;
+  imageFinalUrl?: string;
 }
 
 interface CartState {

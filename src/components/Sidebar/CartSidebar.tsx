@@ -61,11 +61,13 @@ export default function CartSidebar() {
               <li key={item.id} className="border-b border-black pb-4">
                 <div className="flex items-start space-x-3">
                   <img
-                    src={typeof item.imageSrc === "string" ? item.imageSrc : ""}
+                    src={item.imageSrc}
                     alt={item.title}
+                    className="h-28 w-20 object-contain"
                     loading="lazy"
-                    className="h-auto w-20 object-cover"
+                    onContextMenu={(e) => e.preventDefault()}
                   />
+
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
                       <p className="font-favoritExpandedBook text-sm font-bold uppercase leading-tight text-black">

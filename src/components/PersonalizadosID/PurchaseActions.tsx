@@ -1,25 +1,12 @@
 // src/components/PersonalizadosID/PurchaseActions.tsx
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import html2canvas from "html2canvas";
 import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import useCartStore, { CartItem } from "@/store/cartStore";
-
-interface PurchaseActionsProps {
-  product: {
-    id: string;
-    title: string;
-    imageSrc: string;
-    imageFinal: string; // URL SVG con texto + número pre-renderizado
-    price: number;
-    tipo:
-    | "PERSONALIZADO_CON_IMAGEN"
-    | "PERSONALIZADO_CON_CARACTERES"
-    | "PERSONALIZADO";
-  };
-  previewRef: React.RefObject<HTMLDivElement>;
-}
+import { PurchaseActionsProps } from "./utils/Interface";
+import { dataURLtoBlob } from "./utils/dataURLtoBlob";
 
 export default function PurchaseActions({
   product,
@@ -59,77 +46,59 @@ export default function PurchaseActions({
     }
   };
 
+
   const handleAddToCart = async () => {
     setLoading(true);
     try {
-      let previewImage: string;
+      const container = previewRef.current;
+      if (!container) throw new Error("Vista previa no disponible");
 
-      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
-        // 1) Si tenemos el contenedor de preview...
-        if (previewRef.current) {
-          const el = previewRef.current;
+      /* 1️⃣ Captura del contenedor completo */
+      const fullCanvas = await html2canvas(container, {
+        useCORS: true,
+        backgroundColor: null,
+        scale: window.devicePixelRatio || 2,
+      });
 
-          // Guarda estilo previo para restaurar luego
-          const prevBg = el.style.backgroundImage;
+      /* 2️⃣ Ubicar el <img> de la funda dentro del contenedor */
+      const phoneImg = container.querySelector("img");   // el primero es la funda base
+      if (!phoneImg) throw new Error("No se encontró la imagen de la funda");
 
-          // Aplica imageFinal como fondo
-          el.style.backgroundImage = `url(${product.imageFinal})`;
-          el.style.backgroundSize = "contain";
-          el.style.backgroundPosition = "center";
-          el.style.backgroundRepeat = "no-repeat";
+      const phoneRect = phoneImg.getBoundingClientRect();
+      const contRect = container.getBoundingClientRect();
 
-          // Captura con html2canvas
-          const { width, height } = el.getBoundingClientRect();
-          const canvas = await html2canvas(el, {
-            useCORS: true,
-            backgroundColor: null,
-            width,
-            height,
-            scale: 300 / 96,
-          });
-          previewImage = canvas.toDataURL("image/png");
+      // Coordenadas relativas al contenedor
+      const sx = phoneRect.left - contRect.left;
+      const sy = phoneRect.top - contRect.top;
+      const sw = phoneRect.width;
+      const sh = phoneRect.height;
 
-          // Restaura estilo original
-          el.style.backgroundImage = prevBg;
-        } else {
-          // Fallback si previewRef no está
-          previewImage = product.imageFinal;
-        }
+      /* 3️⃣ Recortar esa región en un nuevo canvas */
+      const cropCanvas = document.createElement("canvas");
+      cropCanvas.width = sw;
+      cropCanvas.height = sh;
+      const ctx = cropCanvas.getContext("2d")!;
+      ctx.drawImage(fullCanvas, sx, sy, sw, sh, 0, 0, sw, sh);
 
-      } else if (previewRef.current) {
-        // Lógica existente para PERSONALIZADO_CON_IMAGEN y PERSONALIZADO
-        const { width, height } = previewRef.current.getBoundingClientRect();
-        const canvas = await html2canvas(previewRef.current, {
-          useCORS: true,
-          backgroundColor: null,
-          width,
-          height,
-          scale: 300 / 96,
-        });
-        previewImage = canvas.toDataURL("image/png");
+      const dataURL = cropCanvas.toDataURL("image/png");
 
-      } else {
-        // Fallback general
-        previewImage = product.imageSrc;
-      }
-
+      /* 4️⃣ Crear / actualizar ítem de carrito */
       const item: CartItem = {
         id: product.id,
         title: product.title,
-        imageSrc: previewImage,
+        imageSrc: dataURL,                // miniatura optimizada
         price: product.price,
         quantity: displayQuantity,
+        imageFinalUrl: product.imageFinal // seguimos guardando la URL final
       };
 
-      if (cartItem) {
-        updateItemQuantity(product.id, displayQuantity);
-      } else {
-        addToCart(item);
-      }
-      openCart();
+      cartItem
+        ? updateItemQuantity(product.id, displayQuantity)
+        : addToCart(item);
 
+      openCart();
     } catch (err) {
-      console.error("Error al generar imagen para el carrito:", err);
+      console.error("Error al generar la miniatura:", err);
     } finally {
       setLoading(false);
     }
@@ -144,7 +113,7 @@ export default function PurchaseActions({
       {/* Controles de cantidad + botón "Agregar al Carrito" */}
       <div className="flex items-center space-x-3">
         {/* Controles de cantidad + botón "Agregar al Carrito" */}
-        <div className="flex items-center space-x-3">
+        <div className="flex w-full items-center space-x-3">
           {/* Input group compacto */}
           <div className="inline-flex items-center overflow-hidden rounded-md border border-gray-400">
             {/* Botón “–” más pequeño */}
@@ -177,7 +146,7 @@ export default function PurchaseActions({
           <button
             onClick={handleAddToCart}
             disabled={loading}
-            className="flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Agregando…" : "Agregar al Carrito"}
           </button>

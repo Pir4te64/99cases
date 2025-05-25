@@ -1,5 +1,5 @@
 // src/components/PersonalizadosID/PreviewOverlay.tsx
-import React, { useMemo, forwardRef } from "react";
+import { useMemo, forwardRef } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 import premiumCase from "@/assets/marcas/premiumcase.svg";
@@ -74,8 +74,8 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
               textShadow: numTextShadow,
             }}
             className={`text-[3rem] sm:text-[4rem] md:text-[6rem] text-center ${selectedNumberStyle != null
-                ? `font-${customNumberStyles[selectedNumberStyle]}`
-                : "font-cmxShift2"
+              ? `font-${customNumberStyles[selectedNumberStyle]}`
+              : "font-cmxShift2"
               }`}
           >
             {userNumber || "15"}
@@ -87,8 +87,8 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
               textShadow: nameTextShadow,
             }}
             className={`text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] text-center ${selectedNameStyle != null
-                ? `font-${customNameStyles[selectedNameStyle]}`
-                : "font-cmxShift2"
+              ? `font-${customNameStyles[selectedNameStyle]}`
+              : "font-cmxShift2"
               }`}
           >
             {userName || "TU NOMBRE"}

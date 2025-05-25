@@ -5,9 +5,6 @@ import { useLocation } from "react-router-dom";
 
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import PersonalizadosLayout from "@/components/ProductsID/PersonalizadosLayout";
-import imgVertical from "@/assets/predetermiandasCases/List.png";
-import imgHorizontal from "@/assets/predetermiandasCases/horizontal.png";
-import ProductImage from "@/components/PersonalizadosID/ProductoImagen";
 import ProductInfo from "@/components/PersonalizadosID/UI/ProductHeader";
 import ProductDetails from "@/components/PersonalizadosID/UI/ProductoDetalles";
 import MarcaCelular from "@/components/PersonalizadosID/Actions/MarcaCelular";
@@ -35,7 +32,7 @@ const PersonalizadosID: React.FC = () => {
   const isPersonalizado = product?.tipo === "PERSONALIZADO";
 
   const previewRef = useRef<HTMLDivElement>(null);
-  const overlayOnlyRef = useRef<HTMLDivElement>(null);
+  const textOverlayRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (location.state?.product) setProduct(location.state.product);
     window.scrollTo(0, 0);
@@ -78,7 +75,7 @@ const PersonalizadosID: React.FC = () => {
                   {isConImagen && (
                     <CaseDesignerSimple frameUrl={product.imageSrc} />
                   )}
-                  {isConCaracteres && <PreviewOverlay ref={overlayOnlyRef} />}
+                  {isConCaracteres && <PreviewOverlay ref={textOverlayRef} />}
                   {isPersonalizado && (
                     <SvgColorEditor svgUrl={product.imageSrc} />
                   )}
@@ -122,7 +119,7 @@ const PersonalizadosID: React.FC = () => {
                     tipo: product.tipo,
                     imageFinal: product.imageFinal,
                   }}
-                  previewRef={isConCaracteres ? overlayOnlyRef : previewRef}
+                  previewRef={isConCaracteres ? textOverlayRef : previewRef}
                 />
                 <ProductDetails />
               </>

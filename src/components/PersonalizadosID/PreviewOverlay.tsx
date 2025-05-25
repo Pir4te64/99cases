@@ -66,7 +66,7 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
       />
 
       {isConCaracteres && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center" ref={ref as React.RefObject<HTMLDivElement>}>
           <span
             style={{
               color: numFill,

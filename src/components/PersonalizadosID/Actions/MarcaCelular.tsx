@@ -7,11 +7,13 @@ import {
 } from "@/components/PersonalizadosID/Peticiones/MarcaCelularesGET";
 import { usePhoneSelectionStore } from "@/components/PersonalizadosID/store/phoneSelectionStore";
 import ModelSelectionModal from "@/components/PersonalizadosID/Actions/ModelSelectionModal";
+import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";   /* ⬅️ nuevo */
 
 const MarcaCelularGET: React.FC = () => {
   const [phoneModels, setPhoneModels] = useState<PhoneModel[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  /* store que ya usabas */
   const {
     selectedBrand,
     setSelectedBrand,
@@ -19,6 +21,11 @@ const MarcaCelularGET: React.FC = () => {
     setSelectedModel: setStoreSelectedModel,
   } = usePhoneSelectionStore();
 
+  /* NUEVO: setters del store principal */
+  const setPhoneBrand = usePersonalizadoStore((s) => s.setPhoneBrand);
+  const setPhoneModel = usePersonalizadoStore((s) => s.setPhoneModel);
+
+  /* --------------------------- */
   useEffect(() => {
     (async () => {
       try {
@@ -42,15 +49,21 @@ const MarcaCelularGET: React.FC = () => {
     [phoneModels, selectedBrand]
   );
 
+  /* --------- handlers ---------- */
   const handleBrandSelect = (brand: string) => {
-    setSelectedBrand(brand);
+    setSelectedBrand(brand);      // store de selección
+    setPhoneBrand(brand);         // store global
     setStoreSelectedModel(null);
+    setPhoneModel(null);          // reinicia modelo global
   };
+
   const handleModelSelect = (model: PhoneModel) => {
-    setStoreSelectedModel(model);
+    setStoreSelectedModel(model); // store de selección
+    setPhoneModel(model.modelo);  // store global
     setIsModalOpen(false);
   };
 
+  /* --------- UI ---------- */
   return (
     <div className="my-6 w-full">
       {/* Selección de Marca */}
@@ -65,8 +78,8 @@ const MarcaCelularGET: React.FC = () => {
               type="button"
               onClick={() => handleBrandSelect(brand)}
               className={`border rounded-md py-1 font-favoritExpanded sm:py-2 text-sm sm:text-base uppercase transition-colors ${selectedBrand === brand
-                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
-                : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+                  ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
+                  : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
                 }`}
             >
               {brand}

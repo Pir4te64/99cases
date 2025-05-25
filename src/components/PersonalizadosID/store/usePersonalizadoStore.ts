@@ -2,20 +2,20 @@
 import { create } from "zustand";
 
 export interface PersonalizadoState {
-  // Estado activo del paso actual
+  /* Paso activo */
   activeStep: number;
   setActiveStep: (step: number) => void;
 
-  // Datos del producto
+  /* Datos del producto */
   product: any | null;
   setProduct: (product: any) => void;
 
-  // Cantidad seleccionada
+  /* Cantidad seleccionada */
   quantity: number;
   increment: () => void;
   decrement: () => void;
 
-  // Flags para pasos y opciones
+  /* Flags UI */
   showMarca: boolean;
   toggleShowMarca: () => void;
   setShowMarca: (flag: boolean) => void;
@@ -26,51 +26,49 @@ export interface PersonalizadoState {
   showColors: boolean;
   toggleShowColors: () => void;
 
-  // Ancho de la ventana para manejo responsive
+  /* Tamaño de ventana */
   windowWidth: number;
   setWindowWidth: (width: number) => void;
 
-  // Texto y número personalizados
+  /* Texto/número personalizados */
   userName: string;
   setUserName: (name: string) => void;
-
   selectedNameStyle: number | null;
   setSelectedNameStyle: (style: number) => void;
 
   userNumber: string;
   setUserNumber: (number: string) => void;
-
   selectedNumberStyle: number | null;
   setSelectedNumberStyle: (style: number) => void;
 
-  // Colores de sección
+  /* Colores */
   selectedColors: Record<number, string>;
   setSelectedColor: (sectionIndex: number, color: string) => void;
 
-  // Foto subida y transformaciones
+  /* Foto subida y transformaciones */
   photo: string | null;
   setPhoto: (src: string | null) => void;
-
   scale: number;
   setScale: (v: number) => void;
-
   rotation: number;
   setRotation: (deg: number) => void;
-
   flipH: boolean;
   toggleFlipH: () => void;
-
   flipV: boolean;
   toggleFlipV: () => void;
-
-  // Original antes de recorte
   originalPhoto: string | null;
   setOriginalPhoto: (src: string | null) => void;
+
+  /* ⬇️ NUEVO: marca y modelo de teléfono */
+  phoneBrand: string | null;
+  setPhoneBrand: (b: string | null) => void;
+  phoneModel: string | null;
+  setPhoneModel: (m: string | null) => void;
 }
 
 const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
-  // --- Valores iniciales ---
-  activeStep: 1, // <-- Nuevo estado agregado aquí ✅
+  /* --- Valores iniciales --- */
+  activeStep: 1,
 
   product: null,
   quantity: 1,
@@ -96,8 +94,11 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
 
   originalPhoto: null,
 
-  // --- Acciones ---
-  setActiveStep: (step) => set({ activeStep: step }), // <-- Nueva acción ✅
+  phoneBrand: null,
+  phoneModel: null,
+
+  /* --- Acciones --- */
+  setActiveStep: (step) => set({ activeStep: step }),
 
   setProduct: (product) => set({ product }),
 
@@ -121,10 +122,7 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
 
   setSelectedColor: (sectionIndex, color) =>
     set((s) => ({
-      selectedColors: {
-        ...s.selectedColors,
-        [sectionIndex]: color,
-      },
+      selectedColors: { ...s.selectedColors, [sectionIndex]: color },
     })),
 
   setPhoto: (src) => set({ photo: src }),
@@ -136,6 +134,10 @@ const usePersonalizadoStore = create<PersonalizadoState>((set) => ({
   toggleFlipV: () => set((s) => ({ flipV: !s.flipV })),
 
   setOriginalPhoto: (src) => set({ originalPhoto: src }),
+
+  /* --- Nuevas acciones --- */
+  setPhoneBrand: (b) => set({ phoneBrand: b }),
+  setPhoneModel: (m) => set({ phoneModel: m }),
 }));
 
 export default usePersonalizadoStore;

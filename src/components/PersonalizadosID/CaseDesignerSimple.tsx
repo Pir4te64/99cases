@@ -53,7 +53,7 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-4 z-20 w-24 sm:w-32"
+        className="pointer-events-none absolute bottom-0 right-0 w-32 sm:w-32"
       />
     </div>
   );

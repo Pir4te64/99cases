@@ -30,10 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const discountPercent = Number(descuento.replace("%", ""));
   const oldPriceValue = numericPrice / (1 - discountPercent / 100);
 
-  const formattedOldPrice = `$${oldPriceValue.toLocaleString("es-AR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+  const formattedOldPrice = `$${Math.round(oldPriceValue).toLocaleString("es-AR")}`;
 
   return (
     <div
@@ -63,11 +60,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </h3>
       <div className="flex flex-col items-center justify-center gap-1">
         <span className="font-favoritExpandedBook text-sm font-bold text-black sm:text-sm">
-          {Number(price.replace(/[^0-9.-]+/g, "")).toLocaleString("es-AR", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+          {Math.round(Number(price.replace(/[^0-9.-]+/g, ""))).toLocaleString("es-AR", {
             style: "currency",
-            currency: "ARS"
+            currency: "ARS",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
           })}
         </span>
         {descuento && (

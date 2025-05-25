@@ -4,7 +4,7 @@ import { Minus, Plus } from "lucide-react";
 import html2canvas from "html2canvas";
 import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import useCartStore, { CartItem } from "@/store/cartStore";
-import { PurchaseActionsProps } from "./utils/Interface";
+import { PurchaseActionsProps } from "@/components/PersonalizadosID/utils/Interface";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 
 // Importaciones de React-Toastify

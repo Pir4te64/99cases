@@ -40,7 +40,7 @@ const Scroll: React.FC = () => {
             <img
               src={img}
               alt={`Slide ${idx}`}
-              className="h-[900px] w-full object-cover" // altura fija para todas
+              className="h-[450px] w-full object-cover md:h-[900px]" // altura reducida en móvil
               onContextMenu={(e) => e.preventDefault()}
             />
           </SwiperSlide>

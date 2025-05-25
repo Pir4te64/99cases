@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+// src/components/Navbar.tsx
+import React, { useState, useEffect } from "react";
 import { ShoppingCart, Search, ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/99cases.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useCartStore from "@/store/cartStore";
 import useAuthStore from "@/store/authStore";
 
@@ -10,14 +11,24 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const toggleCart = useCartStore((state) => state.toggleCart);
-  const location = useLocation();
 
+  const toggleCart = useCartStore((state) => state.toggleCart);
+  const cartItems = useCartStore((state) => state.cartItems);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Contador de items en carrito
+  const lineCount = cartItems.length;
+  const totalCount = cartItems.reduce((sum, it) => sum + it.quantity, 0);
+
+  // Detectar login
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, [location]);
 
+  // Cerrar menús al cambiar de ruta
   useEffect(() => {
     setMenuOpen(false);
     setIsOpen(false);
@@ -26,16 +37,21 @@ export default function Navbar() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
     useAuthStore.getState().clearToken();
-    window.location.href = "/";
+    setIsLoggedIn(false);
+    navigate("/");
   };
-  const cartItems = useCartStore((state) => state.cartItems);
 
-  // si quieres mostrar la cantidad de líneas:
-  const lineCount = cartItems.length;
-  // o si cada item tiene una propiedad quantity y quieres el total:
-  const totalCount = cartItems.reduce((sum, it) => sum + it.quantity, 0);
+  // Scroll to top si ya estamos en "/"
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="fixed inset-x-0 top-0 z-50">
       {bannerOpen && (
@@ -52,11 +68,10 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Sticky Navbar */}
       <nav className="sticky top-0 z-50 bg-black p-4 text-white">
-        {/* Desktop Navbar */}
+        {/* Desktop */}
         <div className="hidden items-center justify-between md:flex">
-          {/* Izquierda: Productos + Sesión */}
+          {/* Productos + Sesión */}
           <div className="flex items-center space-x-3">
             <div className="relative">
               <button
@@ -115,9 +130,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Centro: Logo */}
+          {/* Logo */}
           <div className="logo text-center text-xl font-bold">
-            <Link to="/">
+            <Link to="/" onClick={handleLogoClick}>
               <img
                 src={logo}
                 alt="logo"
@@ -127,18 +142,16 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Derecha: Carrito y Búsqueda */}
+          {/* Carrito + Búsqueda */}
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleCart}
               className="relative transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
-              {totalCount >= 0 && (
-                <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
-                  {totalCount}
-                </span>
-              )}
+              <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                {totalCount}
+              </span>
             </button>
             <button className="transition-colors hover:text-gray-300">
               <Search className="h-5 w-5" />
@@ -146,9 +159,9 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navbar */}
+        {/* Mobile */}
         <div className="flex items-center justify-between md:hidden">
-          <Link to="/">
+          <Link to="/" onClick={handleLogoClick}>
             <img
               src={logo}
               alt="logo"
@@ -173,16 +186,14 @@ export default function Navbar() {
               className="relative transition-colors hover:text-gray-300"
             >
               <ShoppingCart className="h-5 w-5" />
-              {lineCount >= 0 && (
-                <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
-                  {lineCount}
-                </span>
-              )}
+              <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                {lineCount}
+              </span>
             </button>
           </div>
         </div>
 
-        {/* Menú de navegación en Mobile */}
+        {/* Menú Mobile */}
         {menuOpen && (
           <div className="absolute left-0 top-full z-10 flex w-full flex-col space-y-4 bg-black p-4 text-white md:hidden">
             <Link

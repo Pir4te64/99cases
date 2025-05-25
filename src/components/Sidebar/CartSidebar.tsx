@@ -40,7 +40,7 @@ export default function CartSidebar() {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isCartOpen ? "translate-x-0" : "translate-x-full"
+      className={`fixed top-0 right-0 h-full w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
     >
       {/* Encabezado */}

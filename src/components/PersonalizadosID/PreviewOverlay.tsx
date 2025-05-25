@@ -45,8 +45,8 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
 
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="relative h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
+      ref={ref}
+      className="relative mt-28 h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
     >
       {/* Imagen base */}
       <img
@@ -54,7 +54,7 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
         src={product.imageSrc}
         alt={product.title || "Producto"}
         onContextMenu={(e) => e.preventDefault()}
-        className="h-[800px] w-full object-contain md:max-w-full"
+        className="h-full w-full object-contain md:max-w-full"
       />
 
       {/* Banner “Premium Case” superpuesto */}
@@ -62,11 +62,11 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-3 w-32 sm:w-32"
+        className="pointer-events-none absolute bottom-0 right-4 w-24 sm:w-32"
       />
 
       {isConCaracteres && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center" ref={ref as React.RefObject<HTMLDivElement>}>
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <span
             style={{
               color: numFill,

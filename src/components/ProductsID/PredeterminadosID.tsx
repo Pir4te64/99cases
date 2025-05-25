@@ -12,6 +12,7 @@ import { useCheckout } from "@/store/useCheckout";
 import PredeterminadoLayout from "@/components/UI/PredeterminadoLayout";
 import premiumCase from "@/assets/marcas/premiumcase.svg";
 import Features from "@/components/Features";
+import { toast, ToastContainer } from "react-toastify";
 
 const PredeterminadosID: React.FC = () => {
   const location = useLocation();
@@ -68,6 +69,7 @@ const PredeterminadosID: React.FC = () => {
 
   const handleAgregarAlCarrito = () => {
     if (!product) return;
+
     if (cartItem) {
       updateItemQuantity(product.id, selectedQuantity);
     } else {
@@ -82,7 +84,15 @@ const PredeterminadosID: React.FC = () => {
       };
       addToCart(item);
     }
-    openCart();
+
+    //openCart();
+
+    // Aquí mostramos el toast
+    toast.success("Funda agregada al carrito", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
   };
 
   const handleBuyNow = () => {
@@ -93,6 +103,15 @@ const PredeterminadosID: React.FC = () => {
   const isSelectionComplete = Boolean(selectedModel && selectedBrand);
   return (
     <PredeterminadoLayout>
+      <ToastContainer
+        position="bottom-center"
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover
+      />
       <div className="mx-auto bg-white py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 

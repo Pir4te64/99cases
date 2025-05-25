@@ -7,11 +7,15 @@ import useCartStore, { CartItem } from "@/store/cartStore";
 import { PurchaseActionsProps } from "./utils/Interface";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 
+// Importaciones de React-Toastify
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 /** Carga una imagen y la resuelve cuando está disponible */
 const loadImage = (src: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous";     // necesario para Cloudinary u otros dominios
+    img.crossOrigin = "anonymous";
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = src;
@@ -54,29 +58,23 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
 
   /* ─── agregar al carrito ─── */
   const handleAddToCart = async () => {
-    if (!isReady) return;                 // salvaguarda extra
+    if (!isReady) return;
     setLoading(true);
     try {
       let finalDataURL: string;
-
-      /* 1. Miniatura según tipo */
       if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
         const textCanvas = await html2canvas(previewRef.current!, {
           useCORS: true,
           backgroundColor: null,
           scale: window.devicePixelRatio || 2,
         });
-
         const baseImg = await loadImage(product.imageSrc);
-
         const composed = document.createElement("canvas");
         composed.width = baseImg.width;
         composed.height = baseImg.height;
-
         const ctx = composed.getContext("2d")!;
         ctx.drawImage(baseImg, 0, 0);
         ctx.drawImage(textCanvas, 0, 0);
-
         finalDataURL = composed.toDataURL("image/png");
       } else {
         if (!previewRef.current) throw new Error("Vista previa no disponible");
@@ -88,7 +86,6 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         finalDataURL = fullCanvas.toDataURL("image/png");
       }
 
-      /* 2. Crear / actualizar ítem */
       const item: CartItem = {
         id: product.id,
         title: product.title,
@@ -102,9 +99,17 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         ? updateItemQuantity(product.id, displayQuantity)
         : addToCart(item);
 
-      openCart();
+      //openCart();
+
+      // ¡Toast aquí!
+      toast.success("Funda agregada al carrito", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
     } catch (err) {
       console.error("Error al generar la miniatura:", err);
+      toast.error("No se pudo agregar la funda");
     } finally {
       setLoading(false);
     }
@@ -115,64 +120,75 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
     await handleAddToCart();
   };
 
-  /* ─── UI ─── */
   return (
-    <div className="space-y-4">
-      {/* Cantidad + Agregar */}
-      <div className="flex items-center space-x-3">
-        <div className="flex w-full items-center space-x-3">
-          <div className="inline-flex items-center overflow-hidden rounded-md border border-gray-400">
-            <button
-              onClick={handleDecrement}
-              disabled={loading || !isReady}
-              aria-label="Disminuir cantidad"
-              className="px-2 py-1 text-gray-800 hover:bg-gray-100 disabled:opacity-50"
-            >
-              <Minus size={12} />
-            </button>
-            <div className="px-3 py-1 font-medium text-gray-800">
-              {displayQuantity}
+    <>
+      <div className="space-y-4">
+        {/* Cantidad + Agregar */}
+        <div className="flex items-center space-x-3">
+          <div className="flex w-full items-center space-x-3">
+            <div className="inline-flex items-center overflow-hidden rounded-md border border-gray-400">
+              <button
+                onClick={handleDecrement}
+                disabled={loading || !isReady}
+                aria-label="Disminuir cantidad"
+                className="px-2 py-1 text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+              >
+                <Minus size={12} />
+              </button>
+              <div className="px-3 py-1 font-medium text-gray-800">
+                {displayQuantity}
+              </div>
+              <button
+                onClick={handleIncrement}
+                disabled={loading || !isReady}
+                aria-label="Aumentar cantidad"
+                className="px-2 py-1 text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+              >
+                <Plus size={12} />
+              </button>
             </div>
+
             <button
-              onClick={handleIncrement}
+              onClick={handleAddToCart}
               disabled={loading || !isReady}
-              aria-label="Aumentar cantidad"
-              className="px-2 py-1 text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+              className="w-full flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm text-white hover:bg-gray-800 disabled:opacity-50"
             >
-              <Plus size={12} />
+              {loading ? "Agregando…" : "Agregar al Carrito"}
             </button>
           </div>
+        </div>
 
-          <button
-            onClick={handleAddToCart}
-            disabled={loading || !isReady}
-            className="w-full flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm text-white hover:bg-gray-800 disabled:opacity-50"
-          >
-            {loading ? "Agregando…" : "Agregar al Carrito"}
-          </button>
+        {/* Comprar ahora */}
+        <button
+          onClick={handleBuyNow}
+          disabled={loading || !isReady}
+          className="w-full rounded border border-black px-4 py-2 font-favoritExpanded text-sm text-black hover:bg-black hover:text-white disabled:opacity-50"
+        >
+          {loading ? "Procesando…" : "Comprar Ahora"}
+        </button>
+
+        {/* Logos de pago */}
+        <div className="flex justify-center">
+          <img
+            src={tarjetas}
+            alt="Tarjetas de pago"
+            loading="lazy"
+            className="max-w-full"
+            onContextMenu={(e) => e.preventDefault()}
+          />
         </div>
       </div>
 
-      {/* Comprar ahora */}
-      <button
-        onClick={handleBuyNow}
-        disabled={loading || !isReady}
-        className="w-full rounded border border-black px-4 py-2 font-favoritExpanded text-sm text-black hover:bg-black hover:text-white disabled:opacity-50"
-      >
-        {loading ? "Procesando…" : "Comprar Ahora"}
-      </button>
-
-
-      {/* Logos de pago */}
-      <div className="flex justify-center">
-        <img
-          src={tarjetas}
-          alt="Tarjetas de pago"
-          loading="lazy"
-          className="max-w-full"
-          onContextMenu={(e) => e.preventDefault()}
-        />
-      </div>
-    </div>
+      {/* Contenedor de toasts en posición inferior */}
+      <ToastContainer
+        position="bottom-center"
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover
+      />
+    </>
   );
 }

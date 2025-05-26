@@ -15,7 +15,7 @@ export function useCheckout() {
 
   /** Construye los items para la orden en el formato requerido por el backend */
   const buildOrderItems = () =>
-    cartItems.map(item => ({
+    cartItems.map((item) => ({
       caseId: parseInt(item.id, 10),
       modeloId: item.selectedModel
         ? parseInt(item.selectedModel.toString(), 10)
@@ -45,7 +45,7 @@ export function useCheckout() {
       await Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Usuario no autenticado. Haga click a fuera para inicia sesión.",
+        text: "Usuario no autenticado. Iniciá sesión con tu cuenta para continuar con la compra y poder hacer el seguimiento de tu envío.Hacé clic fuera de este cartel para iniciar sesión.",
         confirmButtonText: "Ir a login",
         showConfirmButton: true,
       }).then(() => {
@@ -69,7 +69,9 @@ export function useCheckout() {
     for (const [key, value] of formData.entries()) {
       // Si el value es Blob, mostrar su tipo y tamaño
       if (value instanceof Blob) {
-        console.log(`FormData entry: ${key} → Blob [type: ${value.type}, size: ${value.size}]`);
+        console.log(
+          `FormData entry: ${key} → Blob [type: ${value.type}, size: ${value.size}]`
+        );
       } else {
         console.log(`FormData entry: ${key} → ${value}`);
       }
@@ -126,7 +128,6 @@ export function useCheckout() {
       navigate("/pagos", { state: { cartItems, subtotal, total } });
     }
   };
-
 
   return { handleCheckout };
 }

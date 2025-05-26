@@ -32,7 +32,7 @@ const Features: React.FC = () => {
           key={idx}
           className="flex flex-col items-center space-y-2 text-center sm:flex-row sm:space-x-2 sm:space-y-0 sm:text-left lg:flex-col lg:space-x-0 lg:space-y-2"
         >
-          <div className="h-24 w-24 flex-shrink-0 p-2 sm:h-12 sm:w-12 lg:h-16 lg:w-16">
+          <div className="h-24 w-24 flex-shrink-0 p-2 sm:h-12 sm:w-12 lg:h-28 lg:w-28">
             <img
               src={icon}
               alt={title}

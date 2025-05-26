@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
+import TextHorizontal from "../UI/TextHorizontal";
 
 const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -42,6 +43,7 @@ const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
         <div className="min-w-0">
           <ProductosSimilaresPersonalizados />
         </div>
+        <TextHorizontal />
       </section>
     </div>
   );

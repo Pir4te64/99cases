@@ -1,5 +1,6 @@
-
 import ProductosSimilares from "@/components/Fundas/FundasPredeterminadas/ProductosSimilares";
+import TextHorizontal from "./TextHorizontal";
+
 const PredeterminadoLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
@@ -12,6 +13,7 @@ const PredeterminadoLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <ProductosSimilares />
+        <TextHorizontal />
       </section>
     </div>
   );

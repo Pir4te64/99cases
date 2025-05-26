@@ -28,6 +28,7 @@ import s19 from "@/assets/Scroll/s19.jpeg";
 import s20 from "@/assets/Scroll/s20.jpeg";
 import s21 from "@/assets/Scroll/s21.jpeg";
 import s22 from "@/assets/Scroll/s22.jpeg";
+import s23 from "@/assets/Scroll/s23.jpeg";
 
 const Scroll: React.FC = () => {
   const images = [
@@ -52,6 +53,7 @@ const Scroll: React.FC = () => {
     s20,
     s21,
     s22,
+    s23,
   ];
 
   return (

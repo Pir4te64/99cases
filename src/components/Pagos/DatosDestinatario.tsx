@@ -249,7 +249,7 @@ const DatosDestinatario: React.FC = () => {
             htmlFor="ubicacion-select"
             className="mb-1 block font-favoritExpandedBook text-sm font-medium md:text-base"
           >
-            Ubicación
+            Localidad / Código postal
           </label>
           <AsyncSelect<UbicacionOption, false>
             cacheOptions
@@ -322,7 +322,7 @@ const DatosDestinatario: React.FC = () => {
         {/* Departamento */}
         <InputField
           id="departamento"
-          label="Departamento"
+          label="Departamento (opcional)"
           value={formik.values.departamento}
           onChange={(e) => {
             formik.handleChange(e);

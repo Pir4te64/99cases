@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProductosSimilaresPersonalizados from "@/components/Fundas/FundasPersonalizadas/ProductosSimilaresPersonalizados";
-import TextHorizontal from "../UI/TextHorizontal";
+import TextHorizontal from "@/components/UI/TextHorizontal";
 
 const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
   children,

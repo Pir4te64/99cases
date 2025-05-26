@@ -1,5 +1,5 @@
 import ProductosSimilares from "@/components/Fundas/FundasPredeterminadas/ProductosSimilares";
-import TextHorizontal from "./TextHorizontal";
+import TextHorizontal from "@/components/UI/TextHorizontal";
 
 const PredeterminadoLayout = ({ children }: { children: React.ReactNode }) => {
   return (

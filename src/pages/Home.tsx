@@ -4,7 +4,7 @@ import Coleccion from "@/components/Coleccion";
 import Productos from "@/components/Fundas/FundasPredeterminadas/Productos";
 import Marcas from "@/components/UI/Marcas";
 import Pagos from "@/components/Payments/Pagos";
-import NosEligen from "@/components/NosEligen";
+import NosEligen from "@/components/NosEligen/NosEligen";
 import Scroll from "@/components/UI/Scroll";
 import Registro from "@/components/FormularioContacto";
 import TextHorizontal from "@/components/UI/TextHorizontal";

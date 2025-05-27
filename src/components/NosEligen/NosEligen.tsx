@@ -23,16 +23,16 @@ import img13 from "@/assets/Eligen/13.jpeg";
 import img14 from "@/assets/Eligen/14.jpeg";
 
 import ImageCard from "@/components/NosEligen/ImageCard";
+const specialSlide = {
+  image: img2,
+  title: "Protección con estilo",
+  subtitle: "Diseños que hablan por vos",
+  linkText: "Ver Todos",
+  linkTo: "/predeterminadas",
+};
 
 const slides = [
-  { image: img1, title: "Guadalupe Alonso" },
-  {
-    image: img2,
-    title: "Protección con estilo",
-    subtitle: "Diseños que hablan por vos",
-    linkText: "Ver Todos",
-    linkTo: "/predeterminadas",
-  },
+  { image: img1, title: "Guada Alonso" },
   { image: img3, title: "AGUSTÍN POLI" },
   { image: img14, title: "JOAQUÍN POLI" },
   { image: img4, title: "DARÍO ARCO" },
@@ -88,6 +88,9 @@ const NosEligenSlider: React.FC = () => (
           </SwiperSlide>
         ))}
       </Swiper>
+    </div>
+    <div className="mt-8">
+      <ImageCard {...specialSlide} />
     </div>
   </div>
 );

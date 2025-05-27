@@ -41,7 +41,7 @@ const PredeterminadosID: React.FC = () => {
   // Breadcrumb
   const breadcrumbItems = [
     { label: "Inicio", link: "/" },
-    { label: "Fundas Predeterminadas", link: "/predeterminadas" },
+    { label: "Fundas Exclusivas", link: "/predeterminadas" },
     { label: product?.title || "Producto" },
   ];
 
@@ -115,33 +115,36 @@ const PredeterminadosID: React.FC = () => {
       <div className="mx-auto bg-white py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex flex-col gap-6 lg:flex-row">
-          {/* Imagen de fondo (20%) */}
-          <Features />
+        <div className="flex w-full flex-col gap-4 lg:flex-row lg:gap-0">
+          <div className="flex w-full flex-row items-start justify-between gap-0 lg:w-[50%]">
+            <div className="w-[20%] lg:w-[40%]">
+              <Features />
+            </div>
 
-          {/* Imagen principal (30%) */}
-          <div className="flex w-full items-start justify-center lg:w-[30%]">
-            {product ? (
-              <div className="relative inline-block w-64 sm:w-80 md:w-96">
-                {/* Imagen principal más pequeña */}
-                <img
-                  src={product.imageSrc}
-                  alt={product.title}
-                  className="h-auto w-full object-contain"
-                  onContextMenu={(e) => e.preventDefault()}
-                />
+            {/* Imagen principal (30%) */}
+            <div className="flex w-[80%] items-start justify-center lg:w-[60%]">
+              {product ? (
+                <div className="relative inline-block w-full sm:w-80 md:w-96">
+                  {/* Imagen principal más pequeña */}
+                  <img
+                    src={product.imageSrc}
+                    alt={product.title}
+                    className="h-auto w-full object-contain"
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
 
-                {/* Banner superpuesto */}
-                <img
-                  src={premiumCase}
-                  alt="Premium Case"
-                  onContextMenu={(e) => e.preventDefault()}
-                  className="pointer-events-none absolute -bottom-10 right-0 w-32 sm:w-32"
-                />
-              </div>
-            ) : (
-              <p>No se encontró la imagen del producto.</p>
-            )}
+                  {/* Banner superpuesto */}
+                  <img
+                    src={premiumCase}
+                    alt="Premium Case"
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="pointer-events-none absolute -bottom-10 right-0 w-32 sm:w-32"
+                  />
+                </div>
+              ) : (
+                <p>No se encontró la imagen del producto.</p>
+              )}
+            </div>
           </div>
 
           {/* Detalles (50%) */}
@@ -152,10 +155,10 @@ const PredeterminadosID: React.FC = () => {
                   {product.title}
                 </h1>
                 <p className="mb-2 text-left font-favoritExpandedBook text-base font-semibold text-gray-900 sm:text-lg md:text-xl">
-                  {product.price}{" "}
+                  {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                   {product.oldPrice && (
                     <span className="ml-2 font-favoritExpandedBook text-gray-500 line-through">
-                      {product.oldPrice}
+                      {product.oldPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </span>
                   )}
                 </p>

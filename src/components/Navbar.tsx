@@ -87,7 +87,7 @@ export default function Navbar() {
                     to="/predeterminadas"
                     className="block px-4 py-2 transition-colors hover:bg-white hover:text-black"
                   >
-                    Fundas Predeterminadas
+                    Fundas Exclusivas
                   </Link>
                   <Link
                     to="/personalizadas"
@@ -200,7 +200,7 @@ export default function Navbar() {
               to="/predeterminadas"
               className="transition-colors hover:text-gray-300"
             >
-              Fundas Predeterminadas
+              Fundas Exclusivas
             </Link>
             <Link
               to="/personalizadas"

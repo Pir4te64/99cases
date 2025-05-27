@@ -35,8 +35,8 @@ const Coleccion = () => {
                 } md:group-hover:opacity-100`}
             />
             <div className="absolute bottom-0 left-0 right-0 z-10 cursor-pointer p-4 text-center">
-              <h2 className="font-dharmaGothicM text-6xl font-bold uppercase italic tracking-wide md:text-9xl">
-                Fundas Predeterminadas
+              <h2 className="font-dharmaGothicM text-7xl font-bold uppercase italic md:text-9xl">
+                Fundas EXCLUSIVAS
               </h2>
               <p className="mt-2 font-favoritExpanded text-sm uppercase md:text-lg">
                 Ver Colección
@@ -70,7 +70,7 @@ const Coleccion = () => {
                 } md:group-hover:opacity-100`}
             />
             <div className="absolute bottom-0 left-0 right-0 z-10 p-4 text-center">
-              <h2 className="font-dharmaGothicM text-6xl font-bold uppercase italic tracking-wide md:text-9xl">
+              <h2 className="font-dharmaGothicM text-7xl font-bold uppercase italic md:text-9xl">
                 Fundas Personalizadas
               </h2>
               <p className="mt-2 font-favoritExpanded text-sm uppercase md:text-lg">

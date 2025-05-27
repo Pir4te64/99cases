@@ -15,7 +15,7 @@ const FundasPredeterminadasHeader = () => {
 
       <div className="absolute bottom-5 left-0 w-full p-4 text-center">
         <h1 className="font-dharmaGothicM text-6xl font-bold uppercase italic leading-none tracking-wide text-white sm:text-5xl md:text-7xl lg:text-9xl xl:text-[216px]">
-          FUNDAS PREDETERMINADAS
+          FUNDAS EXCLUSIVAS
         </h1>
       </div>
     </div>

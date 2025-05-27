@@ -7,10 +7,10 @@ const ProductHeader = ({ product }: { product: any }) => {
         {product.title}
       </h1>
       <p className="mb-1.5 text-left font-favoritExpandedBook text-sm font-semibold text-gray-900 sm:text-lg md:mb-2 md:text-xl">
-        {product.price}{" "}
+        {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
         {product.oldPrice && (
           <span className="ml-1.5 font-favoritExpandedBook text-xs text-gray-500 line-through sm:text-sm md:ml-2 md:text-base">
-            {product.oldPrice}
+            {product.oldPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </span>
         )}
       </p>

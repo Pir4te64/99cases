@@ -28,12 +28,12 @@ const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
   }, [navigate]);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
       {/* Contenido principal */}
-      <div className="min-w-0">{children}</div>
+      <div className="relative min-h-screen">{children}</div>
 
       {/* Llamado a la acción y productos similares */}
-      <section className="overflow-x-hidden text-center">
+      <section className="relative overflow-x-hidden text-center">
         <div className="flex h-[16rem] items-center justify-center bg-white px-4 md:h-[24rem]">
           <h1 className="font-dharmaGothicM text-4xl font-bold uppercase italic leading-tight text-black sm:text-5xl md:text-8xl lg:text-[96px]">
             ¡Protegé tu teléfono con onda, estilo y calidad!

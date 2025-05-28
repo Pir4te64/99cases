@@ -62,7 +62,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 2: preview */}
-          <div className="fixed left-0 top-0 z-10 w-full bg-white p-4 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
+          <div className="fixed left-0 top-0 z-10 w-full bg-white p-4 px-0 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
 
             <div className="flex justify-start lg:sticky lg:top-24">
 

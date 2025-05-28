@@ -46,7 +46,7 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
-      className="relative mt-28 h-[40vh] w-full overflow-hidden md:mt-0 md:h-full"
+      className="relative mt-28 h-[350px] w-full overflow-hidden md:mt-0 lg:h-[600px]"
     >
       {/* Imagen base */}
       <img
@@ -54,15 +54,15 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
         src={product.imageSrc}
         alt={product.title || "Producto"}
         onContextMenu={(e) => e.preventDefault()}
-        className="h-full w-full object-contain md:max-w-full"
+        className="h-full w-full object-contain md:max-w-full md:scale-100"
       />
 
-      {/* Banner “Premium Case” superpuesto */}
+      {/* Banner "Premium Case" superpuesto */}
       <img
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-4 w-24 sm:w-32"
+        className="pointer-events-none absolute bottom-0 right-4 w-24 scale-75 sm:w-32 sm:scale-100"
       />
 
       {isConCaracteres && (

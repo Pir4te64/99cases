@@ -26,6 +26,7 @@
     "react-image-crop": "^11.0.10",
     "react-router-dom": "^7.3.0",
     "react-select": "^5.10.1",
+    "react-sticky-box": "^2.0.5",
     "react-toastify": "^11.0.5",
     "sweetalert2": "^11.17.2",
     "swiper": "^11.2.8",

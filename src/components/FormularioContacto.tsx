@@ -12,7 +12,7 @@ const Registro = () => {
   return (
     <div className="flex h-[500px] w-full flex-col items-center justify-center space-y-4 bg-black text-center text-white">
       <h2 className="text-md mb-6 font-favoritExpanded sm:text-3xl md:text-xl">
-        Regístrate y recibe nuestras ofertas.
+        Registrate y recibí nuestras ofertas.
       </h2>
       <form
         onSubmit={handleSubmit}

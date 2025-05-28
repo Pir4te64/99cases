@@ -45,7 +45,7 @@ export function useCheckout() {
       await Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Usuario no autenticado. Iniciá sesión con tu cuenta para continuar con la compra y poder hacer el seguimiento de tu envío.Hacé clic fuera de este cartel para iniciar sesión.",
+        text: "Usuario no autenticado. Iniciá sesión con tu cuenta para continuar con la compra y poder hacer el seguimiento de tu envío. Hacé clic fuera de este cartel para iniciar sesión.",
         confirmButtonText: "Ir a login",
         showConfirmButton: true,
       }).then(() => {

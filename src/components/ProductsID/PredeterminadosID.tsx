@@ -115,14 +115,14 @@ const PredeterminadosID: React.FC = () => {
       <div className="mx-auto bg-white py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex w-full flex-col gap-4 lg:flex-row lg:gap-0">
-          <div className="flex w-full flex-row items-start justify-between gap-0 lg:w-[50%]">
-            <div className="w-[20%] lg:w-[40%]">
+        <div className="flex w-full flex-col gap-4 p-2 lg:flex-row lg:gap-0">
+          <div className="flex w-full flex-col items-start justify-between gap-4 lg:w-[50%] lg:flex-row">
+            <div className="w-full lg:w-[30%]">
               <Features />
             </div>
 
             {/* Imagen principal (30%) */}
-            <div className="flex w-[80%] items-start justify-center lg:w-[60%]">
+            <div className="flex w-full items-start justify-center lg:w-[70%]">
               {product ? (
                 <div className="relative inline-block w-full sm:w-80 md:w-96">
                   {/* Imagen principal más pequeña */}
@@ -148,7 +148,7 @@ const PredeterminadosID: React.FC = () => {
           </div>
 
           {/* Detalles (50%) */}
-          <div className="flex w-full flex-col p-4 lg:w-[50%]">
+          <div className="flex w-full flex-col p-4 lg:w-[80%]">
             {product ? (
               <>
                 <h1 className="mb-2 w-full text-left text-2xl font-bold sm:text-3xl md:text-7xl">

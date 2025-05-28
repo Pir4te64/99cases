@@ -19,7 +19,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
     /*  ─── wrapper ───
         • h-[400px] en mobile
         • md:h-auto + md:aspect-[16/9] en desktop */
-    <div className="relative h-[400px] overflow-hidden md:h-auto md:aspect-[16/9]">
+    <div className="relative h-[400px] overflow-hidden md:aspect-[16/9] md:h-auto">
       <img
         loading="lazy"
         src={image}
@@ -32,7 +32,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
 
       {/* Desktop: texto a la derecha */}
       <div className="absolute bottom-4 right-4 z-10 hidden text-right text-white md:block">
-        <h3 className="font-dharmaGothicM text-5xl font-bold italic uppercase md:text-9xl">
+        <h3 className="font-dharmaGothicM text-5xl font-bold uppercase italic md:text-9xl">
           {title}
         </h3>
         {subtitle && (
@@ -41,7 +41,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
         {linkText && linkTo && (
           <Link
             to={linkTo}
-            className="mt-2 inline-block rounded bg-red-600 px-4 py-2 font-favoritExpanded tracking-wide font-bold text-white hover:bg-red-700"
+            className="mt-2 inline-block rounded bg-red-600 px-4 py-2 font-favoritExpanded font-bold tracking-wide text-white hover:bg-red-700"
           >
             {linkText}
           </Link>
@@ -49,8 +49,8 @@ const ImageCard: React.FC<ImageCardProps> = ({
       </div>
 
       {/* Mobile: texto centrado */}
-      <div className="absolute bottom-4 left-1/2 z-10 block -translate-x-1/2 text-center text-white md:hidden">
-        <h3 className="font-dharmaGothicM text-5xl font-bold italic uppercase">
+      <div className="absolute bottom-4 right-4 z-10 block w-full text-end text-white md:hidden">
+        <h3 className="font-dharmaGothicM text-5xl font-bold uppercase italic">
           {title}
         </h3>
         {subtitle && (
@@ -59,7 +59,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
         {linkText && linkTo && (
           <Link
             to={linkTo}
-            className="mt-2 text-sm inline-block rounded bg-red-600 px-4 py-2 font-favoritExpanded font-bold text-white hover:bg-red-700"
+            className="mt-2 inline-block rounded bg-red-600 px-4 py-2 font-favoritExpanded text-sm font-bold text-white hover:bg-red-700"
           >
             {linkText}
           </Link>

@@ -87,7 +87,7 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
         <img
           src={imageSrc}
           alt={title}
-          className="mx-auto my-4 h-auto w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+          className="mx-auto my-4 h-[400px] w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105"
           onError={(e) => console.error("No se cargó:", e.nativeEvent)}
           onContextMenu={(e) => e.preventDefault()}
         />

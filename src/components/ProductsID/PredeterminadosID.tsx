@@ -68,6 +68,17 @@ const PredeterminadosID: React.FC = () => {
   };
 
   const handleAgregarAlCarrito = () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      toast.error("Debes iniciar sesión para agregar productos al carrito", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+      return;
+    }
+
     if (!product) return;
 
     if (cartItem) {
@@ -193,7 +204,7 @@ const PredeterminadosID: React.FC = () => {
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 rounded border font-favoritExpanded px-4 py-2 transition-colors ${isSelectionComplete
+                    className={`flex-1 rounded border font-favoritExpanded uppercase px-4 py-2 transition-colors ${isSelectionComplete
                       ? "bg-black text-white hover:bg-gray-800"
                       : "cursor-not-allowed border-gray-300"
                       }`}
@@ -205,7 +216,7 @@ const PredeterminadosID: React.FC = () => {
                 <button
                   onClick={handleBuyNow}
                   disabled={!isSelectionComplete}
-                  className={`border font-favoritExpanded px-4 py-2 rounded text-sm mb-4 transition-colors ${isSelectionComplete
+                  className={`border font-favoritExpanded uppercase px-4 py-2 rounded text-sm mb-4 transition-colors ${isSelectionComplete
                     ? "border-black text-black hover:bg-black hover:text-white"
                     : " cursor-not-allowed border-gray-300"
                     }`}

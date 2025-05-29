@@ -151,7 +151,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
             <button
               onClick={handleAddToCart}
               disabled={loading || !isReady}
-              className="w-full flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm text-white hover:bg-gray-800 disabled:opacity-50"
+              className="w-full flex-1 rounded bg-black px-4 py-2 font-favoritExpanded text-sm uppercase text-white hover:bg-gray-800 disabled:opacity-50"
             >
               {loading ? "Agregando…" : "Agregar al Carrito"}
             </button>
@@ -162,7 +162,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         <button
           onClick={handleBuyNow}
           disabled={loading || !isReady}
-          className="w-full rounded border border-black px-4 py-2 font-favoritExpanded text-sm text-black hover:bg-black hover:text-white disabled:opacity-50"
+          className="w-full rounded border border-black px-4 py-2 font-favoritExpanded text-sm uppercase text-black hover:bg-black hover:text-white disabled:opacity-50"
         >
           {loading ? "Procesando…" : "Comprar Ahora"}
         </button>

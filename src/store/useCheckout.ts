@@ -11,7 +11,8 @@ import useCartStore from "@/store/cartStore";
  */
 export function useCheckout() {
   const navigate = useNavigate();
-  const { cartItems, subtotal, total, setIdOrdenCompra } = useCartStore();
+  const { cartItems, total, setIdOrdenCompra } = useCartStore();
+  console.log(cartItems);
 
   /** Construye los items para la orden en el formato requerido por el backend */
   const buildOrderItems = () =>
@@ -21,6 +22,7 @@ export function useCheckout() {
         ? parseInt(item.selectedModel.toString(), 10)
         : 1,
       materialId: 1,
+      cantidad: item.quantity,
     }));
 
   /** Agrega al FormData las imágenes obtenidas desde las URLs. */
@@ -62,7 +64,6 @@ export function useCheckout() {
     // --- Aquí imprimimos TODO lo que vamos a enviar ---
     console.log("=== Preparando orden para enviar ===");
     console.log("Cart Items:", cartItems);
-    console.log("Subtotal:", subtotal, "Total:", total);
     console.log("orderItems payload:", orderItems);
 
     // Para inspeccionar el FormData:
@@ -125,7 +126,7 @@ export function useCheckout() {
 
     if (order) {
       setIdOrdenCompra(order.id);
-      navigate("/pagos", { state: { cartItems, subtotal, total } });
+      navigate("/pagos", { state: { cartItems, total } });
     }
   };
 

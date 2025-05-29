@@ -3,15 +3,14 @@ import { CartItem } from "@/store/cartStore";
 
 interface ResumenCompraProps {
   cartItems: CartItem[];
-  subtotal: number;
   total: number;
 }
 
 const ResumenCompra: React.FC<ResumenCompraProps> = ({
   cartItems,
-  subtotal,
   total,
 }) => {
+
   return (
     <div>
       {cartItems.length > 0 ? (

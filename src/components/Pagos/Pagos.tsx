@@ -73,7 +73,6 @@ const Pagos = () => {
           <div className="order-1 md:order-2">
             <ResumenCompra
               cartItems={cartItems}
-              subtotal={subtotal}
               total={total}
             />
           </div>

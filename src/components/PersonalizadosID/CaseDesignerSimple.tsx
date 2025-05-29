@@ -7,7 +7,7 @@ interface Props {
   frameUrl: string;
 }
 
-const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
+const CaseTuFoto: React.FC<Props> = ({ frameUrl }) => {
   const photo = usePersonalizadoStore((s) => s.photo);
   const scale = usePersonalizadoStore((s) => s.scale);
   const rotation = usePersonalizadoStore((s) => s.rotation);
@@ -59,4 +59,4 @@ const CaseDesignerSimple: React.FC<Props> = ({ frameUrl }) => {
   );
 };
 
-export default CaseDesignerSimple;
+export default CaseTuFoto;

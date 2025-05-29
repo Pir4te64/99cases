@@ -10,9 +10,8 @@ import ProductDetails from "@/components/PersonalizadosID/UI/ProductoDetalles";
 import MarcaCelular from "@/components/PersonalizadosID/Actions/MarcaCelular";
 import CustomName from "@/components/PersonalizadosID/Actions/CustomName";
 import Colores from "@/components/PersonalizadosID/Actions/Colores";
-import PreviewOverlay from "@/components/PersonalizadosID/PreviewOverlay";
-import CaseDesignerSimple from "@/components/PersonalizadosID/CaseDesignerSimple";
-import SvgColorEditor from "@/components/PersonalizadosID/SvgColorEditor";
+import CaseTextoNumero from "@/components/PersonalizadosID/CaseTextoNumero";
+import CaseTuFoto from "@/components/PersonalizadosID/CaseDesignerSimple";
 import PurchaseActions from "@/components/PersonalizadosID/PurchaseActions";
 import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 
@@ -25,11 +24,11 @@ const PersonalizadosID: React.FC = () => {
   const product = usePersonalizadoStore((s) => s.product);
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
-  const activeStep = usePersonalizadoStore((s) => s.activeStep); // ✅ Agregado aquí
+  const activeStep = usePersonalizadoStore((s) => s.activeStep);
+  console.log(product);
 
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
-  const isConCaracteres = product?.tipo === "PERSONALIZADO_CON_CARACTERES";
-  const isPersonalizado = product?.tipo === "PERSONALIZADO";
+  const isConCaracteres = product?.description === "PERSONALIZADO_CON_CARACTERES_DOWN";
 
   const previewRef = useRef<HTMLDivElement>(null);
   const textOverlayRef = useRef<HTMLDivElement>(null);
@@ -73,12 +72,9 @@ const PersonalizadosID: React.FC = () => {
                   className="h-full w-full"
                 >
                   {isConImagen && (
-                    <CaseDesignerSimple frameUrl={product.imageSrc} />
+                    <CaseTuFoto frameUrl={product.imageSrc} />
                   )}
-                  {isConCaracteres && <PreviewOverlay ref={textOverlayRef} />}
-                  {isPersonalizado && (
-                    <SvgColorEditor svgUrl={product.imageSrc} />
-                  )}
+                  {isConCaracteres && <CaseTextoNumero ref={textOverlayRef} />}
                 </div>
               ) : (
                 <p className="font-favoritMono font-bold italic">

@@ -17,7 +17,7 @@ const makeShadow = (color: string, radius = 3) => {
   return shadows.join(", ");
 };
 
-const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
+const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
   const product = usePersonalizadoStore((s) => s.product);
   const userName = usePersonalizadoStore((s) => s.userName);
   const userNumber = usePersonalizadoStore((s) => s.userNumber);
@@ -28,7 +28,7 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
   const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
 
   if (!product) return null;
-  const isConCaracteres = product.tipo === "PERSONALIZADO_CON_CARACTERES";
+  const isConCaracteres = product.description === "PERSONALIZADO_CON_CARACTERES_DOWN";
 
   // [rellenoNombre, borde1Nombre, borde2Nombre, rellenoNum, borde1Num, borde2Num]
   const [nFill, nBorder, nBorder2, numFill, numBorder, numBorder2] = [
@@ -58,45 +58,47 @@ const PreviewOverlay = forwardRef<HTMLDivElement>((_, ref) => {
       />
 
       {/* Banner "Premium Case" superpuesto */}
-      <img
+      {/*  <img
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
         className="pointer-events-none absolute bottom-0 right-4 w-24 scale-75 sm:w-32 sm:scale-100"
       />
-
+ */}
       {isConCaracteres && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span
-            style={{
-              color: numFill,
-              WebkitTextStroke: `4px ${numBorder}`,
-              textShadow: numTextShadow,
-            }}
-            className={`text-[3rem] sm:text-[4rem] md:text-[6rem] text-center ${selectedNumberStyle != null
-              ? `font-${customNumberStyles[selectedNumberStyle]}`
-              : "font-cmxShift2"
-              }`}
-          >
-            {userNumber || "15"}
-          </span>
-          <span
-            style={{
-              color: nFill,
-              WebkitTextStroke: `3px ${nBorder}`,
-              textShadow: nameTextShadow,
-            }}
-            className={`text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] text-center ${selectedNameStyle != null
-              ? `font-${customNameStyles[selectedNameStyle]}`
-              : "font-cmxShift2"
-              }`}
-          >
-            {userName || "TU NOMBRE"}
-          </span>
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-8">
+          <div className="flex flex-col items-center leading-none">
+            <span
+              style={{
+                color: numFill,
+                WebkitTextStroke: `4px ${numBorder}`,
+                textShadow: numTextShadow,
+              }}
+              className={`text-[4rem] sm:text-[5rem] md:text-[7rem] text-center ${selectedNumberStyle != null
+                ? `font-${customNumberStyles[selectedNumberStyle]}`
+                : "font-cmxShift2"
+                }`}
+            >
+              {userNumber || "15"}
+            </span>
+            <span
+              style={{
+                color: nFill,
+                WebkitTextStroke: `3px ${nBorder}`,
+                textShadow: nameTextShadow,
+              }}
+              className={`text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] text-center -mt-1 ${selectedNameStyle != null
+                ? `font-${customNameStyles[selectedNameStyle]}`
+                : "font-cmxShift2"
+                }`}
+            >
+              {userName || "TU NOMBRE"}
+            </span>
+          </div>
         </div>
       )}
     </div>
   );
 });
 
-export default PreviewOverlay;
+export default CaseTextoNumero;

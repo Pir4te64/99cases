@@ -60,13 +60,15 @@ export default function CartSidebar() {
             {cartItems.map(item => (
               <li key={item.id} className="border-b border-black pb-4">
                 <div className="flex items-start space-x-3">
-                  <img
-                    src={item.imageSrc}
-                    alt={item.title}
-                    className="h-28 w-20 object-contain"
-                    loading="lazy"
-                    onContextMenu={(e) => e.preventDefault()}
-                  />
+                  <div className="flex h-32 w-24 flex-shrink-0 items-center justify-center">
+                    <img
+                      src={item.imageSrc}
+                      alt={item.title}
+                      className="h-full w-full object-contain p-2"
+                      loading="lazy"
+                      onContextMenu={(e) => e.preventDefault()}
+                    />
+                  </div>
 
                   <div className="flex-1">
                     <div className="flex items-start justify-between">

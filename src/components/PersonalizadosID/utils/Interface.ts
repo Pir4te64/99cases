@@ -9,6 +9,7 @@ export interface PurchaseActionsProps {
         | "PERSONALIZADO_CON_IMAGEN"
         | "PERSONALIZADO_CON_CARACTERES"
         | "PERSONALIZADO";
+        description?: string;
     };
     previewRef: React.RefObject<HTMLDivElement>;
 }

@@ -62,20 +62,37 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
     setLoading(true);
     try {
       let finalDataURL: string;
-      if (product.tipo === "PERSONALIZADO_CON_CARACTERES") {
-        const textCanvas = await html2canvas(previewRef.current!, {
+      if (product.tipo === "PERSONALIZADO_CON_CARACTERES" || product.description === "PERSONALIZADO_CON_CARACTERES_DOWN") {
+        if (!previewRef.current) throw new Error("Vista previa no disponible");
+        const textCanvas = await html2canvas(previewRef.current, {
           useCORS: true,
           backgroundColor: null,
-          scale: window.devicePixelRatio || 2,
+          scale: 2,
+          logging: false,
+          allowTaint: true,
+          onclone: (clonedDoc) => {
+            const element = clonedDoc.querySelector('#preview-container') as HTMLElement;
+            if (element) {
+              element.style.transform = 'none';
+              // Mantener las proporciones originales
+              const originalWidth = element.offsetWidth;
+              const originalHeight = element.offsetHeight;
+              const aspectRatio = originalHeight / originalWidth;
+              element.style.width = '300px';
+              element.style.height = `${350 * aspectRatio}px`;
+            }
+          }
         });
-        const baseImg = await loadImage(product.imageSrc);
-        const composed = document.createElement("canvas");
-        composed.width = baseImg.width;
-        composed.height = baseImg.height;
-        const ctx = composed.getContext("2d")!;
-        ctx.drawImage(baseImg, 0, 0);
-        ctx.drawImage(textCanvas, 0, 0);
-        finalDataURL = composed.toDataURL("image/png");
+
+        // Convertir canvas a Blob
+        const blob = await new Promise<Blob>((resolve) => {
+          textCanvas.toBlob((blob) => {
+            if (blob) resolve(blob);
+          }, 'image/png', 1.0);
+        });
+
+        // Crear URL del Blob
+        finalDataURL = URL.createObjectURL(blob);
       } else {
         if (!previewRef.current) throw new Error("Vista previa no disponible");
         const fullCanvas = await html2canvas(previewRef.current, {
@@ -83,7 +100,16 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           backgroundColor: null,
           scale: window.devicePixelRatio || 2,
         });
-        finalDataURL = fullCanvas.toDataURL("image/png");
+
+        // Convertir canvas a Blob
+        const blob = await new Promise<Blob>((resolve) => {
+          fullCanvas.toBlob((blob) => {
+            if (blob) resolve(blob);
+          }, 'image/png', 1.0);
+        });
+
+        // Crear URL del Blob
+        finalDataURL = URL.createObjectURL(blob);
       }
 
       const item: CartItem = {
@@ -99,9 +125,6 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         ? updateItemQuantity(product.id, displayQuantity)
         : addToCart(item);
 
-      //openCart();
-
-      // ¡Toast aquí!
       toast.success("Funda agregada al carrito", {
         position: "bottom-center",
         autoClose: 3000,

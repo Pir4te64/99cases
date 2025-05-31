@@ -95,7 +95,6 @@ const PredeterminadosID: React.FC = () => {
       };
       addToCart(item);
     }
-
     //openCart();
 
     // Aquí mostramos el toast
@@ -204,7 +203,7 @@ const PredeterminadosID: React.FC = () => {
                   <button
                     onClick={handleAgregarAlCarrito}
                     disabled={!isSelectionComplete}
-                    className={`flex-1 rounded border font-favoritExpanded uppercase px-4 py-2 transition-colors ${isSelectionComplete
+                    className={`flex-1 text-xs md:text-sm rounded border font-favoritExpanded uppercase px-4 py-2 transition-colors ${isSelectionComplete
                       ? "bg-black text-white hover:bg-gray-800"
                       : "cursor-not-allowed border-gray-300"
                       }`}

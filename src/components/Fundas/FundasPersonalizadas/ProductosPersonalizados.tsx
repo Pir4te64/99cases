@@ -69,16 +69,16 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
   return (
     <div
       onClick={handleClick}
-      className="relative flex min-h-[400px] w-full min-w-0 cursor-pointer flex-col items-center justify-start overflow-hidden p-4 text-center sm:w-72"
+      className="relative flex min-h-[400px] w-full min-w-0 cursor-pointer flex-col items-center justify-start overflow-hidden p-2 text-center sm:w-72 sm:p-4"
     >
       {/* Badge */}
-      <div className="mb-2 flex h-8 items-center justify-center">
+      <div className="mb-1 flex h-6 items-center justify-center sm:mb-2 sm:h-8">
         {badge ? (
           <div className="rounded-md bg-gray-300 px-2 py-1 font-favoritExpandedBook font-bold text-red-600">
             -{badge} OFF
           </div>
         ) : (
-          <div className="w-20" />
+          <div className="w-16 sm:w-20" />
         )}
       </div>
 
@@ -87,19 +87,19 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
         <img
           src={imageSrc}
           alt={title}
-          className="mx-auto my-4 h-[400px] w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+          className="mx-auto my-2 h-[350px] w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105 sm:my-4 sm:h-[400px]"
           onError={(e) => console.error("No se cargó:", e.nativeEvent)}
           onContextMenu={(e) => e.preventDefault()}
         />
       </picture>
 
       {/* Título */}
-      <h3 className="mb-2 whitespace-normal font-favoritExpandedBook text-sm font-bold tracking-wide text-gray-800 sm:text-base md:text-sm">
+      <h3 className="mb-1 whitespace-normal font-favoritExpandedBook text-sm font-bold tracking-wide text-gray-800 sm:mb-2">
         {title}
       </h3>
 
       {/* Precios */}
-      <div className="flex flex-col items-center justify-center gap-1">
+      <div className="flex flex-col items-center justify-center gap-0.5 sm:gap-1">
         <span className="sm:text-md font-favoritExpandedBook text-sm font-bold text-black">
           {Math.round(Number(price.replace(/[^0-9.-]+/g, ""))).toLocaleString("es-AR", {
             minimumFractionDigits: 0,

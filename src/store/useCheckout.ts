@@ -28,14 +28,21 @@ export function useCheckout() {
   /** Agrega al FormData las imágenes obtenidas desde las URLs. */
   const appendImagesFromURLs = async (formData: FormData) => {
     for (const item of cartItems) {
-      if (typeof item.imageSrc === "string") {
-        try {
+      try {
+        // Si es un caso personalizado y tiene imageFinalUrl, usamos esa
+        if (item.imageFinalUrl) {
+          const resp = await fetch(item.imageFinalUrl);
+          const blob = await resp.blob();
+          formData.append("images", blob, `case-${item.id}.png`);
+        }
+        // Si no es personalizado o no tiene imageFinalUrl, usamos imageSrc
+        else if (typeof item.imageSrc === "string") {
           const resp = await fetch(item.imageSrc);
           const blob = await resp.blob();
           formData.append("images", blob, `case-${item.id}.png`);
-        } catch (e) {
-          console.error("Error al convertir imagen a Blob:", e);
         }
+      } catch (e) {
+        console.error("Error al convertir imagen a Blob:", e);
       }
     }
   };

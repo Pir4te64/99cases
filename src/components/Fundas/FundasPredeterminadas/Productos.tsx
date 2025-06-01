@@ -39,6 +39,7 @@ const Products: React.FC<ProductsProps> = ({ visibleTitle = true }) => {
       <div className="container mx-auto grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {displayedProducts.map((product) => (
           <ProductCard
+            tipo={product.tipo}
             imageFinal={product.imageFinal}
             key={product.id}
             id={product.id.toString()}

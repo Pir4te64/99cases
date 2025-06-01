@@ -25,7 +25,7 @@ const PersonalizadosID: React.FC = () => {
   const setProduct = usePersonalizadoStore((s) => s.setProduct);
   const setWindowWidth = usePersonalizadoStore((s) => s.setWindowWidth);
   const activeStep = usePersonalizadoStore((s) => s.activeStep);
-
+  console.log(product);
   const isConImagen = product?.tipo === "PERSONALIZADO_CON_IMAGEN";
   const isConCaracteres = product?.description === "PERSONALIZADO_CON_CARACTERES_DOWN";
 

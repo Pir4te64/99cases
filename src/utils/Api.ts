@@ -20,4 +20,5 @@ export const API = {
   paymentError: `${baseURL}/payments/error`,
   getLocation: `${baseURL}/codigo-postal/validar`,
   getMe: `${baseURL}/me`,
+  mergeImages: `${baseURL}/orders/merge-case-camera-with-calco`,
 };

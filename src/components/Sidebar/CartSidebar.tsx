@@ -62,7 +62,7 @@ export default function CartSidebar() {
                 <div className="flex items-start space-x-3">
                   <div className="flex h-32 w-24 flex-shrink-0 items-center justify-center">
                     <img
-                      src={item.imageSrc}
+                      src={item.imageFinalUrl || item.imageSrc}
                       alt={item.title}
                       className="h-full w-full object-contain p-2"
                       loading="lazy"

@@ -10,16 +10,82 @@ import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePerson
 // Importaciones de React-Toastify
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API } from "@/utils/Api";
 
-/** Carga una imagen y la resuelve cuando está disponible */
-const loadImage = (src: string): Promise<HTMLImageElement> =>
-  new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
+
+const mergeImagesWithBackend = async (caseId: string, calcoFile: Blob) => {
+  try {
+    const formData = new FormData();
+    formData.append('caseId', caseId);
+    formData.append('calcoFile', calcoFile, 'letras-numeros.png');
+
+    const token = localStorage.getItem('token');
+    const response = await fetch(API.mergeImages, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
+    // Intentar obtener el texto de la respuesta primero
+    const responseText = await response.text();
+    console.log('Respuesta del servidor (texto):', responseText);
+
+    // Intentar parsear como JSON solo si parece ser JSON válido
+    try {
+      const data = JSON.parse(responseText);
+      console.log('Respuesta del servidor (JSON):', data);
+      return data;
+    } catch (e) {
+      // Si no es JSON, devolver el texto de la respuesta
+      return responseText;
+    }
+  } catch (error) {
+    console.error('Error al enviar imágenes al servidor:', error);
+    throw error;
+  }
+};
+
+/** Genera un Blob PNG transparente solo del área de letras y números */
+const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>) => {
+  if (!previewRef.current) throw new Error("Vista previa no disponible");
+  const target = previewRef.current.querySelector('#texto-numeros-container') as HTMLElement | null;
+  if (!target) throw new Error("No se encontró el área de letras y números para descargar");
+
+  const textCanvas = await html2canvas(target, {
+    useCORS: true,
+    backgroundColor: null,
+    scale: 2,
+    logging: false,
+    allowTaint: true,
+    onclone: (clonedDoc) => {
+      const textContainer = clonedDoc.querySelector('#texto-numeros-container');
+      if (textContainer) {
+        const spans = textContainer.querySelectorAll('span');
+        if (spans.length > 1) {
+          spans[0].style.marginBottom = '2.5rem';
+          spans[1].style.marginTop = '.5rem';
+          spans[1].style.fontSize = '3rem';
+          spans[1].style.display = 'block';
+          spans[1].style.textAlign = 'center';
+          spans[1].style.marginLeft = '0';
+          spans[1].style.marginRight = '0';
+        }
+      }
+    }
   });
+
+  return await new Promise<Blob>((resolve) => {
+    textCanvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+    }, 'image/png', 1.0);
+  });
+};
 
 export default function PurchaseActions({ product, previewRef }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
@@ -62,7 +128,23 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
     setLoading(true);
     try {
       let finalDataURL: string;
+      let calcosBlob: Blob | undefined = undefined;
+      let imageFinalUrl: string | null = null;
       if (product.tipo === "PERSONALIZADO_CON_CARACTERES" || product.description === "PERSONALIZADO_CON_CARACTERES_DOWN") {
+        // Generar el calcoFile correcto (solo letras y números)
+        calcosBlob = await generateCalcoBlob(previewRef);
+
+        // Enviar al backend y guardar la URL recibida
+        if (calcosBlob) {
+          const response = await mergeImagesWithBackend(product.id, calcosBlob);
+          if (typeof response === "string" && response.startsWith("http")) {
+            imageFinalUrl = response;
+          } else if (response?.url) {
+            imageFinalUrl = response.url;
+          }
+        }
+
+        // El resto igual que antes (para la miniatura general)
         if (!previewRef.current) throw new Error("Vista previa no disponible");
         const textCanvas = await html2canvas(previewRef.current, {
           useCORS: true,
@@ -73,25 +155,22 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           onclone: (clonedDoc) => {
             const element = clonedDoc.querySelector('#preview-container') as HTMLElement;
             if (element) {
-              element.style.transform = 'none';
-              // Mantener las proporciones originales
               const originalWidth = element.offsetWidth;
               const originalHeight = element.offsetHeight;
               const aspectRatio = originalHeight / originalWidth;
               element.style.width = '300px';
               element.style.height = `${350 * aspectRatio}px`;
+              element.style.transform = 'none';
             }
           }
         });
 
-        // Convertir canvas a Blob
+        // Convertir canvas a Blob para imageSrc
         const blob = await new Promise<Blob>((resolve) => {
           textCanvas.toBlob((blob) => {
             if (blob) resolve(blob);
           }, 'image/png', 1.0);
         });
-
-        // Crear URL del Blob
         finalDataURL = URL.createObjectURL(blob);
       } else {
         if (!previewRef.current) throw new Error("Vista previa no disponible");
@@ -108,7 +187,6 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           }, 'image/png', 1.0);
         });
 
-        // Crear URL del Blob
         finalDataURL = URL.createObjectURL(blob);
       }
 
@@ -118,11 +196,21 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         imageSrc: finalDataURL,
         price: product.price,
         quantity: displayQuantity,
-        imageFinalUrl: product.imageFinal ?? null,
+        imageFinalUrl: imageFinalUrl ?? product.imageFinal ?? null,
+        tipo: product.tipo,
+        ...(calcosBlob ? { calcosBlob } : {}),
       };
 
       cartItem
-        ? updateItemQuantity(product.id, displayQuantity)
+        ? (updateItemQuantity(product.id, displayQuantity, calcosBlob),
+          imageFinalUrl && (() => {
+            const cartItems = useCartStore.getState().cartItems;
+            const idx = cartItems.findIndex(it => it.id === product.id);
+            if (idx !== -1) {
+              cartItems[idx].imageFinalUrl = imageFinalUrl;
+              useCartStore.setState({ cartItems: [...cartItems] });
+            }
+          })())
         : addToCart(item);
 
       toast.success("Funda agregada al carrito", {
@@ -141,6 +229,42 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
   const handleBuyNow = async () => {
     if (!isReady) return;
     await handleAddToCart();
+  };
+
+  const handleDownloadText = async () => {
+    if (!previewRef.current) return;
+    try {
+      setLoading(true);
+      const blob = await generateCalcoBlob(previewRef);
+
+      // Guardar el blob en el item del carrito correspondiente
+      const cartItems = useCartStore.getState().cartItems;
+      const cartItem = cartItems.find((it) => it.id === product.id);
+      if (cartItem) {
+        useCartStore.getState().updateItemQuantity(product.id, cartItem.quantity, blob);
+      }
+
+      // Crear URL del Blob y descargar
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'letras-numeros.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast.success("Texto y números descargados correctamente", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    } catch (err) {
+      console.error("Error al descargar el texto:", err);
+      toast.error("No se pudo descargar el texto");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -188,6 +312,15 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           className="w-full rounded border border-black px-4 py-2 font-favoritExpanded text-sm uppercase text-black hover:bg-black hover:text-white disabled:opacity-50"
         >
           {loading ? "Procesando…" : "Comprar Ahora"}
+        </button>
+
+        {/* Botón de descarga */}
+        <button
+          onClick={handleDownloadText}
+          disabled={loading || !isReady}
+          className="w-full rounded border border-blue-500 px-4 py-2 font-favoritExpanded text-sm uppercase text-blue-500 hover:bg-blue-500 hover:text-white disabled:opacity-50"
+        >
+          {loading ? "Descargando…" : "Descargar Letras + Números"}
         </button>
 
         {/* Logos de pago */}

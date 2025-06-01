@@ -23,6 +23,7 @@ export function useCheckout() {
         : 1,
       materialId: 1,
       cantidad: item.quantity,
+      tipo: item.tipo,
     }));
 
   /** Agrega al FormData las imágenes obtenidas desde las URLs. */
@@ -40,6 +41,10 @@ export function useCheckout() {
           const resp = await fetch(item.imageSrc);
           const blob = await resp.blob();
           formData.append("images", blob, `case-${item.id}.png`);
+        }
+        // Agregar calcos si existe
+        if (item.calcosBlob) {
+          formData.append("calcos", item.calcosBlob, `letras-numeros-${item.id}.png`);
         }
       } catch (e) {
         console.error("Error al convertir imagen a Blob:", e);
@@ -75,10 +80,9 @@ export function useCheckout() {
 
     // Para inspeccionar el FormData:
     for (const [key, value] of formData.entries()) {
-      // Si el value es Blob, mostrar su tipo y tamaño
       if (value instanceof Blob) {
         console.log(
-          `FormData entry: ${key} → Blob [type: ${value.type}, size: ${value.size}]`
+          `FormData entry: ${key} → Blob [type: ${value.type}, size: ${value.size}, name: ${value instanceof File ? value.name : 'blob'}]`
         );
       } else {
         console.log(`FormData entry: ${key} → ${value}`);

@@ -11,6 +11,8 @@ export interface CartItem {
   selectedBrand?: string;
   selectedModel?: number;
   imageFinalUrl?: string;
+  tipo?: string;
+  calcosBlob?: Blob;
 }
 
 interface CartState {
@@ -31,7 +33,7 @@ interface CartActions {
   incrementSelectedQuantity: () => void;
   decrementSelectedQuantity: () => void;
   setSelectedQuantity: (quantity: number) => void;
-  updateItemQuantity: (id: string, quantity: number) => void;
+  updateItemQuantity: (id: string, quantity: number, calcosBlob?: Blob) => void;
   removeFromCart: (id: string) => void;
   setIdOrdenCompra: (id: number | null) => void; // Acción para actualizar idOrdenCompra
   clearCart: () => void;
@@ -115,9 +117,11 @@ const useCartStore = create<
         })),
       setSelectedQuantity: (quantity: number) =>
         set({ selectedQuantity: quantity }),
-      updateItemQuantity: (id, quantity) => {
+      updateItemQuantity: (id: string, quantity: number, calcosBlob?: Blob) => {
         const updatedCartItems = get().cartItems.map((item) =>
-          item.id === id ? { ...item, quantity } : item
+          item.id === id
+            ? { ...item, quantity, ...(calcosBlob ? { calcosBlob } : {}) }
+            : item
         );
         set({
           cartItems: updatedCartItems,

@@ -66,7 +66,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
       />
  */}
       {isConCaracteres && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-8">
+        <div id="texto-numeros-container" className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-8">
           <div className="flex flex-col items-center leading-none">
             <span
               style={{

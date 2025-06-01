@@ -10,7 +10,7 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
   cartItems,
   total,
 }) => {
-
+  console.log(cartItems);
   return (
     <div>
       {cartItems.length > 0 ? (
@@ -21,7 +21,7 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
                 <div className='flex items-start space-x-3'>
                   {/* Imagen del producto */}
                   <img
-                    src={item.imageSrc}
+                    src={item.imageFinalUrl || item.imageSrc}
                     alt={item.title}
                     className='h-auto w-24 object-cover'
                     onContextMenu={(e) => e.preventDefault()}

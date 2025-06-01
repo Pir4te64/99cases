@@ -45,6 +45,8 @@ export function useCheckout() {
         // Agregar calcos si existe
         if (item.calcosBlob) {
           formData.append("calcos", item.calcosBlob, `letras-numeros-${item.id}.png`);
+        } else {
+          formData.append("calcos", new Blob(), `letras-numeros-${item.id}.png`);
         }
       } catch (e) {
         console.error("Error al convertir imagen a Blob:", e);

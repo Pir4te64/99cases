@@ -29,6 +29,7 @@ const PredeterminadosID: React.FC = () => {
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
   const addToCart = useCartStore((state) => state.addToCart);
   const openCart = useCartStore((state) => state.openCart);
+  console.log(product);
 
   // Selección de teléfono
   const { selectedModel, selectedBrand } = usePhoneSelectionStore();
@@ -92,6 +93,8 @@ const PredeterminadosID: React.FC = () => {
         quantity: selectedQuantity,
         selectedModel: selectedModel?.id,
         selectedBrand,
+        tipo: product.tipo,
+        imageFinalUrl: product.imageFinalUrl,
       };
       addToCart(item);
     }

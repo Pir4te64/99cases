@@ -31,6 +31,7 @@ const FundasPredeterminadasProductos = () => {
             price={product.price}
             oldPrice={product.oldPrice}
             description={product.description}
+            tipo={product.tipo}
           />
         ))}
       </div>

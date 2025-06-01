@@ -9,6 +9,7 @@ interface ProductCardProps {
   description: string;
   imageFinal: string;
   oldPrice: string;
+  tipo: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -18,11 +19,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   title,
   price,
   imageFinal,
-  oldPrice
+  oldPrice,
+  tipo,
 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    const productData = { id, descuento, imageSrc, title, price, imageFinal, oldPrice };
+    const productData = { id, descuento, imageSrc, title, price, imageFinal, oldPrice, tipo };
     navigate(`/predeterminadas/${id}`, { state: { product: productData } });
   };
   // Convertir precio y descuento

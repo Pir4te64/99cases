@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     getMe();
     window.scrollTo(0, 0);
-  }, [getMe]);
+  }, [getMe, pathname]);
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-black text-white">

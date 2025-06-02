@@ -26,6 +26,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
     (s) => s.selectedNumberStyle
   );
   const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
+  console.log(product);
 
   if (!product) return null;
   const isConCaracteres = product.description === "PERSONALIZADO_CON_CARACTERES_DOWN";
@@ -66,7 +67,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
       />
 
       {isConCaracteres && (
-        <div id="texto-numeros-container" className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-8">
+        <div id="texto-numeros-container" className={`pointer-events-none absolute inset-0 flex flex-col items-center ${product.title === "FUNDA 99% CASES - FOX 2" ? "justify-center translate-y-24" : "justify-end"} pb-10`}>
           <div className="flex flex-col items-center leading-none">
             <span
               style={{
@@ -74,7 +75,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
                 WebkitTextStroke: `4px ${numBorder}`,
                 textShadow: numTextShadow,
               }}
-              className={`text-[4rem] sm:text-[5rem] md:text-[7rem] text-center ${selectedNumberStyle != null
+              className={`text-[4rem] sm:text-[5rem] md:text-[7.5rem] text-center ${selectedNumberStyle != null
                 ? `font-${customNumberStyles[selectedNumberStyle]}`
                 : "font-cmxShift2"
                 }`}
@@ -87,7 +88,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
                 WebkitTextStroke: `3px ${nBorder}`,
                 textShadow: nameTextShadow,
               }}
-              className={`text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] text-center -mt-1 ${selectedNameStyle != null
+              className={`text-[1.5rem] sm:text-[2rem] md:text-[2.9rem] text-center -mt-1 ${selectedNameStyle != null
                 ? `font-${customNameStyles[selectedNameStyle]}`
                 : "font-cmxShift2"
                 }`}

@@ -12,7 +12,6 @@ import useCartStore from "@/store/cartStore";
 export function useCheckout() {
   const navigate = useNavigate();
   const { cartItems, total, setIdOrdenCompra } = useCartStore();
-  console.log(cartItems);
 
   /** Construye los items para la orden en el formato requerido por el backend */
   const buildOrderItems = () =>
@@ -30,13 +29,13 @@ export function useCheckout() {
   const appendImagesFromURLs = async (formData: FormData) => {
     for (const item of cartItems) {
       try {
-        // Si es un caso personalizado y tiene imageFinalUrl, usamos esa
+        // Si el item tiene imageFinalUrl, usamos esa
         if (item.imageFinalUrl) {
           const resp = await fetch(item.imageFinalUrl);
           const blob = await resp.blob();
           formData.append("images", blob, `case-${item.id}.png`);
         }
-        // Si no es personalizado o no tiene imageFinalUrl, usamos imageSrc
+        // Si no tiene imageFinalUrl pero tiene imageSrc, usamos esa
         else if (typeof item.imageSrc === "string") {
           const resp = await fetch(item.imageSrc);
           const blob = await resp.blob();

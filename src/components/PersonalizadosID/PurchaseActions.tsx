@@ -89,7 +89,7 @@ const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>) => {
 
 export default function PurchaseActions({ product, previewRef }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
-
+  console.log(product);
   /* ─── Nuevo: comprobar marca / modelo ─── */
   const phoneBrand = usePersonalizadoStore((s) => s.phoneBrand);
   const phoneModel = usePersonalizadoStore((s) => s.phoneModel);
@@ -196,7 +196,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         imageSrc: finalDataURL,
         price: product.price,
         quantity: displayQuantity,
-        imageFinalUrl: imageFinalUrl ?? product.imageFinal ?? null,
+        imageFinalUrl: product.imageFinal ?? imageFinalUrl ?? null,
         tipo: product.tipo,
         ...(calcosBlob ? { calcosBlob } : {}),
       };

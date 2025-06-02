@@ -96,6 +96,7 @@ export async function submitDelivery({
       email,
       tipoDocumento,
       numeroDocumento,
+      numeroDeTelefono: telefono,
     },
   };
   console.log(deliveryData);

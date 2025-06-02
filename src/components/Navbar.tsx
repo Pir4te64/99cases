@@ -20,8 +20,6 @@ export default function Navbar() {
 
   // Contador de items en carrito
   const lineCount = cartItems.length;
-  const totalCount = cartItems.reduce((sum, it) => sum + it.quantity, 0);
-
   // Detectar login
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -150,7 +148,7 @@ export default function Navbar() {
             >
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -right-2 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
-                {totalCount}
+                {lineCount}
               </span>
             </button>
             <button className="transition-colors hover:text-gray-300">

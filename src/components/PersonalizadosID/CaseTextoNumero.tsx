@@ -58,13 +58,13 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
       />
 
       {/* Banner "Premium Case" superpuesto */}
-      {/*  <img
+      <img
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-4 w-24 scale-75 sm:w-32 sm:scale-100"
+        className="pointer-events-none absolute bottom-0 right-0 z-10 w-24 sm:w-32 sm:scale-100"
       />
- */}
+
       {isConCaracteres && (
         <div id="texto-numeros-container" className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-8">
           <div className="flex flex-col items-center leading-none">

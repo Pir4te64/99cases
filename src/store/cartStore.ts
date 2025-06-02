@@ -13,6 +13,7 @@ export interface CartItem {
   imageFinalUrl?: string;
   tipo?: string;
   calcosBlob?: Blob;
+  imagenCarrito?: string; // Imagen final para mostrar en el carrito
 }
 
 interface CartState {

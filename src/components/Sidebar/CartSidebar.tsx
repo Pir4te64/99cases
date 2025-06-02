@@ -37,7 +37,7 @@ export default function CartSidebar() {
   const increaseQuantity = (id: string, currentQuantity: number): void => {
     updateItemQuantity(id, currentQuantity + 1);
   };
-
+  console.log(cartItems);
   return (
     <div
       className={`fixed top-0 right-0 h-full w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isCartOpen ? "translate-x-0" : "translate-x-full"
@@ -62,7 +62,7 @@ export default function CartSidebar() {
                 <div className="flex items-start space-x-3">
                   <div className="flex h-32 w-24 flex-shrink-0 items-center justify-center">
                     <img
-                      src={item.imageFinalUrl || item.imageSrc}
+                      src={item.imagenCarrito || item.imageFinalUrl || item.imageSrc}
                       alt={item.title}
                       className="h-full w-full object-contain p-2"
                       loading="lazy"

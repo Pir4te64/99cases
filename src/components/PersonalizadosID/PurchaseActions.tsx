@@ -89,7 +89,6 @@ const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>) => {
 
 export default function PurchaseActions({ product, previewRef }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
-  console.log(product);
   /* ─── Nuevo: comprobar marca / modelo ─── */
   const phoneBrand = usePersonalizadoStore((s) => s.phoneBrand);
   const phoneModel = usePersonalizadoStore((s) => s.phoneModel);
@@ -139,39 +138,45 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           const response = await mergeImagesWithBackend(product.id, calcosBlob);
           if (typeof response === "string" && response.startsWith("http")) {
             imageFinalUrl = response;
+            // Usar la URL del backend como imagen para el carrito
+            finalDataURL = response;
           } else if (response?.url) {
             imageFinalUrl = response.url;
+            // Usar la URL del backend como imagen para el carrito
+            finalDataURL = response.url;
           }
         }
 
-        // El resto igual que antes (para la miniatura general)
-        if (!previewRef.current) throw new Error("Vista previa no disponible");
-        const textCanvas = await html2canvas(previewRef.current, {
-          useCORS: true,
-          backgroundColor: null,
-          scale: 2,
-          logging: false,
-          allowTaint: true,
-          onclone: (clonedDoc) => {
-            const element = clonedDoc.querySelector('#preview-container') as HTMLElement;
-            if (element) {
-              const originalWidth = element.offsetWidth;
-              const originalHeight = element.offsetHeight;
-              const aspectRatio = originalHeight / originalWidth;
-              element.style.width = '300px';
-              element.style.height = `${350 * aspectRatio}px`;
-              element.style.transform = 'none';
+        // Si no se pudo obtener la imagen del backend, generar una miniatura
+        if (!finalDataURL) {
+          if (!previewRef.current) throw new Error("Vista previa no disponible");
+          const textCanvas = await html2canvas(previewRef.current, {
+            useCORS: true,
+            backgroundColor: null,
+            scale: 2,
+            logging: false,
+            allowTaint: true,
+            onclone: (clonedDoc) => {
+              const element = clonedDoc.querySelector('#preview-container') as HTMLElement;
+              if (element) {
+                const originalWidth = element.offsetWidth;
+                const originalHeight = element.offsetHeight;
+                const aspectRatio = originalHeight / originalWidth;
+                element.style.width = '300px';
+                element.style.height = `${350 * aspectRatio}px`;
+                element.style.transform = 'none';
+              }
             }
-          }
-        });
+          });
 
-        // Convertir canvas a Blob para imageSrc
-        const blob = await new Promise<Blob>((resolve) => {
-          textCanvas.toBlob((blob) => {
-            if (blob) resolve(blob);
-          }, 'image/png', 1.0);
-        });
-        finalDataURL = URL.createObjectURL(blob);
+          // Convertir canvas a Blob para imageSrc
+          const blob = await new Promise<Blob>((resolve) => {
+            textCanvas.toBlob((blob) => {
+              if (blob) resolve(blob);
+            }, 'image/png', 1.0);
+          });
+          finalDataURL = URL.createObjectURL(blob);
+        }
       } else {
         if (!previewRef.current) throw new Error("Vista previa no disponible");
         const fullCanvas = await html2canvas(previewRef.current, {
@@ -193,10 +198,11 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
       const item: CartItem = {
         id: product.id,
         title: product.title,
-        imageSrc: finalDataURL,
+        imageSrc: finalDataURL, // para lógica interna
         price: product.price,
         quantity: displayQuantity,
-        imageFinalUrl: product.imageFinal ?? imageFinalUrl ?? null,
+        imageFinalUrl: product.imageFinal ?? imageFinalUrl ?? null, // para backend
+        imagenCarrito: imageFinalUrl ?? null, // para mostrar en el carrito
         tipo: product.tipo,
         ...(calcosBlob ? { calcosBlob } : {}),
       };
@@ -315,13 +321,13 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         </button>
 
         {/* Botón de descarga */}
-        <button
+        {/*   <button
           onClick={handleDownloadText}
           disabled={loading || !isReady}
           className="w-full rounded border border-blue-500 px-4 py-2 font-favoritExpanded text-sm uppercase text-blue-500 hover:bg-blue-500 hover:text-white disabled:opacity-50"
         >
           {loading ? "Descargando…" : "Descargar Letras + Números"}
-        </button>
+        </button> */}
 
         {/* Logos de pago */}
         <div className="flex justify-center">

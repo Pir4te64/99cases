@@ -27,12 +27,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     const productData = { id, descuento, imageSrc, title, price, imageFinal, oldPrice, tipo };
     navigate(`/predeterminadas/${id}`, { state: { product: productData } });
   };
-  // Convertir precio y descuento
-  const numericPrice = Number(price.replace(/[^0-9.-]+/g, ""));
-  const discountPercent = Number(descuento.replace("%", ""));
-  const oldPriceValue = numericPrice / (1 - discountPercent / 100);
-
-  const formattedOldPrice = `$${Math.round(oldPriceValue).toLocaleString("es-AR")}`;
 
   return (
     <div
@@ -57,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="mx-auto my-4 h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
         />
       </picture>
-      <h3 className="sm:text-md mb-2 font-favoritExpandedBook text-base font-bold text-gray-800">
+      <h3 className="mb-1 whitespace-normal font-favoritExpandedBook text-xs font-bold tracking-wide text-gray-800 sm:mb-2 sm:text-sm">
         {title}
       </h3>
       <div className="flex flex-col items-center justify-center gap-1">
@@ -71,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </span>
         {descuento && (
           <span className="font-favoritExpandedBook text-sm font-bold text-gray-400 line-through sm:text-sm">
-            {formattedOldPrice}
+            {oldPrice}
           </span>
         )}
       </div>

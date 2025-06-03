@@ -3,7 +3,7 @@
 const ProductHeader = ({ product }: { product: any }) => {
   return (
     <div className="mt-20 md:mt-0 md:px-0">
-      <h1 className="mb-1.5 w-full text-left font-favoritExpandedBook text-base font-bold sm:text-xl md:mb-2 md:text-4xl">
+      <h1 className="mb-1.5 w-full text-left font-favoritExpandedBook text-sm font-bold sm:text-lg md:mb-2 md:text-2xl lg:text-4xl">
         {product.title}
       </h1>
       <p className="mb-1.5 text-left font-favoritExpandedBook text-sm font-semibold text-gray-900 sm:text-lg md:mb-2 md:text-xl">

@@ -24,9 +24,9 @@ const ProductDetails = () => {
           Información del envío
         </summary>
         <div className="space-y-2 font-favoritExpanded text-sm sm:text-base">
-          <p>🏭 Tiempo de producción: 1-3 días hábiles</p>
+          <p>Tiempo de producción: 1-3 días hábiles</p>
           <p>
-            ✈️ Tiempo de envío: Nuestros productos se fabrican y envían desde
+            Tiempo de envío: Nuestros productos se fabrican y envían desde
             nuestra oficina en Santa Fe (Arg) y la entrega demora entre 1 y 5
             días.
           </p>

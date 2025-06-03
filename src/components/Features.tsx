@@ -26,17 +26,18 @@ const features = [
 
 const Features: React.FC = () => {
   return (
-    <div className="grid w-full grid-cols-4 gap-0 lg:grid-cols-1 lg:gap-4">
+    <div className="grid w-full grid-cols-4 gap-0 space-x-4 lg:grid-cols-1 lg:gap-4">
       {features.map(({ icon, title }, idx) => (
         <div
           key={idx}
           className="flex flex-col items-center space-y-0 text-center lg:space-y-6"
         >
-          <div className="h-14 w-14 flex-shrink-0 p-0 sm:h-12 sm:w-12 lg:h-20 lg:w-20">
+          <div className="h-16 w-16 flex-shrink-0 p-0 sm:h-16 sm:w-16 lg:h-20 lg:w-20">
             <img
               src={icon}
               alt={title}
-              className="max-h-full max-w-full"
+              className="h-full w-full object-contain"
+              style={{ imageRendering: 'crisp-edges' }}
               onContextMenu={(e) => e.preventDefault()}
             />
           </div>

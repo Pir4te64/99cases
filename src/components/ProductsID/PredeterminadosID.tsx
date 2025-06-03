@@ -124,24 +124,24 @@ const PredeterminadosID: React.FC = () => {
         draggable={false}
         pauseOnHover
       />
-      <div className="mx-auto bg-white py-6 text-black">
+      <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex w-full flex-col gap-4 p-2 lg:flex-row lg:gap-0">
+        <div className="flex w-full flex-col gap-4 p-3 lg:flex-row lg:gap-0">
           <div className="flex w-full flex-col items-start justify-between gap-4 lg:w-[50%] lg:flex-row">
-            <div className="w-full lg:w-[30%]">
+            <div className="w-full lg:w-1/4">
               <Features />
             </div>
 
             {/* Imagen principal (30%) */}
-            <div className="flex w-full items-start justify-center lg:w-[70%]">
+            <div className="flex w-full items-start justify-center lg:w-[80%]">
               {product ? (
                 <div className="relative inline-block w-full sm:w-80 md:w-96">
                   {/* Imagen principal más pequeña */}
                   <img
                     src={product.imageSrc}
                     alt={product.title}
-                    className="h-auto w-full object-contain"
+                    className="h-[320px] w-full object-contain sm:h-auto"
                     onContextMenu={(e) => e.preventDefault()}
                   />
 
@@ -150,7 +150,7 @@ const PredeterminadosID: React.FC = () => {
                     src={premiumCase}
                     alt="Premium Case"
                     onContextMenu={(e) => e.preventDefault()}
-                    className="pointer-events-none absolute -bottom-10 right-0 w-32 sm:w-32"
+                    className="pointer-events-none absolute -bottom-8 right-0 w-28 sm:-bottom-10 sm:w-32"
                   />
                 </div>
               ) : (
@@ -163,7 +163,7 @@ const PredeterminadosID: React.FC = () => {
           <div className="flex w-full flex-col p-4 lg:w-[80%]">
             {product ? (
               <>
-                <h1 className="mb-2 w-full text-left text-2xl font-bold sm:text-3xl md:text-7xl">
+                <h1 className="mb-2 w-full text-left text-xl font-bold sm:text-2xl md:text-3xl lg:text-7xl">
                   {product.title}
                 </h1>
                 <p className="mb-2 text-left font-favoritExpandedBook text-base font-semibold text-gray-900 sm:text-lg md:text-xl">
@@ -255,8 +255,8 @@ const PredeterminadosID: React.FC = () => {
                     Información del envío
                   </summary>
                   <div className="space-y-2 font-favoritExpanded text-sm sm:text-base">
-                    <p>🏭 Tiempo de producción: 1-3 días hábiles</p>
-                    <p>✈️ Tiempo de envío: desde Santa Fe (Arg), 1-5 días.</p>
+                    <p>Tiempo de producción: 1-3 días hábiles</p>
+                    <p>Tiempo de envío: desde Santa Fe (Arg), 1-5 días.</p>
                   </div>
                 </details>
               </>

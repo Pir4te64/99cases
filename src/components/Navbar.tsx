@@ -35,6 +35,8 @@ export default function Navbar() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     localStorage.removeItem("token");
+    sessionStorage.clear();
+    localStorage.clear();
     useAuthStore.getState().clearToken();
     setIsLoggedIn(false);
     navigate("/");

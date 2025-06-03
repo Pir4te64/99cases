@@ -26,7 +26,6 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
     (s) => s.selectedNumberStyle
   );
   const selectedColors = usePersonalizadoStore((s) => s.selectedColors);
-  console.log(product);
 
   if (!product) return null;
   const isConCaracteres = product.description === "PERSONALIZADO_CON_CARACTERES_DOWN";
@@ -81,7 +80,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
                 textShadow: numTextShadow,
               }}
               className={`${product.title === "FUNDA 99% CASES - FOX 2" || product.title === "FUNDA 99% CASES - SUZUKI"
-                ? "text-[4rem] sm:text-[5rem] md:text-[7.5rem]"
+                ? "text-[4rem] sm:text-[5rem] md:text-[7.5rem] mt-5"
                 : "text-[3.5rem] sm:text-[5rem] md:text-[7.5rem]"} text-center ${selectedNumberStyle != null
                   ? `font-${customNumberStyles[selectedNumberStyle]}`
                   : "font-cmxShift2"

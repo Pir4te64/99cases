@@ -80,8 +80,7 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                 } else {
                     textContainer.style.justifyContent = 'flex-end';
                     textContainer.style.paddingBottom = '2.5rem';
-                    textContainer.style.marginTop = 'auto';
-                    textContainer.style.minHeight = '100%';
+                    textContainer.style.marginTop = '10px';
                     textContainer.style.transform = 'translateY(-32px)'; // Mover más arriba en móvil
                 }
 

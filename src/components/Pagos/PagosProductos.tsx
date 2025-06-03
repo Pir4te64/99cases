@@ -10,7 +10,6 @@ const ResumenCompra: React.FC<ResumenCompraProps> = ({
   cartItems,
   total,
 }) => {
-  console.log(cartItems);
   return (
     <div>
       {cartItems.length > 0 ? (

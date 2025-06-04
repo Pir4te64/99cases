@@ -1,9 +1,9 @@
 // src/components/PersonalizadosID/UI/Features.tsx
 import React from "react";
-import terminacionBrillante from "@/assets/Caracteristicas/c1.svg";
-import bordesProteccion from "@/assets/Caracteristicas/c2.svg";
-import resistenciaGolpes from "@/assets/Caracteristicas/c3.svg";
-import resistenciaRayaduras from "@/assets/Caracteristicas/c4.svg";
+import terminacionBrillante from "@/assets/Caracteristicas/1.png";
+import bordesProteccion from "@/assets/Caracteristicas/2.png";
+import resistenciaGolpes from "@/assets/Caracteristicas/3.png";
+import resistenciaRayaduras from "@/assets/Caracteristicas/4.png";
 
 const features = [
   {
@@ -36,7 +36,7 @@ const Features: React.FC = () => {
             <img
               src={icon}
               alt={title}
-              className="h-16 w-16 object-cover p-0 sm:h-16 sm:w-16 lg:h-20 lg:w-20"
+              className="h-16 w-16 object-cover sm:h-20 sm:w-20 lg:h-20 lg:w-20"
               style={{ imageRendering: 'crisp-edges' }}
               onContextMenu={(e) => e.preventDefault()}
             />

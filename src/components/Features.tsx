@@ -32,11 +32,11 @@ const Features: React.FC = () => {
           key={idx}
           className="flex flex-col items-center space-y-0 text-center lg:space-y-6"
         >
-          <div className="h-16 w-16 flex-shrink-0 p-0 sm:h-16 sm:w-16 lg:h-20 lg:w-20">
+          <div className="">
             <img
               src={icon}
               alt={title}
-              className="h-full w-full object-contain"
+              className="h-16 w-16 object-cover p-0 sm:h-16 sm:w-16 lg:h-20 lg:w-20"
               style={{ imageRendering: 'crisp-edges' }}
               onContextMenu={(e) => e.preventDefault()}
             />

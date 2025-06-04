@@ -124,10 +124,10 @@ const PredeterminadosID: React.FC = () => {
         draggable={false}
         pauseOnHover
       />
-      <div className="mx-auto bg-white px-4 py-6 text-black">
+      <div className="mx-auto bg-white py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex w-full flex-col gap-4 p-3 lg:flex-row lg:gap-0">
+        <div className="flex w-full flex-col gap-4 lg:flex-row lg:gap-0">
           <div className="flex w-full flex-col items-start justify-between gap-4 lg:w-[50%] lg:flex-row">
             <div className="w-full lg:w-1/4">
               <Features />
@@ -163,7 +163,7 @@ const PredeterminadosID: React.FC = () => {
           <div className="flex w-full flex-col p-4 lg:w-[80%]">
             {product ? (
               <>
-                <h1 className="mb-2 w-full text-left text-xl font-bold sm:text-2xl md:text-3xl lg:text-7xl">
+                <h1 className="mb-1.5 w-full text-left font-favoritExpandedBook text-sm font-bold sm:text-lg md:mb-2 md:text-2xl lg:text-4xl">
                   {product.title}
                 </h1>
                 <p className="mb-2 text-left font-favoritExpandedBook text-base font-semibold text-gray-900 sm:text-lg md:text-xl">

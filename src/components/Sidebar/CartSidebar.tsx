@@ -17,11 +17,11 @@ export default function CartSidebar() {
   } = useCartStore();
   const { handleCheckout } = useCheckout();
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
-  useEffect(() => {
-    if (!isAuthenticated) {
-      clearCart();
-    }
-  }, [isAuthenticated, clearCart]);
+  /*   useEffect(() => {
+      if (!isAuthenticated) {
+        clearCart();
+      }
+    }, [isAuthenticated, clearCart]); */
   const removeItem = (id: string): void => {
     removeFromCart(id);
   };

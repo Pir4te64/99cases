@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import loginPOST from "@/components/Login/LoginPOST";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "@/store/authStore";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -26,8 +26,8 @@ const Login = () => {
       // Redirigir al usuario a la página de inicio
       window.location.href = "/";
     } catch (error) {
-      console.error("Error de autenticación:", error);
-      toast.error("Error en la autenticación");
+      console.error("Error de autenticación:", error.response.data.message);
+      toast.error(error.response.data.message || "Error en la autenticación");
     }
   };
 
@@ -36,6 +36,7 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-black text-white">
+      <ToastContainer />
       <div className="w-full max-w-md space-y-6 rounded-sm border-2 border-red-500 p-8">
         <h2 className="text-center text-2xl font-bold">Iniciar Sesión</h2>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -88,11 +89,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${
-                isFormValid
-                  ? "hover:bg-white hover:text-black"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-white text-sm font-medium rounded transition-colors ${isFormValid
+                ? "hover:bg-white hover:text-black"
+                : "opacity-50 cursor-not-allowed"
+                }`}
             >
               Iniciar Sesión
             </button>

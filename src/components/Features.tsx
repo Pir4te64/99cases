@@ -1,9 +1,9 @@
 // src/components/PersonalizadosID/UI/Features.tsx
 import React from "react";
-import terminacionBrillante from "@/assets/Caracteristicas/p1.svg";
-import bordesProteccion from "@/assets/Caracteristicas/p2.svg";
-import resistenciaGolpes from "@/assets/Caracteristicas/p3.svg";
-import resistenciaRayaduras from "@/assets/Caracteristicas/p4.svg";
+import terminacionBrillante from "@/assets/Caracteristicas/c1.svg";
+import bordesProteccion from "@/assets/Caracteristicas/c2.svg";
+import resistenciaGolpes from "@/assets/Caracteristicas/c3.svg";
+import resistenciaRayaduras from "@/assets/Caracteristicas/c4.svg";
 
 const features = [
   {

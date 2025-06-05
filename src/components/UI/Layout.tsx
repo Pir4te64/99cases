@@ -3,41 +3,157 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/UI/Footer";
 import CartSidebar from "@/components/Sidebar/CartSidebar";
 import useAuthStore from "@/store/authStore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Swal from "sweetalert2";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const showCartSidebar = pathname !== "/pagos" && pathname !== "/medios-pagos";
   const getMe = useAuthStore((s) => s.getMe);
-  const [isPrintScreenPressed, setIsPrintScreenPressed] = useState(false);
+  const [isDevToolsOpen, setIsDevToolsOpen] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getMe();
     window.scrollTo(0, 0);
   }, [getMe, pathname]);
 
+  // Detectar DevTools
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Detecta Print Screen (código 44) o Alt + Print Screen
-      if (e.key === "PrintScreen" || (e.altKey && e.key === "PrintScreen")) {
-        setIsPrintScreenPressed(true);
-        // Prevenir el comportamiento por defecto
+    const detectDevTools = () => {
+      const threshold = 160;
+      if (
+        window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold
+      ) {
+        setIsDevToolsOpen(true);
+      } else {
+        setIsDevToolsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", detectDevTools);
+    detectDevTools();
+
+    return () => window.removeEventListener("resize", detectDevTools);
+  }, []);
+
+  // Prevenir captura de pantalla
+  useEffect(() => {
+    const preventScreenshot = (e: KeyboardEvent) => {
+      // Detectar Print Screen
+      if (e.keyCode === 44) {
         e.preventDefault();
+        Swal.fire({
+          title: "Acción no permitida",
+          text: "Las capturas de pantalla están deshabilitadas",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#000",
+          background: "#1a1a1a",
+          color: "#fff",
+        });
+        return false;
+      }
+
+      // Detectar Ctrl+Shift+S (captura en algunos navegadores)
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 83) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Acción no permitida",
+          text: "Las capturas de pantalla están deshabilitadas",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#000",
+          background: "#1a1a1a",
+          color: "#fff",
+        });
+        return false;
+      }
+
+      // Detectar F12 (DevTools)
+      if (e.keyCode === 123) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Acción no permitida",
+          text: "Las herramientas de desarrollador están deshabilitadas",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#000",
+          background: "#1a1a1a",
+          color: "#fff",
+        });
+        return false;
+      }
+
+      // Detectar Ctrl+Shift+I (DevTools)
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Acción no permitida",
+          text: "Las herramientas de desarrollador están deshabilitadas",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#000",
+          background: "#1a1a1a",
+          color: "#fff",
+        });
+        return false;
+      }
+
+      // Detectar Ctrl+U (ver código fuente)
+      if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Acción no permitida",
+          text: "Ver código fuente está deshabilitado",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#000",
+          background: "#1a1a1a",
+          color: "#fff",
+        });
+        return false;
       }
     };
 
-    const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.key === "PrintScreen") {
-        setIsPrintScreenPressed(false);
+    const preventRightClick = (e: MouseEvent) => {
+      e.preventDefault();
+      Swal.fire({
+        title: "Acción no permitida",
+        text: "Clic derecho deshabilitado",
+        icon: "warning",
+        confirmButtonText: "Entendido",
+        confirmButtonColor: "#000",
+        background: "#1a1a1a",
+        color: "#fff",
+      });
+      return false;
+    };
+
+    // Detectar cuando la ventana pierde el foco (posible captura)
+    const handleBlur = () => {
+      if (overlayRef.current) {
+        overlayRef.current.style.display = "block";
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
+    const handleFocus = () => {
+      if (overlayRef.current) {
+        overlayRef.current.style.display = "none";
+      }
+    };
+
+    document.addEventListener("keydown", preventScreenshot);
+    document.addEventListener("contextmenu", preventRightClick);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
+      document.removeEventListener("keydown", preventScreenshot);
+      document.removeEventListener("contextmenu", preventRightClick);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
     };
   }, []);
 
@@ -49,8 +165,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         userSelect: "none",
         WebkitPrintColorAdjust: "exact",
         printColorAdjust: "exact",
-        WebkitFilter: isPrintScreenPressed ? "brightness(0)" : "invert(0)",
-        filter: isPrintScreenPressed ? "brightness(0)" : "invert(0)",
         WebkitBackfaceVisibility: "hidden",
         backfaceVisibility: "hidden",
         WebkitTransform: "translateZ(0)",
@@ -59,9 +173,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         perspective: "1000",
         WebkitTransformStyle: "preserve-3d",
         transformStyle: "preserve-3d",
-        transition: "filter 0.1s ease-in-out",
       }}
     >
+      <div
+        ref={overlayRef}
+        style={{
+          display: "none",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "black",
+          zIndex: 9999,
+        }}
+      />
       <Navbar />
       {showCartSidebar && <CartSidebar />}
       <main className="flex-1 pt-32">{children}</main>

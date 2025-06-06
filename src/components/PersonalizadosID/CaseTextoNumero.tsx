@@ -63,7 +63,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute -bottom-5 -right-[120px] z-10 w-20 block sm:hidden"
+        className="pointer-events-none absolute -bottom-0 -right-[120px] z-10 w-20 block sm:hidden"
       />
       {/* Banner "Premium Case" superpuesto solo en desktop */}
       <img
@@ -86,14 +86,14 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
             <span
               style={{
                 color: numFill,
-                WebkitTextStroke: `4px ${numBorder}`,
+                WebkitTextStroke: `2px ${numBorder}`,
                 textShadow: numTextShadow,
               }}
               className={`${product.title === "FUNDA 99% CASES - FOX 2" ||
                 product.title === "FUNDA 99% CASES - SUZUKI" ||
                 product.title === "FUNDA 99% CASES - FASTHOUSE"
                 ? "text-[4rem] sm:text-[5rem] md:text-[7.5rem] mt-5"
-                : "text-[3.5rem] sm:text-[5rem] md:text-[7.5rem]"} text-center ml-[-6px] sm:ml-[-10px] ${selectedNumberStyle != null
+                : "text-[3.5rem] sm:text-[5rem] md:text-[7.5rem]"} text-center ${selectedNumberStyle != null
                   ? `font-${customNumberStyles[selectedNumberStyle]}`
                   : "font-cmxShift2"
                 }`}
@@ -103,7 +103,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
             <span
               style={{
                 color: nFill,
-                WebkitTextStroke: `3px ${nBorder}`,
+                WebkitTextStroke: `2px ${nBorder}`,
                 textShadow: nameTextShadow,
               }}
               className={`${product.title === "FUNDA 99% CASES - FOX 2" ||

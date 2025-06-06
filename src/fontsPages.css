@@ -140,3 +140,13 @@
     font-weight: 900;
     font-style: italic;
 }
+
+/* ========================================
+     CMX Racer
+     ======================================== */
+@font-face {
+    font-family: 'cmxRacer';
+    src: url('./assets/fonts/Tipografías/Cmx-racer.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}

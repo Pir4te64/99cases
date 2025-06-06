@@ -47,7 +47,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
     <div
       ref={ref}
       data-product-title={product.title}
-      className="relative  h-[350px] w-full overflow-hidden md:mt-0 lg:h-[600px]"
+      className="relative h-[340px] w-full overflow-visible  md:mt-0 lg:h-[640px]"
     >
       {/* Imagen base */}
       <img
@@ -58,16 +58,23 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
         className="h-full w-full object-contain md:max-w-full md:scale-100"
       />
 
-      {/* Banner "Premium Case" superpuesto */}
+      {/* Banner "Premium Case" superpuesto solo en mobile */}
       <img
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-0 z-10 w-24 sm:w-32 sm:scale-100"
+        className="pointer-events-none absolute -bottom-5 -right-[120px] z-10 w-20 block sm:hidden"
+      />
+      {/* Banner "Premium Case" superpuesto solo en desktop */}
+      <img
+        src={premiumCase}
+        alt="Premium Case"
+        onContextMenu={(e) => e.preventDefault()}
+        className="pointer-events-none absolute bottom-0 right-0 z-10 w-28 hidden sm:block sm:scale-100"
       />
 
       {isConCaracteres && (
-        <div id="texto-numeros-container" className={`pointer-events-none absolute inset-0 flex flex-col items-center ${product.title === "FUNDA 99% CASES - SUZUKI"
+        <div id="texto-numeros-container" className={`pointer-events-none absolute inset-0 flex flex-col items-center  ${product.title === "FUNDA 99% CASES - SUZUKI"
           ? "justify-center translate-y-16 sm:translate-y-24"
           : product.title === "FUNDA 99% CASES - FOX 2"
             ? "justify-center translate-y-16 sm:translate-y-28"
@@ -103,7 +110,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
                 product.title === "FUNDA 99% CASES - SUZUKI" ||
                 product.title === "FUNDA 99% CASES - FASTHOUSE"
                 ? "text-[1.5rem] sm:text-[2rem] md:text-[2.9rem]"
-                : "text-[1.3rem] sm:text-[2rem] md:text-[2.9rem]"} text-center -mt-1 ${selectedNameStyle != null
+                : "text-[1.3rem] sm:text-[2rem] md:text-[2.9rem]"} text-center -mt-1 uppercase ${selectedNameStyle != null
                   ? `font-${customNameStyles[selectedNameStyle]}`
                   : "font-cmxShift2"
                 }`}

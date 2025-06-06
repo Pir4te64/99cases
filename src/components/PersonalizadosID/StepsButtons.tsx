@@ -33,7 +33,7 @@ const StepsButtons: React.FC = () => {
               }`}
           >
             <div
-              className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md font-dharmaGothicM font-bold italic md:h-12 md:w-12 md:text-4xl ${activeStep === key ? "bg-white text-red-600" : "bg-black text-white"
+              className={`flex p-0.5 h-6 w-6 flex-shrink-0 items-center justify-center rounded-md font-cmxRacer font-bold italic md:h-12 md:w-12 md:text-4xl ${activeStep === key ? "bg-white text-red-600" : "bg-black text-white"
                 }`}
             >
               {key}

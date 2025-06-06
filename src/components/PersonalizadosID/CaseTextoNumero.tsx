@@ -47,7 +47,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
     <div
       ref={ref}
       data-product-title={product.title}
-      className="relative mt-28 h-[350px] w-full overflow-hidden md:mt-0 lg:h-[600px]"
+      className="relative  h-[350px] w-full overflow-hidden md:mt-0 lg:h-[600px]"
     >
       {/* Imagen base */}
       <img

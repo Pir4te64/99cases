@@ -30,7 +30,7 @@ const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       {/* Contenido principal */}
-      <div className="relative min-h-screen">{children}</div>
+      <div className="relative min-h-screen overflow-hidden">{children}</div>
 
       {/* Llamado a la acción y productos similares */}
       <section className="relative overflow-x-hidden text-center">

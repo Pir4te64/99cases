@@ -52,22 +52,20 @@ const PersonalizadosID: React.FC = () => {
       <div className="mx-auto bg-white px-4 py-6 text-black">
         <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start">
+        <div className="relative flex h-[calc(100vh-64px)] w-full flex-col gap-8 lg:flex-row lg:items-start">
           {/* Columna 1 */}
           <div className="hidden lg:block lg:w-1/12">
             <Features />
           </div>
 
           {/* Columna 2: preview */}
-          <div className="fixed left-0 top-0 z-10 w-full bg-white p-4 px-0 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
-
+          <div className="absolute left-0 top-0 z-10 w-full bg-white p-2 px-0 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
             <div className="flex justify-start lg:sticky lg:top-24">
-
               {product ? (
                 <div
                   id="preview-container"
                   ref={previewRef}
-                  className="h-full w-full"
+                  className="mx-auto h-full w-full max-w-[200px] lg:max-w-none"
                 >
                   {isConImagen && (
                     <CaseTuFoto frameUrl={product.imageSrc} />
@@ -83,7 +81,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 3: detalles y acciones */}
-          <div className="mt-56 h-[calc(100vh-2rem)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
+          <div className="mt-[280px] h-[calc(100vh-64px)] flex-1 space-y-4 overflow-y-auto px-2 py-4 font-favoritMono scrollbar-hide lg:mt-0 lg:w-[50%] lg:px-4 lg:py-10">
             {product && <ProductInfo product={product} />}
 
             {product && (

@@ -93,7 +93,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
                 product.title === "FUNDA 99% CASES - SUZUKI" ||
                 product.title === "FUNDA 99% CASES - FASTHOUSE"
                 ? "text-[4rem] sm:text-[5rem] md:text-[7.5rem] mt-5"
-                : "text-[3.5rem] sm:text-[5rem] md:text-[7.5rem]"} text-center ${selectedNumberStyle != null
+                : "text-[3.5rem] sm:text-[5rem] md:text-[7.5rem]"} text-center ml-[-6px] sm:ml-[-10px] ${selectedNumberStyle != null
                   ? `font-${customNumberStyles[selectedNumberStyle]}`
                   : "font-cmxShift2"
                 }`}

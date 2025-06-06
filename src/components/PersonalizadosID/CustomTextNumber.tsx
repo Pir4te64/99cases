@@ -42,6 +42,9 @@ export default function CustomTextNumber({
                         color: numFill,
                         WebkitTextStroke: `2px ${numBorder}`,
                         textShadow: numTextShadow,
+                        WebkitTextStrokeWidth: '2px',
+                        WebkitTextStrokeColor: numBorder,
+                        WebkitTextFillColor: numFill,
                     }}
                     className={`${product.title === "FUNDA 99% CASES - FOX 2" ||
                         product.title === "FUNDA 99% CASES - SUZUKI" ||
@@ -59,6 +62,9 @@ export default function CustomTextNumber({
                         color: nFill,
                         WebkitTextStroke: `2px ${nBorder}`,
                         textShadow: nameTextShadow,
+                        WebkitTextStrokeWidth: '2px',
+                        WebkitTextStrokeColor: nBorder,
+                        WebkitTextFillColor: nFill,
                     }}
                     className={`${product.title === "FUNDA 99% CASES - FOX 2" ||
                         product.title === "FUNDA 99% CASES - SUZUKI" ||

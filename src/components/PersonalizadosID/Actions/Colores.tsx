@@ -65,7 +65,7 @@ const ColorSection: React.FC<ColorSectionProps> = ({
   onSelectColor,
 }) => (
   <div>
-    <h2 className="mb-2 font-bold">{label}</h2>
+    <h2 className="mb-2 font-favoritExpanded text-sm font-bold">{label}</h2>
     <div className="mx-2 flex flex-wrap gap-2">
       {colors.map((color, colorIndex) => {
         const isSelected = selectedColor === color;

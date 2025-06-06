@@ -114,6 +114,8 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
         imageFinalUrl: product.imageFinal ?? imageFinalUrl ?? null, // para backend
         imagenCarrito: imageFinalUrl ?? null, // para mostrar en el carrito
         tipo: product.tipo,
+        phoneBrand, // Agregamos la marca del celular
+        phoneModel, // Agregamos el modelo del celular
         ...(calcosBlob ? { calcosBlob } : {}),
       };
 

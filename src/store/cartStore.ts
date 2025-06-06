@@ -10,6 +10,8 @@ export interface CartItem {
   // Propiedades para datos del celular
   selectedBrand?: string;
   selectedModel?: number;
+  phoneBrand?: string; // Marca del celular seleccionada
+  phoneModel?: string; // Modelo del celular seleccionado
   imageFinalUrl?: string;
   tipo?: string;
   calcosBlob?: Blob;

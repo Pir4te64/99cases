@@ -9,19 +9,23 @@ export default function DeliverySummary({
   if (!deliveryResponse?.deliveryOptions) {
     return null;
   }
-  console.log(deliveryResponse);
+
+  // Ordenar para que "A domicilio" esté primero
+  const sortedOptions = [...deliveryResponse.deliveryOptions].sort((a, b) => {
+    if (a.modoDeEntrega === "A domicilio") return -1;
+    if (b.modoDeEntrega === "A domicilio") return 1;
+    return 0;
+  });
 
   useEffect(() => {
-    // Set "A domicilio" as default if no option is selected
-    if (!selectedOption) {
-      const domicilioOption = deliveryResponse.deliveryOptions.find(
-        (opt) => opt.modoDeEntrega === "A domicilio"
-      );
-      if (domicilioOption) {
-        onSelectOption(domicilioOption.modoDeEntrega);
-      }
+    const domicilioOption = deliveryResponse.deliveryOptions.find(
+      (opt) => opt.modoDeEntrega === "A domicilio"
+    );
+    if (domicilioOption && selectedOption !== "A domicilio") {
+      onSelectOption(domicilioOption.modoDeEntrega);
     }
-  }, [deliveryResponse.deliveryOptions, selectedOption, onSelectOption]);
+  }, [deliveryResponse, selectedOption, onSelectOption]);
+  
 
   return (
     <div className="mb-6 rounded bg-[#EEEEEE] p-4 shadow-lg">
@@ -30,33 +34,22 @@ export default function DeliverySummary({
       </h2>
 
       <p className="font-favoritExpanded text-[#000000]">
-        <strong className="font-favoritExpanded text-[#000000]">
-          Destino:
-        </strong>{" "}
-        {deliveryResponse.destino || "No especificado"}
+        <strong>Destino:</strong> {deliveryResponse.destino || "No especificado"}
       </p>
       <p className="font-favoritExpanded text-[#000000]">
-        <strong className="font-favoritExpanded text-[#000000]">
-          Contacto:
-        </strong>{" "}
-        {deliveryResponse.datosDeContacto || "No especificado"}
+        <strong>Contacto:</strong> {deliveryResponse.datosDeContacto || "No especificado"}
       </p>
       <p className="font-favoritExpanded text-[#000000]">
-        <strong className="font-favoritExpanded text-[#000000]">
-          Costo de Orden:
-        </strong>{" "}
-        $
+        <strong>Costo de Orden:</strong> $
         {(deliveryResponse.costoOrden || 0).toLocaleString("es-AR", {
           minimumFractionDigits: 2,
         })}
       </p>
 
       <div className="mt-4">
-        <p className="mb-2 font-favoritExpanded text-[#000000]">
-          Opciones de Entrega:
-        </p>
+        <p className="mb-2 font-favoritExpanded text-[#000000]">Opciones de Entrega:</p>
         <ul>
-          {deliveryResponse.deliveryOptions.map((opt, index) => (
+          {sortedOptions.map((opt, index) => (
             <li
               key={`${opt.modoDeEntregaId || index}`}
               className="mb-2 flex items-center font-favoritExpanded text-[#000000]"
@@ -65,9 +58,9 @@ export default function DeliverySummary({
                 type="radio"
                 id={`delivery-option-${opt.modoDeEntregaId || index}`}
                 name="deliveryOption"
-                value={opt.modoDeEntrega || ""}
+                value={opt.modoDeEntrega ?? `opcion-${index}`}
                 checked={selectedOption === opt.modoDeEntrega}
-                onChange={() => onSelectOption(opt.modoDeEntrega || "")}
+                onChange={() => onSelectOption(opt.modoDeEntrega ?? `opcion-${index}`)}
                 className="mr-2"
               />
               <label

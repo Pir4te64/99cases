@@ -49,7 +49,7 @@ const PersonalizadosID: React.FC = () => {
 
   return (
     <PersonalizadosLayout>
-      <div className="mx-auto bg-white px-4 py-6 text-black">
+      <div className="mx-auto bg-white px-0 py-6 text-black md:px-4">
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="relative flex h-[calc(100vh-64px)] w-full flex-col gap-8 lg:flex-row lg:items-start">
@@ -59,7 +59,7 @@ const PersonalizadosID: React.FC = () => {
           </div>
 
           {/* Columna 2: preview */}
-          <div className="absolute left-0 top-0 z-10 w-full bg-white p-2 px-0 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
+          <div className="absolute left-0 top-0 z-10 w-full bg-white px-0 lg:relative lg:z-0 lg:w-[30%] lg:flex-shrink-0 lg:px-4">
             <div className="flex justify-start lg:sticky lg:top-24">
               {product ? (
                 <div

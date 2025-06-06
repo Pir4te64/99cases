@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const showCartSidebar = pathname !== "/pagos" && pathname !== "/medios-pagos";
   const getMe = useAuthStore((s) => s.getMe);
-  const [isDevToolsOpen, setIsDevToolsOpen] = useState(false);
+  const [, setIsDevToolsOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   // Detectar DevTools
   useEffect(() => {
     const detectDevTools = () => {
-      const threshold = 160;
+      /* const threshold = 160;
       if (
         window.outerWidth - window.innerWidth > threshold ||
         window.outerHeight - window.innerHeight > threshold
@@ -29,19 +29,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         setIsDevToolsOpen(true);
       } else {
         setIsDevToolsOpen(false);
-      }
+      } */
     };
 
-    window.addEventListener("resize", detectDevTools);
-    detectDevTools();
+    // window.addEventListener("resize", detectDevTools);
+    // detectDevTools();
 
-    return () => window.removeEventListener("resize", detectDevTools);
+    // return () => window.removeEventListener("resize", detectDevTools);
   }, []);
 
   // Prevenir captura de pantalla
   useEffect(() => {
     const preventScreenshot = (e: KeyboardEvent) => {
-      // Detectar Print Screen
+      /* // Detectar Print Screen
       if (e.keyCode === 44) {
         e.preventDefault();
         Swal.fire({
@@ -114,12 +114,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           color: "#fff",
         });
         return false;
-      }
+      } */
     };
 
     const preventRightClick = (e: MouseEvent) => {
-      e.preventDefault();
-      Swal.fire({
+      // e.preventDefault();
+      /* Swal.fire({
         title: "Acción no permitida",
         text: "Clic derecho deshabilitado",
         icon: "warning",
@@ -127,33 +127,33 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         confirmButtonColor: "#000",
         background: "#1a1a1a",
         color: "#fff",
-      });
-      return false;
+      }); */
+      // return false;
     };
 
     // Detectar cuando la ventana pierde el foco (posible captura)
     const handleBlur = () => {
-      if (overlayRef.current) {
+      /* if (overlayRef.current) {
         overlayRef.current.style.display = "block";
-      }
+      } */
     };
 
     const handleFocus = () => {
-      if (overlayRef.current) {
+      /* if (overlayRef.current) {
         overlayRef.current.style.display = "none";
-      }
+      } */
     };
 
-    document.addEventListener("keydown", preventScreenshot);
-    document.addEventListener("contextmenu", preventRightClick);
-    window.addEventListener("blur", handleBlur);
-    window.addEventListener("focus", handleFocus);
+    // document.addEventListener("keydown", preventScreenshot);
+    // document.addEventListener("contextmenu", preventRightClick);
+    // window.addEventListener("blur", handleBlur);
+    // window.addEventListener("focus", handleFocus);
 
     return () => {
-      document.removeEventListener("keydown", preventScreenshot);
-      document.removeEventListener("contextmenu", preventRightClick);
-      window.removeEventListener("blur", handleBlur);
-      window.removeEventListener("focus", handleFocus);
+      // document.removeEventListener("keydown", preventScreenshot);
+      // document.removeEventListener("contextmenu", preventRightClick);
+      // window.removeEventListener("blur", handleBlur);
+      // window.removeEventListener("focus", handleFocus);
     };
   }, []);
 
@@ -161,8 +161,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div
       className="flex min-h-screen flex-col overflow-x-hidden bg-black text-white"
       style={{
-        WebkitUserSelect: "none",
-        userSelect: "none",
+        /* WebkitUserSelect: "none",
+        userSelect: "none", */
         WebkitPrintColorAdjust: "exact",
         printColorAdjust: "exact",
         WebkitBackfaceVisibility: "hidden",

@@ -22,12 +22,14 @@ const CustomName = () => {
         <label className="mb-2 block font-favoritExpanded text-xs uppercase">Tu nombre</label>
         <input
           type="text"
-          maxLength={10}
+          maxLength={12}
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           className={`
             w-full border uppercase border-gray-300 rounded p-2 mb-4
-            text-2xl sm:text-4xl
+            ${userName.length > 12
+              ? "text-lg sm:text-2xl md:text-3xl"
+              : "text-2xl sm:text-4xl"}
             ${selectedNameStyle !== null
               ? `font-${customNameStyles[selectedNameStyle]}`
               : "font-cmxShift2"
@@ -43,7 +45,10 @@ const CustomName = () => {
               onClick={() => setSelectedNameStyle(index)}
               className={`
                 border uppercase border-gray-300 rounded-md p-2 text-center
-                transition-colors text-lg sm:text-xl
+                transition-colors
+                ${userName.length > 12
+                  ? "text-sm sm:text-base"
+                  : "text-lg sm:text-xl"}
                 ${selectedNameStyle === index
                   ? "bg-gray-500 text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"

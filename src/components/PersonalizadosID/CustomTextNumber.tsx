@@ -60,18 +60,19 @@ export default function CustomTextNumber({
             }}
             className={`${product.title === "FUNDA 99% CASES - FOX 2"
                 ? productOrder === "TEXTO - NUMERO"
-                    ? "text-[6.25rem] sm:text-[8.125rem] md:text-[10rem]"
-                    : "text-[4rem] sm:text-[5rem] md:text-[7.5rem]"
-                : product.title === "FUNDA 99% CASES - SUZUKI" ||
-                    product.title === "FUNDA 99% CASES - FASTHOUSE"
-                    ? "text-[4rem] sm:text-[5rem] md:text-[7.5rem] mt-5"
-                    : productOrder === "NUMERO - TEXTO"
-                        ? "text-[4.5rem] sm:text-[6rem] md:text-[8.5rem]"
-                        : productOrder === "TEXTO - NUMERO"
-                            ? "text-[5rem] sm:text-[7rem] md:text-[9rem]"
-                            : "text-[3rem] sm:text-[4rem] md:text-[6rem]"} text-center ${selectedNumberStyle != null
-                                ? `font-${customNumberStyles[selectedNumberStyle]}`
-                                : "font-cmxShift2"
+                    ? "text-[100px] sm:text-[130px] md:text-[160px]"
+                    : "text-[64px] sm:text-[80px] md:text-[120px]"
+                : product.title === "FUNDA 99% CASES - SUZUKI"
+                    ? "text-[64px] sm:text-[80px] md:text-[120px] mt-[8px] sm:mt-[20px]"
+                    : product.title === "FUNDA 99% CASES - FASTHOUSE"
+                        ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+                        : productOrder === "NUMERO - TEXTO"
+                            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+                            : productOrder === "TEXTO - NUMERO"
+                                ? "text-[80px] sm:text-[112px] md:text-[144px]"
+                                : "text-[48px] sm:text-[64px] md:text-[96px]"} text-center ${selectedNumberStyle != null
+                                    ? `font-${customNumberStyles[selectedNumberStyle]}`
+                                    : "font-cmxShift2"
                 }`}
         >
             {userNumber || "15"}
@@ -87,19 +88,19 @@ export default function CustomTextNumber({
                 WebkitTextStrokeWidth: '2px',
                 WebkitTextStrokeColor: nBorder,
                 WebkitTextFillColor: nFill,
-                marginBottom: productOrder === "TEXTO - NUMERO" ? '0.5rem' : undefined,
+                marginBottom: productOrder === "TEXTO - NUMERO" ? '8px' : undefined,
             }}
             className={`${product.title === "FUNDA 99% CASES - FOX 2"
                 ? productOrder === "TEXTO - NUMERO"
-                    ? "text-[1.2rem] sm:text-[1.5rem] md:text-[1.8rem]"
-                    : "text-[1.5rem] sm:text-[2rem] md:text-[2.9rem]"
+                    ? "text-[19px] sm:text-[24px] md:text-[29px]"
+                    : "text-[24px] sm:text-[32px] md:text-[46px]"
                 : product.title === "FUNDA 99% CASES - SUZUKI"
-                    ? "text-[0.8rem] sm:text-[1.5rem] md:text-[2rem]"
+                    ? "text-[13px] sm:text-[24px] md:text-[32px]"
                     : product.title === "FUNDA 99% CASES - FASTHOUSE"
-                        ? "text-[1.5rem] sm:text-[2rem] md:text-[2.9rem]"
+                        ? "text-[16px] sm:text-[20px] md:text-[24px]"
                         : productOrder === "TEXTO - NUMERO"
-                            ? "text-[0.9rem] sm:text-[1.2rem] md:text-[1.5rem]"
-                            : "text-[1rem] sm:text-[1.5rem] md:text-[2rem]"} text-center -mt-1 uppercase ${selectedNameStyle != null
+                            ? "text-[14px] sm:text-[19px] md:text-[24px]"
+                            : "text-[16px] sm:text-[24px] md:text-[32px]"} text-center -mt-[4px] uppercase ${selectedNameStyle != null
                                 ? `font-${customNameStyles[selectedNameStyle]}`
                                 : "font-cmxShift2"
                 }`}
@@ -110,19 +111,19 @@ export default function CustomTextNumber({
 
     return (
         <div id="texto-numeros-container" className={`pointer-events-none absolute inset-0 flex flex-col items-center  ${product.title === "FUNDA 99% CASES - SUZUKI"
-            ? "justify-center translate-y-20 sm:translate-y-32"
+            ? "justify-center translate-y-[80px] sm:translate-y-[128px]"
             : product.title === "FUNDA 99% CASES - FOX 2"
                 ? productOrder === "TEXTO - NUMERO"
-                    ? "justify-center translate-y-16 sm:translate-y-32"
-                    : "justify-center translate-y-16 sm:translate-y-28"
+                    ? "justify-center translate-y-[64px] sm:translate-y-[128px]"
+                    : "justify-center translate-y-[64px] sm:translate-y-[112px]"
                 : product.title === "FUNDA 99% CASES - FASTHOUSE"
-                    ? "justify-end md:mb-28 mb-10 sm:translate-y-0"
+                    ? "justify-end md:mb-[112px] mb-[40px] sm:translate-y-0"
                     : productOrder === "NUMERO - TEXTO"
-                        ? "justify-end translate-y-[1.5rem] sm:translate-y-0"
+                        ? "justify-end translate-y-[24px] sm:translate-y-0"
                         : productOrder === "TEXTO - NUMERO"
-                            ? "justify-end translate-y-[1.5rem] sm:translate-y-0"
+                            ? "justify-end translate-y-[24px] sm:translate-y-0"
                             : "justify-end"
-            } pb-10`}>
+            } pb-[40px]`}>
             <div className="flex flex-col items-center leading-none">
                 {productOrder === "NUMERO - TEXTO" ? (
                     <>

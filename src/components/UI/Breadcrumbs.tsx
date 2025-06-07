@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   return (
-    <nav className="mb-4 overflow-x-auto whitespace-nowrap rounded-md bg-white text-black shadow-sm mx-4">
+    <nav className="mx-4 overflow-x-auto whitespace-nowrap rounded-md bg-white py-1 pb-4 text-black shadow-sm">
       <ol className="flex list-none items-center py-1.5 text-xs sm:text-sm md:px-4 md:py-2 md:text-base">
         {items.map((item: BreadcrumbItem, index: number) => (
           <li key={index} className="inline-flex items-center">

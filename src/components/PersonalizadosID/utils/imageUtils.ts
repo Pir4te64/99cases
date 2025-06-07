@@ -80,8 +80,6 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                     console.log("Es caso especial");
                     const spans = textContainer.querySelectorAll('span');
                     if (spans.length > 1) {
-
-
                         // Remover todas las clases de Tailwind
                         spans.forEach(span => {
                             const element = span as HTMLElement;
@@ -102,9 +100,8 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                                 'text-[13px]', 'sm:text-[24px]', 'md:text-[32px]',
                                 'text-[16px]', 'sm:text-[20px]', 'md:text-[24px]',
                                 'text-[14px]', 'sm:text-[19px]', 'md:text-[24px]',
-                                'text-[16px]', 'sm:text-[24px]', 'md:text-[32px]',
+                                'text-[16px]', 'sm:text-[24px]', 'md:text-[32px]'
                             );
-                            // Limpiar estilos inline
                         });
 
                         // Control individual del primer span (texto)
@@ -124,6 +121,14 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                         // Control del contenedor
                         textContainer.style.paddingBottom = '0px';
                         textContainer.style.gap = '0';
+
+                        // Ajuste específico para FASTHOUSE
+                        if (productTitle === "FUNDA 99% CASES - FASTHOUSE") {
+                            (spans[0] as HTMLElement).style.transform = 'translateY(-110px)';
+                            (spans[0] as HTMLElement).style.margin = '0';
+                            (spans[0] as HTMLElement).style.padding = '0';
+                            (spans[1] as HTMLElement).style.transform = 'translateY(-120px)';
+                        }
                     }
                 } else {
 

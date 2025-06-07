@@ -136,7 +136,7 @@ export const orden = [
     },
     {
         title: "FUNDA 99% CASES - FOX 2",
-        orden: "NUMERO - TEXTO",
+        orden: "TEXTO - NUMERO",
         imagenLista: fox2
     },
     {

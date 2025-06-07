@@ -70,16 +70,22 @@ const MarcaCelularGET: React.FC = () => {
         <legend className="mb-2 font-favoritExpanded text-xs">
           ¿Cuál es la marca de tu celular?
         </legend>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {uniqueBrands.map((brand) => (
+        <div className="flex flex-wrap justify-start gap-1 sm:grid sm:grid-cols-4 sm:justify-center sm:gap-2">
+          {uniqueBrands.map((brand, index) => (
             <button
               key={brand}
               type="button"
               onClick={() => handleBrandSelect(brand)}
-              className={`border rounded-md py-1 font-favoritExpanded sm:py-2 text-sm sm:text-base uppercase transition-colors ${selectedBrand === brand
-                ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
-                : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
-                }`}
+              className={`border rounded-md py-2 px-1 font-favoritExpanded sm:py-1 sm:px-2 text-xs sm:text-base uppercase transition-colors ${
+                selectedBrand === brand
+                  ? "bg-gray-400 border-gray-400 text-red-700 font-bold"
+                  : "bg-white border-black hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+              } ${
+                index === 0 ? "w-[60%] sm:w-auto" :
+                index === 1 ? "w-[35%] sm:w-auto" :
+                index === 2 ? "w-[45%] sm:w-auto" :
+                index === 3 ? "w-[45%] sm:w-auto" : ""
+              }`}
             >
               {brand}
             </button>

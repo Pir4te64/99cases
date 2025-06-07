@@ -19,7 +19,7 @@ const CustomName = () => {
     <div className="space-y-8">
       {/* Bloque para el NOMBRE */}
       <div>
-        <label className="block mb-2 font-bold uppercase">Tu nombre</label>
+        <label className="mb-2 block font-favoritExpanded text-xs uppercase">Tu nombre</label>
         <input
           type="text"
           maxLength={10}
@@ -36,7 +36,7 @@ const CustomName = () => {
           placeholder="Tu nombre"
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {customNameStyles.map((style, index) => (
             <button
               key={style}
@@ -59,7 +59,7 @@ const CustomName = () => {
 
       {/* Bloque para el NÚMERO */}
       <div>
-        <label className="block mb-2 font-bold uppercase">Número</label>
+        <label className="mb-2 block font-favoritExpanded text-xs uppercase">Número</label>
         <input
           type="number"
           value={userNumber}
@@ -79,14 +79,14 @@ const CustomName = () => {
           placeholder="15"
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-1 sm:gap-2">
           {customNumberStyles.map((style, index) => (
             <button
               key={style}
               onClick={() => setSelectedNumberStyle(index)}
               className={`
-                border border-gray-300 rounded-md p-2 text-center
-                transition-colors text-lg sm:text-xl
+                border border-gray-300 rounded-md p-1 sm:p-2 text-center
+                transition-colors text-sm sm:text-xl
                 ${selectedNumberStyle === index
                   ? "bg-gray-500 text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"

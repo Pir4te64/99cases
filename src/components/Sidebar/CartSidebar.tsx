@@ -75,7 +75,7 @@ export default function CartSidebar() {
                       <p className="font-favoritExpandedBook text-sm font-bold uppercase leading-tight text-black">
                         {item.title}
                         {item.phoneBrand && item.phoneModel && (
-                          <span className="text-xs font-normal"> ({item.phoneBrand} - {item.phoneModel})</span>
+                          <span className="text-xs font-normal"> ({item.phoneBrand} {item.phoneModel})</span>
                         )}
                       </p>
                       <button

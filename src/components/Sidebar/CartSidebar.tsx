@@ -16,7 +16,6 @@ export default function CartSidebar() {
     clearCart,
   } = useCartStore();
   const { handleCheckout } = useCheckout();
-  console.log(cartItems);
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
   /*   useEffect(() => {
       if (!isAuthenticated) {

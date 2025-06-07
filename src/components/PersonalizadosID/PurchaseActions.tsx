@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { mergeImagesWithBackend, generateCalcoBlob } from "@/components/PersonalizadosID/utils/imageUtils";
 import { handleIncrement, handleDecrement } from "@/components/PersonalizadosID/utils/cartQuantityHandlers";
+import { orden } from "@/utils/orden";
 
 export default function PurchaseActions({ product, previewRef }: PurchaseActionsProps) {
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
   const handleAddToCart = async () => {
     if (!isReady) return;
     setLoading(true);
+    
     try {
       let finalDataURL: string;
       let calcosBlob: Blob | undefined = undefined;
@@ -48,44 +50,11 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
           const response = await mergeImagesWithBackend(product.id, calcosBlob);
           if (typeof response === "string" && response.startsWith("http")) {
             imageFinalUrl = response;
-            // Usar la URL del backend como imagen para el carrito
             finalDataURL = response;
           } else if (response?.url) {
             imageFinalUrl = response.url;
-            // Usar la URL del backend como imagen para el carrito
             finalDataURL = response.url;
           }
-        }
-
-        // Si no se pudo obtener la imagen del backend, generar una miniatura
-        if (!finalDataURL) {
-          if (!previewRef.current) throw new Error("Vista previa no disponible");
-          const textCanvas = await html2canvas(previewRef.current, {
-            useCORS: true,
-            backgroundColor: null,
-            scale: 2,
-            logging: false,
-            allowTaint: true,
-            onclone: (clonedDoc) => {
-              const element = clonedDoc.querySelector('#preview-container') as HTMLElement;
-              if (element) {
-                const originalWidth = element.offsetWidth;
-                const originalHeight = element.offsetHeight;
-                const aspectRatio = originalHeight / originalWidth;
-                element.style.width = '300px';
-                element.style.height = `${350 * aspectRatio}px`;
-                element.style.transform = 'none';
-              }
-            }
-          });
-
-          // Convertir canvas a Blob para imageSrc
-          const blob = await new Promise<Blob>((resolve) => {
-            textCanvas.toBlob((blob) => {
-              if (blob) resolve(blob);
-            }, 'image/png', 1.0);
-          });
-          finalDataURL = URL.createObjectURL(blob);
         }
       } else {
         if (!previewRef.current) throw new Error("Vista previa no disponible");

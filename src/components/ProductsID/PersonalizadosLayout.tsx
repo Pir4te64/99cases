@@ -34,8 +34,8 @@ const PersonalizadosLayout: React.FC<{ children: React.ReactNode }> = ({
 
       {/* Llamado a la acción y productos similares */}
       <section className="relative overflow-x-hidden text-center">
-        <div className="flex h-[16rem] items-center justify-center bg-white px-4 md:h-[24rem]">
-          <h1 className="font-dharmaGothicM text-4xl font-bold uppercase italic leading-tight text-black sm:text-5xl md:text-8xl lg:text-[96px]">
+      <div className="flex h-64 items-center justify-center bg-white text-center md:h-96">
+          <h1 className="px-4 font-dharmaGothicM text-6xl font-bold uppercase italic text-black sm:text-4xl md:text-8xl">
             ¡Protegé tu teléfono con onda, estilo y calidad!
           </h1>
         </div>

@@ -1,5 +1,6 @@
 import html2canvas from "html2canvas";
 import { API } from "@/utils/Api";
+import { orden } from "@/utils/orden";
 
 export const mergeImagesWithBackend = async (caseId: string, calcoFile: Blob) => {
     try {
@@ -83,23 +84,29 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                     textContainer.style.marginTop = '10px';
                     textContainer.style.transform = 'translateY(-32px)'; // Mover más arriba en móvil
                 }
-
+                // Ajustar tamaños según el orden
+                const productOrder = orden.find(item => item.title === productTitle)?.orden || "NUMERO - TEXTO";
                 const spans = textContainer.querySelectorAll('span');
                 if (spans.length > 1) {
-                    // Ajustar el tamaño del número
-                    (spans[0] as HTMLElement).style.marginTop = isSpecialCase ? '2.5rem' : '0';
+                  if (productOrder === "TEXTO - NUMERO") {
+                    (spans[0] as HTMLElement).style.fontSize = '2.5rem';
+                    (spans[1] as HTMLElement).style.fontSize = '6.5rem';
+                  } else {
+                    // NUMERO - TEXTO: número un poco más chico
+                    (spans[0] as HTMLElement).classList.remove(
+                      "text-[3.5rem]",
+                      "sm:text-[5rem]",
+                      "md:text-[7.5rem]",
+                      "text-[4rem]",
+                      "sm:text-[5rem]",
+                      "md:text-[7.5rem]"
+                    );
                     (spans[0] as HTMLElement).style.fontSize = '6.5rem';
-                    (spans[0] as HTMLElement).style.marginBottom = '.5rem';
-                    (spans[0] as HTMLElement).style.lineHeight = '1';
-
-                    // Ajustar el tamaño del nombre
-                    (spans[1] as HTMLElement).style.fontSize = '3rem';
-                    (spans[1] as HTMLElement).style.marginTop = '.5rem';
-                    (spans[1] as HTMLElement).style.display = 'block';
-                    (spans[1] as HTMLElement).style.textAlign = 'center';
-                    (spans[1] as HTMLElement).style.marginLeft = '0';
-                    (spans[1] as HTMLElement).style.marginRight = '0';
+                    (spans[0] as HTMLElement).style.lineHeight = '1.5';
+                    (spans[0] as HTMLElement).style.marginTop = '5rem';
+                    (spans[1] as HTMLElement).style.fontSize = '2.5rem';
                     (spans[1] as HTMLElement).style.lineHeight = '1';
+                  }
                 }
             }
         }

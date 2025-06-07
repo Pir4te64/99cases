@@ -26,7 +26,7 @@ import fasthouse from "@/assets/orden/FUNDA99CASES-FASTHOUSE.png"
 export const orden = [
     {
         title: "FUNDA 99% CASES - KTM",
-        orden: "TEXTO - NUMERO",
+        orden: "NUMERO - TEXTO",
         imagenLista: ktm
     },
     {
@@ -81,7 +81,7 @@ export const orden = [
     },
     {
         title: "FUNDA 99% CASES - HONDA HRC FOX",
-        orden: "NUMERO - TEXTO",
+        orden: "TEXTO - NUMERO",
         imagenLista: hondaHrcFox
     },
     {
@@ -149,5 +149,5 @@ export const orden = [
         orden: "TEXTO - NUMERO",
         imagenLista: fasthouse
     },
-   
+
 ]

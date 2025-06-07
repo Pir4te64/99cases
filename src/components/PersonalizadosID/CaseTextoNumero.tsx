@@ -33,10 +33,14 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
 
   // [rellenoNombre, borde1Nombre, borde2Nombre, rellenoNum, borde1Num, borde2Num]
   const [nFill, nBorder, nBorder2, numFill, numBorder, numBorder2] = [
-    selectedColors[0] || "#ffffff",
+    selectedColors[0] || (product.title === "FUNDA 99% CASES - SUZUKI" ? "#CCCCCC" :
+      product.title === "FUNDA 99% CASES - FASTHOUSE" ? "#4B4B4D" :
+        "#ffffff"),
     selectedColors[1] || "transparent",
     selectedColors[2] || "transparent",
-    selectedColors[3] || "#ffffff",
+    selectedColors[3] || (product.title === "FUNDA 99% CASES - SUZUKI" ? "#CCCCCC" :
+      product.title === "FUNDA 99% CASES - FASTHOUSE" ? "#4B4B4D" :
+        "#ffffff"),
     selectedColors[4] || "transparent",
     selectedColors[5] || "transparent",
   ];

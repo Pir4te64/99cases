@@ -75,60 +75,72 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
 
                 // Aplicar el mismo posicionamiento que en CaseTextoNumero
                 const productOrder = orden.find(item => item.title === productTitle)?.orden || "NUMERO - TEXTO";
+                console.log(productOrder);
                 if (isSpecialCase) {
-                    textContainer.style.transform = 'translateY(80px)'; // Mover más arriba del borde inferior
-                    console.log(productOrder);
-                    if (productOrder === "TEXTO - NUMERO") {
-                        console.log(productOrder === "TEXTO - NUMERO");
-                        const spans = textContainer.querySelectorAll('span');
-                        if (spans.length > 1) {
-                            // Identificar qué span es el texto y cuál es el número
-                            spans.forEach((span, index) => {
-                                console.log(`Span ${index}:`, span.textContent);
-                            });
+                    console.log("Es caso especial");
+                    const spans = textContainer.querySelectorAll('span');
+                    if (spans.length > 1) {
 
-                            // El primer span es el texto en TEXTO - NUMERO
-                            const textSpan = spans[0] as HTMLElement;
-                            console.log("Modificando span de texto:", textSpan.textContent);
 
-                            const updateFontSize = () => {
-                                console.log("Ancho actual:", window.innerWidth);
-                                if (window.innerWidth >= 1024) {
-                                    console.log("1024 o más");
-                                    textSpan.style.fontSize = '100px'; // Exagerado para desktop
-                                } else if (window.innerWidth >= 768) {
-                                    console.log("768 o más");
-                                    textSpan.style.fontSize = '80px'; // Exagerado para tablet
-                                } else {
-                                    console.log("Menos de 768");
-                                    textSpan.style.fontSize = '60px'; // Exagerado para móvil
-                                }
-                            };
+                        // Remover todas las clases de Tailwind
+                        spans.forEach(span => {
+                            const element = span as HTMLElement;
+                            // Remover clases específicas de Tailwind para números
+                            element.classList.remove(
+                                'text-[100px]', 'sm:text-[130px]', 'md:text-[160px]',
+                                'text-[64px]', 'sm:text-[80px]', 'md:text-[120px]',
+                                'text-[80px]', 'sm:text-[100px]', 'md:text-[140px]',
+                                'text-[72px]', 'sm:text-[96px]', 'md:text-[136px]',
+                                'text-[80px]', 'sm:text-[112px]', 'md:text-[144px]',
+                                'text-[48px]', 'sm:text-[64px]', 'md:text-[96px]',
+                                'mt-[8px]', 'sm:mt-[20px]', 'sm:mt-[12px]'
+                            );
+                            // Remover clases específicas de Tailwind para texto
+                            element.classList.remove(
+                                'text-[19px]', 'sm:text-[24px]', 'md:text-[29px]',
+                                'text-[24px]', 'sm:text-[32px]', 'md:text-[46px]',
+                                'text-[13px]', 'sm:text-[24px]', 'md:text-[32px]',
+                                'text-[16px]', 'sm:text-[20px]', 'md:text-[24px]',
+                                'text-[14px]', 'sm:text-[19px]', 'md:text-[24px]',
+                                'text-[16px]', 'sm:text-[24px]', 'md:text-[32px]',
+                            );
+                            // Limpiar estilos inline
+                        });
 
-                            // Ejecutar inmediatamente
-                            updateFontSize();
+                        // Control individual del primer span (texto)
+                        (spans[0] as HTMLElement).style.transform = 'translateY(70px)';
+                        (spans[0] as HTMLElement).style.fontSize = '100px';
+                        (spans[0] as HTMLElement).style.margin = '0';
+                        (spans[0] as HTMLElement).style.padding = '0';
+                        (spans[0] as HTMLElement).style.paddingBottom = '0px';
 
-                            // Agregar listener de resize
-                            window.addEventListener('resize', updateFontSize);
+                        // Control individual del segundo span (número)
+                        (spans[1] as HTMLElement).style.transform = 'translateY(50px)';
+                        (spans[1] as HTMLElement).style.fontSize = '200px';
+                        (spans[1] as HTMLElement).style.margin = '0';
+                        (spans[1] as HTMLElement).style.padding = '0';
+                        (spans[1] as HTMLElement).style.paddingBottom = '0px';
 
-                            // Remover listener después de 1 segundo para evitar memory leaks
-                            setTimeout(() => {
-                                window.removeEventListener('resize', updateFontSize);
-                            }, 1000);
-                        }
+                        // Control del contenedor
+                        textContainer.style.paddingBottom = '0px';
+                        textContainer.style.gap = '0';
                     }
                 } else {
-                    textContainer.style.justifyContent = 'flex-end';
-                    textContainer.style.paddingBottom = '2.5rem';
-                    textContainer.style.marginTop = '10px';
-                    textContainer.style.transform = 'translateY(-32px)'; // Mover más arriba en móvil
+
                 }
                 // Ajustar tamaños según el orden
                 const spans = textContainer.querySelectorAll('span');
                 if (spans.length > 1) {
                     if (productOrder === "TEXTO - NUMERO") {
-                        (spans[0] as HTMLElement).style.fontSize = '2.5rem';
-                        (spans[1] as HTMLElement).style.fontSize = '6.5rem';
+                        (spans[0] as HTMLElement).style.fontSize = '20px';
+                        (spans[0] as HTMLElement).style.margin = '0';
+                        (spans[0] as HTMLElement).style.padding = '0';
+                        (spans[0] as HTMLElement).style.paddingBottom = '0px';
+                        (spans[1] as HTMLElement).style.fontSize = '120px';
+                        (spans[1] as HTMLElement).style.margin = '0';
+                        (spans[1] as HTMLElement).style.padding = '0';
+                        textContainer.style.paddingBottom = '60px';
+                        textContainer.style.gap = '0'; // Eliminar gap del contenedor flex
                     } else {
                         // NUMERO - TEXTO: número un poco más chico
                         (spans[0] as HTMLElement).classList.remove(
@@ -139,11 +151,16 @@ export const generateCalcoBlob = async (previewRef: React.RefObject<HTMLElement>
                             "sm:text-[5rem]",
                             "md:text-[7.5rem]"
                         );
-                        (spans[0] as HTMLElement).style.fontSize = '6.5rem';
-                        (spans[0] as HTMLElement).style.lineHeight = '1.5';
-                        (spans[0] as HTMLElement).style.marginTop = '5rem';
-                        (spans[1] as HTMLElement).style.fontSize = '2.5rem';
-                        (spans[1] as HTMLElement).style.lineHeight = '1';
+                        (spans[0] as HTMLElement).style.fontSize = '120px';
+                        (spans[0] as HTMLElement).style.margin = '0';
+                        (spans[0] as HTMLElement).style.padding = '0';
+                        (spans[0] as HTMLElement).style.paddingBottom = '15px';
+                        (spans[1] as HTMLElement).style.fontSize = '20px';
+                        (spans[1] as HTMLElement).style.margin = '0';
+                        (spans[1] as HTMLElement).style.marginTop = '10px';
+                        (spans[1] as HTMLElement).style.padding = '0';
+                        textContainer.style.paddingBottom = '60px';
+                        textContainer.style.gap = '0';
                     }
                 }
             }

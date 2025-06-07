@@ -63,7 +63,7 @@ export default function CustomTextNumber({
                     ? "text-[100px] sm:text-[130px] md:text-[160px]"
                     : "text-[64px] sm:text-[80px] md:text-[120px]"
                 : product.title === "FUNDA 99% CASES - SUZUKI"
-                    ? "text-[64px] sm:text-[80px] md:text-[120px] mt-[8px] sm:mt-[20px]"
+                    ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
                     : product.title === "FUNDA 99% CASES - FASTHOUSE"
                         ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
                         : productOrder === "NUMERO - TEXTO"

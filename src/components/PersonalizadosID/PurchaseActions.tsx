@@ -6,6 +6,7 @@ import tarjetas from "@/assets/predetermiandasCases/tarjetas.png";
 import useCartStore, { CartItem } from "@/store/cartStore";
 import { PurchaseActionsProps } from "@/components/PersonalizadosID/utils/Interface";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
+import { useCheckout } from "@/store/useCheckout";
 
 // Importaciones de React-Toastify
 import { toast, ToastContainer } from "react-toastify";
@@ -20,6 +21,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
   const phoneBrand = usePersonalizadoStore((s) => s.phoneBrand);
   const phoneModel = usePersonalizadoStore((s) => s.phoneModel);
   const isReady = Boolean(phoneBrand && phoneModel);
+  const { handleCheckout } = useCheckout();
 
   /* ─── store carrito ─── */
   const selectedQuantity = useCartStore((s) => s.selectedQuantity);
@@ -36,7 +38,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
   const handleAddToCart = async () => {
     if (!isReady) return;
     setLoading(true);
-    
+
     try {
       let finalDataURL: string;
       let calcosBlob: Blob | undefined = undefined;
@@ -116,6 +118,7 @@ export default function PurchaseActions({ product, previewRef }: PurchaseActions
   const handleBuyNow = async () => {
     if (!isReady) return;
     await handleAddToCart();
+    await handleCheckout();
   };
 
   return (

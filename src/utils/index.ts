@@ -1,5 +1,5 @@
 // src/orden/index.ts
-import { orden as catalogoSinTipar } from "./orden";   // tu array existente
+import { orden as catalogoSinTipar } from "@/utils/orden";   // tu array existente
 
 export interface CatalogItem {
   title: string;

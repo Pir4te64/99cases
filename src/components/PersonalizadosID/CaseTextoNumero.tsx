@@ -3,7 +3,7 @@ import { useMemo, forwardRef } from "react";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import { customNameStyles, customNumberStyles } from "@/utils/textStyles";
 import premiumCase from "@/assets/marcas/premiumcase.svg";
-import CustomTextNumber from "./CustomTextNumber";
+import CustomTextNumber from "@/components/PersonalizadosID/CustomTextNumber";
 
 // Crea un "segundo trazo" usando text-shadow
 const makeShadow = (color: string, radius = 3) => {

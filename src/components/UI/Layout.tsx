@@ -159,7 +159,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex min-h-screen flex-col overflow-x-hidden bg-black text-white"
+      className="flex min-h-screen flex-col overflow-hidden overflow-x-hidden bg-black text-white"
       style={{
         /* WebkitUserSelect: "none",
         userSelect: "none", */

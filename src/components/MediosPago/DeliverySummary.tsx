@@ -1,5 +1,6 @@
 import { Props } from "@/components/Pagos/store/types";
 import { useEffect, useRef } from "react";
+import tarjeta from "@/assets/Pagos/tarjetas.png";
 
 export default function DeliverySummary({
   deliveryResponse,
@@ -23,7 +24,7 @@ export default function DeliverySummary({
     // Establecer "A domicilio" por defecto solo la primera vez
     if (!hasSetDefault.current && deliveryResponse.deliveryOptions) {
       const domicilioOption = deliveryResponse.deliveryOptions.find(
-        opt => opt.modoDeEntrega === "A domicilio"
+        (opt) => opt.modoDeEntrega === "A domicilio"
       );
 
       if (domicilioOption) {
@@ -35,25 +36,27 @@ export default function DeliverySummary({
 
   return (
     <div className="mb-6 rounded bg-[#EEEEEE] p-4 shadow-lg">
-      <h2 className="mb-2 font-favoritExpanded text-xl text-[#000000]">
+      <h2 className="mb-2 font-favoritExpanded uppercase text-xl text-[#000000]">
         Resumen de Envío
       </h2>
 
       <p className="font-favoritExpanded text-[#000000]">
-        <strong>Destino:</strong> {deliveryResponse.destino || "No especificado"}
+        <strong>Destino:</strong>{" "}
+        {deliveryResponse.destino || "No especificado"}
       </p>
       <p className="font-favoritExpanded text-[#000000]">
-        <strong>Contacto:</strong> {deliveryResponse.datosDeContacto || "No especificado"}
+        <strong>Contacto:</strong>{" "}
+        {deliveryResponse.datosDeContacto || "No especificado"}
       </p>
       <p className="font-favoritExpanded text-[#000000]">
         <strong>Costo de Orden:</strong> $
-        {(deliveryResponse.costoOrden || 0).toLocaleString("es-AR", {
-          minimumFractionDigits: 2,
-        })}
+        {Math.floor(deliveryResponse.costoOrden || 0).toLocaleString("es-AR")}
       </p>
 
       <div className="mt-4">
-        <p className="mb-2 font-favoritExpanded text-[#000000]">Opciones de Entrega:</p>
+        <p className="mb-2 font-favoritExpanded uppercase text-[#000000]">
+          Opciones de Entrega:
+        </p>
         <ul>
           {sortedOptions.map((opt) => (
             <li
@@ -82,6 +85,12 @@ export default function DeliverySummary({
           ))}
         </ul>
       </div>
+      <img
+        src={tarjeta}
+        alt="Métodos de pago"
+        className="mx-auto mt-8 max-w-full"
+        onContextMenu={(e) => e.preventDefault()}
+      />
     </div>
   );
 }

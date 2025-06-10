@@ -22,7 +22,7 @@ const colorNames: { [key: string]: string } = {
   "#4B4B4D": "Gris Oscuro",
   "#A3A2A2": "Gris Claro",
   "#FF4136": "Rojo Intenso",
-  "transparent": "Transparente"
+  transparent: "Transparente",
 };
 
 const Colores = () => {
@@ -41,7 +41,7 @@ const Colores = () => {
             onSelectColor={setSelectedColor}
           />
           {index !== colorSections.length - 1 && (
-            <hr className="my-8 border-gray-400 md:w-[80%]" />
+            <hr className="my-8 text-gray-500  md:w-[80%]" />
           )}
         </div>
       ))}
@@ -79,7 +79,11 @@ const ColorSection: React.FC<ColorSectionProps> = ({
                 onClick={() => onSelectColor(index, color)}
                 title={colorName}
                 className={`w-8 h-8 p-0 rounded-full border-2 transition-transform
-                  ${isSelected ? "border-black scale-110" : "border-gray-300 hover:scale-105"}`}
+                  ${
+                    isSelected
+                      ? "border-black scale-110"
+                      : "border-gray-300 hover:scale-105"
+                  }`}
                 aria-label={`Color ${colorName}`}
               >
                 <img
@@ -102,7 +106,11 @@ const ColorSection: React.FC<ColorSectionProps> = ({
               onClick={() => onSelectColor(index, color)}
               title={colorName}
               className={`w-8 h-8 rounded-full border-2 transition-transform
-                ${isSelected ? "border-black scale-110" : "border-gray-300 hover:scale-105"}`}
+                ${
+                  isSelected
+                    ? "border-black scale-110"
+                    : "border-gray-300 hover:scale-105"
+                }`}
               style={{ backgroundColor: color }}
               aria-label={`Color ${colorName}`}
             />

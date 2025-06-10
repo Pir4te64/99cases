@@ -19,7 +19,9 @@ const CustomName = () => {
     <div className="space-y-8">
       {/* Bloque para el NOMBRE */}
       <div>
-        <label className="mb-2 block font-favoritExpanded text-xs uppercase">Tu nombre</label>
+        <label className="mb-2 block font-favoritExpanded text-xs uppercase">
+          Tu nombre
+        </label>
         <input
           type="text"
           maxLength={12}
@@ -27,16 +29,20 @@ const CustomName = () => {
           onChange={(e) => setUserName(e.target.value)}
           className={`
             w-full border uppercase border-gray-300 rounded p-2 mb-4
-            ${userName.length > 12
-              ? "text-lg sm:text-2xl md:text-3xl"
-              : "text-2xl sm:text-4xl"}
-            ${selectedNameStyle !== null
-              ? `font-${customNameStyles[selectedNameStyle]}`
-              : "font-cmxShift2"
+            ${
+              userName.length > 12
+                ? "text-lg sm:text-2xl md:text-3xl"
+                : "text-2xl sm:text-4xl"
+            }
+            ${
+              selectedNameStyle !== null
+                ? `font-${customNameStyles[selectedNameStyle]}`
+                : "font-cmxShift2"
             }
           `}
           placeholder="Tu nombre"
         />
+        <hr className="text-gray-500 mb-4" />
 
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {customNameStyles.map((style, index) => (
@@ -46,12 +52,15 @@ const CustomName = () => {
               className={`
                 border uppercase border-gray-300 rounded-md p-2 text-center
                 transition-colors
-                ${userName.length > 12
-                  ? "text-sm sm:text-base"
-                  : "text-lg sm:text-xl"}
-                ${selectedNameStyle === index
-                  ? "bg-gray-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ${
+                  userName.length > 12
+                    ? "text-sm sm:text-base"
+                    : "text-lg sm:text-xl"
+                }
+                ${
+                  selectedNameStyle === index
+                    ? "bg-gray-500 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }
                 font-${style}
               `}
@@ -60,11 +69,14 @@ const CustomName = () => {
             </button>
           ))}
         </div>
+        <hr className="text-gray-500 mt-4" />
       </div>
 
       {/* Bloque para el NÚMERO */}
       <div>
-        <label className="mb-2 block font-favoritExpanded text-xs uppercase">Número</label>
+        <label className="mb-2 block font-favoritExpanded text-xs uppercase">
+          Número
+        </label>
         <input
           type="number"
           value={userNumber}
@@ -76,13 +88,15 @@ const CustomName = () => {
           className={`
             w-full border border-gray-300 rounded p-2 mb-4
             text-2xl sm:text-4xl
-            ${selectedNumberStyle !== null
-              ? `font-${customNumberStyles[selectedNumberStyle]}`
-              : "font-cmxShift2"
+            ${
+              selectedNumberStyle !== null
+                ? `font-${customNumberStyles[selectedNumberStyle]}`
+                : "font-cmxShift2"
             }
           `}
           placeholder="15"
         />
+        <hr className="text-gray-500 mb-4" />
 
         <div className="grid grid-cols-4 gap-1 sm:gap-2">
           {customNumberStyles.map((style, index) => (
@@ -92,9 +106,10 @@ const CustomName = () => {
               className={`
                 border border-gray-300 rounded-md p-1 sm:p-2 text-center
                 transition-colors text-sm sm:text-xl
-                ${selectedNumberStyle === index
-                  ? "bg-gray-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ${
+                  selectedNumberStyle === index
+                    ? "bg-gray-500 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }
                 font-${style}
               `}
@@ -103,6 +118,7 @@ const CustomName = () => {
             </button>
           ))}
         </div>
+        <hr className="text-gray-500 mt-4" />
       </div>
     </div>
   );

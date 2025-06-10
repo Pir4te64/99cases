@@ -149,7 +149,7 @@ const DatosDestinatario: React.FC = () => {
 
   return (
     <section className="space-y-6 rounded-lg bg-white p-6 shadow-md">
-      <h2 className="font-favoritExpanded text-xl font-bold text-gray-700">
+      <h2 className="font-favoritExpanded text-xl font-bold uppercase text-gray-700">
         Datos del destinatario
       </h2>
 
@@ -244,10 +244,10 @@ const DatosDestinatario: React.FC = () => {
         />
 
         {/* Ubicación AsyncSelect */}
-        <div className="space-y-2">
+        <div className="my-4 relative">
           <label
             htmlFor="ubicacion-select"
-            className="mb-1 block font-favoritExpandedBook text-sm font-medium md:text-base"
+            className="absolute -top-2  left-3 bg-white px-1 font-favoritExpandedBook text-xs font-medium text-gray-600 z-50"
           >
             Localidad / Código postal
           </label>
@@ -267,7 +267,7 @@ const DatosDestinatario: React.FC = () => {
               formik.setFieldValue("codigoPostal", option.codigoPostal);
               setCodigoPostal(option.codigoPostal);
             }}
-            className="font-favoritExpanded"
+            className="font-favoritExpanded text-sm z-20"
             placeholder="Escribe una ubicación"
             classNamePrefix="react-select"
             inputId="ubicacion-select"
@@ -289,34 +289,64 @@ const DatosDestinatario: React.FC = () => {
         />
 
         {/* Número / Sin número */}
-        <div className="space-y-2">
-          <InputField
-            id="numero"
-            label="Número"
-            value={formik.values.numero}
-            onChange={(e) => {
-              formik.handleChange(e);
-              setNumero(e.target.value);
-            }}
-            onBlur={formik.handleBlur}
-            error={formik.errors.numero as string}
-            touched={formik.touched.numero}
-            disabled={formik.values.sinNumero}
-          />
-          <label className="inline-flex items-center text-sm">
+        <div className="my-4 relative">
+          <label
+            htmlFor="numero"
+            className="absolute -top-2 left-3 bg-white px-1 font-favoritExpandedBook text-xs font-medium text-gray-600 z-10"
+          >
+            Número
+          </label>
+
+          <div className="relative">
             <input
-              id="sinNumero"
-              name="sinNumero"
-              type="checkbox"
-              className="mr-2"
-              checked={formik.values.sinNumero}
+              id="numero"
+              name="numero"
+              type="text"
+              value={formik.values.numero}
               onChange={(e) => {
                 formik.handleChange(e);
-                setSinNumero(e.target.checked);
+                setNumero(e.target.value);
               }}
+              onBlur={formik.handleBlur}
+              disabled={formik.values.sinNumero}
+              className="w-full rounded border border-gray-300 px-3 py-2 pr-32 font-favoritExpandedBook text-sm md:text-base"
+              placeholder=""
             />
-            Sin número
-          </label>
+
+            <label className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center text-sm cursor-pointer">
+              <div className="relative mr-2">
+                <input
+                  id="sinNumero"
+                  name="sinNumero"
+                  type="checkbox"
+                  className="sr-only"
+                  checked={formik.values.sinNumero}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setSinNumero(e.target.checked);
+                  }}
+                />
+                <div
+                  className={`w-4 h-4 rounded-full border-2 transition-colors ${
+                    formik.values.sinNumero
+                      ? "bg-gray-600 border-gray-600"
+                      : "bg-white border-gray-300 hover:border-gray-400"
+                  }`}
+                >
+                  {formik.values.sinNumero && (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              Sin número
+            </label>
+          </div>
+
+          {formik.touched.numero && formik.errors.numero && (
+            <p className="text-xs text-red-500 mt-1">{formik.errors.numero}</p>
+          )}
         </div>
 
         {/* Departamento */}

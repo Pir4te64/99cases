@@ -3,7 +3,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { SiMercadopago } from "react-icons/si";
-import tarjeta from "@/assets/Pagos/tarjetas.png";
+
 import useDeliveryStore from "@/components/Pagos/store/useDeliveryStore";
 import DeliverySummary from "@/components/MediosPago/DeliverySummary";
 import { API } from "@/utils/Api";
@@ -36,9 +36,9 @@ export default function MediosDePago() {
 
     const { isConfirmed } = await Swal.fire({
       title: "Confirmar Pago",
-      text: `Vas a pagar $${totalWithShipping.toLocaleString("es-AR", {
-        minimumFractionDigits: 2,
-      })}`,
+      text: `Vas a pagar $${Math.floor(totalWithShipping).toLocaleString(
+        "es-AR"
+      )}`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Sí, pagar",
@@ -57,9 +57,9 @@ export default function MediosDePago() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Sesión expirada, vuelve a iniciar sesión.");
 
-      const query = `?orderId=${deliveryResponse.id}&modoEntrega=${encodeURIComponent(
-        selectedOption
-      )}`;
+      const query = `?orderId=${
+        deliveryResponse.id
+      }&modoEntrega=${encodeURIComponent(selectedOption)}`;
       const { data } = await axios.post(
         `${API.createPayment}${query}`,
         {},
@@ -96,18 +96,20 @@ export default function MediosDePago() {
 
   return (
     <div className="min-h-screen bg-white px-4 py-6">
-      <h1 className="mb-6 text-center text-3xl font-bold">MEDIOS DE PAGO</h1>
+      <div className="mx-auto max-w-5xl">
+        <h1 className="mb-8 text-center font-favoritExpanded text-black text-3xl font-bold uppercase">
+          MEDIOS DE PAGO
+        </h1>
 
-      {deliveryResponse && (
-        <DeliverySummary
-          deliveryResponse={deliveryResponse}
-          selectedOption={selectedOption}
-          onSelectOption={setSelectedOption}
-        />
-      )}
+        {deliveryResponse && (
+          <DeliverySummary
+            deliveryResponse={deliveryResponse}
+            selectedOption={selectedOption}
+            onSelectOption={setSelectedOption}
+          />
+        )}
 
-      <div className="mx-auto mb-8 max-w-3xl">
-        <div className="mb-4 space-y-2 rounded bg-gray-300 p-4">
+        <div className="mb-4 space-y-2 rounded bg-[#EEEEEE] p-4">
           <p className="text-black">
             <strong className="font-favoritExpanded">Envío:</strong>{" "}
             <span className="font-favoritExpanded">
@@ -121,15 +123,13 @@ export default function MediosDePago() {
           <p className="text-black">
             <strong className="font-favoritExpanded">Subtotal:</strong>{" "}
             <span className="font-favoritExpanded">
-              ${total.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
+              ${Math.floor(total).toLocaleString("es-AR")}
             </span>
           </p>
           <p className="text-black">
             <strong className="font-favoritExpanded">Total con envío:</strong>{" "}
             <span className="font-favoritExpanded">
-              ${totalWithShipping.toLocaleString("es-AR", {
-                minimumFractionDigits: 2,
-              })}
+              ${Math.floor(totalWithShipping).toLocaleString("es-AR")}
             </span>
           </p>
           <button
@@ -138,22 +138,20 @@ export default function MediosDePago() {
             disabled={loading}
           >
             <SiMercadopago className="h-5 w-5" />
-            <span className="font-favoritExpanded text-sm">{loading ? "Procesando…" : "Pagar con Mercado Pago"}</span>
+            <span className="font-favoritExpanded text-sm">
+              {loading ? "Procesando…" : "Pagar con Mercado Pago"}
+            </span>
           </button>
         </div>
 
-        <img
-          src={tarjeta}
-          alt="Métodos de pago"
-          className="mx-auto max-w-full"
-          onContextMenu={(e) => e.preventDefault()}
-        />
-      </div>
-
-      <div className="text-center">
-        <Link to="/" className="font-favoritExpanded text-black underline hover:text-gray-600">
-          VOLVER AL INICIO
-        </Link>
+        <div className="text-right">
+          <Link
+            to="/"
+            className="font-favoritExpanded text-black underline hover:text-gray-600"
+          >
+            VOLVER AL INICIO
+          </Link>
+        </div>
       </div>
     </div>
   );

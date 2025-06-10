@@ -69,35 +69,48 @@ const Pagos = () => {
         <Breadcrumbs
           items={[{ label: "Entrega", link: "/" }, { label: "Pago" }]}
         />
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[3fr_2fr] my-4">
           <div className="order-1 md:order-2">
-            <ResumenCompra
-              cartItems={cartItems}
-              total={total}
-            />
+            <ResumenCompra cartItems={cartItems} total={total} />
           </div>
           <div className="order-2 md:order-1">
             <DatosDestinatario />
 
             <form
               onSubmit={(e) => submitDelivery({ e, ...submitParams })}
-              className="space-y-8"
+              className="space-y-8 ml-6"
             >
               <section className="mt-4 space-y-4">
                 <h2 className="mb-2 font-favoritExpanded text-lg font-bold md:text-xl">
                   DATOS DE FACTURACIÓN
                 </h2>
                 <div className="flex items-center">
-                  <input
-                    id="mismaFacturacion"
-                    type="checkbox"
-                    className="mr-2"
-                    checked={mismaFacturacion}
-                    onChange={(e) => setMismaFacturacion(e.target.checked)}
-                  />
+                  <div className="relative mr-3">
+                    <input
+                      id="mismaFacturacion"
+                      type="checkbox"
+                      className="sr-only"
+                      checked={mismaFacturacion}
+                      onChange={(e) => setMismaFacturacion(e.target.checked)}
+                    />
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 transition-colors cursor-pointer ${
+                        mismaFacturacion
+                          ? "bg-gray-600 border-gray-600"
+                          : "bg-white border-gray-300 hover:border-gray-400"
+                      }`}
+                      onClick={() => setMismaFacturacion(!mismaFacturacion)}
+                    >
+                      {mismaFacturacion && (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                   <label
                     htmlFor="mismaFacturacion"
-                    className="font-favoritExpanded text-sm md:text-base"
+                    className="font-favoritExpanded text-sm md:text-base cursor-pointer"
                   >
                     Mis datos de facturación y entrega son los mismos.
                   </label>

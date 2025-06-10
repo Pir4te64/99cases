@@ -92,131 +92,104 @@ export const generateCalcoBlob = async (
         const productOrder =
           orden.find((item) => item.title === productTitle)?.orden ||
           "NUMERO - TEXTO";
-        console.log(productOrder);
         if (isSpecialCase) {
-          console.log("Es caso especial");
           const spans = textContainer.querySelectorAll("span");
           if (spans.length > 1) {
-            // Remover todas las clases de Tailwind
-            spans.forEach((span) => {
-              const element = span as HTMLElement;
-              // Remover clases específicas de Tailwind para números
-              element.classList.remove(
-                "text-[100px]",
-                "sm:text-[130px]",
-                "md:text-[160px]",
-                "text-[64px]",
-                "sm:text-[80px]",
-                "md:text-[120px]",
-                "text-[80px]",
-                "sm:text-[100px]",
-                "md:text-[140px]",
-                "text-[72px]",
-                "sm:text-[96px]",
-                "md:text-[136px]",
-                "text-[80px]",
-                "sm:text-[112px]",
-                "md:text-[144px]",
-                "text-[48px]",
-                "sm:text-[64px]",
-                "md:text-[96px]",
-                "mt-[8px]",
-                "sm:mt-[20px]",
-                "sm:mt-[12px]"
-              );
-              // Remover clases específicas de Tailwind para texto
-              element.classList.remove(
-                "text-[19px]",
-                "sm:text-[24px]",
-                "md:text-[29px]",
-                "text-[24px]",
-                "sm:text-[32px]",
-                "md:text-[46px]",
-                "text-[13px]",
-                "sm:text-[24px]",
-                "md:text-[32px]",
-                "text-[16px]",
-                "sm:text-[20px]",
-                "md:text-[24px]",
-                "text-[14px]",
-                "sm:text-[19px]",
-                "md:text-[24px]",
-                "text-[16px]",
-                "sm:text-[24px]",
-                "md:text-[32px]"
-              );
-            });
-
-            // Control individual del primer span (texto)
-            (spans[0] as HTMLElement).style.transform = "translateY(70px)";
-            (spans[0] as HTMLElement).style.fontSize = "100px";
-            (spans[0] as HTMLElement).style.margin = "0";
-            (spans[0] as HTMLElement).style.padding = "0";
-            (spans[0] as HTMLElement).style.paddingBottom = "0px";
-
-            // Control individual del segundo span (número)
-            (spans[1] as HTMLElement).style.transform = "translateY(50px)";
-            (spans[1] as HTMLElement).style.fontSize = "200px";
-            (spans[1] as HTMLElement).style.margin = "0";
-            (spans[1] as HTMLElement).style.padding = "0";
-            (spans[1] as HTMLElement).style.paddingBottom = "0px";
-
-            // Control del contenedor
-            textContainer.style.paddingBottom = "0px";
+            // Configuración del contenedor para centrado
+            textContainer.style.position = "relative";
+            textContainer.style.display = "flex";
+            textContainer.style.flexDirection = "column";
+            textContainer.style.alignItems = "center";
+            textContainer.style.justifyContent = "center";
+            textContainer.style.height = "100%";
+            textContainer.style.paddingTop = "50px";
             textContainer.style.gap = "0";
 
-            // Ajuste específico para FASTHOUSE
-            if (productTitle === "FUNDA 99% CASES - FASTHOUSE") {
-              (spans[0] as HTMLElement).style.transform = "translateY(-110px)";
-              (spans[0] as HTMLElement).style.margin = "0";
-              (spans[0] as HTMLElement).style.padding = "0";
-              (spans[1] as HTMLElement).style.transform = "translateY(-120px)";
-            }
+            // Configuración común para todos los spans en casos especiales
+            spans.forEach((span, index) => {
+              const element = span as HTMLElement;
+
+              // Limpiamos clases que puedan interferir
+              element.className = element.className
+                .split(" ")
+                .filter(
+                  (c) =>
+                    !c.includes("mt-") &&
+                    !c.includes("transform-") &&
+                    !c.includes("text-") &&
+                    !c.includes("position-") &&
+                    !c.includes("margin-")
+                )
+                .join(" ");
+
+              // Estilos base para todos los spans
+              element.style.setProperty("position", "relative", "important");
+              element.style.setProperty("text-align", "center", "important");
+              element.style.setProperty("width", "100%", "important");
+              // Ajustes específicos según si es texto o número
+              if (index === 0) {
+                // Texto
+                element.style.setProperty("font-size", "22px", "important");
+                element.style.setProperty(
+                  "transform",
+                  "translateY(30px)",
+                  "important"
+                );
+              } else {
+                // Número
+                element.style.setProperty("font-size", "125px", "important");
+                element.style.setProperty(
+                  "transform",
+                  "translateY(0)",
+                  "important"
+                );
+              }
+            });
           }
         } else {
-        }
-        // Ajustar tamaños según el orden
-        const spans = textContainer.querySelectorAll("span");
-        if (spans.length > 1) {
-          if (productOrder === "TEXTO - NUMERO") {
-            (spans[0] as HTMLElement).classList.remove(
-              "text-[3.5rem]",
-              "sm:text-[5rem]",
-              "md:text-[7.5rem]",
-              "text-[4rem]",
-              "sm:text-[5rem]",
-              "md:text-[7.5rem]"
-            );
-            (spans[0] as HTMLElement).style.transform = "translateY(30px)";
-            (spans[0] as HTMLElement).style.fontSize = "20px";
-            (spans[0] as HTMLElement).style.margin = "0";
-            (spans[0] as HTMLElement).style.padding = "0";
-            (spans[0] as HTMLElement).style.paddingBottom = "0px";
-            (spans[1] as HTMLElement).style.fontSize = "120px";
-            (spans[1] as HTMLElement).style.margin = "0";
-            (spans[1] as HTMLElement).style.padding = "0";
-            textContainer.style.paddingBottom = "80px";
-            textContainer.style.gap = "0"; // Eliminar gap del contenedor flex
-          } else {
-            // NUMERO - TEXTO: número un poco más chico
-            (spans[0] as HTMLElement).classList.remove(
-              "text-[3.5rem]",
-              "sm:text-[5rem]",
-              "md:text-[7.5rem]",
-              "text-[4rem]",
-              "sm:text-[5rem]",
-              "md:text-[7.5rem]"
-            );
-            (spans[0] as HTMLElement).style.fontSize = "120px";
-            (spans[0] as HTMLElement).style.margin = "0";
-            (spans[0] as HTMLElement).style.padding = "0";
-            (spans[0] as HTMLElement).style.paddingBottom = "15px";
-            (spans[1] as HTMLElement).style.fontSize = "25px";
-            (spans[1] as HTMLElement).style.margin = "0";
-            (spans[1] as HTMLElement).style.marginTop = "20px";
-            (spans[1] as HTMLElement).style.padding = "0";
-            textContainer.style.paddingBottom = "60px";
-            textContainer.style.gap = "0";
+          // Ajustar tamaños según el orden
+          const spans = textContainer.querySelectorAll("span");
+          if (spans.length > 1) {
+            if (productOrder === "TEXTO - NUMERO") {
+              (spans[0] as HTMLElement).classList.remove(
+                "text-[3.5rem]",
+                "sm:text-[5rem]",
+                "md:text-[7.5rem]",
+                "text-[4rem]",
+                "sm:text-[5rem]",
+                "md:text-[7.5rem]"
+              );
+              (spans[0] as HTMLElement).style.transform = "translateY(30px)";
+              (spans[0] as HTMLElement).style.fontSize = "20px";
+              (spans[0] as HTMLElement).style.margin = "0";
+              (spans[0] as HTMLElement).style.padding = "0";
+              (spans[0] as HTMLElement).style.paddingBottom = "0px";
+              (spans[1] as HTMLElement).style.fontSize = "120px";
+              (spans[1] as HTMLElement).style.margin = "0";
+              (spans[1] as HTMLElement).style.padding = "0";
+              textContainer.style.paddingBottom = "80px";
+              textContainer.style.gap = "0"; // Eliminar gap del contenedor flex
+            } else {
+              // NUMERO - TEXTO: número un poco más chico
+              (spans[0] as HTMLElement).classList.remove(
+                "text-[3.5rem]",
+                "sm:text-[5rem]",
+                "md:text-[7.5rem]",
+                "text-[4rem]",
+                "sm:text-[5rem]",
+                "md:text-[7.5rem]"
+              );
+              (spans[0] as HTMLElement).style.fontSize = "120px";
+              (spans[0] as HTMLElement).style.margin = "0";
+              (spans[0] as HTMLElement).style.padding = "0";
+              (spans[0] as HTMLElement).style.paddingBottom = "15px";
+              (spans[1] as HTMLElement).style.fontSize = "25px";
+              (spans[1] as HTMLElement).style.margin = "0";
+              (spans[1] as HTMLElement).style.marginTop = "20px";
+              (spans[1] as HTMLElement).style.padding = "0";
+              textContainer.style.paddingBottom = "60px";
+              textContainer.style.gap = "0";
+            }
           }
         }
       }

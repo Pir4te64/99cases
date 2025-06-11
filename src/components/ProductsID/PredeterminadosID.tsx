@@ -32,6 +32,7 @@ const PredeterminadosID: React.FC = () => {
 
   // Selección de teléfono
   const { selectedModel, selectedBrand } = usePhoneSelectionStore();
+  
   const { handleCheckout } = useCheckout();
 
   useEffect(() => {
@@ -94,6 +95,8 @@ const PredeterminadosID: React.FC = () => {
         selectedBrand,
         tipo: product.tipo,
         imageFinalUrl: product.imageFinalUrl,
+        phoneBrand: selectedBrand, // Agregamos la marca del celular
+        phoneModel: selectedModel?.modelo, // Agregamos el modelo del celular
       };
       addToCart(item);
     }

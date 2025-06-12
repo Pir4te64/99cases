@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   // Detectar DevTools
   useEffect(() => {
     const detectDevTools = () => {
-       const threshold = 160;
+      const threshold = 160;
       if (
         window.outerWidth - window.innerWidth > threshold ||
         window.outerHeight - window.innerHeight > threshold
@@ -29,19 +29,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         setIsDevToolsOpen(true);
       } else {
         setIsDevToolsOpen(false);
-      } 
+      }
     };
 
-       window.addEventListener("resize", detectDevTools);
-       detectDevTools();
+    window.addEventListener("resize", detectDevTools);
+    detectDevTools();
 
-       return () => window.removeEventListener("resize", detectDevTools);
-    }, []);
+    return () => window.removeEventListener("resize", detectDevTools);
+  }, []);
 
   // Prevenir captura de pantalla
   useEffect(() => {
     const preventScreenshot = (e: KeyboardEvent) => {
-      // Detectar Print Screen
       if (e.keyCode === 44) {
         e.preventDefault();
         Swal.fire({
@@ -56,7 +55,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         return false;
       }
 
-      // Detectar Ctrl+Shift+S (captura en algunos navegadores)
       if (e.ctrlKey && e.shiftKey && e.keyCode === 83) {
         e.preventDefault();
         Swal.fire({
@@ -71,7 +69,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         return false;
       }
 
-      // Detectar F12 (DevTools)
       if (e.keyCode === 123) {
         e.preventDefault();
         Swal.fire({
@@ -86,7 +83,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         return false;
       }
 
-      // Detectar Ctrl+Shift+I (DevTools)
       if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
         e.preventDefault();
         Swal.fire({
@@ -101,7 +97,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         return false;
       }
 
-      // Detectar Ctrl+U (ver código fuente)
       if (e.ctrlKey && e.keyCode === 85) {
         e.preventDefault();
         Swal.fire({
@@ -114,7 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           color: "#fff",
         });
         return false;
-      } 
+      }
     };
 
     const preventRightClick = (e: MouseEvent) => {
@@ -127,21 +122,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         confirmButtonColor: "#000",
         background: "#1a1a1a",
         color: "#fff",
-      }); 
+      });
       return false;
     };
 
-    // Detectar cuando la ventana pierde el foco (posible captura)
     const handleBlur = () => {
       if (overlayRef.current) {
         overlayRef.current.style.display = "block";
-      } 
+      }
     };
 
     const handleFocus = () => {
       if (overlayRef.current) {
         overlayRef.current.style.display = "none";
-      } 
+      }
     };
 
     document.addEventListener("keydown", preventScreenshot);
@@ -162,7 +156,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       className="flex min-h-screen flex-col overflow-hidden overflow-x-hidden bg-black text-white"
       style={{
         WebkitUserSelect: "none",
-        userSelect: "none", 
+        userSelect: "none",
         WebkitPrintColorAdjust: "exact",
         printColorAdjust: "exact",
         WebkitBackfaceVisibility: "hidden",
@@ -175,7 +169,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         transformStyle: "preserve-3d",
       }}
     >
-      <div
+      {/*  <div
         ref={overlayRef}
         style={{
           display: "none",
@@ -187,7 +181,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           backgroundColor: "black",
           zIndex: 9999,
         }}
-      />
+      /> */}
       <Navbar />
       {showCartSidebar && <CartSidebar />}
       <main className="flex-1 pt-32">{children}</main>

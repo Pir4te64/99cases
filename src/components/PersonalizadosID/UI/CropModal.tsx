@@ -41,7 +41,7 @@ const CropModal: React.FC<CropModalProps> = ({
     const setPortrait = () => setRotation(90);
 
     return (
-        <div role="dialog" aria-modal="true" aria-labelledby="crop-modal-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+        <div role="dialog" aria-modal="true" aria-labelledby="crop-modal-title" className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 p-4 pt-32">
             <div className="w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-xl">
                 {/* Header */}
                 <div className="flex items-center justify-between border-b px-6 py-4">

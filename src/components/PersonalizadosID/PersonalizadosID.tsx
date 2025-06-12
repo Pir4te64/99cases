@@ -18,6 +18,7 @@ import StepsButtons from "@/components/PersonalizadosID/StepsButtons";
 import usePersonalizadoStore from "@/components/PersonalizadosID/store/usePersonalizadoStore";
 import FileUploader from "@/components/PersonalizadosID/Actions/FileUploader";
 import Features from "@/components/Features";
+import premiumCase from "@/assets/marcas/premiumcase.svg";
 
 const PersonalizadosID: React.FC = () => {
   const location = useLocation();
@@ -65,10 +66,26 @@ const PersonalizadosID: React.FC = () => {
                 <div
                   id="preview-container"
                   ref={previewRef}
-                  className="mx-auto h-full w-full max-w-[200px] lg:max-w-none"
+                  className="relative mx-auto h-full w-full max-w-[200px] lg:max-w-none"
                 >
                   {isConImagen && (
-                    <CaseTuFoto frameUrl={product.imageSrc} />
+                    <>
+                      <CaseTuFoto frameUrl={product.imageSrc} />
+                      {/* Banner "Premium Case" superpuesto solo en mobile */}
+                      <img
+                        src={premiumCase}
+                        alt="Premium Case"
+                        onContextMenu={(e) => e.preventDefault()}
+                        className="pointer-events-none absolute -bottom-0 -right-28 z-10 block w-20 sm:hidden"
+                      />
+                      {/* Banner "Premium Case" superpuesto solo en desktop */}
+                      <img
+                        src={premiumCase}
+                        alt="Premium Case"
+                        onContextMenu={(e) => e.preventDefault()}
+                        className="pointer-events-none absolute bottom-0 right-0 z-10 hidden w-28 sm:block sm:scale-100"
+                      />
+                    </>
                   )}
                   {isConCaracteres && <CaseTextoNumero ref={textOverlayRef} />}
                 </div>

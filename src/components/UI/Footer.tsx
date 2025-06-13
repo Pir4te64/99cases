@@ -69,7 +69,7 @@ export default function Footer() {
               <FaTiktok className="h-5 w-5" />
             </a>
             <a
-              href="https://www.youtube.com/@99cases_1"
+              href="https://www.youtube.com/@99PorcientoCases"
               className="transition-colors hover:text-gray-300"
               aria-label="YouTube"
               title="YouTube"

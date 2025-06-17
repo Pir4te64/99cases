@@ -53,6 +53,10 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
       ref={ref}
       data-product-title={product.title}
       className="relative h-[340px] w-full overflow-visible md:mt-0 lg:h-[640px]"
+      onDragStart={(e) => e.preventDefault()}
+      onDrop={(e) => e.preventDefault()}
+      onMouseDown={(e) => e.preventDefault()}
+      style={{ userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
     >
       {/* Imagen base */}
       <img
@@ -60,7 +64,20 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
         src={product.imageSrc}
         alt={product.title || "Producto"}
         onContextMenu={(e) => e.preventDefault()}
-        className="h-full w-full object-contain md:max-w-full md:scale-100"
+        className="h-full w-full object-contain select-none pointer-events-none"
+        draggable="false"
+        onDragStart={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{ 
+          userSelect: 'none', 
+          WebkitUserSelect: 'none', 
+          WebkitTouchCallout: 'none',
+          WebkitUserDrag: 'none',
+          KhtmlUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none'
+        }}
       />
 
       {/* Banner "Premium Case" superpuesto solo en mobile */}
@@ -68,14 +85,22 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute -bottom-0 -right-28 z-10 block w-20 sm:hidden"
+        className="pointer-events-none absolute -bottom-0 -right-28 z-10 block w-20 select-none sm:hidden"
+        draggable="false"
+        onDragStart={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
       />
       {/* Banner "Premium Case" superpuesto solo en desktop */}
       <img
         src={premiumCase}
         alt="Premium Case"
         onContextMenu={(e) => e.preventDefault()}
-        className="pointer-events-none absolute bottom-0 right-0 z-10 hidden w-28 sm:block sm:scale-100"
+        className="pointer-events-none absolute bottom-0 right-0 z-10 hidden w-28 select-none sm:block sm:scale-100"
+        draggable="false"
+        onDragStart={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
       />
 
       {isConCaracteres && (

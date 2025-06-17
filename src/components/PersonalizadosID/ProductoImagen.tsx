@@ -17,8 +17,13 @@ const ProductImage = ({
         <img
           src={imgHorizontal}
           alt="Imagen del producto"
-          className="max-h-full object-contain"
+          className="max-h-full object-contain select-none pointer-events-none"
           onContextMenu={(e) => e.preventDefault()}
+          draggable="false"
+          onDragStart={(e) => e.preventDefault()}
+          onDrop={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()}
+          onSelectStart={(e) => e.preventDefault()}
         />
       </picture>
     </div>

@@ -7,8 +7,21 @@ const FundasPredeterminadasHeader = () => {
       <img
         src={headerPredeterminadas}
         alt="Fundas Predeterminadas"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover select-none pointer-events-none"
         onContextMenu={(e) => e.preventDefault()}
+        draggable="false"
+        onDragStart={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{ 
+          userSelect: 'none', 
+          WebkitUserSelect: 'none', 
+          WebkitTouchCallout: 'none',
+          WebkitUserDrag: 'none',
+          KhtmlUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none'
+        }}
       />
 
       <div className="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent" />

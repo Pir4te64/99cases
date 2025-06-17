@@ -139,13 +139,32 @@ const PredeterminadosID: React.FC = () => {
             {/* Imagen principal (30%) */}
             <div className="flex w-full items-start justify-center lg:w-[80%]">
               {product ? (
-                <div className="relative inline-block w-full sm:w-80 md:w-96">
+                <div 
+                  className="relative inline-block w-full sm:w-80 md:w-96"
+                  onDragStart={(e) => e.preventDefault()}
+                  onDrop={(e) => e.preventDefault()}
+                  onMouseDown={(e) => e.preventDefault()}
+                  style={{ userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
+                >
                   {/* Imagen principal más pequeña */}
                   <img
                     src={product.imageSrc}
                     alt={product.title}
-                    className="h-[320px] w-full object-contain sm:h-auto"
+                    className="h-[320px] w-full object-contain select-none pointer-events-none sm:h-auto"
                     onContextMenu={(e) => e.preventDefault()}
+                    draggable="false"
+                    onDragStart={(e) => e.preventDefault()}
+                    onDrop={(e) => e.preventDefault()}
+                    onMouseDown={(e) => e.preventDefault()}
+                    style={{ 
+                      userSelect: 'none', 
+                      WebkitUserSelect: 'none', 
+                      WebkitTouchCallout: 'none',
+                      WebkitUserDrag: 'none',
+                      KhtmlUserSelect: 'none',
+                      MozUserSelect: 'none',
+                      msUserSelect: 'none'
+                    }}
                   />
 
                   {/* Banner superpuesto */}
@@ -153,7 +172,20 @@ const PredeterminadosID: React.FC = () => {
                     src={premiumCase}
                     alt="Premium Case"
                     onContextMenu={(e) => e.preventDefault()}
-                    className="pointer-events-none absolute -bottom-8 right-0 w-28 sm:-bottom-10 sm:w-32"
+                    className="pointer-events-none absolute -bottom-8 right-0 w-28 select-none sm:-bottom-10 sm:w-32"
+                    draggable="false"
+                    onDragStart={(e) => e.preventDefault()}
+                    onDrop={(e) => e.preventDefault()}
+                    onMouseDown={(e) => e.preventDefault()}
+                    style={{ 
+                      userSelect: 'none', 
+                      WebkitUserSelect: 'none', 
+                      WebkitTouchCallout: 'none',
+                      WebkitUserDrag: 'none',
+                      KhtmlUserSelect: 'none',
+                      MozUserSelect: 'none',
+                      msUserSelect: 'none'
+                    }}
                   />
                 </div>
               ) : (

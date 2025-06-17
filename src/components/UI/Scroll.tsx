@@ -84,8 +84,21 @@ const Scroll: React.FC = () => {
               src={img}
               loading="lazy"
               alt={`Slide ${idx}`}
-              className="h-[450px] w-full object-cover md:h-[900px]" // altura reducida en móvil
+              className="h-[450px] w-full object-cover select-none pointer-events-none md:h-[900px]"
               onContextMenu={(e) => e.preventDefault()}
+              draggable="false"
+              onDragStart={(e) => e.preventDefault()}
+              onDrop={(e) => e.preventDefault()}
+              onMouseDown={(e) => e.preventDefault()}
+              style={{ 
+                userSelect: 'none', 
+                WebkitUserSelect: 'none', 
+                WebkitTouchCallout: 'none',
+                WebkitUserDrag: 'none',
+                KhtmlUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none'
+              }}
             />
           </SwiperSlide>
         ))}

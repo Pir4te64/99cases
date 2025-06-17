@@ -13,8 +13,21 @@ function Header() {
         loading="lazy"
         src={headerDesktop}
         alt="header"
-        className="w-full"
+        className="w-full select-none pointer-events-none"
         onContextMenu={(e) => e.preventDefault()}
+        draggable="false"
+        onDragStart={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{ 
+          userSelect: 'none', 
+          WebkitUserSelect: 'none', 
+          WebkitTouchCallout: 'none',
+          WebkitUserDrag: 'none',
+          KhtmlUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none'
+        }}
       />
     </picture>
   );

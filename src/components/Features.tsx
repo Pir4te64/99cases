@@ -36,9 +36,22 @@ const Features: React.FC = () => {
             <img
               src={icon}
               alt={title}
-              className="h-16 w-16 object-cover sm:h-20 sm:w-20 lg:h-20 lg:w-20"
-              style={{ imageRendering: 'crisp-edges' }}
+              className="h-16 w-16 object-cover select-none pointer-events-none sm:h-20 sm:w-20 lg:h-20 lg:w-20"
+              style={{ 
+                imageRendering: 'crisp-edges',
+                userSelect: 'none', 
+                WebkitUserSelect: 'none', 
+                WebkitTouchCallout: 'none',
+                WebkitUserDrag: 'none',
+                KhtmlUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none'
+              }}
               onContextMenu={(e) => e.preventDefault()}
+              draggable="false"
+              onDragStart={(e) => e.preventDefault()}
+              onDrop={(e) => e.preventDefault()}
+              onMouseDown={(e) => e.preventDefault()}
             />
           </div>
           <span className="lg:text-md max-w-[80px] break-words text-center font-favoritExpanded text-[8px] font-bold sm:max-w-none sm:text-sm">

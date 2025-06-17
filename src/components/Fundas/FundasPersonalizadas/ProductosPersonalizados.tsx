@@ -104,10 +104,23 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
         <img
           src={srcActual}
           alt={title}
-          className="mx-auto my-4 h-auto w-[220px] object-contain transition-transform duration-300 ease-in-out hover:scale-105 sm:w-[280px]"
+          className="mx-auto my-4 h-auto w-[220px] object-contain select-none pointer-events-none transition-transform duration-300 ease-in-out hover:scale-105 sm:w-[280px]"
           onError={handleImgError}
           onContextMenu={(e) => e.preventDefault()}
           loading="lazy"
+          draggable="false"
+          onDragStart={(e) => e.preventDefault()}
+          onDrop={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()}
+          style={{ 
+            userSelect: 'none', 
+            WebkitUserSelect: 'none', 
+            WebkitTouchCallout: 'none',
+            WebkitUserDrag: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none'
+          }}
         />
       </picture>
 

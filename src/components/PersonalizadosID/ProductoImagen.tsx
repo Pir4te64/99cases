@@ -23,7 +23,6 @@ const ProductImage = ({
           onDragStart={(e) => e.preventDefault()}
           onDrop={(e) => e.preventDefault()}
           onMouseDown={(e) => e.preventDefault()}
-          onSelectStart={(e) => e.preventDefault()}
         />
       </picture>
     </div>

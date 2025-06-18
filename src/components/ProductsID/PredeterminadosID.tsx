@@ -160,7 +160,6 @@ const PredeterminadosID: React.FC = () => {
                       userSelect: 'none', 
                       WebkitUserSelect: 'none', 
                       WebkitTouchCallout: 'none',
-                      WebkitUserDrag: 'none',
                       KhtmlUserSelect: 'none',
                       MozUserSelect: 'none',
                       msUserSelect: 'none'
@@ -181,7 +180,6 @@ const PredeterminadosID: React.FC = () => {
                       userSelect: 'none', 
                       WebkitUserSelect: 'none', 
                       WebkitTouchCallout: 'none',
-                      WebkitUserDrag: 'none',
                       KhtmlUserSelect: 'none',
                       MozUserSelect: 'none',
                       msUserSelect: 'none'

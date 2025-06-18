@@ -98,7 +98,7 @@ export default function CustomTextNumber({
         marginBottom: productOrder === "TEXTO - NUMERO" ? "8px" : undefined,
       }}
       className={`
-        ${userName.length > 10
+        ${String(userName).length > 10
           ? "text-[10px] sm:text-[14px] md:text-[18px]"
           : product.title === "FUNDA 99% CASES - FOX 2"
             ? productOrder === "TEXTO - NUMERO"

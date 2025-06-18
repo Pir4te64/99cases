@@ -23,7 +23,6 @@ function Header() {
           userSelect: 'none', 
           WebkitUserSelect: 'none', 
           WebkitTouchCallout: 'none',
-          WebkitUserDrag: 'none',
           KhtmlUserSelect: 'none',
           MozUserSelect: 'none',
           msUserSelect: 'none'

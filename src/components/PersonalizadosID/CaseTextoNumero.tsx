@@ -73,7 +73,6 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
           userSelect: 'none', 
           WebkitUserSelect: 'none', 
           WebkitTouchCallout: 'none',
-          WebkitUserDrag: 'none',
           KhtmlUserSelect: 'none',
           MozUserSelect: 'none',
           msUserSelect: 'none'

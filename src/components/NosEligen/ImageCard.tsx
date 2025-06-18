@@ -34,7 +34,6 @@ const ImageCard: React.FC<ImageCardProps> = ({
           userSelect: 'none', 
           WebkitUserSelect: 'none', 
           WebkitTouchCallout: 'none',
-          WebkitUserDrag: 'none',
           KhtmlUserSelect: 'none',
           MozUserSelect: 'none',
           msUserSelect: 'none'

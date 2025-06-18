@@ -116,7 +116,6 @@ const ProductCardPersonalizadas: React.FC<ProductCardProps> = ({
             userSelect: 'none', 
             WebkitUserSelect: 'none', 
             WebkitTouchCallout: 'none',
-            WebkitUserDrag: 'none',
             KhtmlUserSelect: 'none',
             MozUserSelect: 'none',
             msUserSelect: 'none'

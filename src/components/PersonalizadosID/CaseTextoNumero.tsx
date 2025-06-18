@@ -109,6 +109,7 @@ const CaseTextoNumero = forwardRef<HTMLDivElement>((_, ref) => {
           userName={userName}
           numFill={numFill}
           numBorder={numBorder}
+          numBorder2={numBorder2}
           numTextShadow={numTextShadow}
           nFill={nFill}
           nBorder={nBorder}

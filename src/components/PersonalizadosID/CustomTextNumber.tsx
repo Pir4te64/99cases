@@ -8,6 +8,7 @@ interface CustomTextNumberProps {
   userName: string | number;
   numFill: string;
   numBorder: string;
+  numBorder2: string;
   numTextShadow: string;
   nFill: string;
   nBorder: string;
@@ -34,6 +35,7 @@ export default function CustomTextNumber({
   userName,
   numFill,
   numBorder,
+  numBorder2,
   numTextShadow,
   nFill,
   nBorder,
@@ -53,36 +55,112 @@ export default function CustomTextNumber({
   if (width >= 1024) nameFontSize = "2.5rem"; // lg
 
   const renderNumber = () => (
-    <span
-      style={{
-        color: numFill,
-        WebkitTextStroke: `5px ${numBorder}`,
-        textShadow: numTextShadow,
-        WebkitTextStrokeWidth: "5px",
-        WebkitTextStrokeColor: numBorder,
-        WebkitTextFillColor: numFill,
-      }}
-      className={`${
-        product.title === "FUNDA 99% CASES - FOX 2"
-          ? productOrder === "TEXTO - NUMERO"
-            ? "text-[100px] sm:text-[130px] md:text-[160px]"
-            : "text-[64px] sm:text-[80px] md:text-[120px]"
-          : product.title === "FUNDA 99% CASES - SUZUKI"
-          ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
-          : product.title === "FUNDA 99% CASES - FASTHOUSE"
-          ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
-          : productOrder === "NUMERO - TEXTO"
-          ? "text-[72px] sm:text-[96px] md:text-[136px]"
-          : productOrder === "TEXTO - NUMERO"
-          ? "text-[80px] sm:text-[112px] md:text-[144px]"
-          : "text-[48px] sm:text-[64px] md:text-[96px]"
-      } text-center ${
-        selectedNumberStyle != null
-          ? `font-${customNumberStyles[selectedNumberStyle]}`
-          : "font-cmxShift2"
-      }`}
-    >
-      {userNumber || "15"}
+    <span style={{ position: "relative", display: "inline-block" }}>
+      {/* Borde 2 (más externo, detrás) */}
+      <span
+        style={{
+          color: "transparent",
+          WebkitTextStroke: `16px ${numBorder2}`,
+          WebkitTextFillColor: "transparent",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+        className={`w-full h-full left-0 top-0 absolute select-none pointer-events-none ${
+          product.title === "FUNDA 99% CASES - FOX 2"
+            ? productOrder === "TEXTO - NUMERO"
+              ? "text-[100px] sm:text-[130px] md:text-[160px]"
+              : "text-[64px] sm:text-[80px] md:text-[120px]"
+            : product.title === "FUNDA 99% CASES - SUZUKI"
+            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            : product.title === "FUNDA 99% CASES - FASTHOUSE"
+            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            : productOrder === "NUMERO - TEXTO"
+            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            : productOrder === "TEXTO - NUMERO"
+            ? "text-[80px] sm:text-[112px] md:text-[144px]"
+            : "text-[48px] sm:text-[64px] md:text-[96px]"
+        } text-center ${
+          selectedNumberStyle != null
+            ? `font-${customNumberStyles[selectedNumberStyle]}`
+            : "font-cmxShift2"
+        }`}
+      >
+        {userNumber || "15"}
+      </span>
+      {/* Borde 1 (interno, encima) */}
+      <span
+        style={{
+          color: "transparent",
+          WebkitTextStroke: `5px ${numBorder}`,
+          WebkitTextFillColor: "transparent",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+        className={`w-full h-full left-0 top-0 absolute select-none pointer-events-none ${
+          product.title === "FUNDA 99% CASES - FOX 2"
+            ? productOrder === "TEXTO - NUMERO"
+              ? "text-[100px] sm:text-[130px] md:text-[160px]"
+              : "text-[64px] sm:text-[80px] md:text-[120px]"
+            : product.title === "FUNDA 99% CASES - SUZUKI"
+            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            : product.title === "FUNDA 99% CASES - FASTHOUSE"
+            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            : productOrder === "NUMERO - TEXTO"
+            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            : productOrder === "TEXTO - NUMERO"
+            ? "text-[80px] sm:text-[112px] md:text-[144px]"
+            : "text-[48px] sm:text-[64px] md:text-[96px]"
+        } text-center ${
+          selectedNumberStyle != null
+            ? `font-${customNumberStyles[selectedNumberStyle]}`
+            : "font-cmxShift2"
+        }`}
+      >
+        {userNumber || "15"}
+      </span>
+      {/* Número con relleno */}
+      <span
+        style={{
+          color: numFill,
+          WebkitTextStroke: "0px transparent",
+          WebkitTextFillColor: numFill,
+          position: "relative",
+          zIndex: 3,
+        }}
+        className={`select-none pointer-events-none ${
+          product.title === "FUNDA 99% CASES - FOX 2"
+            ? productOrder === "TEXTO - NUMERO"
+              ? "text-[100px] sm:text-[130px] md:text-[160px]"
+              : "text-[64px] sm:text-[80px] md:text-[120px]"
+            : product.title === "FUNDA 99% CASES - SUZUKI"
+            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            : product.title === "FUNDA 99% CASES - FASTHOUSE"
+            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            : productOrder === "NUMERO - TEXTO"
+            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            : productOrder === "TEXTO - NUMERO"
+            ? "text-[80px] sm:text-[112px] md:text-[144px]"
+            : "text-[48px] sm:text-[64px] md:text-[96px]"
+        } text-center ${
+          selectedNumberStyle != null
+            ? `font-${customNumberStyles[selectedNumberStyle]}`
+            : "font-cmxShift2"
+        }`}
+      >
+        {userNumber || "15"}
+      </span>
     </span>
   );
 

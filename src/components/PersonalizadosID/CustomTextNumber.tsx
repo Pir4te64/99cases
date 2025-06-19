@@ -74,17 +74,17 @@ export default function CustomTextNumber({
         className={`w-full h-full left-0 top-0 absolute select-none pointer-events-none ${
           product.title === "FUNDA 99% CASES - FOX 2"
             ? productOrder === "TEXTO - NUMERO"
-              ? "text-[100px] sm:text-[130px] md:text-[160px]"
-              : "text-[64px] sm:text-[80px] md:text-[120px]"
+              ? "text-[90px] sm:text-[117px] md:text-[144px]"
+              : "text-[58px] sm:text-[72px] md:text-[108px]"
             : product.title === "FUNDA 99% CASES - SUZUKI"
-            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            ? "text-[67px] sm:text-[72px] md:text-[126px] mt-[4px] sm:mt-[10px]"
             : product.title === "FUNDA 99% CASES - FASTHOUSE"
-            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            ? "text-[72px] sm:text-[90px] md:text-[126px] mt-[8px] sm:mt-[12px]"
             : productOrder === "NUMERO - TEXTO"
-            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            ? "text-[65px] sm:text-[86px] md:text-[122px]"
             : productOrder === "TEXTO - NUMERO"
-            ? "text-[80px] sm:text-[112px] md:text-[144px]"
-            : "text-[48px] sm:text-[64px] md:text-[96px]"
+            ? "text-[72px] sm:text-[101px] md:text-[130px]"
+            : "text-[43px] sm:text-[58px] md:text-[86px]"
         } text-center ${
           selectedNumberStyle != null
             ? `font-${customNumberStyles[selectedNumberStyle]}`
@@ -111,17 +111,17 @@ export default function CustomTextNumber({
         className={`w-full h-full left-0 top-0 absolute select-none pointer-events-none ${
           product.title === "FUNDA 99% CASES - FOX 2"
             ? productOrder === "TEXTO - NUMERO"
-              ? "text-[100px] sm:text-[130px] md:text-[160px]"
-              : "text-[64px] sm:text-[80px] md:text-[120px]"
+              ? "text-[90px] sm:text-[117px] md:text-[144px]"
+              : "text-[58px] sm:text-[72px] md:text-[108px]"
             : product.title === "FUNDA 99% CASES - SUZUKI"
-            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            ? "text-[67px] sm:text-[72px] md:text-[126px] mt-[4px] sm:mt-[10px]"
             : product.title === "FUNDA 99% CASES - FASTHOUSE"
-            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            ? "text-[72px] sm:text-[90px] md:text-[126px] mt-[8px] sm:mt-[12px]"
             : productOrder === "NUMERO - TEXTO"
-            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            ? "text-[65px] sm:text-[86px] md:text-[122px]"
             : productOrder === "TEXTO - NUMERO"
-            ? "text-[80px] sm:text-[112px] md:text-[144px]"
-            : "text-[48px] sm:text-[64px] md:text-[96px]"
+            ? "text-[72px] sm:text-[101px] md:text-[130px]"
+            : "text-[43px] sm:text-[58px] md:text-[86px]"
         } text-center ${
           selectedNumberStyle != null
             ? `font-${customNumberStyles[selectedNumberStyle]}`
@@ -142,17 +142,17 @@ export default function CustomTextNumber({
         className={`select-none pointer-events-none ${
           product.title === "FUNDA 99% CASES - FOX 2"
             ? productOrder === "TEXTO - NUMERO"
-              ? "text-[100px] sm:text-[130px] md:text-[160px]"
-              : "text-[64px] sm:text-[80px] md:text-[120px]"
+              ? "text-[90px] sm:text-[117px] md:text-[144px]"
+              : "text-[58px] sm:text-[72px] md:text-[108px]"
             : product.title === "FUNDA 99% CASES - SUZUKI"
-            ? "text-[74px] sm:text-[80px] md:text-[140px] mt-[4px] sm:mt-[10px]"
+            ? "text-[67px] sm:text-[72px] md:text-[126px] mt-[4px] sm:mt-[10px]"
             : product.title === "FUNDA 99% CASES - FASTHOUSE"
-            ? "text-[80px] sm:text-[100px] md:text-[140px] mt-[8px] sm:mt-[12px]"
+            ? "text-[72px] sm:text-[90px] md:text-[126px] mt-[8px] sm:mt-[12px]"
             : productOrder === "NUMERO - TEXTO"
-            ? "text-[72px] sm:text-[96px] md:text-[136px]"
+            ? "text-[65px] sm:text-[86px] md:text-[122px]"
             : productOrder === "TEXTO - NUMERO"
-            ? "text-[80px] sm:text-[112px] md:text-[144px]"
-            : "text-[48px] sm:text-[64px] md:text-[96px]"
+            ? "text-[72px] sm:text-[101px] md:text-[130px]"
+            : "text-[43px] sm:text-[58px] md:text-[86px]"
         } text-center ${
           selectedNumberStyle != null
             ? `font-${customNumberStyles[selectedNumberStyle]}`
@@ -165,39 +165,75 @@ export default function CustomTextNumber({
   );
 
   const renderName = () => (
-    <span
-      style={{
-        color: nFill,
-        WebkitTextStroke: `3px ${nBorder}`,
-        textShadow: nameTextShadow,
-        WebkitTextStrokeWidth: "3px",
-        WebkitTextStrokeColor: nBorder,
-        WebkitTextFillColor: nFill,
-        marginBottom: productOrder === "TEXTO - NUMERO" ? "8px" : undefined,
-      }}
-      className={`
-        ${String(userName).length > 10
-          ? "text-[10px] sm:text-[14px] md:text-[18px]"
-          : product.title === "FUNDA 99% CASES - FOX 2"
-            ? productOrder === "TEXTO - NUMERO"
-              ? "text-[19px] sm:text-[24px] md:text-[29px]"
-              : "text-[24px] sm:text-[32px] md:text-[46px]"
-            : product.title === "FUNDA 99% CASES - SUZUKI"
-            ? "text-[13px] sm:text-[24px] md:text-[32px]"
-            : product.title === "FUNDA 99% CASES - FASTHOUSE"
-            ? "text-[16px] sm:text-[20px] md:text-[24px]"
-            : productOrder === "TEXTO - NUMERO"
-            ? "text-[14px] sm:text-[19px] md:text-[24px]"
-            : "text-[16px] sm:text-[24px] md:text-[32px]"
-        }
-        text-center -mt-[4px] uppercase ${
-        selectedNameStyle != null
-          ? `font-${customNameStyles[selectedNameStyle]}`
-          : "font-cmxShift2"
-      }`}
-    >
-      {userName || "TU NOMBRE"}
-    </span>
+    <div className="relative" style={{ transform: "translateY(-24px)" }}>
+      {/* Borde externo (detrás) */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          color: "transparent",
+          WebkitTextStroke: `6px ${nBorder}`,
+          WebkitTextFillColor: "transparent",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+        className={`
+          ${String(userName).length > 10
+            ? "text-[10px] sm:text-[14px] md:text-[18px]"
+            : product.title === "FUNDA 99% CASES - FOX 2"
+              ? productOrder === "TEXTO - NUMERO"
+                ? "text-[19px] sm:text-[24px] md:text-[29px]"
+                : "text-[24px] sm:text-[32px] md:text-[46px]"
+              : product.title === "FUNDA 99% CASES - SUZUKI"
+              ? "text-[13px] sm:text-[24px] md:text-[32px]"
+              : product.title === "FUNDA 99% CASES - FASTHOUSE"
+              ? "text-[16px] sm:text-[20px] md:text-[24px]"
+              : productOrder === "TEXTO - NUMERO"
+              ? "text-[14px] sm:text-[19px] md:text-[24px]"
+              : "text-[16px] sm:text-[24px] md:text-[32px]"
+          }
+          text-center uppercase leading-none ${
+          selectedNameStyle != null
+            ? `font-${customNameStyles[selectedNameStyle]}`
+            : "font-cmxShift2"
+        }`}
+      >
+        {userName || "TU NOMBRE"}
+      </div>
+      {/* Nombre con relleno */}
+      <div
+        style={{
+          position: "relative",
+          color: nFill,
+          WebkitTextStroke: "0px transparent",
+          WebkitTextFillColor: nFill,
+          zIndex: 2,
+        }}
+        className={`
+          ${String(userName).length > 10
+            ? "text-[10px] sm:text-[14px] md:text-[18px]"
+            : product.title === "FUNDA 99% CASES - FOX 2"
+              ? productOrder === "TEXTO - NUMERO"
+                ? "text-[19px] sm:text-[24px] md:text-[29px]"
+                : "text-[24px] sm:text-[32px] md:text-[46px]"
+              : product.title === "FUNDA 99% CASES - SUZUKI"
+              ? "text-[13px] sm:text-[24px] md:text-[32px]"
+              : product.title === "FUNDA 99% CASES - FASTHOUSE"
+              ? "text-[16px] sm:text-[20px] md:text-[24px]"
+              : productOrder === "TEXTO - NUMERO"
+              ? "text-[14px] sm:text-[19px] md:text-[24px]"
+              : "text-[16px] sm:text-[24px] md:text-[32px]"
+          }
+          text-center uppercase leading-none ${
+          selectedNameStyle != null
+            ? `font-${customNameStyles[selectedNameStyle]}`
+            : "font-cmxShift2"
+        }`}
+      >
+        {userName || "TU NOMBRE"}
+      </div>
+    </div>
   );
 
   return (
